@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { StyledProjectTile, ProjectIcon } from "./StyledProjectTile";
 const ProjectTile = ({
@@ -6,13 +7,16 @@ const ProjectTile = ({
   projectText,
   projectColorDark,
   projectColorBright,
+  projectEndpoint,
 }) => (
-  <StyledProjectTile
-    colorDark={projectColorDark}
-    colorBright={projectColorBright}
-  >
-    <ProjectIcon src={projectLogo} alt={projectText} />
-  </StyledProjectTile>
+  <Link to={projectEndpoint}>
+    <StyledProjectTile
+      colorDark={projectColorDark}
+      colorBright={projectColorBright}
+    >
+      <ProjectIcon src={projectLogo} alt={projectText} />
+    </StyledProjectTile>
+  </Link>
 );
 
 export default ProjectTile;
