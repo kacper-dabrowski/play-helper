@@ -1,11 +1,12 @@
 import { Route, Switch } from "react-router";
+import Support from "./containers/Support/Support";
 import WelcomeScreen from "./containers/WelcomeScreen/WelcomeScreen";
 
 const App = () => {
   return (
     <Switch>
       <Route path={"/support"}>
-        <div>Support</div>
+        <Support />
       </Route>
       <Route path={"/next"}>
         <div>NEXT</div>
