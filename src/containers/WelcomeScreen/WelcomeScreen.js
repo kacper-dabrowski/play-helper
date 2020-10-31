@@ -7,12 +7,14 @@ import arrowRight from "../../assets/icons/right-arrow.svg";
 const WelcomeScreen = () => (
   <WelcomeScreenContainer>
     <ProjectTile
-      projectColor={"#303030"}
+      projectColorDark={"#303030"}
+      projectColorBright={"#009688"}
       projectLogo={arrowLeft}
       projectText={"PLAY NEXT"}
     />
     <ProjectTile
-      projectColor={"#180f25"}
+      projectColorDark={"#180f25"}
+      projectColorBright={"#303030"}
       projectLogo={arrowRight}
       projectText={"Druga Linia"}
     />
