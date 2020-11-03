@@ -5,7 +5,7 @@ import DateInput from "../../../../components/DateInput/DateInput";
 const TypeSection = () => (
   <>
     <Button title={"Biznesowy"} />
-    <DateInput />
+    <DateInput required={true} />
     <Button title={"Indywidualny"} />
   </>
 );

@@ -15,4 +15,7 @@ export const TextAreaButtonsWrapper = styled.div`
 export const StyledMainTextarea = styled.textarea`
   height: 80%;
   border-radius: 21px;
+  padding: 0.5rem;
+  font-family: inherit;
+  resize: vertical;
 `;
