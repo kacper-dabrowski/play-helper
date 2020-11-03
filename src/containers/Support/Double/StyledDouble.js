@@ -9,7 +9,7 @@ export const StyledInputSection = styled.div`
   width: 80%;
   & label {
     align-self: center;
-    justify-self: center;
+    justify-self: end;
   }
 `;
 
