@@ -15,16 +15,16 @@ export const StyledInputSection = styled.div`
 
 export const StyledSexSection = styled.div`
   display: grid;
+  width: 80%;
   justify-content: center;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 10rem 10rem 10rem;
   grid-template-rows: 100px;
 `;
 export const ConfirmButtonsWrapper = styled.div`
-  width: 90%;
+  width: 80%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-
-  margin: 1rem 1rem 0 1rem;
+  margin: 1rem 0;
 `;
