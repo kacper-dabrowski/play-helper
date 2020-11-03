@@ -14,7 +14,6 @@ const Basic = () => (
       <TypeSection />
     </SettingsSection>
     <TextAreaSection />
-
     <ConfirmButtons />
   </div>
 );

@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router";
+import MainTextarea from "../../components/MainTextarea/MainTextarea";
+import { StyledMainTextarea } from "../../components/MainTextarea/StyledMainTextarea";
 import Basic from "./Basic/Basic";
 import { Container, StyledSupport } from "./StyledSupport";
 import NavbarItems from "./SupportNavbar/NavbarItems/NavbarItems";
@@ -13,7 +15,7 @@ const Support = () => (
         </Route>
         <Route path={"/support/double-closed"}>Hello closed!</Route>
       </Switch>
-      <textarea></textarea>
+      <MainTextarea />
     </Container>
   </StyledSupport>
 );
