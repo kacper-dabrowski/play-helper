@@ -4,7 +4,8 @@ import ChannelSection from "./Sections/ChannelSection";
 import SexSection from "./Sections/SexSection";
 import TextAreaSection from "./Sections/TextAreaSection";
 import TypeSection from "./Sections/TypeSection";
-import { SettingsSection } from "./StyledBasic";
+import { SettingsSection, CheckboxContainer } from "./StyledBasic";
+import Checkbox from "../../../components/Checkbox/Checkbox";
 
 const Basic = () => (
   <div>
@@ -14,6 +15,9 @@ const Basic = () => (
       <TypeSection />
     </SettingsSection>
     <TextAreaSection />
+    <CheckboxContainer>
+      <Checkbox labelContent={"Zapytanie o ofertę"} />
+    </CheckboxContainer>
     <ConfirmButtons />
   </div>
 );

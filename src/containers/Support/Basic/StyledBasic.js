@@ -25,3 +25,9 @@ export const SettingsSection = styled.div`
   grid-template-columns: 10rem 10rem 10rem;
   grid-template-rows: 100px 100px 100px;
 `;
+export const CheckboxContainer = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
