@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import MainTextarea from "../../components/MainTextarea/MainTextarea";
 import Basic from "./Basic/Basic";
 import Double from "./Double/Double";
+import Payments from "./Payments/Payments";
 import { Container, StyledSupport } from "./StyledSupport";
 import NavbarItems from "./SupportNavbar/NavbarItems/NavbarItems";
 const Support = () => (
@@ -18,6 +19,9 @@ const Support = () => (
         </Route>
         <Route path={"/support/double-closed"}>
           <Double type={"closed"} />
+        </Route>
+        <Route>
+          <Payments />
         </Route>
       </Switch>
       <MainTextarea />
