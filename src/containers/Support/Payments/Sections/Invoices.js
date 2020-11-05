@@ -1,12 +1,23 @@
 import React from "react";
 import Invoice from "../../../../components/Invoice/Invoice";
+import { InvoicesContainer } from "../StyledPayments";
 
 const Invoices = () => {
   return (
-    <div>
-      <h2>Wybrane faktury:</h2>
-      <Invoice invoiceNumber={123} invoiceAmount={(123.3).toFixed(2)} />
-    </div>
+    <InvoicesContainer>
+      <Invoice
+        invoiceNumber={"F/123456789"}
+        invoiceAmount={(123.3).toFixed(2)}
+      />
+      <Invoice
+        invoiceNumber={"F/123456789"}
+        invoiceAmount={(123.3).toFixed(2)}
+      />
+      <Invoice
+        invoiceNumber={"F/123456789"}
+        invoiceAmount={(123.3).toFixed(2)}
+      />
+    </InvoicesContainer>
   );
 };
 

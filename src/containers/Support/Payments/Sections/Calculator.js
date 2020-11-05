@@ -5,7 +5,6 @@ import { PaymentsInputWrapper } from "../../../../components/PaymentsInput/Style
 const Calculator = () => {
   return (
     <div>
-      <h2>Kalkulator</h2>
       <PaymentsInputWrapper>
         <label>Kwota do rozłozenia</label>
         <PaymentsInput />

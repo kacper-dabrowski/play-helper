@@ -5,7 +5,6 @@ import { PaymentButtonContainer } from "../StyledPayments";
 const PaymentSpan = () => {
   return (
     <div>
-      <h2>Okres rozliczeniowy</h2>
       <PaymentButtonContainer>
         <Button title={"P01"} />
         <Button title={"P06"} />

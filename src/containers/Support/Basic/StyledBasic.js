@@ -31,3 +31,10 @@ export const CheckboxContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const AdditionalTemplateContainer = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

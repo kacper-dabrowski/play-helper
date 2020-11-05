@@ -16,11 +16,7 @@ const NavbarItems = (props) => (
       exact
     />
     <NavbarItem path={"/support/payments"} title={"Raty"} exact />
-    <NavbarItem
-      path={"/support/telephone"}
-      title={"Zamknięcie telefoniczne"}
-      exact
-    />
+    <p style={{ color: "lime" }}>Konsultant Play</p>
   </StyledNavbarItems>
 );
 

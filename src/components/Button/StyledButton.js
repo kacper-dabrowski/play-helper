@@ -17,3 +17,13 @@ export const StyledButton = styled.button`
     cursor: pointer;
   }
 `;
+
+export const SpecialButton = styled(StyledButton)`
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  background-color: ${({ bgColor }) => bgColor};
+  &:hover {
+    background-color: ${({ hoverBgColor }) => hoverBgColor};
+    color: ${({ hoverColor }) => hoverColor};
+  }
+`;

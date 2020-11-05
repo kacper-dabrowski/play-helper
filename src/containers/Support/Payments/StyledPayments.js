@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const PaymentsContainer = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   grid-template-rows: 1fr 1fr 1fr;
   justify-items: center;
   align-content: center;
@@ -18,4 +21,14 @@ export const PaymentButtonContainer = styled.div`
     align-self: center;
     justify-self: center;
   }
+`;
+
+export const InvoicesContainer = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ButtonsContainer = styled.div`
+  margin-top: 2rem;
 `;

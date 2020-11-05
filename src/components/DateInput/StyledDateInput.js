@@ -12,4 +12,7 @@ export const StyledDateInput = styled.input`
   border-radius: 20px;
   background-color: #b3b3b3;
   border: none;
+  &:invalid {
+    color: transparent;
+  }
 `;
