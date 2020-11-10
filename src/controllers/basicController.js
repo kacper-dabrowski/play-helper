@@ -1,21 +1,22 @@
 import config from "../shared/settings";
 import { convertDate } from "../shared/utils";
 
-export const generateBasicTemplate = (
+export const generateBasicTemplate = ({
   sex,
   type,
   channel,
   date,
   general,
-  details
-) => {
+  details,
+  hasOffer = false,
+}) => {
   let template;
   let convertedType;
   let convertedChannel;
 
   const convertedDate = convertDate(date);
 
-  const name = "Dupa";
+  const name = "Name Surname";
   console.log(type, config.type.business);
   switch (type) {
     case config.type.individual:
@@ -44,67 +45,85 @@ export const generateBasicTemplate = (
   if (sex === config.sex.man) {
     template = `Szanowny Panie,
  
-      dziękuję za zgłoszenie, które dotyczyło ${general}.
+dziękuję za zgłoszenie, które dotyczyło ${general}.
       
-      Otrzymałem je ${convertedDate} za pośrednictwem ${convertedChannel}.
+Otrzymałem je ${convertedDate} za pośrednictwem ${convertedChannel}.
       
-      Dokładnie zapoznałem się z treścią zgłoszenia i rozwiązanie zamieszczam poniżej.
+Dokładnie zapoznałem się z treścią zgłoszenia i rozwiązanie zamieszczam poniżej.
                        
-      Weryfikacja i szczegóły sprawy:
-      Uprzejmie informuję, że ${details}.
+Weryfikacja i szczegóły sprawy:
+Uprzejmie informuję, że ${details}.
                        
-      Pomocne informacje:
-      Jeśli ma Pan pytania, zachęcam do korzystania z aplikacji mobilnej Play24.
-      Jesteśmy także do Pana dyspozycji pod numerem ${convertedType}.
-      Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.
-      
-      Z poważaniem,
-      ${name}
-      Obsługa Klienta Play
+Pomocne informacje:
+Jeśli ma Pan pytania, zachęcam do korzystania z aplikacji mobilnej Play24.
+Jesteśmy także do Pana dyspozycji pod numerem ${convertedType}.
+Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.      
+${
+  hasOffer
+    ? `
+Zachęcamy do zapoznania się z nowymi ofertami dla stałych Klientów. W przypadku zainteresowania prosimy o wysłanie SMS o treści TELEFON pod numer 8016 - oddzwonimy i dobierzemy ofertę.
+    `
+    : ""
+}
+Z poważaniem,
+${name}
+Obsługa Klienta Play
       `;
   }
   if (sex === config.sex.woman) {
     template = `Szanowny Panie,
  
-      dziękuję za zgłoszenie, które dotyczyło ${general}.
+dziękuję za zgłoszenie, które dotyczyło ${general}.
       
-      Otrzymałem je ${convertedDate} za pośrednictwem ${convertedChannel}.
+Otrzymałem je ${convertedDate} za pośrednictwem ${convertedChannel}.
       
-      Dokładnie zapoznałem się z treścią zgłoszenia i rozwiązanie zamieszczam poniżej.
+Dokładnie zapoznałem się z treścią zgłoszenia i rozwiązanie zamieszczam poniżej.
                        
-      Weryfikacja i szczegóły sprawy:
-      Uprzejmie informuję, że ${details}.
+Weryfikacja i szczegóły sprawy:
+Uprzejmie informuję, że ${details}.
                        
-      Pomocne informacje:
-      Jeśli ma Pan pytania, zachęcam do korzystania z aplikacji mobilnej Play24.
-      Jesteśmy także do Pana dyspozycji pod numerem ${convertedType}.
-      Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.
-      
-      Z poważaniem,
-      ${name}
-      Obsługa Klienta Play
+Pomocne informacje:
+Jeśli ma Pan pytania, zachęcam do korzystania z aplikacji mobilnej Play24.
+Jesteśmy także do Pana dyspozycji pod numerem ${convertedType}.
+Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.
+${
+  hasOffer
+    ? `
+Zachęcamy do zapoznania się z nowymi ofertami dla stałych Klientów. W przypadku zainteresowania prosimy o wysłanie SMS o treści TELEFON pod numer 8016 - oddzwonimy i dobierzemy ofertę.
+    `
+    : ""
+}
+Z poważaniem,
+${name}
+Obsługa Klienta Play
       `;
   }
   if (sex === config.sex.company) {
     template = `Szanowny Panie,
  
-      dziękuję za zgłoszenie, które dotyczyło ${general}.
+dziękuję za zgłoszenie, które dotyczyło ${general}.
       
-      Otrzymałem je ${convertedDate} za pośrednictwem ${convertedChannel}.
+Otrzymałem je ${convertedDate} za pośrednictwem ${convertedChannel}.
       
-      Dokładnie zapoznałem się z treścią zgłoszenia i rozwiązanie zamieszczam poniżej.
+Dokładnie zapoznałem się z treścią zgłoszenia i rozwiązanie zamieszczam poniżej.
                        
-      Weryfikacja i szczegóły sprawy:
-      Uprzejmie informuję, że ${details}.
+Weryfikacja i szczegóły sprawy:
+Uprzejmie informuję, że ${details}.
                        
-      Pomocne informacje:
-      Jeśli ma Pan pytania, zachęcam do korzystania z aplikacji mobilnej Play24.
-      Jesteśmy także do Pana dyspozycji pod numerem ${convertedType}.
-      Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.
-      
-      Z poważaniem,
-      ${name}
-      Obsługa Klienta Play
+Pomocne informacje:
+Jeśli ma Pan pytania, zachęcam do korzystania z aplikacji mobilnej Play24.
+Jesteśmy także do Pana dyspozycji pod numerem ${convertedType}.
+Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.
+${
+  hasOffer
+    ? `
+Zachęcamy do zapoznania się z nowymi ofertami dla stałych Klientów. W przypadku zainteresowania prosimy o wysłanie SMS o treści TELEFON pod numer 8016 - oddzwonimy i dobierzemy ofertę.
+    `
+    : ""
+}
+Z poważaniem,
+${name}
+Obsługa Klienta Play
       `;
   }
   console.log(template);

@@ -7,9 +7,12 @@ import {
   TextAreaButtonsWrapper,
 } from "./StyledMainTextarea";
 
-const MainTextarea = (props) => (
+const MainTextarea = ({ setTemplate, ...props }) => (
   <MainTextareaWrapper>
-    <StyledMainTextarea {...props} />
+    <StyledMainTextarea
+      {...props}
+      onChange={(event) => setTemplate(event.target.value)}
+    />
     <TextAreaButtonsWrapper>
       <ConfirmButton />
       <ClearButton />

@@ -1,10 +1,21 @@
 import React from "react";
 import TextArea from "../../../../components/TextArea/TextArea";
 import { TextAreaWrapper } from "../StyledBasic";
-const TextAreaSection = () => (
+const TextAreaSection = ({
+  general,
+  details,
+  generalSetHandler,
+  detailsSetHandler,
+}) => (
   <TextAreaWrapper>
-    <TextArea />
-    <TextArea />
+    <TextArea
+      onChange={(event) => generalSetHandler(event.target.value)}
+      value={general}
+    />
+    <TextArea
+      onChange={(event) => detailsSetHandler(event.target.value)}
+      value={details}
+    />
   </TextAreaWrapper>
 );
 

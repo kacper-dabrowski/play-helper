@@ -1,8 +1,12 @@
 import React from "react";
 import { StyledAdditionalTemplate } from "./StyledAdditionalTemplate";
 
-const AdditionalTemplate = (props) => (
-  <StyledAdditionalTemplate enabled={props.enabled} title={props.title} />
+const AdditionalTemplate = ({ enabled, title, onGenerateTemplate }) => (
+  <StyledAdditionalTemplate
+    enabled={enabled}
+    title={title}
+    onClick={onGenerateTemplate}
+  />
 );
 
 export default AdditionalTemplate;

@@ -7,19 +7,23 @@ import ConfirmButton from "../../../components/ConfirmButton/ConfirmButton";
 import ClearButton from "../../../components/ClearButton/ClearButton";
 import { ButtonsContainer } from "./StyledPayments";
 import AdditionalTemplate from "../../../components/AdditionalTemplate/AdditionalTemplate";
+import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 
 const Payments = () => {
   return (
-    <PaymentsContainer>
-      <PaymentSpan />
-      <Calculator />
-      <Invoices />
-      <AdditionalTemplate title={"Formatka ratalna"} />
-      <ButtonsContainer>
-        <ConfirmButton />
-        <ClearButton />
-      </ButtonsContainer>
-    </PaymentsContainer>
+    <>
+      <PaymentsContainer>
+        <PaymentSpan />
+        <Calculator />
+        <Invoices />
+        <AdditionalTemplate title={"Formatka ratalna"} />
+        <ButtonsContainer>
+          <ConfirmButton />
+          <ClearButton />
+        </ButtonsContainer>
+      </PaymentsContainer>
+      <MainTextarea />
+    </>
   );
 };
 

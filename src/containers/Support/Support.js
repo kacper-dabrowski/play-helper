@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import MainTextarea from "../../components/MainTextarea/MainTextarea";
 import Basic from "./Basic/Basic";
 import Double from "./Double/Double";
 import LoginScreen from "./LoginScreen/LoginScreen";
@@ -17,19 +16,15 @@ const Support = () => (
         </Route>
         <Route path={"/support/basic"}>
           <Basic />
-          <MainTextarea />
         </Route>
         <Route path={"/support/double-opened"}>
           <Double type={"opened"} />
-          <MainTextarea />
         </Route>
         <Route path={"/support/double-closed"}>
           <Double type={"closed"} />
-          <MainTextarea />
         </Route>
         <Route>
           <Payments />
-          <MainTextarea />
         </Route>
       </Switch>
     </Container>

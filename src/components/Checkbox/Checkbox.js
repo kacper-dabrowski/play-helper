@@ -1,10 +1,15 @@
 import React from "react";
 import { StyledCheckbox } from "./StyledCheckbox";
 
-const Checkbox = (props) => (
+const Checkbox = ({ labelContent, setHandler, value }, ...props) => (
   <>
-    {props.labelContent && <label>{props.labelContent}</label>}
-    <StyledCheckbox type={"checkbox"} {...props} />
+    {labelContent && <label>{labelContent}</label>}
+    <StyledCheckbox
+      type={"checkbox"}
+      {...props}
+      onChange={(event) => setHandler(event.target.checked)}
+      value={value}
+    />
   </>
 );
 
