@@ -1,5 +1,4 @@
 import React from "react";
-import ClearButton from "../ClearButton/ClearButton";
 import ConfirmButton from "../ConfirmButton/ConfirmButton";
 import {
   MainTextareaWrapper,
@@ -14,8 +13,7 @@ const MainTextarea = ({ setTemplate, ...props }) => (
       onChange={(event) => setTemplate(event.target.value)}
     />
     <TextAreaButtonsWrapper>
-      <ConfirmButton />
-      <ClearButton />
+      <ConfirmButton title={"Kopiuj"} />
     </TextAreaButtonsWrapper>
   </MainTextareaWrapper>
 );

@@ -14,5 +14,6 @@ export const StyledDateInput = styled.input`
   border: none;
   &:invalid {
     color: transparent;
+    background-color: #fa7f72;
   }
 `;

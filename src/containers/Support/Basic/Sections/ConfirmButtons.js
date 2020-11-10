@@ -3,10 +3,10 @@ import ClearButton from "../../../../components/ClearButton/ClearButton";
 import ConfirmButton from "../../../../components/ConfirmButton/ConfirmButton";
 import { ConfirmButtonsWrapper } from "../StyledBasic";
 
-const ConfirmButtons = ({ onGenerateTemplate }) => (
+const ConfirmButtons = ({ onGenerateTemplate, onClearFields }) => (
   <ConfirmButtonsWrapper>
     <ConfirmButton onClick={onGenerateTemplate} />
-    <ClearButton />
+    <ClearButton onClick={onClearFields} />
   </ConfirmButtonsWrapper>
 );
 export default ConfirmButtons;

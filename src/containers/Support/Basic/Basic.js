@@ -45,6 +45,17 @@ const Basic = () => {
     setTemplate(generateTelephoneTemplate());
   };
 
+  const clearFields = useCallback(() => {
+    setTemplate("");
+    setSex("");
+    setType("");
+    setChannel("");
+    setDate("");
+    setDetails("");
+    setGeneral("");
+    setHasOffer(false);
+  }, []);
+
   return (
     <>
       <div>
@@ -78,7 +89,10 @@ const Basic = () => {
             onGenerateTemplate={generateAdditionalTemplate}
           />
         </AdditionalTemplateContainer>
-        <ConfirmButtons onGenerateTemplate={generateTemplate} />
+        <ConfirmButtons
+          onClearFields={clearFields}
+          onGenerateTemplate={generateTemplate}
+        />
       </div>
       <MainTextarea value={template} setTemplate={setTemplate} />
     </>

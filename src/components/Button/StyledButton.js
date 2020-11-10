@@ -11,6 +11,9 @@ export const StyledButton = styled.button`
   background-color: #b3b3b3;
   border: none;
   transition: ease-in-out 0.2s;
+  background-color: ${({ active }) => (active ? "#583787" : "#b3b3b3")};
+  color: ${({ active }) => (active ? "white" : "black")};
+
   &:hover {
     background-color: #583787;
     color: white;
