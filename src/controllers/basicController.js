@@ -1,7 +1,14 @@
 import config from "../shared/settings";
 import { convertDate } from "../shared/utils";
 
-const generateBasicTemplate = (sex, type, channel, date, general, details) => {
+export const generateBasicTemplate = (
+  sex,
+  type,
+  channel,
+  date,
+  general,
+  details
+) => {
   let template;
   let convertedType;
   let convertedChannel;
@@ -104,4 +111,7 @@ const generateBasicTemplate = (sex, type, channel, date, general, details) => {
   return template;
 };
 
-export default generateBasicTemplate;
+export const generateTelephoneTemplate = () => `Witam,
+uprzejmie informuję, że sprawa została wyjaśniona podczas rozmowy telefonicznej.
+Z poważaniem,
+Obsługa Klienta Play`;
