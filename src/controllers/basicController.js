@@ -14,6 +14,10 @@ export const generateBasicTemplate = ({
   let convertedType;
   let convertedChannel;
 
+  if (!sex) {
+    throw new Error("Nie ustawiono płci!");
+  }
+
   const convertedDate = convertDate(date);
 
   const name = "Name Surname";
@@ -126,7 +130,7 @@ ${name}
 Obsługa Klienta Play
       `;
   }
-  console.log(template);
+
   return template;
 };
 

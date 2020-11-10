@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import ConfirmButtons from "./Sections/ConfirmButtons";
 import ChannelSection from "./Sections/ChannelSection";
-import SexSection from "./Sections/SexSection";
+import SexSection from "../../../components/SexSection/SexSection";
 import TextAreaSection from "./Sections/TextAreaSection";
 import TypeSection from "./Sections/TypeSection";
 import {

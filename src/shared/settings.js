@@ -13,5 +13,9 @@ const config = {
     business: "BUSINESS",
     individual: "INDIVIDUAL",
   },
+  double: {
+    closed: "CLOSED",
+    opened: "OPENED",
+  },
 };
 export default config;

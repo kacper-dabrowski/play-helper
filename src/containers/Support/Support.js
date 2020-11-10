@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router";
+import config from "../../shared/settings";
 import Basic from "./Basic/Basic";
 import Double from "./Double/Double";
 import LoginScreen from "./LoginScreen/LoginScreen";
@@ -18,10 +19,10 @@ const Support = () => (
           <Basic />
         </Route>
         <Route path={"/support/double-opened"}>
-          <Double type={"opened"} />
+          <Double type={config.double.opened} />
         </Route>
         <Route path={"/support/double-closed"}>
-          <Double type={"closed"} />
+          <Double type={config.double.closed} />
         </Route>
         <Route>
           <Payments />
