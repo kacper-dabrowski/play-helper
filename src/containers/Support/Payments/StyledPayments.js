@@ -11,7 +11,7 @@ export const PaymentsContainer = styled.div`
 `;
 export const PaymentButtonContainer = styled.div`
   display: grid;
-  height: 10rem;
+  height: 8rem;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   justify-items: center;

@@ -17,5 +17,9 @@ const config = {
     closed: "CLOSED",
     opened: "OPENED",
   },
+  payments: {
+    maxCount: 3,
+    minCount: 2,
+  },
 };
 export default config;
