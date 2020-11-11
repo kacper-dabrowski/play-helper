@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const StyledPaymentsInput = styled.input`
+  position: relative;
   width: 80%;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 21px;
   color: white;
   border: none;
-  border-bottom: 1px solid #a98dd0;
   padding: 0.5rem;
 `;
 export const PaymentsInputWrapper = styled.div`

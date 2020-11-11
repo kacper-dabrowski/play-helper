@@ -16,6 +16,6 @@ export const StyledAdditionalTemplate = styled.button`
 
   &:hover {
     background-color: ${({ enabled }) => (enabled ? "#2d6187" : "#bb2205")};
-    cursor: pointer;
+    cursor: ${({ enabled }) => (enabled ? "pointer" : "not-allowed")};
   }
 `;
