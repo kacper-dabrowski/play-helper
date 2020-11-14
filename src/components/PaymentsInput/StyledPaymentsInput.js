@@ -8,6 +8,11 @@ export const StyledPaymentsInput = styled.input`
   color: white;
   border: none;
   padding: 0.5rem;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 export const PaymentsInputWrapper = styled.div`
   display: grid;

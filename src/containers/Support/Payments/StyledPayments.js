@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const PaymentsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   grid-template-rows: 1fr 1fr 1fr;
   justify-items: center;
