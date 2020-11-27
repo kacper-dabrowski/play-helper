@@ -15,7 +15,7 @@ import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import {
   generateBasicTemplate,
   generateTelephoneTemplate,
-} from "../../../controllers/basicController";
+} from "../../../controllers/basicController/basicController";
 
 const Basic = () => {
   const [template, setTemplate] = useState("");

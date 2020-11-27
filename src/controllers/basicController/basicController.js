@@ -1,5 +1,10 @@
+<<<<<<< HEAD:src/controllers/basicController.js
 import config from "../shared/identifiers";
 import { convertDate } from "../shared/utils";
+=======
+import config from "../../shared/settings";
+import { convertDate } from "../../shared/utils";
+>>>>>>> Add tests for template controllers:src/controllers/basicController/basicController.js
 
 export const generateBasicTemplate = ({
   sex,
