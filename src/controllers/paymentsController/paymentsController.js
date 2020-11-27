@@ -1,3 +1,5 @@
+import config from "../../shared/settings";
+
 export const generatePaymentsTemplate = (paymentConfig) => {
   const { invoices, payments, name } = paymentConfig;
 
@@ -39,4 +41,63 @@ const generatePaymentsList = (payments) => {
   });
   return paymentStrings.join(`
 `);
+};
+
+export const generatePayments = (paymentsConfig) => {
+  const { currentDate, amounts, paymentsCount, paymentSpan } = paymentsConfig;
+
+  switch (paymentSpan) {
+    case config.payments.spans.P01:
+      return generatePaymentsObject(currentDate, paymentsCount, amounts, 8, 17);
+    case config.payments.spans.P06:
+      return generatePaymentsObject(
+        currentDate,
+        paymentsCount,
+        amounts,
+        13,
+        22
+      );
+    case config.payments.spans.P10:
+      return generatePaymentsObject(
+        currentDate,
+        paymentsCount,
+        amounts,
+        17,
+        26
+      );
+    case config.payments.spans.P15:
+    case config.payments.spans.P20:
+    case config.payments.spans.P25:
+    default:
+      throw new Error("Nieznany okres rozliczenowy!");
+  }
+};
+
+const generatePaymentsObject = (
+  currentDate,
+  paymentsCount,
+  amounts,
+  dividingDay,
+  dueDay
+) => {
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+  let startingMonth =
+    currentDay >= dividingDay ? currentMonth + 2 : currentMonth + 1;
+
+  const payments = [];
+  for (let i = 0; i < paymentsCount; i++) {
+    payments.push({
+      amount: amounts[i],
+      date: new Date(
+        `${startingMonth > 12 ? currentYear + 1 : currentYear}/${
+          startingMonth > 12 ? startingMonth - 12 : startingMonth
+        }/${dueDay}`
+      ),
+    });
+    startingMonth++;
+  }
+
+  return payments;
 };
