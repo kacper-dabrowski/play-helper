@@ -7,6 +7,7 @@ import { convertDate } from "../../shared/utils";
 >>>>>>> Add tests for template controllers:src/controllers/basicController/basicController.js
 
 export const generateBasicTemplate = ({
+  name,
   sex,
   type,
   channel,
@@ -25,8 +26,6 @@ export const generateBasicTemplate = ({
 
   const convertedDate = convertDate(date);
 
-  const name = "Name Surname";
-  console.log(type, config.type.business);
   switch (type) {
     case config.type.individual:
       convertedType = "790 500 500";
@@ -53,31 +52,29 @@ export const generateBasicTemplate = ({
   }
   if (sex === config.sex.man) {
     template = `Szanowny Panie,
- 
+
 dziękuję za zgłoszenie, które dotyczyło ${general}.
-      
+
 Otrzymałem je ${convertedDate} za pośrednictwem ${convertedChannel}.
-      
+
 Dokładnie zapoznałem się z treścią zgłoszenia i rozwiązanie zamieszczam poniżej.
-                       
+
 Weryfikacja i szczegóły sprawy:
 Uprzejmie informuję, że ${details}.
-                       
+
 Pomocne informacje:
 Jeśli ma Pan pytania, zachęcam do korzystania z aplikacji mobilnej Play24.
 Jesteśmy także do Pana dyspozycji pod numerem ${convertedType}.
-Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.      
+Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że ocenia Pan mój wkład w rozwiązanie zgłaszanej kwestii.
 ${
   hasOffer
     ? `
-Zachęcamy do zapoznania się z nowymi ofertami dla stałych Klientów. W przypadku zainteresowania prosimy o wysłanie SMS o treści TELEFON pod numer 8016 - oddzwonimy i dobierzemy ofertę.
-    `
+Zachęcamy do zapoznania się z nowymi ofertami dla stałych Klientów. W przypadku zainteresowania prosimy o wysłanie SMS o treści TELEFON pod numer 8016 - oddzwonimy i dobierzemy ofertę.`
     : ""
 }
 Z poważaniem,
 ${name}
-Obsługa Klienta Play
-      `;
+Obsługa Klienta Play`;
   }
   if (sex === config.sex.woman) {
     template = `Szanowny Panie,
