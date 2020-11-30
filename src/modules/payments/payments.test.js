@@ -274,3 +274,60 @@ it("should generate a valid payments set for P20 after due date", () => {
     },
   ]);
 });
+
+it("should generate a valid payments set for P25 before due date", () => {
+  const paymentsConfig = {
+    paymentSpan: config.payments.spans.P25,
+    amounts: [41, 41, 41],
+    currentDate: new Date("2020/11/01"),
+    paymentsCount: 3,
+  };
+  expect(generatePayments(paymentsConfig)).toEqual([
+    {
+      date: moment([2020, 10, 10]).format("DD/MM/YYYY"),
+      amount: 41,
+    },
+    {
+      date: moment([2020, 11, 10]).format("DD/MM/YYYY"),
+      amount: 41,
+    },
+    {
+      date: moment([2021, 0, 10]).format("DD/MM/YYYY"),
+      amount: 41,
+    },
+  ]);
+});
+
+it("should generate a valid payments set for P25 after due date", () => {
+  const paymentsConfig = {
+    paymentSpan: config.payments.spans.P25,
+    amounts: [41, 41, 41],
+    currentDate: new Date("2020/11/02"),
+    paymentsCount: 3,
+  };
+  expect(generatePayments(paymentsConfig)).toEqual([
+    {
+      date: moment([2020, 11, 10]).format("DD/MM/YYYY"),
+      amount: 41,
+    },
+    {
+      date: moment([2021, 0, 10]).format("DD/MM/YYYY"),
+      amount: 41,
+    },
+    {
+      date: moment([2021, 1, 10]).format("DD/MM/YYYY"),
+      amount: 41,
+    },
+  ]);
+});
+
+it("should throw an error, if unknown payment span was passed to the function", () => {
+  const paymentsConfig = {
+    paymentSpan: "SOMETHING",
+    amounts: [41, 41, 41],
+    currentDate: new Date("2020/11/02"),
+    paymentsCount: 3,
+  };
+
+  expect(() => generatePayments(paymentsConfig)).toThrow();
+});
