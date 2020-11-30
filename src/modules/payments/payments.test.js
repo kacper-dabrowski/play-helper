@@ -1,8 +1,5 @@
 import config from "../../shared/settings.js";
-import {
-  generatePaymentsTemplate,
-  generatePayments,
-} from "./paymentsController.js";
+import { generatePaymentsTemplate, generatePayments } from "./payments.js";
 
 it("should generate a valid payment string", () => {
   const paymentConfig = {

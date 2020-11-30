@@ -1,6 +1,4 @@
-const {
-  default: generateOpenedDoubleTemplate,
-} = require("./openedDoubleController");
+const { default: generateOpenedDoubleTemplate } = require("./openedDouble");
 
 it("should generate a valid doubleClosed template", () => {
   expect(generateOpenedDoubleTemplate("MAN", "123", "456"))
