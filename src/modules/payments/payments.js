@@ -1,4 +1,5 @@
 import config from "../../shared/settings";
+import moment from "moment";
 
 export const generatePaymentsTemplate = (paymentConfig) => {
   const { invoices, payments, name } = paymentConfig;
@@ -66,7 +67,15 @@ export const generatePayments = (paymentsConfig) => {
         26
       );
     case config.payments.spans.P15:
+      return generatePaymentsObject(
+        currentDate,
+        paymentsCount,
+        amounts,
+        22,
+        31
+      );
     case config.payments.spans.P20:
+      return generatePaymentsObject(currentDate, paymentsCount, amounts, 28, 7);
     case config.payments.spans.P25:
     default:
       throw new Error("Nieznany okres rozliczenowy!");
@@ -82,21 +91,28 @@ const generatePaymentsObject = (
 ) => {
   const currentDay = currentDate.getDate();
   const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
+
   let startingMonth =
-    currentDay >= dividingDay ? currentMonth + 2 : currentMonth + 1;
+    currentDay >= dividingDay ? currentMonth + 1 : currentMonth;
+  if (dueDay === 7) {
+    startingMonth++;
+  }
+  const startingDate = moment(currentDate)
+    .set("month", startingMonth)
+    .set("date", dueDay);
 
   const payments = [];
+
   for (let i = 0; i < paymentsCount; i++) {
+    const date = moment(startingDate).add(i, "months");
+    if (dueDay === 31 && i !== 0) {
+      date.set("date", dueDay);
+    }
+
     payments.push({
       amount: amounts[i],
-      date: new Date(
-        `${startingMonth > 12 ? currentYear + 1 : currentYear}/${
-          startingMonth > 12 ? startingMonth - 12 : startingMonth
-        }/${dueDay}`
-      ),
+      date: date.format("DD/MM/YYYY"),
     });
-    startingMonth++;
   }
 
   return payments;
