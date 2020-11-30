@@ -46,56 +46,31 @@ const generatePaymentsList = (payments) => {
 
 export const generatePayments = (paymentsConfig) => {
   const { currentDate, amounts, paymentsCount, paymentSpan } = paymentsConfig;
-
-  switch (paymentSpan) {
-    case config.payments.spans.P01:
-      return generatePaymentsObject(currentDate, paymentsCount, amounts, 8, 17);
-    case config.payments.spans.P06:
-      return generatePaymentsObject(
-        currentDate,
-        paymentsCount,
-        amounts,
-        13,
-        22
-      );
-    case config.payments.spans.P10:
-      return generatePaymentsObject(
-        currentDate,
-        paymentsCount,
-        amounts,
-        17,
-        26
-      );
-    case config.payments.spans.P15:
-      return generatePaymentsObject(
-        currentDate,
-        paymentsCount,
-        amounts,
-        22,
-        31
-      );
-    case config.payments.spans.P20:
-      return generatePaymentsObject(currentDate, paymentsCount, amounts, 28, 7);
-    case config.payments.spans.P25:
-    default:
-      throw new Error("Nieznany okres rozliczenowy!");
+  const generatorConfig = {
+    currentDate,
+    amounts,
+    paymentsCount,
+  };
+  try {
+    const { dueDay, dividingDay } = config.payments.deadlines[paymentSpan];
+    return generatePaymentsObject(generatorConfig, dividingDay, dueDay);
+  } catch (error) {
+    throw new Error(
+      "Unknown payment span was passed to the function, details: " +
+        error.message
+    );
   }
 };
 
-const generatePaymentsObject = (
-  currentDate,
-  paymentsCount,
-  amounts,
-  dividingDay,
-  dueDay
-) => {
+const generatePaymentsObject = (generatorConfig, dividingDay, dueDay) => {
+  const { currentDate, paymentsCount, amounts } = generatorConfig;
   const currentDay = currentDate.getDate();
   const currentMonth = currentDate.getMonth();
 
   let startingMonth =
     currentDay >= dividingDay ? currentMonth + 1 : currentMonth;
   if (dueDay === 7) {
-    startingMonth++;
+    startingMonth += 1;
   }
   const startingDate = moment(currentDate)
     .set("month", startingMonth)
