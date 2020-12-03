@@ -2,10 +2,10 @@ import React from "react";
 import { TopbarContainer } from "./StyledTopbar";
 import { TopbarButton } from "./TopbarButton/TopbarButton";
 
-const Topbar = () => {
+const Topbar = ({ onLoginModalOpened }) => {
   return (
     <TopbarContainer>
-      <TopbarButton>Zaloguj</TopbarButton>
+      <TopbarButton onClick={onLoginModalOpened}>Zaloguj</TopbarButton>
     </TopbarContainer>
   );
 };

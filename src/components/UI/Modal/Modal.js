@@ -4,12 +4,12 @@ import { CancelModal } from "./CancelModal/StyledCancelModal";
 
 import { ModalContainer, ModalWrapper } from "./StyledModal";
 
-const Modal = ({ children, isOpened }) => {
+const Modal = ({ children, isOpened, closeModalHandler }) => {
   return (
-    <Backdrop isOpened={isOpened}>
+    <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler}>
       <ModalWrapper>
         <ModalContainer>
-          <CancelModal />
+          <CancelModal onClick={closeModalHandler} />
           {children}
         </ModalContainer>
       </ModalWrapper>

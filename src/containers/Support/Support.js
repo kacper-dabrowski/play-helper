@@ -4,7 +4,6 @@ import config from "../../shared/identifiers";
 import routes from "../../shared/routes";
 import Basic from "./Basic/Basic";
 import Double from "./Double/Double";
-import LoginScreen from "./LoginScreen/LoginScreen";
 import Payments from "./Payments/Payments";
 import Srq from "./Srq/Srq";
 import { Container, StyledSupport } from "./StyledSupport";
@@ -30,9 +29,7 @@ const Support = () => (
         <Route path={routes.support.payments}>
           <Payments />
         </Route>
-        <Route path={routes.support.main} exact>
-          <LoginScreen />
-        </Route>
+        <Route path={routes.support.main} exact></Route>
       </Switch>
     </Container>
   </StyledSupport>
