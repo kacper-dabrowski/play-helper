@@ -6,7 +6,7 @@ import { ModalContainer, ModalWrapper } from "./StyledModal";
 
 const Modal = ({ children, isOpened }) => {
   return (
-    <Backdrop isOpened>
+    <Backdrop isOpened={isOpened}>
       <ModalWrapper>
         <ModalContainer>
           <CancelModal />
