@@ -3,9 +3,11 @@ import ProjectTile from "./ProjectTile/ProjectTile";
 import { WelcomeScreenContainer } from "./StyledWelcomeScreen";
 import arrowLeft from "../../assets/icons/left-arrow.svg";
 import arrowRight from "../../assets/icons/right-arrow.svg";
+import LoginModal from "../../components/LoginModal/LoginModal";
 
 const WelcomeScreen = () => (
   <WelcomeScreenContainer>
+    <LoginModal />
     <ProjectTile
       projectEndpoint={"/next"}
       projectColorDark={"#303030"}
