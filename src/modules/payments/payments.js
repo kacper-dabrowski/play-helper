@@ -1,11 +1,39 @@
 import config from "../../shared/settings";
 import moment from "moment";
+import Big from "big.js";
+
+export const generateAdditionalTemplate = (templateConfig) => {
+  const { paymentSpan, paymentsCount, amounts } = templateConfig;
+  return `Okres rozliczeniowy: ${paymentSpan}
+Liczba przyznanych rat: ${paymentsCount}
+Kwotę każdej przyznanej raty:
+${amounts.map(
+  (amount, index) =>
+    `Rata ${index + 1} - ${amount}${index !== amounts.length ? "," : ""}`
+)}
+Termin płatności danej raty:
+Rata 1 - 26 grudnia 2020 roku,
+Rata 2 - 26 stycznia 2021 roku,
+Rata 3 - 26 lutego 2021 roku
+Numery faktur rozłożonych na raty:
+F/12312312/19
+`;
+};
 
 export const generatePaymentsTemplate = (paymentConfig) => {
-  const { invoices, payments, name } = paymentConfig;
+  const { invoices, payments, name, paymentSpan } = paymentConfig;
+  const paymentsConfig = {
+    currentDate: new Date(),
+    amounts: payments,
+    paymentsCount: payments.length,
+    paymentSpan: paymentSpan,
+  };
+
+  const paymentsObject = generatePayments(paymentsConfig);
+  const paymentsList = generatePaymentsList(paymentsObject);
 
   return `${generateInvoiceString(name, invoices)} na ${payments.length} raty.
-${generatePaymentsList(payments)}
+${paymentsList}
 Proszę pamiętać o terminowej płatności rat oraz bieżących faktur, gdyż raty mogą zostać cofnięte.
 Pozdrawiam
 Obsługa Klienta Play.`;
@@ -91,4 +119,21 @@ const generatePaymentsObject = (generatorConfig, dividingDay, dueDay) => {
   }
 
   return payments;
+};
+
+export const generateAmountsArray = (amount, paymentsCount) => {
+  const amountDivided = new Big(amount).div(paymentsCount).toFixed(2);
+
+  let amountsArray = [];
+
+  for (let i = 0; i < paymentsCount; i++) {
+    amountsArray.push(Number(amountDivided));
+  }
+  const isRoundCorrect = Number(amountDivided) * 3 === amount;
+
+  if (!isRoundCorrect) {
+    const difference = Number(amount - Number(amountDivided) * paymentsCount);
+    amountsArray[0] += difference;
+  }
+  return amountsArray;
 };

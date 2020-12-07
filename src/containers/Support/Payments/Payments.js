@@ -9,7 +9,10 @@ import { ButtonsContainer } from "./StyledPayments";
 import AdditionalTemplate from "../../../components/AdditionalTemplate/AdditionalTemplate";
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import config from "../../../shared/settings";
-import Big from "big.js";
+import {
+  generatePaymentsTemplate,
+  generateAmountsArray,
+} from "../../../modules/payments/payments";
 
 const Payments = () => {
   const [paymentSpan, setPaymentSpan] = useState(null);
@@ -17,6 +20,10 @@ const Payments = () => {
   const [payments, setPayments] = useState([]);
   const [paymentsCount, setPaymentsCount] = useState(config.payments.minCount);
   const [invoices, setInvoices] = useState([]);
+  const [template, setTemplate] = useState("");
+  const [additionalTemplateActive, setAdditionalTemplateActive] = useState(
+    false
+  );
 
   const setInvoicesHandler = (event) => {
     if (invoices.length === config.payments.maxInvoices) {
@@ -45,21 +52,20 @@ const Payments = () => {
     if (Number.isNaN(amount) || amount === 0) {
       throw new Error("Została podana nieprawidłowa kwota do podziału na raty");
     }
-
-    const amountDivided = new Big(amount).div(paymentsCount).toFixed(2);
-
-    let amountsArray = [];
-
-    for (let i = 0; i < paymentsCount; i++) {
-      amountsArray.push(Number(amountDivided));
+    if (invoices.length <= 0 || invoices.length > 3) {
+      throw new Error("Niepoprawna liczba faktur");
     }
-    const isRoundCorrect = Number(amountDivided) * 3 === amount;
 
-    if (!isRoundCorrect) {
-      const difference = Number(amount - Number(amountDivided) * paymentsCount);
-      amountsArray[0] += difference;
-    }
+    const amountsArray = generateAmountsArray(amount, paymentsCount);
     setPayments(amountsArray);
+    const paymentsTemplate = generatePaymentsTemplate({
+      name: "Alicja Wyczyńska",
+      payments,
+      invoices,
+      paymentSpan,
+    });
+    setTemplate(paymentsTemplate);
+    setAdditionalTemplateActive(true);
   };
 
   return (
@@ -75,24 +81,16 @@ const Payments = () => {
           setInvoiceHandler={setInvoicesHandler}
         />
         <Invoices invoices={invoices} removeInvoiceHandler={onRemoveInvoice} />
-        <AdditionalTemplate title={"Formatka ratalna"} />
+        <AdditionalTemplate
+          title={"Formatka ratalna"}
+          enabled={additionalTemplateActive}
+        />
         <ButtonsContainer>
-          <ConfirmButton
-            onClick={() =>
-              console.log(
-                paymentSpan,
-                amount,
-                paymentsCount,
-                invoices,
-                "AMT: ",
-                onDivideAmount(amount)
-              )
-            }
-          />
+          <ConfirmButton onClick={() => onDivideAmount(amount)} />
           <ClearButton />
         </ButtonsContainer>
       </PaymentsContainer>
-      <MainTextarea />
+      <MainTextarea value={template} />
     </>
   );
 };
