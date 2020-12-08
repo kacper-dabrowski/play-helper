@@ -48,7 +48,11 @@ const Payments = () => {
   const onDivideAmount = () => {
     const parsedAmount = Number(amount);
 
-    if (Number.isNaN(parsedAmount) || parsedAmount === 0) {
+    if (
+      Number.isNaN(parsedAmount) ||
+      parsedAmount === 0 ||
+      parsedAmount > config.payments.maxAmount
+    ) {
       throw new Error("Została podana nieprawidłowa kwota do podziału na raty");
     }
     if (invoices.length <= 0 || invoices.length > 3) {
