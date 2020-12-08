@@ -14,10 +14,15 @@ const Support = () => (
     <Navbar username={"Konsultant Play"} />
     <Container>
       <Switch>
+<<<<<<< HEAD
         <Route path={routes.support.srq}>
           <Srq />
         </Route>
         <Route path={routes.support.basic}>
+=======
+        <Route path={"/support"} exact></Route>
+        <Route path={"/support/basic"}>
+>>>>>>> Misc - Remove unused login screen component
           <Basic />
         </Route>
         <Route path={routes.support.doubleOpened}>
