@@ -1,4 +1,5 @@
 import config from "../../shared/settings.js";
+import { convertDate } from "../../shared/utils.js";
 import { generatePaymentsTemplate, generatePayments } from "./payments.js";
 import moment from "moment";
 
@@ -6,11 +7,10 @@ it("should generate a valid payment string", () => {
   const paymentConfig = {
     name: "Kacper Dąbrowski",
     invoices: ["F/123", "F/1234", "F/12345"],
-    payments: [
-      { amount: "41.00", date: "31 grudnia 2020 roku" },
-      { amount: "41.00", date: "31 stycznia 2021 roku" },
-      { amount: "41.00", date: "3 marca 2021 roku" },
-    ],
+    payments: ["41.00", "41.00", "41.00"],
+    dueDay: 31,
+    dividingDay: 22,
+    paymentSpan: "P15",
   };
   expect(generatePaymentsTemplate(paymentConfig))
     .toEqual(`Dziękuję za zgłoszenie. Rozłożyłem faktury o numerach: F/123, F/1234, F/12345 na 3 raty.
@@ -31,15 +31,15 @@ it("should generate a valid payments set for P01 after due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 11, 17]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 17]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 17]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 17]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 1, 17]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 1, 17]).toDate()),
       amount: 41,
     },
   ]);
@@ -54,15 +54,15 @@ it("should generate a valid payments set for P01 before due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 10, 17]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 10, 17]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2020, 11, 17]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 17]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 17]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 17]).toDate()),
       amount: 41,
     },
   ]);
@@ -77,15 +77,15 @@ it("should generate a valid payments set for P06 after due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 11, 22]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 22]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 22]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 22]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 1, 22]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 1, 22]).toDate()),
       amount: 41,
     },
   ]);
@@ -100,15 +100,15 @@ it("should generate a valid payments set for P06 before due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 10, 22]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 10, 22]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2020, 11, 22]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 22]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 22]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 22]).toDate()),
       amount: 41,
     },
   ]);
@@ -123,15 +123,15 @@ it("should generate a valid payments set for P10 after due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 11, 26]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 26]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 26]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 26]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 1, 26]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 1, 26]).toDate()),
       amount: 41,
     },
   ]);
@@ -146,15 +146,15 @@ it("should generate a valid payments set for P10 before due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 10, 26]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 10, 26]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2020, 11, 26]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 26]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 26]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 26]).toDate()),
       amount: 41,
     },
   ]);
@@ -169,15 +169,15 @@ it("should generate a valid payments set for P15 before due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 11, 1]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 1]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 31]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 31]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 2, 3]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 2, 3]).toDate()),
       amount: 41,
     },
   ]);
@@ -192,15 +192,15 @@ it("should generate a valid payments set for P15 before due date (30 days month 
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 9, 31]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 9, 31]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2020, 11, 1]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 1]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2020, 11, 31]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 31]).toDate()),
       amount: 41,
     },
   ]);
@@ -215,15 +215,15 @@ it("should generate a valid payments set for P15 after due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 11, 31]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 31]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 31]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 31]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 2, 3]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 2, 3]).toDate()),
       amount: 41,
     },
   ]);
@@ -238,15 +238,15 @@ it("should generate a valid payments set for P20 before due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 11, 7]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 7]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 7]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 7]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 1, 7]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 1, 7]).toDate()),
       amount: 41,
     },
   ]);
@@ -261,15 +261,15 @@ it("should generate a valid payments set for P20 after due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2021, 0, 7]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 7]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 1, 7]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 1, 7]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 2, 7]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 2, 7]).toDate()),
       amount: 41,
     },
   ]);
@@ -284,15 +284,15 @@ it("should generate a valid payments set for P25 before due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 10, 10]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 10, 10]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2020, 11, 10]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 10]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 10]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 10]).toDate()),
       amount: 41,
     },
   ]);
@@ -307,15 +307,15 @@ it("should generate a valid payments set for P25 after due date", () => {
   };
   expect(generatePayments(paymentsConfig)).toEqual([
     {
-      date: moment([2020, 11, 10]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2020, 11, 10]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 0, 10]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 0, 10]).toDate()),
       amount: 41,
     },
     {
-      date: moment([2021, 1, 10]).format("DD/MM/YYYY"),
+      date: convertDate(moment([2021, 1, 10]).toDate()),
       amount: 41,
     },
   ]);
