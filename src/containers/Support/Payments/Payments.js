@@ -16,8 +16,7 @@ import {
 
 const Payments = () => {
   const [paymentSpan, setPaymentSpan] = useState(null);
-  const [amount, setAmount] = useState("");
-  const [payments, setPayments] = useState([]);
+  const [amount, setAmount] = useState(0);
   const [paymentsCount, setPaymentsCount] = useState(config.payments.minCount);
   const [invoices, setInvoices] = useState([]);
   const [template, setTemplate] = useState("");
@@ -46,21 +45,20 @@ const Payments = () => {
     );
   };
 
-  const onDivideAmount = (userInput) => {
-    const amount = Number(userInput);
+  const onDivideAmount = () => {
+    const parsedAmount = Number(amount);
 
-    if (Number.isNaN(amount) || amount === 0) {
+    if (Number.isNaN(parsedAmount) || parsedAmount === 0) {
       throw new Error("Została podana nieprawidłowa kwota do podziału na raty");
     }
     if (invoices.length <= 0 || invoices.length > 3) {
       throw new Error("Niepoprawna liczba faktur");
     }
 
-    const amountsArray = generateAmountsArray(amount, paymentsCount);
-    setPayments(amountsArray);
+    const amountsArray = generateAmountsArray(parsedAmount, paymentsCount);
     const paymentsTemplate = generatePaymentsTemplate({
       name: "Alicja Wyczyńska",
-      payments,
+      payments: amountsArray,
       invoices,
       paymentSpan,
     });
@@ -86,7 +84,7 @@ const Payments = () => {
           enabled={additionalTemplateActive}
         />
         <ButtonsContainer>
-          <ConfirmButton onClick={() => onDivideAmount(amount)} />
+          <ConfirmButton onClick={onDivideAmount} />
           <ClearButton />
         </ButtonsContainer>
       </PaymentsContainer>
