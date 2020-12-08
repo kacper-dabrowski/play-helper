@@ -1,26 +1,57 @@
 import config from "../../shared/settings";
 import moment from "moment";
 import Big from "big.js";
+import { convertDate } from "../../shared/utils";
 
 export const generateAdditionalTemplate = (templateConfig) => {
-  const { paymentSpan, paymentsCount, amounts } = templateConfig;
+  const {
+    paymentSpan,
+    paymentsCount,
+    paymentsObject,
+    invoices,
+  } = templateConfig;
   return `Okres rozliczeniowy: ${paymentSpan}
 Liczba przyznanych rat: ${paymentsCount}
 Kwotę każdej przyznanej raty:
-${amounts.map(
-  (amount, index) =>
-    `Rata ${index + 1} - ${amount}${index !== amounts.length ? "," : ""}`
-)}
+${paymentsObject
+  .map(
+    (payment, index) =>
+      `Rata ${index + 1} - ${payment.amount.toFixed(2)}${
+        index + 1 < paymentsObject.length
+          ? `,
+`
+          : "."
+      }`
+  )
+  .join("")}
 Termin płatności danej raty:
-Rata 1 - 26 grudnia 2020 roku,
-Rata 2 - 26 stycznia 2021 roku,
-Rata 3 - 26 lutego 2021 roku
+${paymentsObject
+  .map(
+    (payment, index) =>
+      `Rata ${index + 1} - ${payment.date}${
+        index + 1 < paymentsObject.length
+          ? `,
+`
+          : ""
+      }`
+  )
+  .join("")}
 Numery faktur rozłożonych na raty:
-F/12312312/19
+${invoices
+  .map(
+    (invoice, index) =>
+      `${invoice}${
+        index + 1 < invoices.length
+          ? `,
+`
+          : ""
+      }`
+  )
+  .join("")}
 `;
 };
 
-export const generatePaymentsTemplate = (paymentConfig) => {
+export const generatePaymentTemplates = (paymentConfig) => {
   const { invoices, payments, name, paymentSpan } = paymentConfig;
   const paymentsConfig = {
     currentDate: new Date(),
@@ -28,15 +59,26 @@ export const generatePaymentsTemplate = (paymentConfig) => {
     paymentsCount: payments.length,
     paymentSpan: paymentSpan,
   };
+  const additionalTemplateConfig = {
+    paymentSpan,
+    paymentsCount: payments.length,
+    paymentsObject: generatePayments(paymentsConfig),
+    invoices,
+  };
 
   const paymentsObject = generatePayments(paymentsConfig);
   const paymentsList = generatePaymentsList(paymentsObject);
 
-  return `${generateInvoiceString(name, invoices)} na ${payments.length} raty.
+  return {
+    mainTemplate: `${generateInvoiceString(name, invoices)} na ${
+      payments.length
+    } raty.
 ${paymentsList}
 Proszę pamiętać o terminowej płatności rat oraz bieżących faktur, gdyż raty mogą zostać cofnięte.
 Pozdrawiam
-Obsługa Klienta Play.`;
+Obsługa Klienta Play.`,
+    additionalTemplate: generateAdditionalTemplate(additionalTemplateConfig),
+  };
 };
 
 const generateInvoiceString = (name, invoices) => {
@@ -45,7 +87,7 @@ const generateInvoiceString = (name, invoices) => {
   const invoiceEnding =
     invoices.length > 1 ? "faktury o numerach:" : "fakturę o numerze";
   const invoicesList = invoices.map((invoice, index) => {
-    return `${invoice}${index === invoices.length - 1 ? "" : ","}`;
+    return `${invoice}${index + 1 === invoices.length ? "" : `,`}`;
   });
 
   return `Dziękuję za zgłoszenie. ${genderEnding} ${invoiceEnding} ${invoicesList.join(
@@ -114,7 +156,7 @@ const generatePaymentsObject = (generatorConfig, dividingDay, dueDay) => {
 
     payments.push({
       amount: amounts[i],
-      date: date.format("DD/MM/YYYY"),
+      date: convertDate(date.toDate()),
     });
   }
 

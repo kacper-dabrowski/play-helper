@@ -10,7 +10,7 @@ import AdditionalTemplate from "../../../components/AdditionalTemplate/Additiona
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import config from "../../../shared/settings";
 import {
-  generatePaymentsTemplate,
+  generatePaymentTemplates,
   generateAmountsArray,
 } from "../../../modules/payments/payments";
 
@@ -23,6 +23,7 @@ const Payments = () => {
   const [additionalTemplateActive, setAdditionalTemplateActive] = useState(
     false
   );
+  const [additionalTemplate, setAdditionalTemplate] = useState("");
 
   const setInvoicesHandler = (event) => {
     if (invoices.length === config.payments.maxInvoices) {
@@ -60,14 +61,19 @@ const Payments = () => {
     }
 
     const amountsArray = generateAmountsArray(parsedAmount, paymentsCount);
-    const paymentsTemplate = generatePaymentsTemplate({
+    const paymentTemplates = generatePaymentTemplates({
       name: "Alicja Wyczyńska",
       payments: amountsArray,
       invoices,
       paymentSpan,
     });
-    setTemplate(paymentsTemplate);
+    setTemplate(paymentTemplates.mainTemplate);
     setAdditionalTemplateActive(true);
+    setAdditionalTemplate(paymentTemplates.additionalTemplate);
+  };
+
+  const onGenerateAdditionalTemplate = () => {
+    setTemplate(additionalTemplate);
   };
 
   return (
@@ -86,6 +92,7 @@ const Payments = () => {
         <AdditionalTemplate
           title={"Formatka ratalna"}
           enabled={additionalTemplateActive}
+          onGenerateTemplate={onGenerateAdditionalTemplate}
         />
         <ButtonsContainer>
           <ConfirmButton onClick={onDivideAmount} />
