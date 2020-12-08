@@ -4,7 +4,6 @@ import config from "../../shared/identifiers";
 import routes from "../../shared/routes";
 import Basic from "./Basic/Basic";
 import Double from "./Double/Double";
-import LoginScreen from "./LoginScreen/LoginScreen";
 import Payments from "./Payments/Payments";
 import Srq from "./Srq/Srq";
 import { Container, StyledSupport } from "./StyledSupport";
@@ -15,10 +14,15 @@ const Support = () => (
     <Navbar username={"Konsultant Play"} />
     <Container>
       <Switch>
+<<<<<<< HEAD
         <Route path={routes.support.srq}>
           <Srq />
         </Route>
         <Route path={routes.support.basic}>
+=======
+        <Route path={"/support"} exact></Route>
+        <Route path={"/support/basic"}>
+>>>>>>> Misc - Remove unused login screen component
           <Basic />
         </Route>
         <Route path={routes.support.doubleOpened}>
