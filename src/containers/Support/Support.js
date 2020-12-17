@@ -6,6 +6,7 @@ import Basic from "./Basic/Basic";
 import Double from "./Double/Double";
 import LoginScreen from "./LoginScreen/LoginScreen";
 import Payments from "./Payments/Payments";
+import Srq from "./Srq/Srq";
 import { Container, StyledSupport } from "./StyledSupport";
 import Navbar from "./SupportNavbar/Navbar";
 
@@ -15,7 +16,7 @@ const Support = () => (
     <Container>
       <Switch>
         <Route path={routes.support.srq}>
-          <div>SRQ</div>
+          <Srq />
         </Route>
         <Route path={routes.support.basic}>
           <Basic />

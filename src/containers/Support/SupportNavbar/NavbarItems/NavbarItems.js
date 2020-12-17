@@ -17,6 +17,7 @@ const NavbarItems = () => (
       exact
     />
     <NavbarItem path={routes.support.payments} title={"Raty"} exact />
+    <NavbarItem path={routes.support.srq} title={"SRQ"} exact />
   </StyledNavbarItems>
 );
 
