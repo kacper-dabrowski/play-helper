@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
-import config from "../../shared/settings";
+import config from "../../shared/identifiers";
 
 const SexSection = ({ setHandler, setting }) => (
   <>

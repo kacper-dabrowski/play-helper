@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import config from "../../shared/settings";
+import config from "../../shared/identifiers";
+import routes from "../../shared/routes";
 import Basic from "./Basic/Basic";
 import Double from "./Double/Double";
 import LoginScreen from "./LoginScreen/LoginScreen";
@@ -13,20 +14,23 @@ const Support = () => (
     <Navbar username={"Konsultant Play"} />
     <Container>
       <Switch>
-        <Route path={"/support"} exact>
-          <LoginScreen />
+        <Route path={routes.support.srq}>
+          <div>SRQ</div>
         </Route>
-        <Route path={"/support/basic"}>
+        <Route path={routes.support.basic}>
           <Basic />
         </Route>
-        <Route path={"/support/double-opened"}>
+        <Route path={routes.support.doubleOpened}>
           <Double type={config.double.opened} />
         </Route>
-        <Route path={"/support/double-closed"}>
+        <Route path={routes.support.doubleClosed}>
           <Double type={config.double.closed} />
         </Route>
-        <Route>
+        <Route path={routes.support.payments}>
           <Payments />
+        </Route>
+        <Route path={routes.support.main} exact>
+          <LoginScreen />
         </Route>
       </Switch>
     </Container>

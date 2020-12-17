@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../../../components/Button/Button";
 import DateInput from "../../../../components/DateInput/DateInput";
-import config from "../../../../shared/settings";
+import config from "../../../../shared/identifiers";
 
 const TypeSection = ({ typeSetHandler, dateSetHandler, date, setting }) => (
   <>

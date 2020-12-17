@@ -1,4 +1,4 @@
-import config from "../shared/settings";
+import config from "../shared/identifiers";
 
 export const generateOpenedDoubleTemplate = (
   sex,
