@@ -6,10 +6,11 @@ import Double from "./Double/Double";
 import LoginScreen from "./LoginScreen/LoginScreen";
 import Payments from "./Payments/Payments";
 import { Container, StyledSupport } from "./StyledSupport";
-import NavbarItems from "./SupportNavbar/NavbarItems/NavbarItems";
+import Navbar from "./SupportNavbar/Navbar";
+
 const Support = () => (
   <StyledSupport>
-    <NavbarItems />
+    <Navbar username={"Konsultant Play"} />
     <Container>
       <Switch>
         <Route path={"/support"} exact>
