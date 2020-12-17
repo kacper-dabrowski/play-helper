@@ -5,7 +5,7 @@ import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import SexSection from "../../../components/SexSection/SexSection";
 import generateClosedDoubleTemplate from "../../../controllers/closedDoubleController";
 import generateOpenedDoubleTemplate from "../../../controllers/openedDoubleController";
-import config from "../../../shared/settings";
+import config from "../../../shared/identifiers";
 import InputSection from "./Sections/InputSection";
 import { ConfirmButtonsWrapper, StyledSexSection } from "./StyledDouble";
 

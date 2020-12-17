@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "../../../../components/Input/Input";
-import config from "../../../../shared/settings";
+import config from "../../../../shared/identifiers";
 import { StyledInputSection } from "../StyledDouble";
 
 const InputSection = ({

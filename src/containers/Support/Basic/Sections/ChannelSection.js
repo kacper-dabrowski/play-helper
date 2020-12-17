@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../../../../components/Button/Button";
-import config from "../../../../shared/settings";
+import config from "../../../../shared/identifiers";
 
 const ChannelSection = ({ setHandler, setting }) => (
   <>

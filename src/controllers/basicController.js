@@ -1,4 +1,4 @@
-import config from "../shared/settings";
+import config from "../shared/identifiers";
 import { convertDate } from "../shared/utils";
 
 export const generateBasicTemplate = ({
