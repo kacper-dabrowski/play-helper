@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const TopbarButton = styled.button`
   width: 5rem;
-  height: 2rem;
   padding: 0.5rem;
   background: transparent;
   border: none;
@@ -10,6 +9,7 @@ export const TopbarButton = styled.button`
   border: 1px solid white;
   justify-self: center;
   color: white;
+  font-size: 1.1rem;
   transition: ease-in-out 0.2s;
   &:hover {
     cursor: pointer;
