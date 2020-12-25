@@ -1,22 +1,23 @@
 import config from "../../shared/settings.js";
 import { convertDate } from "../../shared/utils.js";
-import { generatePaymentsTemplate, generatePayments } from "./payments.js";
+import { generatePaymentTemplates, generatePayments } from "./payments.js";
 import moment from "moment";
 
 it("should generate a valid payment string", () => {
   const paymentConfig = {
     name: "Kacper Dąbrowski",
     invoices: ["F/123", "F/1234", "F/12345"],
-    payments: ["41.00", "41.00", "41.00"],
+    payments: [41.5, 41.5, 41.5],
     dueDay: 31,
     dividingDay: 22,
-    paymentSpan: "P15",
+    paymentSpan: config.payments.spans.P15,
   };
-  expect(generatePaymentsTemplate(paymentConfig))
+
+  expect(generatePaymentTemplates(paymentConfig).mainTemplate)
     .toEqual(`Dziękuję za zgłoszenie. Rozłożyłem faktury o numerach: F/123, F/1234, F/12345 na 3 raty.
-Rata pierwsza: 41.00 zł z datą płatności 31 grudnia 2020 roku,
-rata druga: 41.00 zł z datą płatności 31 stycznia 2021 roku,
-rata trzecia: 41.00 zł z datą płatności 3 marca 2021 roku.
+Rata pierwsza: 41.50 zł z datą płatności 31 grudnia 2020 roku,
+rata druga: 41.50 zł z datą płatności 31 stycznia 2021 roku,
+rata trzecia: 41.50 zł z datą płatności 3 marca 2021 roku.
 Proszę pamiętać o terminowej płatności rat oraz bieżących faktur, gdyż raty mogą zostać cofnięte.
 Pozdrawiam
 Obsługa Klienta Play.`);

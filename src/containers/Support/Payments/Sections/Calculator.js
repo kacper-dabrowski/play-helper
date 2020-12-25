@@ -2,7 +2,7 @@ import React from "react";
 import Counter from "../../../../components/Counter/Counter";
 import PaymentsInput from "../../../../components/PaymentsInput/PaymentsInput";
 import { PaymentsInputWrapper } from "../../../../components/PaymentsInput/StyledPaymentsInput";
-import config from "../../../../shared/settings";
+import config from "../../../../shared/identifiers";
 
 const Calculator = (props) => {
   const counterClickedHandler = (currentValue, minValue, maxValue) => {

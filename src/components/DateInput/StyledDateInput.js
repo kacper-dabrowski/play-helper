@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const StyledDateInput = styled.input`
-  width: 8rem;
+  width: 9rem;
+
   max-height: 40px;
   margin-left: 1rem;
   margin-right: 1rem;
