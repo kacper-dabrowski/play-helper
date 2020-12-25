@@ -4,6 +4,7 @@ export const StyledSignupSubmitButton = styled.button`
   width: 10rem;
   height: 2rem;
   padding: 0.5rem;
+  margin-top: 1rem;
   background: linear-gradient(45deg, #835cbc, #5b398d);
   border: none;
   border-radius: 5px;
