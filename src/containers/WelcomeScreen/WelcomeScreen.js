@@ -3,9 +3,10 @@ import ProjectTile from "./ProjectTile/ProjectTile";
 import { WelcomeScreenContainer } from "./StyledWelcomeScreen";
 import arrowLeft from "../../assets/icons/left-arrow.svg";
 import arrowRight from "../../assets/icons/right-arrow.svg";
-import LoginModal from "../../components/LoginModal/LoginModal";
+import LoginModal from "../../components/Modals/LoginModal/LoginModal";
+import SignupModal from "../../components/Modals/SignupModal/SignupModal";
+
 import Topbar from "./Topbar/Topbar";
-import SignUpModal from "../../components/SignupModal/SignupModal";
 
 const WelcomeScreen = () => {
   const [loginModalOpened, setLoginModalOpened] = useState(false);
@@ -36,7 +37,7 @@ const WelcomeScreen = () => {
         />
       )}
       {signInModalOpened && (
-        <SignUpModal
+        <SignupModal
           isOpened={signInModalOpened}
           closeModalHandler={closeSignInModalHandler}
         />
