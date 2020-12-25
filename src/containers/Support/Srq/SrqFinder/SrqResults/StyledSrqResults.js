@@ -6,5 +6,19 @@ export const StyledSrqResults = styled.div`
   padding: 0.5rem;
   border-radius: 21px;
   background-color: rgba(34, 40, 49, 0.9);
-  border: 1px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: white;
+  }
 `;

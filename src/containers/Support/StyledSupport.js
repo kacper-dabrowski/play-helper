@@ -6,6 +6,7 @@ export const StyledSupport = styled.div`
   background: #303030 url(${backgroundImage});
   background-size: cover;
   color: white;
+  overflow: hidden;
 `;
 
 export const Container = styled.div`

@@ -4,7 +4,7 @@ import { StyledInputWrapper, StyledSrqSearchbar } from "./StyledSrqSearchbar";
 const SrqSearchbar = () => {
   return (
     <StyledInputWrapper>
-      <StyledSrqSearchbar />
+      <StyledSrqSearchbar placeholder={"Wpisz wyszukiwaną frazę"} />
     </StyledInputWrapper>
   );
 };
