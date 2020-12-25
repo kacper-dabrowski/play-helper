@@ -8,7 +8,7 @@ import ClearButton from "../../../components/ClearButton/ClearButton";
 import { ButtonsContainer } from "./StyledPayments";
 import AdditionalTemplate from "../../../components/AdditionalTemplate/AdditionalTemplate";
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
-import config from "../../../shared/settings";
+import config from "../../../shared/identifiers";
 import {
   generatePaymentTemplates,
   generateAmountsArray,

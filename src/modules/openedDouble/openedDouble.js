@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/controllers/openedDoubleController.js
-import config from "../shared/identifiers";
-=======
-import config from "../../shared/settings";
->>>>>>> Add tests for template controllers:src/controllers/openedDoubleController/openedDoubleController.js
+import config from "../../shared/identifiers";
 
 export const generateOpenedDoubleTemplate = (
   sex,

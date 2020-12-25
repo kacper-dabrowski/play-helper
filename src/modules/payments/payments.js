@@ -1,4 +1,4 @@
-import config from "../../shared/settings";
+import config from "../../shared/identifiers";
 import moment from "moment";
 import Big from "big.js";
 import { convertDate } from "../../shared/utils";
@@ -99,13 +99,17 @@ const generatePaymentsList = (payments) => {
   const paymentStrings = payments.map((payment, index) => {
     switch (index + 1) {
       case 1:
-        return `Rata pierwsza: ${payment.amount} zł z datą płatności ${payment.date},`;
+        return `Rata pierwsza: ${payment.amount.toFixed(
+          2
+        )} zł z datą płatności ${payment.date},`;
       case 2:
-        return `rata druga: ${payment.amount} zł z datą płatności ${
+        return `rata druga: ${payment.amount.toFixed(2)} zł z datą płatności ${
           payment.date
         }${index - 1 === payments.length ? "." : ","}`;
       case 3:
-        return `rata trzecia: ${payment.amount} zł z datą płatności ${payment.date}.`;
+        return `rata trzecia: ${payment.amount.toFixed(
+          2
+        )} zł z datą płatności ${payment.date}.`;
       default:
         throw new Error("Nieobsługiwana liczba rat");
     }

@@ -3,20 +3,9 @@ import ClearButton from "../../../components/ClearButton/ClearButton";
 import ConfirmButton from "../../../components/ConfirmButton/ConfirmButton";
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import SexSection from "../../../components/SexSection/SexSection";
-<<<<<<< HEAD
-<<<<<<< HEAD
-import generateClosedDoubleTemplate from "../../../controllers/closedDoubleController";
-import generateOpenedDoubleTemplate from "../../../controllers/openedDoubleController";
-import config from "../../../shared/identifiers";
-=======
-import generateClosedDoubleTemplate from "../../../controllers/closedDoubleController/closedDoubleController";
-import generateOpenedDoubleTemplate from "../../../controllers/openedDoubleController/openedDoubleController";
-=======
 import generateClosedDoubleTemplate from "../../../modules/closedDouble/closedDouble";
 import generateOpenedDoubleTemplate from "../../../modules/openedDouble/openedDouble";
->>>>>>> Payments - Restructure files to be modules instead of controllers
-import config from "../../../shared/settings";
->>>>>>> Add tests for template controllers
+import config from "../../../shared/identifiers";
 import InputSection from "./Sections/InputSection";
 import { ConfirmButtonsWrapper, StyledSexSection } from "./StyledDouble";
 
