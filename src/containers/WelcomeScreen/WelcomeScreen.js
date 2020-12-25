@@ -5,7 +5,7 @@ import arrowLeft from "../../assets/icons/left-arrow.svg";
 import arrowRight from "../../assets/icons/right-arrow.svg";
 import LoginModal from "../../components/LoginModal/LoginModal";
 import Topbar from "./Topbar/Topbar";
-import SignUpModal from "../../components/SignUpModal/SignUpModal";
+import SignUpModal from "../../components/SignupModal/SignupModal";
 
 const WelcomeScreen = () => {
   const [loginModalOpened, setLoginModalOpened] = useState(false);

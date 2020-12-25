@@ -1,12 +1,12 @@
 import React from "react";
 import Modal from "../UI/Modal/Modal";
-import SignUpForm from "./SignUpForm/SignUpForm";
+import SignupForm from "./SignupForm/SignupForm";
 import { SignupModalContainer } from "./SignupModalContainer";
 const SignUpModal = ({ isOpened, closeModalHandler }) => {
   return (
     <Modal isOpened={isOpened} closeModalHandler={closeModalHandler}>
       <SignupModalContainer>
-        <SignUpForm />
+        <SignupForm />
       </SignupModalContainer>
     </Modal>
   );
