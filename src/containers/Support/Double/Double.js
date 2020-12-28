@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from "react";
-import ClearButton from "../../../components/ClearButton/ClearButton";
-import ConfirmButton from "../../../components/ConfirmButton/ConfirmButton";
+import ConfirmButtons from "../../../components/ConfirmButtons/ConfirmButtons";
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import SexSection from "../../../components/SexSection/SexSection";
 import generateClosedDoubleTemplate from "../../../modules/closedDouble/closedDouble";
 import generateOpenedDoubleTemplate from "../../../modules/openedDouble/openedDouble";
 import config from "../../../shared/identifiers";
 import InputSection from "./Sections/InputSection";
-import { ConfirmButtonsWrapper, StyledSexSection } from "./StyledDouble";
+import { StyledSexSection } from "./StyledDouble";
 
 const Double = ({ type }) => {
   const [sex, setSex] = useState("");
@@ -53,10 +52,10 @@ const Double = ({ type }) => {
           setDoubledHandler={setDoubled}
           type={type}
         />
-        <ConfirmButtonsWrapper>
-          <ConfirmButton onClick={generateTemplateHandler} />
-          <ClearButton onClick={clearFields} />
-        </ConfirmButtonsWrapper>
+        <ConfirmButtons
+          onClearFields={clearFields}
+          onGenerateTemplate={generateTemplateHandler}
+        />
       </div>
       <MainTextarea value={template} setTemplate={setTemplate} />
     </>

@@ -6,8 +6,6 @@ import config from "../../../../shared/identifiers";
 
 const Calculator = (props) => {
   const counterClickedHandler = (currentValue, minValue, maxValue) => {
-    console.warn(currentValue, minValue, maxValue);
-
     if (currentValue === maxValue)
       return props.setPaymentsCountHandler(minValue);
     if (currentValue >= minValue)
@@ -20,8 +18,10 @@ const Calculator = (props) => {
         <label>Kwota do rozłozenia</label>
         <PaymentsInput
           type={"number"}
-          onChange={(event) => props.setAmountHandler(event.target.value)}
-          value={props.amount !== 0 ? props.amount : null}
+          onChange={(event) =>
+            props.setAmountHandler(Number(event.target.value))
+          }
+          value={props.amount ? props.amount : ""}
         />
       </PaymentsInputWrapper>
       <PaymentsInputWrapper>
