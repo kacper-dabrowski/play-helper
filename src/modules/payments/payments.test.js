@@ -1,4 +1,4 @@
-import config from "../../shared/settings.js";
+import config from "../../shared/identifiers";
 import { convertDate } from "../../shared/utils.js";
 import { generatePaymentTemplates, generatePayments } from "./payments.js";
 import moment from "moment";
@@ -230,6 +230,28 @@ it("should generate a valid payments set for P15 after due date", () => {
   ]);
 });
 
+it("should generate a valid payments set for P15 after due date (hardest case)", () => {
+  const paymentsConfig = {
+    paymentSpan: config.payments.spans.P15,
+    amounts: [41, 41, 41],
+    currentDate: new Date("2020/01/22"),
+    paymentsCount: 3,
+  };
+  expect(generatePayments(paymentsConfig)).toEqual([
+    {
+      date: convertDate(moment([2021, 2, 3]).toDate()),
+      amount: 41,
+    },
+    {
+      date: convertDate(moment([2021, 2, 31]).toDate()),
+      amount: 41,
+    },
+    {
+      date: convertDate(moment([2021, 4, 1]).toDate()),
+      amount: 41,
+    },
+  ]);
+});
 it("should generate a valid payments set for P20 before due date", () => {
   const paymentsConfig = {
     paymentSpan: config.payments.spans.P20,
