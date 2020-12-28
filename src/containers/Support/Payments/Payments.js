@@ -3,9 +3,6 @@ import Calculator from "./Sections/Calculator";
 import Invoices from "./Sections/Invoices";
 import PaymentSpan from "./Sections/PaymentSpan";
 import { PaymentsContainer } from "./StyledPayments";
-import ConfirmButton from "../../../components/ConfirmButton/ConfirmButton";
-import ClearButton from "../../../components/ClearButton/ClearButton";
-import { ButtonsContainer } from "./StyledPayments";
 import AdditionalTemplate from "../../../components/AdditionalTemplate/AdditionalTemplate";
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import config from "../../../shared/identifiers";
@@ -13,6 +10,7 @@ import {
   generatePaymentTemplates,
   generateAmountsArray,
 } from "../../../modules/payments/payments";
+import ConfirmButtons from "../../../components/ConfirmButtons/ConfirmButtons";
 
 const Payments = () => {
   const [paymentSpan, setPaymentSpan] = useState(null);
@@ -76,6 +74,15 @@ const Payments = () => {
     setTemplate(additionalTemplate);
   };
 
+  const onClearFields = () => {
+    setPaymentSpan(null);
+    setAmount(null);
+    setPaymentsCount(config.payments.minCount);
+    setInvoices([]);
+    setTemplate("");
+    setAdditionalTemplateActive(false);
+    console.log(amount);
+  };
   return (
     <>
       <PaymentsContainer>
@@ -94,10 +101,10 @@ const Payments = () => {
           enabled={additionalTemplateActive}
           onGenerateTemplate={onGenerateAdditionalTemplate}
         />
-        <ButtonsContainer>
-          <ConfirmButton onClick={onDivideAmount} />
-          <ClearButton />
-        </ButtonsContainer>
+        <ConfirmButtons
+          onGenerateTemplate={onDivideAmount}
+          onClearFields={onClearFields}
+        />
       </PaymentsContainer>
       <MainTextarea value={template} />
     </>

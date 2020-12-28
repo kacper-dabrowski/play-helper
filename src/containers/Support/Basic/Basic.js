@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import ConfirmButtons from "./Sections/ConfirmButtons";
+import ConfirmButtons from "../../../components/ConfirmButtons/ConfirmButtons";
 import ChannelSection from "./Sections/ChannelSection";
 import SexSection from "../../../components/SexSection/SexSection";
 import TextAreaSection from "./Sections/TextAreaSection";
