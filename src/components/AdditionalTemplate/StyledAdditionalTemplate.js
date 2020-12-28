@@ -5,8 +5,8 @@ export const StyledAdditionalTemplate = styled.button`
   margin: 1rem auto;
   color: white;
   text-align: center;
-  min-width: 60%;
-  width: 9rem;
+  max-width: 100%;
+  width: 15rem;
   font-size: 1.2rem;
   height: 2.5rem;
   padding: 0.5rem;
