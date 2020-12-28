@@ -1,5 +1,5 @@
 import React from "react";
-import ConfirmButton from "../ConfirmButton/ConfirmButton";
+import ConfirmButton from "../ConfirmButtons/ConfirmButton/ConfirmButton";
 import {
   MainTextareaWrapper,
   StyledMainTextarea,
