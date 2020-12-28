@@ -1,4 +1,4 @@
-import { act } from "@testing-library/react";
+import axios from "axios";
 import * as actionTypes from "./actionsTypes";
 
 const authStart = () => {
@@ -20,7 +20,23 @@ const authFail = (error) => {
 };
 
 export const auth = (login, password) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(authStart());
+    try {
+      const authData = { username: login, password };
+      const response = await axios.post(
+        "http://localhost:3001/login",
+        authData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const result = response.data;
+      dispatch(authSuccess(result));
+    } catch (error) {
+      dispatch(authFail(error));
+    }
   };
 };
