@@ -5,7 +5,9 @@ import LoginSubmitButton from "./LoginSubmitButton/LoginSubmitButton";
 import { StyledLoginForm } from "./StyledLoginForm";
 import * as actions from "../../../../store/actions";
 import { connect } from "react-redux";
-import axios from "axios";
+import Spinner from "../../../Spinner/Spinner";
+import ErrorMessage from "../../ErrorMessage/ErrorMessage";
+
 const LoginForm = (props) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -14,19 +16,30 @@ const LoginForm = (props) => {
 
     props.onAuth(login, password);
   };
+  const error = (
+    <ErrorMessage errorMessage={props.error ? props.error : null} />
+  );
   return (
-    <StyledLoginForm onSubmit={onLoginSubmitHandler}>
-      <LoginFormHeader>Zaloguj się</LoginFormHeader>
-      <LoginInputs
-        loginChangedHandler={setLogin}
-        passwordChangedHandler={setPassword}
-      />
-      <LoginSubmitButton />
-    </StyledLoginForm>
+    <>
+      <StyledLoginForm onSubmit={onLoginSubmitHandler}>
+        <LoginFormHeader>Zaloguj się</LoginFormHeader>
+        {error}
+        <LoginInputs
+          loginChangedHandler={setLogin}
+          passwordChangedHandler={setPassword}
+        />
+        {props.isLoading ? <Spinner centered /> : <LoginSubmitButton />}
+      </StyledLoginForm>
+    </>
   );
 };
 const mapDispatchToProps = (dispatch) => ({
   onAuth: (login, password) => dispatch(actions.auth(login, password)),
 });
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+const mapStateToProps = (state) => ({
+  isLoading: state.auth.loading,
+  error: state.auth.error,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
