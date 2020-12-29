@@ -5,10 +5,11 @@ const authStart = () => {
   return { type: actionTypes.AUTH_START };
 };
 
-const authSuccess = (authData) => {
+const authSuccess = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData,
+    idToken: token,
+    userId,
   };
 };
 
@@ -33,8 +34,12 @@ export const auth = (login, password) => {
           },
         }
       );
-      const result = response.data;
-      dispatch(authSuccess(result));
+      const { token: idToken, userId } = response.data;
+      if (!idToken || !userId) {
+        throw new Error("Unable to authenticate");
+      }
+
+      dispatch(authSuccess(idToken, userId));
     } catch (error) {
       dispatch(authFail(error));
     }

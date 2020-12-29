@@ -6,17 +6,42 @@ const initialState = {
   error: null,
   loading: false,
 };
-const reducer = (state = initialState, action) => {
+
+const authStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+    error: null,
+  };
+};
+const authSuccess = (state, action) => {
+  return {
+    ...state,
+    token: action.idToken,
+    userId: action.userId,
+    error: null,
+    loading: false,
+  };
+};
+
+const authFail = (state, action) => {
+  return {
+    ...state,
+    error: action.error,
+    loading: false,
+  };
+};
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
+      return authStart(state, action);
+    case actionTypes.AUTH_SUCCESS:
+      return authSuccess(state, action);
+    case actionTypes.AUTH_FAIL:
+      return authFail(state, action);
     default:
       return state;
   }
 };
 
-export default reducer;
+export default authReducer;
