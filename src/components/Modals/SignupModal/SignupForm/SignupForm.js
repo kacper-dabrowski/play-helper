@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { SignupFormHeader } from "./SignupFormHeader/SignupFormHeader";
 import { StyledSignupForm } from "./StyledSignupForm";
 import LoginInput from "../../LoginModal/LoginForm/LoginInputs/LoginInput/LoginInput";
-import SubmitButton from "./SignupSubmitButton/SignupSubmitButton";
+import * as actions from "../../../../store/actions";
 import urls from "../../../../shared/urls";
 import axios from "axios";
 import { FormInputsWrapper } from "../SignupModalContainer";
-const SignUpForm = () => {
+import { connect } from "react-redux";
+import SignupSubmitButton from "./SignupSubmitButton/SignupSubmitButton";
+import Spinner from "../../../Spinner/Spinner";
+const SignUpForm = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -86,9 +89,17 @@ const SignUpForm = () => {
           value={confirmPassword}
         />
       </FormInputsWrapper>
-      <SubmitButton />
+      {props.isLoading ? <Spinner centered /> : <SignupSubmitButton />}
     </StyledSignupForm>
   );
 };
 
-export default SignUpForm;
+const mapDispatchToProps = (dispatch) => ({
+  onAuth: (login, password) => dispatch(actions.auth(login, password)),
+});
+
+const mapStateToProps = (state) => ({
+  isLoading: state.auth.loading,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
