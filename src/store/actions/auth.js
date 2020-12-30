@@ -5,11 +5,12 @@ const authStart = () => {
   return { type: actionTypes.AUTH_START };
 };
 
-const authSuccess = (token, userId) => {
+const authSuccess = (token, userId, fullName) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
     userId,
+    fullName,
   };
 };
 
@@ -33,7 +34,7 @@ const checkTimeout = (expirationTime) => {
     }, Number(expirationTime * 1000));
 };
 
-export const auth = (login, password) => {
+export const auth = (login, password, onSuccess) => {
   return async (dispatch) => {
     dispatch(authStart());
     try {
@@ -47,13 +48,17 @@ export const auth = (login, password) => {
           },
         }
       );
-      const { token: idToken, userId } = response.data;
+      const { token: idToken, userId, fullName } = response.data;
       if (!idToken || !userId) {
         throw new Error("Unable to authenticate");
       }
 
-      dispatch(authSuccess(idToken, userId));
+      dispatch(authSuccess(idToken, userId, fullName));
       dispatch(checkTimeout(response.data.expiresIn));
+
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (error) {
       console.warn(error.response);
       dispatch(authFail(error.response.data.details));

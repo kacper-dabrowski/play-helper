@@ -7,8 +7,9 @@ import LoginModal from "../../components/Modals/LoginModal/LoginModal";
 import SignupModal from "../../components/Modals/SignupModal/SignupModal";
 
 import Topbar from "./Topbar/Topbar";
+import { connect } from "react-redux";
 
-const WelcomeScreen = () => {
+const WelcomeScreen = (props) => {
   const [loginModalOpened, setLoginModalOpened] = useState(false);
   const [signInModalOpened, setSignInModalOpened] = useState(false);
 
@@ -24,12 +25,15 @@ const WelcomeScreen = () => {
   const closeSignInModalHandler = () => {
     setSignInModalOpened(false);
   };
+
   return (
     <WelcomeScreenContainer>
-      <Topbar
-        onLoginModalOpened={openLoginModalHandler}
-        onSignInModalOpened={openSignInModalHandler}
-      />
+      {!props.isAuthenticated && (
+        <Topbar
+          onLoginModalOpened={openLoginModalHandler}
+          onSignInModalOpened={openSignInModalHandler}
+        />
+      )}
       {loginModalOpened && (
         <LoginModal
           isOpened={loginModalOpened}
@@ -59,5 +63,8 @@ const WelcomeScreen = () => {
     </WelcomeScreenContainer>
   );
 };
+const mapStateToProps = (state) => ({
+  isAuthenticated: !!state.auth.token,
+});
 
-export default WelcomeScreen;
+export default connect(mapStateToProps, null)(WelcomeScreen);

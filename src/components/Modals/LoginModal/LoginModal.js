@@ -6,7 +6,7 @@ const LoginModal = ({ isOpened, closeModalHandler }) => {
   return (
     <Modal isOpened={isOpened} closeModalHandler={closeModalHandler}>
       <LoginModalContainer>
-        <LoginForm />
+        <LoginForm onSuccess={closeModalHandler} />
       </LoginModalContainer>
     </Modal>
   );

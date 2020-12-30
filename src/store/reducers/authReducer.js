@@ -5,6 +5,7 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
+  fullName: "",
 };
 
 const authStart = (state, action) => {
@@ -19,6 +20,7 @@ const authSuccess = (state, action) => {
     ...state,
     token: action.idToken,
     userId: action.userId,
+    fullName: action.fullName,
     error: null,
     loading: false,
   };

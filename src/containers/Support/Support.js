@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
 import config from "../../shared/identifiers";
 import routes from "../../shared/routes";
@@ -9,9 +10,9 @@ import Srq from "./Srq/Srq";
 import { Container, StyledSupport } from "./StyledSupport";
 import Navbar from "./SupportNavbar/Navbar";
 
-const Support = () => (
+const Support = (props) => (
   <StyledSupport>
-    <Navbar username={"Konsultant Play"} />
+    <Navbar username={props.fullName} />
     <Container>
       <Switch>
         <Route path={routes.support.srq}>
@@ -34,5 +35,8 @@ const Support = () => (
     </Container>
   </StyledSupport>
 );
-
-export default Support;
+const mapStateToProps = (state) => ({
+  isAuthenticated: !!state.auth.token,
+  fullName: state.auth.fullName,
+});
+export default connect(mapStateToProps, null)(Support);
