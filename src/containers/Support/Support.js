@@ -19,7 +19,7 @@ const Support = (props) => (
           <Srq />
         </Route>
         <Route path={routes.support.basic}>
-          <Basic />
+          <Basic name={props.fullName} />
         </Route>
         <Route path={routes.support.doubleOpened}>
           <Double type={config.double.opened} />
