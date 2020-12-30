@@ -14,7 +14,7 @@ const LoginForm = (props) => {
   const onLoginSubmitHandler = (event) => {
     event.preventDefault();
 
-    props.onAuth(login, password);
+    props.onAuth(login, password, props.onSuccess);
   };
   const error = (
     <ErrorMessage errorMessage={props.error ? props.error : null} />
@@ -34,7 +34,8 @@ const LoginForm = (props) => {
   );
 };
 const mapDispatchToProps = (dispatch) => ({
-  onAuth: (login, password) => dispatch(actions.auth(login, password)),
+  onAuth: (login, password, onSuccess) =>
+    dispatch(actions.auth(login, password, onSuccess)),
 });
 
 const mapStateToProps = (state) => ({
