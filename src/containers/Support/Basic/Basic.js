@@ -17,7 +17,7 @@ import {
   generateTelephoneTemplate,
 } from "../../../modules/basic/basic";
 
-const Basic = () => {
+const Basic = (props) => {
   const [template, setTemplate] = useState("");
   const [sex, setSex] = useState(null);
   const [type, setType] = useState(null);
@@ -29,6 +29,7 @@ const Basic = () => {
 
   const generateTemplate = useCallback(() => {
     const templateConfig = {
+      name: props.name,
       sex,
       type,
       channel,
@@ -39,7 +40,7 @@ const Basic = () => {
     };
     const generatedTemplate = generateBasicTemplate(templateConfig);
     setTemplate(generatedTemplate);
-  }, [sex, type, channel, date, details, general, hasOffer]);
+  }, [sex, type, channel, date, details, general, hasOffer, props.name]);
 
   const generateAdditionalTemplate = () => {
     setTemplate(generateTelephoneTemplate());
