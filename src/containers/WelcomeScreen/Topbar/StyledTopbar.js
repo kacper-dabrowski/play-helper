@@ -6,4 +6,5 @@ export const TopbarContainer = styled.div`
   left: 1rem;
   width: 90%;
   display: flex;
+  align-items: center;
 `;

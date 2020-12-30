@@ -28,12 +28,13 @@ const WelcomeScreen = (props) => {
 
   return (
     <WelcomeScreenContainer>
-      {!props.isAuthenticated && (
-        <Topbar
-          onLoginModalOpened={openLoginModalHandler}
-          onSignInModalOpened={openSignInModalHandler}
-        />
-      )}
+      <Topbar
+        isAuthenticated={props.isAuthenticated}
+        fullName={props.fullName}
+        onLoginModalOpened={openLoginModalHandler}
+        onSignInModalOpened={openSignInModalHandler}
+      />
+
       {loginModalOpened && (
         <LoginModal
           isOpened={loginModalOpened}
@@ -65,6 +66,7 @@ const WelcomeScreen = (props) => {
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: !!state.auth.token,
+  fullName: state.auth.fullName,
 });
 
 export default connect(mapStateToProps, null)(WelcomeScreen);
