@@ -22,16 +22,22 @@ const authFail = (error) => {
 };
 
 export const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("expirationDate");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("fullName");
+
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
 };
 
 const checkTimeout = (expirationTime) => {
-  return (dispatch) =>
+  return (dispatch) => {
     setTimeout(() => {
       dispatch(logout());
     }, Number(expirationTime * 1000));
+  };
 };
 
 export const auth = (login, password, onSuccess) => {
@@ -48,13 +54,18 @@ export const auth = (login, password, onSuccess) => {
           },
         }
       );
-      const { token: idToken, userId, fullName } = response.data;
+      const { token: idToken, userId, fullName, expiresIn } = response.data;
       if (!idToken || !userId) {
         throw new Error("Unable to authenticate");
       }
+      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
+      localStorage.setItem("token", idToken);
+      localStorage.setItem("expirationDate", expirationDate);
+      localStorage.setItem("fullName", fullName);
+      localStorage.setItem("userId", userId);
       dispatch(authSuccess(idToken, userId, fullName));
-      dispatch(checkTimeout(response.data.expiresIn));
+      dispatch(checkTimeout(expiresIn));
 
       if (onSuccess) {
         onSuccess();
@@ -63,5 +74,26 @@ export const auth = (login, password, onSuccess) => {
       console.warn(error.response);
       dispatch(authFail(error.response.data.details));
     }
+  };
+};
+
+export const authCheckState = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return dispatch(logout());
+    }
+    const userId = localStorage.getItem("userId");
+    const fullName = localStorage.getItem("fullName");
+
+    const expirationDate = new Date(localStorage.getItem("expirationDate"));
+
+    if (expirationDate > new Date()) {
+      dispatch(authSuccess(token, userId, fullName));
+      return dispatch(
+        checkTimeout(expirationDate.getSeconds() - new Date().getSeconds())
+      );
+    }
+    dispatch(logout());
   };
 };

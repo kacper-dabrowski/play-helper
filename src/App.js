@@ -1,9 +1,14 @@
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
 import Logout from "./components/Logout/Logout";
 import Support from "./containers/Support/Support";
 import WelcomeScreen from "./containers/WelcomeScreen/WelcomeScreen";
-
-const App = () => {
+import * as actions from "./store/actions";
+const App = (props) => {
+  useEffect(() => {
+    props.onTryAutoSignup();
+  });
   return (
     <Switch>
       <Route path={"/support"}>
@@ -19,5 +24,8 @@ const App = () => {
     </Switch>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  onTryAutoSignup: () => dispatch(actions.authCheckState()),
+});
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
