@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
 export const StyledLoginForm = styled.form`
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
