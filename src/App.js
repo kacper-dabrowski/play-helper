@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
 import Logout from "./components/Logout/Logout";
+import PlayNext from "./containers/PlayNext/PlayNext";
 import Support from "./containers/Support/Support";
 import WelcomeScreen from "./containers/WelcomeScreen/WelcomeScreen";
 import * as actions from "./store/actions";
@@ -15,7 +16,7 @@ const App = (props) => {
         <Support />
       </Route>
       <Route path={"/next"}>
-        <div>NEXT</div>
+        <PlayNext />
       </Route>
       <Route path={"/logout"} render={() => <Logout />} />
       <Route path={"/"} exact>
