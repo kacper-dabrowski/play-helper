@@ -71,8 +71,9 @@ export const auth = (login, password, onSuccess) => {
         onSuccess();
       }
     } catch (error) {
-      console.warn(error.response);
-      dispatch(authFail(error.response.data.details));
+      const displayedError = error?.response?.data?.details || error?.message;
+      console.warn(displayedError);
+      dispatch(authFail(displayedError));
     }
   };
 };
