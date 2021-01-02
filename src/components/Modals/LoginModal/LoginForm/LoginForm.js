@@ -11,11 +11,12 @@ import ErrorMessage from "../../ErrorMessage/ErrorMessage";
 const LoginForm = (props) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+
   const onLoginSubmitHandler = (event) => {
     event.preventDefault();
-
     props.onAuth(login, password, props.onSuccess);
   };
+
   const error = (
     <ErrorMessage errorMessage={props.error ? props.error : null} />
   );
