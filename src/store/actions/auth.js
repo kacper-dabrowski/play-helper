@@ -59,7 +59,6 @@ export const auth = (login, password, onSuccess) => {
         throw new Error("Unable to authenticate");
       }
       const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-
       localStorage.setItem("token", idToken);
       localStorage.setItem("expirationDate", expirationDate);
       localStorage.setItem("fullName", fullName);
@@ -88,13 +87,14 @@ export const authCheckState = () => {
     const fullName = localStorage.getItem("fullName");
 
     const expirationDate = new Date(localStorage.getItem("expirationDate"));
-
-    if (expirationDate > new Date()) {
+    const isTokenValid = expirationDate.getTime() >= new Date().getTime();
+    if (isTokenValid) {
       dispatch(authSuccess(token, userId, fullName));
       return dispatch(
-        checkTimeout(expirationDate.getSeconds() - new Date().getSeconds())
+        checkTimeout((expirationDate.getTime() - new Date().getTime()) / 1000)
       );
     }
+
     dispatch(logout());
   };
 };
