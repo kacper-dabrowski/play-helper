@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../../../components/Button/Button";
+import Button from "../../../../components/SupportButton/StyledSupportButton";
 import DateInput from "../../../../components/DateInput/DateInput";
 import config from "../../../../shared/identifiers";
 
