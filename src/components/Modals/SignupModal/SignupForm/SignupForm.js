@@ -67,11 +67,13 @@ const SignUpForm = (props) => {
       setHasError(error?.response?.data || error);
     }
   };
-
+  const error = hasError.message ? (
+    <ErrorMessage errorMessage={hasError.message} />
+  ) : null;
   return (
     <StyledSignupForm onSubmit={signedUpHandler}>
       <SignupFormHeader>Zarejestruj się</SignupFormHeader>
-      <ErrorMessage errorMessage={hasError.message} />
+      {error}
       <FormInputsWrapper>
         <LoginInput
           placeholder={"Nazwa użytkownika"}

@@ -17,9 +17,9 @@ const LoginForm = (props) => {
     props.onAuth(login, password, props.onSuccess);
   };
 
-  const error = (
-    <ErrorMessage errorMessage={props.error ? props.error : null} />
-  );
+  const error = props.error ? (
+    <ErrorMessage errorMessage={props.error} />
+  ) : null;
   return (
     <>
       <StyledLoginForm onSubmit={onLoginSubmitHandler}>
