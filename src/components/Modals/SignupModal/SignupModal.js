@@ -6,7 +6,7 @@ const SignUpModal = ({ isOpened, closeModalHandler }) => {
   return (
     <Modal isOpened={isOpened} closeModalHandler={closeModalHandler}>
       <SignupModalContainer>
-        <SignupForm />
+        <SignupForm closeModalHandler={closeModalHandler} />
       </SignupModalContainer>
     </Modal>
   );

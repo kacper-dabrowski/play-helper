@@ -9,6 +9,7 @@ import { FormInputsWrapper } from "../SignupModalContainer";
 import { connect } from "react-redux";
 import SignupSubmitButton from "./SignupSubmitButton/SignupSubmitButton";
 import Spinner from "../../../Spinner/Spinner";
+import ErrorMessage from "../../ErrorMessage/ErrorMessage";
 const SignUpForm = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,20 +20,23 @@ const SignUpForm = (props) => {
 
   const signedUpHandler = async (event) => {
     event.preventDefault();
-
+    if (password.length < 6) {
+      const error = new Error("Hasło nie może być krótsze niż 6 znaków!");
+      setHasError(error);
+    }
     if (password !== confirmPassword) {
-      const error = new Error();
-      error.message = "Hasła nie są takie same!";
+      const error = new Error("Hasła nie są takie same!");
+
       return setHasError(error);
     }
     if (!username) {
-      const error = new Error();
-      error.message = "Nazwa użytkownika nie może być pusta!";
+      const error = new Error("Nazwa użytkownika nie może być pusta!");
+
       return setHasError(error);
     }
     if (!fullName) {
-      const error = new Error();
-      error.message = "Imię i nazwisko nie mogą być puste!";
+      const error = new Error("Imię i nazwisko nie mogą być puste!");
+
       return setHasError(error);
     }
 
@@ -41,30 +45,33 @@ const SignUpForm = (props) => {
       password,
       fullName,
     };
-    const signupRequest = await axios.post(
-      urls.api + urls.signup,
-      JSON.stringify(newUser),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    try {
+      const signupRequest = await axios.post(
+        urls.api + urls.signup,
+        JSON.stringify(newUser),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(signupRequest.status);
+      if (signupRequest.status !== 201) {
+        const error = new Error();
+        error.message = "Żądanie nie powiodło się.";
+        setHasError(error);
       }
-    );
-
-    if (signupRequest.status !== 201) {
-      const error = new Error();
-      error.message = "Żądanie nie powiodło się.";
-      setHasError(error);
+      props.onAuth(username, password, props.closeModalHandler());
+    } catch (error) {
+      console.log(error.response);
+      setHasError(error?.response?.data || error);
     }
-    console.warn(signupRequest.data);
   };
-
-  if (hasError.message) {
-  }
 
   return (
     <StyledSignupForm onSubmit={signedUpHandler}>
       <SignupFormHeader>Zarejestruj się</SignupFormHeader>
+      <ErrorMessage errorMessage={hasError.message} />
       <FormInputsWrapper>
         <LoginInput
           placeholder={"Nazwa użytkownika"}
@@ -95,7 +102,8 @@ const SignUpForm = (props) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onAuth: (login, password) => dispatch(actions.auth(login, password)),
+  onAuth: (login, password, onSuccess) =>
+    dispatch(actions.auth(login, password, onSuccess)),
 });
 
 const mapStateToProps = (state) => ({
