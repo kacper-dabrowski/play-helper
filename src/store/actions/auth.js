@@ -1,4 +1,5 @@
 import axios from "axios";
+import urls from "../../shared/urls";
 import * as actionTypes from "./actionsTypes";
 
 const authStart = () => {
@@ -45,15 +46,11 @@ export const auth = (login, password, onSuccess) => {
     dispatch(authStart());
     try {
       const authData = { username: login, password };
-      const response = await axios.post(
-        "http://localhost:3001/login",
-        authData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(urls.api + urls.login, authData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const { token: idToken, userId, fullName, expiresIn } = response.data;
       if (!idToken || !userId) {
         throw new Error("Unable to authenticate");
