@@ -8,12 +8,13 @@ export const StyledConfirmButton = styled.button`
   height: 2.5rem;
   padding: 0.5rem;
   border-radius: 20px;
-  background-color: #28abb9;
+  background-color: #399547;
   border: none;
   transition: ease-in-out 0.2s;
   color: white;
   &:hover {
-    background-color: #2d6187;
+    color: #399547;
+    background-color: white;
     cursor: pointer;
   }
 `;

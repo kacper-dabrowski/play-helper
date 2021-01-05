@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import backgroundImage from "../../assets/backgrounds/play-next-wave.svg";
+
+import { StyledConfirmButton } from "../../components/ConfirmButtons/ConfirmButton/StyledConfirmButton";
+import MainTextarea from "../../components/MainTextarea/MainTextarea";
 export const StyledPlayNext = styled.div`
   width: 100%;
   height: 100vh;
@@ -18,3 +21,13 @@ export const Container = styled.div`
   margin: auto;
   grid-template-columns: 1fr 1fr;
 `;
+
+export const PlayNextTextArea = styled(MainTextarea)`
+  height: 40%;
+
+  font-size: 1.1rem;
+  & ${StyledConfirmButton} {
+    background-color: #399547;
+  }
+`;
+// #399547
