@@ -14,6 +14,7 @@ const Settings = ({
   activeTemplate,
   setActiveTemplate,
   onGenerateTemplate,
+  addToCurrentTemplate,
 }) => {
   const languageToSet =
     language === identifiers.language.polish
@@ -69,8 +70,18 @@ const Settings = ({
           setActiveTemplate(identifiers.nextTemplates.END_CONVERSATION)
         }
       />
-      <PlayNextButton title={"+ Dopytaj"} />
-      <PlayNextButton title={"+ Ocena pracy"} />
+      <PlayNextButton
+        title={"+ Dopytaj"}
+        onClick={() =>
+          addToCurrentTemplate(identifiers.nextNotes.ASK, language)
+        }
+      />
+      <PlayNextButton
+        title={"+ Ocena pracy"}
+        onClick={() =>
+          addToCurrentTemplate(identifiers.nextNotes.JOB_EVALUATION, language)
+        }
+      />
       <BorderButton
         title={sex === identifiers.sex.woman ? "Pani" : "Pan"}
         btnColor={sex === identifiers.sex.woman ? "pink" : "#0ff"}
