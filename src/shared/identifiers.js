@@ -58,5 +58,23 @@ const config = {
     maxInvoices: 3,
     invoiceRegex: /(F\/\d{8}\/(?:(?:0[0-9])|(?:1[012]))\/\d{2})/,
   },
+  language: {
+    polish: "POLISH",
+    english: "ENGLISH",
+  },
+  nextTemplates: {
+    GREETING: "GREETING",
+    DELETE_ACCOUNT: "DELETE_ACCOUNT",
+    NOTIFICATION: "NOTIFICATION",
+    MIGRATION: "MIGRATION",
+    ROAMING: "ROAMING",
+    QOS: "QOS",
+    NO_RESPONSE: "NO_RESPONSE",
+    END_CONVERSATION: "END_CONVERSATION",
+  },
+  nextNotes: {
+    ASK: "ASK",
+    JOB_EVALUATION: "JOB_EVALUATION",
+  },
 };
 export default config;
