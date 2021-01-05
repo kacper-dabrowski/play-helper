@@ -4,6 +4,7 @@ import PlayNextButton from "../../../components/PlayNextButton/PlayNextButton";
 import { StyledPlayNextSettings } from "./StyledSettings";
 import identifiers from "../../../shared/identifiers";
 import { isPolish } from "../../../modules/next/next";
+import { StyledConfirmButton } from "./StyledSettings";
 
 const Settings = ({
   language,
@@ -12,6 +13,7 @@ const Settings = ({
   setSex,
   activeTemplate,
   setActiveTemplate,
+  onGenerateTemplate,
 }) => {
   const languageToSet =
     language === identifiers.language.polish
@@ -79,6 +81,7 @@ const Settings = ({
         btnColor={isPolish(language) ? "#f66" : "#fada79"}
         onClick={() => setLanguage(languageToSet)}
       />
+      <StyledConfirmButton onClick={onGenerateTemplate} />
     </StyledPlayNextSettings>
   );
 };

@@ -14,7 +14,7 @@ export const StyledCheckbox = styled.input.attrs({ type: "checkbox" })`
 
     &:checked {
       animation: spring 1s;
-      background-color: #28abb9;
+      background-color: #399547;
     }
     @keyframes spring {
       0% {
