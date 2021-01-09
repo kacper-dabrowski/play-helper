@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const StyledInvoice = styled.div`
   width: 70%;
+  height: 3rem;
   display: grid;
+  justify-content: center;
+  align-items: center;
   grid-template-columns: 4fr 2fr 2fr;
   grid-template-rows: 3rem;
   margin: 0.5rem auto;
