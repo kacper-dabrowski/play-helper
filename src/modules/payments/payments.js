@@ -53,12 +53,14 @@ ${invoices
 
 export const generatePaymentTemplates = (paymentConfig) => {
   const { invoices, payments, name, paymentSpan } = paymentConfig;
+
   const paymentsConfig = {
-    currentDate: new Date(),
+    currentDate: new Date(Date.now()),
     amounts: payments,
     paymentsCount: payments.length,
     paymentSpan: paymentSpan,
   };
+
   const additionalTemplateConfig = {
     paymentSpan,
     paymentsCount: payments.length,
@@ -67,6 +69,7 @@ export const generatePaymentTemplates = (paymentConfig) => {
   };
 
   const paymentsObject = generatePayments(paymentsConfig);
+
   const paymentsList = generatePaymentsList(paymentsObject);
 
   return {
@@ -114,6 +117,7 @@ const generatePaymentsList = (payments) => {
         throw new Error("Nieobsługiwana liczba rat");
     }
   });
+
   return paymentStrings.join(`
 `);
 };

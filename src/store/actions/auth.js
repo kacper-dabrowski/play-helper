@@ -68,7 +68,7 @@ export const auth = (login, password, onSuccess) => {
       }
     } catch (error) {
       const displayedError = error?.response?.data?.details || error?.message;
-      console.warn(displayedError);
+
       dispatch(authFail(displayedError));
     }
   };

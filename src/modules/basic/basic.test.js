@@ -1,5 +1,5 @@
 const { generateBasicTemplate } = require("./basic");
-const config = require("../../shared/settings");
+const config = require("../../shared/identifiers");
 
 it("should generate a valid basic template for man, business type and helpline channel with and without offer", () => {
   const templateConfig = {

@@ -11,8 +11,9 @@ import {
   generateAmountsArray,
 } from "../../../modules/payments/payments";
 import ConfirmButtons from "../../../components/ConfirmButtons/ConfirmButtons";
+import { connect } from "react-redux";
 
-const Payments = () => {
+const Payments = ({ fullName }) => {
   const [paymentSpan, setPaymentSpan] = useState(null);
   const [amount, setAmount] = useState(0);
   const [paymentsCount, setPaymentsCount] = useState(config.payments.minCount);
@@ -60,7 +61,7 @@ const Payments = () => {
 
     const amountsArray = generateAmountsArray(parsedAmount, paymentsCount);
     const paymentTemplates = generatePaymentTemplates({
-      name: "Alicja Wyczyńska",
+      name: fullName,
       payments: amountsArray,
       invoices,
       paymentSpan,
@@ -106,9 +107,11 @@ const Payments = () => {
           onClearFields={onClearFields}
         />
       </PaymentsContainer>
-      <MainTextarea value={template} />
+      <MainTextarea value={template} setTemplate={setTemplate} />
     </>
   );
 };
-
-export default Payments;
+const mapStateToProps = (state) => ({
+  fullName: state.auth.fullName,
+});
+export default connect(mapStateToProps, null)(Payments);
