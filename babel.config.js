@@ -21,7 +21,7 @@ module.exports = function (api) {
           [
             "@babel/preset-env",
             {
-              modules: false,
+              modules: ["commonjs"],
               targets: { node: "current" },
             },
           ],
