@@ -13,7 +13,7 @@ export const Container = styled.div`
   width: 80%;
   height: calc(100% - 120px);
   display: grid;
-  padding: 1rem;
+  /* padding: 1rem; */
   text-align: center;
   margin: auto;
   grid-template-columns: 1fr 1fr;
