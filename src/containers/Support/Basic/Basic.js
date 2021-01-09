@@ -16,7 +16,7 @@ import {
   generateBasicTemplate,
   generateTelephoneTemplate,
 } from "../../../modules/basic/basic";
-
+const telephoneTemplate = generateTelephoneTemplate();
 const Basic = (props) => {
   const [template, setTemplate] = useState("");
   const [sex, setSex] = useState(null);
@@ -41,10 +41,6 @@ const Basic = (props) => {
     const generatedTemplate = generateBasicTemplate(templateConfig);
     setTemplate(generatedTemplate);
   }, [sex, type, channel, date, details, general, hasOffer, props.name]);
-
-  const generateAdditionalTemplate = () => {
-    setTemplate(generateTelephoneTemplate());
-  };
 
   const clearFields = useCallback(() => {
     setTemplate("");
@@ -87,7 +83,7 @@ const Basic = (props) => {
           <AdditionalTemplate
             title={"Zamknięcie telefoniczne"}
             enabled
-            onGenerateTemplate={generateAdditionalTemplate}
+            template={telephoneTemplate}
           />
         </AdditionalTemplateContainer>
         <ConfirmButtons
