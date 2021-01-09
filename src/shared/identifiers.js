@@ -1,4 +1,8 @@
 const config = {
+  projects: {
+    NEXT: "NEXT",
+    SUPPORT: "SUPPORT",
+  },
   sex: {
     man: "MAN",
     woman: "WOMAN",
