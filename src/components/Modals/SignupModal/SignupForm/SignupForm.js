@@ -4,7 +4,7 @@ import { StyledSignupForm } from "./StyledSignupForm";
 import LoginInput from "../../LoginModal/LoginForm/LoginInputs/LoginInput/LoginInput";
 import * as actions from "../../../../store/actions";
 import urls from "../../../../shared/urls";
-import axios from "axios";
+import axios from "../../../../axios";
 import { FormInputsWrapper } from "../SignupModalContainer";
 import { connect } from "react-redux";
 import SignupSubmitButton from "./SignupSubmitButton/SignupSubmitButton";
