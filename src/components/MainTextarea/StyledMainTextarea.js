@@ -19,5 +19,6 @@ export const StyledMainTextarea = styled.textarea`
   border-radius: 21px;
   padding: 0.5rem;
   font-family: inherit;
+  font-size: 1.1rem;
   resize: vertical;
 `;
