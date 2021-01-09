@@ -3,7 +3,7 @@ import { StyledSrqResults } from "./StyledSrqResults";
 import SrqResult from "./SrqResult/SrqResult";
 import { ClipLoader } from "react-spinners";
 
-const SrqResults = ({ supportRequests, hasError, isLoading }) => {
+const SrqResults = ({ supportRequests, hasError, isLoading, setTemplate }) => {
   if (hasError) {
     return (
       <StyledSrqResults>
@@ -25,6 +25,7 @@ const SrqResults = ({ supportRequests, hasError, isLoading }) => {
       {supportRequests.map(
         ({ title, description, department, content, _id }) => (
           <SrqResult
+            onClick={() => setTemplate(content)}
             key={_id}
             content={content}
             title={title}

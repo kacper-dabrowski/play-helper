@@ -5,7 +5,7 @@ import SrqResults from "./SrqResults/SrqResults";
 import SrqSearchbar from "./SrqSearchbar/SrqSearchbar";
 import { StyledSrqFinder } from "./StyledSrqFinder";
 
-const SrqFinder = () => {
+const SrqFinder = (props) => {
   const [results, setResults] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [loading, setIsLoading] = useState(true);
@@ -50,12 +50,13 @@ const SrqFinder = () => {
 
   return (
     <StyledSrqFinder>
+      <SrqSearchbar onType={searchSrqHandler} value={searchQuery} />
       <SrqResults
+        setTemplate={props.setTemplate}
         supportRequests={searchQuery ? searchResults : results}
         hasError={hasError}
         isLoading={loading}
       />
-      <SrqSearchbar onType={searchSrqHandler} value={searchQuery} />
     </StyledSrqFinder>
   );
 };

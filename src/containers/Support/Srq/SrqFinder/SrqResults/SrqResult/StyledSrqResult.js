@@ -8,5 +8,14 @@ export const StyledSrqResultContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0;
-  border-bottom: 1px solid white;
+  margin: 1rem auto;
+  border: 1px solid white;
+  transition: ease-in-out 0.2s;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+  }
 `;

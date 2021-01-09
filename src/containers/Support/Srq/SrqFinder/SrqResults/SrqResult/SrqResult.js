@@ -1,9 +1,9 @@
 import React from "react";
 import { StyledSrqResultContainer } from "./StyledSrqResult";
 
-const SrqResult = ({ title, description, department, content }) => {
+const SrqResult = ({ title, description, department, onClick }) => {
   return (
-    <StyledSrqResultContainer>
+    <StyledSrqResultContainer onClick={onClick}>
       <h3>{title}</h3>
       <p>{description}</p>
       <p>{department}</p>

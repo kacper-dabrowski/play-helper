@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import SrqFinder from "./SrqFinder/SrqFinder";
 
 const Srq = () => {
+  const [template, setTemplate] = useState("");
   return (
     <>
-      <SrqFinder />
-      <MainTextarea />
+      <SrqFinder setTemplate={setTemplate} />
+      <MainTextarea value={template} setTemplate={setTemplate} />
     </>
   );
 };
