@@ -1,10 +1,16 @@
 import React from "react";
 import { StyledInputWrapper, StyledSrqSearchbar } from "./StyledSrqSearchbar";
 
-const SrqSearchbar = () => {
+const SrqSearchbar = ({ onType, value }) => {
   return (
     <StyledInputWrapper>
-      <StyledSrqSearchbar placeholder={"Wpisz wyszukiwaną frazę"} />
+      <StyledSrqSearchbar
+        value={value}
+        onChange={(event) => {
+          onType(event);
+        }}
+        placeholder={"Wpisz wyszukiwaną frazę"}
+      />
     </StyledInputWrapper>
   );
 };
