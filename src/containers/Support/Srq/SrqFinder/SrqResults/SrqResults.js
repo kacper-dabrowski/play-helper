@@ -1,34 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyledSrqResults } from "./StyledSrqResults";
-import axios from "../../../../../axios";
-import urls from "../../../../../shared/urls";
 import SrqResult from "./SrqResult/SrqResult";
 import { ClipLoader } from "react-spinners";
 
-const SrqResults = () => {
-  const [results, setResults] = useState([]);
-  const [hasError, setHasError] = useState(false);
-  const [loading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchSrq = async () => {
-      try {
-        const response = await axios.get(urls.api + urls.srq);
-        const srqArray = response?.data?.supportRequests;
-        console.log(srqArray);
-        if (!srqArray || !Array.isArray(srqArray)) {
-          throw new Error("Nie znaleziono zapisanych Support Request");
-        }
-        setIsLoading(false);
-        setResults(srqArray);
-      } catch (error) {
-        setHasError(error.message);
-      }
-    };
-
-    fetchSrq();
-  }, []);
-
+const SrqResults = ({ supportRequests, hasError, isLoading }) => {
   if (hasError) {
     return (
       <StyledSrqResults>
@@ -37,23 +12,29 @@ const SrqResults = () => {
     );
   }
 
-  if (loading) {
+  if (isLoading) {
     return (
       <StyledSrqResults>
         <ClipLoader color={"white"} />
       </StyledSrqResults>
     );
   }
-  const supportRequests = results.map(({ title, description, department }) => (
-    <SrqResult
-      title={title}
-      description={description}
-      department={department}
-    />
-  ));
-  console.log(results);
 
-  return <StyledSrqResults>{supportRequests}</StyledSrqResults>;
+  return (
+    <StyledSrqResults>
+      {supportRequests.map(
+        ({ title, description, department, content, _id }) => (
+          <SrqResult
+            key={_id}
+            content={content}
+            title={title}
+            description={description}
+            department={department}
+          />
+        )
+      )}
+    </StyledSrqResults>
+  );
 };
 
 export default SrqResults;
