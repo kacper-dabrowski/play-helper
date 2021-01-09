@@ -5,15 +5,20 @@ import {
   StyledMainTextarea,
   TextAreaButtonsWrapper,
 } from "./StyledMainTextarea";
+import CopyToClipboard from "react-copy-to-clipboard";
 
-const MainTextarea = ({ setTemplate, ...props }) => (
+const MainTextarea = ({ setTemplate, value, ...props }) => (
   <MainTextareaWrapper>
     <StyledMainTextarea
       {...props}
+      value={value}
       onChange={(event) => setTemplate(event.target.value)}
     />
+
     <TextAreaButtonsWrapper>
-      <ConfirmButton title={"Kopiuj"} />
+      <CopyToClipboard text={value}>
+        <ConfirmButton title={"Kopiuj"} />
+      </CopyToClipboard>
     </TextAreaButtonsWrapper>
   </MainTextareaWrapper>
 );

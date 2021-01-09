@@ -22,6 +22,7 @@ const Payments = ({ fullName }) => {
   const [additionalTemplateActive, setAdditionalTemplateActive] = useState(
     false
   );
+
   const [additionalTemplate, setAdditionalTemplate] = useState("");
 
   const setInvoicesHandler = (event) => {
@@ -71,10 +72,6 @@ const Payments = ({ fullName }) => {
     setAdditionalTemplate(paymentTemplates.additionalTemplate);
   };
 
-  const onGenerateAdditionalTemplate = () => {
-    setTemplate(additionalTemplate);
-  };
-
   const onClearFields = () => {
     setPaymentSpan(null);
     setAmount(null);
@@ -100,7 +97,7 @@ const Payments = ({ fullName }) => {
         <AdditionalTemplate
           title={"Formatka ratalna"}
           enabled={additionalTemplateActive}
-          onGenerateTemplate={onGenerateAdditionalTemplate}
+          template={additionalTemplate}
         />
         <ConfirmButtons
           onGenerateTemplate={onDivideAmount}
