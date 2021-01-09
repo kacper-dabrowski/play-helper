@@ -5,6 +5,7 @@ const urls = {
       : "http://localhost:3001",
   signup: "/signup",
   login: "/login",
+  srq: "/srq",
 };
 
 export default urls;
