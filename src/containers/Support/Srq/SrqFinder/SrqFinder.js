@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import axios from "../../../../axios";
+import React, { useState } from "react";
+import useRequest from "../../../../hooks/useRequest";
 import urls from "../../../../shared/urls";
 import SrqResults from "./SrqResults/SrqResults";
 import SrqSearchbar from "./SrqSearchbar/SrqSearchbar";
 import { StyledSrqFinder } from "./StyledSrqFinder";
 
 const SrqFinder = (props) => {
-  const [results, setResults] = useState([]);
-  const [hasError, setHasError] = useState(false);
-  const [loading, setIsLoading] = useState(true);
+  const [response, error, loading] = useRequest(urls.srq, "GET", null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+  const srqResults = response?.data?.supportRequests;
+
   const onSearch = (searchPhrase) => {
-    const search = results.filter((result) => {
+    const search = srqResults.filter((result) => {
       return (
         result.title.toLowerCase().includes(searchPhrase) ||
         result.description.toLowerCase().includes(searchPhrase) ||
@@ -28,33 +28,14 @@ const SrqFinder = (props) => {
     setSearchQuery(event.target.value);
     onSearch(event.target.value);
   };
-
-  useEffect(() => {
-    const fetchSrq = async () => {
-      try {
-        const response = await axios.get(urls.api + urls.srq);
-        const srqArray = response?.data?.supportRequests;
-        console.log(srqArray);
-        if (!srqArray || !Array.isArray(srqArray)) {
-          throw new Error("Nie znaleziono zapisanych Support Request");
-        }
-        setIsLoading(false);
-        setResults(srqArray);
-      } catch (error) {
-        setHasError(error.message);
-      }
-    };
-
-    fetchSrq();
-  }, []);
-
+  console.log(srqResults);
   return (
     <StyledSrqFinder>
       <SrqSearchbar onType={searchSrqHandler} value={searchQuery} />
       <SrqResults
         setTemplate={props.setTemplate}
-        supportRequests={searchQuery ? searchResults : results}
-        hasError={hasError}
+        supportRequests={searchQuery ? searchResults : srqResults}
+        hasError={error}
         isLoading={loading}
       />
     </StyledSrqFinder>

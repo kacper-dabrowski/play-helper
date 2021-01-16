@@ -3,11 +3,12 @@ import { StyledSrqResults } from "./StyledSrqResults";
 import SrqResult from "./SrqResult/SrqResult";
 import { ClipLoader } from "react-spinners";
 
-const SrqResults = ({ supportRequests, hasError, isLoading, setTemplate }) => {
-  if (hasError) {
+const SrqResults = ({ supportRequests, error, isLoading, setTemplate }) => {
+  console.log(supportRequests);
+  if (error) {
     return (
       <StyledSrqResults>
-        <p>{hasError}</p>
+        <p>{error.message}</p>
       </StyledSrqResults>
     );
   }
