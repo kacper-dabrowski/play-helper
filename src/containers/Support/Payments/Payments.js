@@ -79,7 +79,6 @@ const Payments = ({ fullName }) => {
     setInvoices([]);
     setTemplate("");
     setAdditionalTemplateActive(false);
-    console.log(amount);
   };
   return (
     <>
