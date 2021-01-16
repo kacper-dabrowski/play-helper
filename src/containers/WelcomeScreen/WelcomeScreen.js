@@ -8,15 +8,17 @@ import SignupModal from "../../components/Modals/SignupModal/SignupModal";
 
 import Topbar from "./Topbar/Topbar";
 import { connect } from "react-redux";
+import SrqModal from "../../components/Modals/SrqModal/SrqModal";
 
 const WelcomeScreen = (props) => {
   const [loginModalOpened, setLoginModalOpened] = useState(false);
   const [signInModalOpened, setSignInModalOpened] = useState(false);
+  const [srqModalOpened, setSrqModalOpened] = useState(false);
 
   const openLoginModalHandler = () => {
     setLoginModalOpened(true);
   };
-  const closeModalHandler = () => {
+  const closeLoginModalHandler = () => {
     setLoginModalOpened(false);
   };
   const openSignInModalHandler = () => {
@@ -26,6 +28,13 @@ const WelcomeScreen = (props) => {
     setSignInModalOpened(false);
   };
 
+  const openSrqModalHandler = () => {
+    setSrqModalOpened(true);
+  };
+  const closeSrqModalHandler = () => {
+    setSrqModalOpened(false);
+  };
+
   return (
     <WelcomeScreenContainer>
       <Topbar
@@ -33,18 +42,26 @@ const WelcomeScreen = (props) => {
         fullName={props.fullName}
         onLoginModalOpened={openLoginModalHandler}
         onSignInModalOpened={openSignInModalHandler}
+        onSrqModalOpened={openSrqModalHandler}
       />
 
       {loginModalOpened && (
         <LoginModal
           isOpened={loginModalOpened}
-          closeModalHandler={closeModalHandler}
+          closeModalHandler={closeLoginModalHandler}
         />
       )}
       {signInModalOpened && (
         <SignupModal
           isOpened={signInModalOpened}
           closeModalHandler={closeSignInModalHandler}
+        />
+      )}
+
+      {srqModalOpened && (
+        <SrqModal
+          isOpened={srqModalOpened}
+          closeModalHandler={closeSrqModalHandler}
         />
       )}
       <ProjectTile

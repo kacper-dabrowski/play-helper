@@ -7,12 +7,16 @@ import { TopbarNavlink } from "./TopbarNavlink/TopbarNavlink";
 const Topbar = ({
   onLoginModalOpened,
   onSignInModalOpened,
+  onSrqModalOpened,
   isAuthenticated,
   fullName,
 }) => {
   let content = isAuthenticated ? (
     <>
       <TopbarNavlink to={"/logout"}>Wyloguj</TopbarNavlink>
+      <TopbarButton onClick={onSrqModalOpened} width={"12rem"}>
+        Utwórz nowe SRQ
+      </TopbarButton>
       <UserInfo username={fullName} />
     </>
   ) : (

@@ -55,7 +55,7 @@ const SignUpForm = (props) => {
           },
         }
       );
-      console.log(signupRequest.status);
+
       if (signupRequest.status !== 201) {
         const error = new Error();
         error.message = "Żądanie nie powiodło się.";
@@ -63,7 +63,6 @@ const SignUpForm = (props) => {
       }
       props.onAuth(username, password, props.closeModalHandler());
     } catch (error) {
-      console.log(error.response);
       setHasError(error?.response?.data || error);
     }
   };

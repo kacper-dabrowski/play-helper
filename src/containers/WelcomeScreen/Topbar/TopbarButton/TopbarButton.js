@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const TopbarButton = styled.button`
-  width: 7rem;
+  width: ${({ width }) => (width ? width : "7rem")};
+  height: 40px;
   padding: 0.5rem;
   background: transparent;
   border: none;

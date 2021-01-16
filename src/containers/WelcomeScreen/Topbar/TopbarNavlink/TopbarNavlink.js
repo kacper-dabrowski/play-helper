@@ -2,7 +2,8 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const TopbarNavlink = styled(NavLink)`
-  width: 7rem;
+  width: ${({ width }) => (width ? width : "7rem")};
+  height: 40px;
   padding: 0.5rem;
   background: transparent;
   border: none;
@@ -15,6 +16,9 @@ export const TopbarNavlink = styled(NavLink)`
   transition: ease-in-out 0.2s;
   text-decoration: none;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
