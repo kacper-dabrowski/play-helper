@@ -7,8 +7,8 @@ import { StyledNavbar } from "./StyledNavbar";
 const Navbar = ({ username }) => {
   return (
     <StyledNavbar>
-      <ArrowBack type={config.projects.NEXT} />
       <UserInfo username={username} />
+      <ArrowBack type={config.projects.NEXT} />
     </StyledNavbar>
   );
 };
