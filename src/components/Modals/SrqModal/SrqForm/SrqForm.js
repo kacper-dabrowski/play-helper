@@ -67,6 +67,7 @@ const SrqForm = ({ setError, setSuccess }) => {
         onChange={(event) => setContent(event.target.value)}
         required
         name="content"
+        placeholder="Treść formatki"
       />
       {loading ? <Spinner centered /> : <SubmitButton title="Dodaj SRQ" />}
     </StyledFormContainer>
