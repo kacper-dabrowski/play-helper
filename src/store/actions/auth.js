@@ -46,7 +46,7 @@ export const auth = (login, password, onSuccess) => {
     dispatch(authStart());
     try {
       const authData = { username: login, password };
-      const response = await axios.post(urls.api + urls.login, authData);
+      const response = await axios.post(urls.login, authData);
       const { token: idToken, userId, fullName, expiresIn } = response.data;
       if (!idToken || !userId) {
         throw new Error("Unable to authenticate");

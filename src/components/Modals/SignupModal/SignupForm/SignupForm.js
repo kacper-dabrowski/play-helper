@@ -7,7 +7,7 @@ import axios from "../../../../axios";
 import { FormInputsWrapper } from "../SignupModalContainer";
 import { connect } from "react-redux";
 import Spinner from "../../../Spinner/Spinner";
-import ErrorMessage from "../../ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../Messages/ErrorMessage/ErrorMessage";
 import SubmitButton from "../../../SubmitButton/SubmitButton";
 import { StyledFormHeader } from "../../../UI/Headers/StyledHeaders";
 const SignUpForm = (props) => {
@@ -47,7 +47,7 @@ const SignUpForm = (props) => {
     };
     try {
       const signupRequest = await axios.post(
-        urls.api + urls.signup,
+        urls.signup,
         JSON.stringify(newUser),
         {
           headers: {
@@ -67,7 +67,7 @@ const SignUpForm = (props) => {
     }
   };
   const error = hasError.message ? (
-    <ErrorMessage errorMessage={hasError.message} />
+    <ErrorMessage message={hasError.message} />
   ) : null;
   return (
     <StyledSignupForm onSubmit={signedUpHandler}>

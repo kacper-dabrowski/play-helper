@@ -4,10 +4,10 @@ import {
   ErrorMessageContainer,
 } from "./StyledErrorMessage";
 
-const ErrorMessage = ({ errorMessage }) => {
+const ErrorMessage = ({ message }) => {
   return (
     <ErrorMessageContainer>
-      <StyledErrorMessage>{errorMessage}</StyledErrorMessage>
+      <StyledErrorMessage>{message}</StyledErrorMessage>
     </ErrorMessageContainer>
   );
 };

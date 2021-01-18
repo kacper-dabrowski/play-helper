@@ -8,8 +8,8 @@ export const ModalContainer = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-  width: 50%;
-  height: 50%;
+  width: 70%;
+  height: 70%;
   padding: 1rem;
   background: linear-gradient(to right, #835cbc, #009688);
   padding: 3px;
