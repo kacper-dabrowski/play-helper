@@ -5,15 +5,13 @@ import FormInput from "../../../FormInput/FormInput";
 import { StyledFormTextarea } from "../../../FormTextarea/StyledFormTextarea";
 import Spinner from "../../../Spinner/Spinner";
 import SubmitButton from "../../../SubmitButton/SubmitButton";
-import ErrorMessage from "../../ErrorMessage/ErrorMessage";
 import { StyledFormContainer } from "./StyledSrqForm";
-const SrqForm = () => {
+const SrqForm = ({ setError, setSuccess }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [department, setDepartment] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const clearForm = () => {
     setTitle("");
@@ -37,6 +35,7 @@ const SrqForm = () => {
 
       await axios.post(urls.srq, formData);
       setLoading(false);
+      setSuccess(true);
       clearForm();
     } catch (error) {
       setLoading(false);
@@ -46,15 +45,29 @@ const SrqForm = () => {
 
   return (
     <StyledFormContainer onSubmit={onSubmit}>
-      {error ? <ErrorMessage errorMessage={error} /> : null}
-      <FormInput required name="title" placeholder="Tytuł SRQ" />
-      <FormInput required name="description" placeholder="Opis SRQ" />
       <FormInput
+        onChange={(event) => setTitle(event.target.value)}
+        required
+        name="title"
+        placeholder="Tytuł SRQ"
+      />
+      <FormInput
+        onChange={(event) => setDescription(event.target.value)}
+        required
+        name="description"
+        placeholder="Opis SRQ"
+      />
+      <FormInput
+        onChange={(event) => setDepartment(event.target.value)}
         required
         name="department"
         placeholder="Dział, do którego trafia SRQ"
       />
-      <StyledFormTextarea required name="content" />
+      <StyledFormTextarea
+        onChange={(event) => setContent(event.target.value)}
+        required
+        name="content"
+      />
       {loading ? <Spinner centered /> : <SubmitButton title="Dodaj SRQ" />}
     </StyledFormContainer>
   );

@@ -4,7 +4,7 @@ import { StyledLoginForm } from "./StyledLoginForm";
 import * as actions from "../../../../store/actions";
 import { connect } from "react-redux";
 import Spinner from "../../../Spinner/Spinner";
-import ErrorMessage from "../../ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../Messages/ErrorMessage/ErrorMessage";
 import SubmitButton from "../../../SubmitButton/SubmitButton";
 import { StyledFormHeader } from "../../../UI/Headers/StyledHeaders";
 
@@ -17,9 +17,7 @@ const LoginForm = (props) => {
     props.onAuth(login, password, props.onSuccess);
   };
 
-  const error = props.error ? (
-    <ErrorMessage errorMessage={props.error} />
-  ) : null;
+  const error = props.error ? <ErrorMessage message={props.error} /> : null;
   return (
     <>
       <StyledLoginForm onSubmit={onLoginSubmitHandler}>
