@@ -3,29 +3,17 @@ import styled from "styled-components";
 export const StyledFormInput = styled.input`
   position: relative;
   width: 80%;
+  height: 2rem;
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 21px;
+  font-size: 1.1.rem;
   color: white;
   border: none;
   padding: 0.5rem;
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-`;
-export const FormInputWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  margin: 1rem auto;
-  & label {
-    align-self: center;
-    justify-self: start;
-  }
-  & input {
-    margin-left: 1rem;
-    justify-self: center;
-    align-self: center;
+  margin: 0.5rem auto;
+  border-bottom: 2px solid #180f25;
+  transition: ease-in-out 0.2s;
+  &:focus,
+  &:hover {
+    border-bottom: 2px solid #009688;
   }
 `;

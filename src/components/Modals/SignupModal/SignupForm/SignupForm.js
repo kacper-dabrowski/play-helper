@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { SignupFormHeader } from "./SignupFormHeader/SignupFormHeader";
 import { StyledSignupForm } from "./StyledSignupForm";
 import LoginInput from "../../LoginModal/LoginForm/LoginInputs/LoginInput/LoginInput";
 import * as actions from "../../../../store/actions";
@@ -7,9 +6,10 @@ import urls from "../../../../shared/urls";
 import axios from "../../../../axios";
 import { FormInputsWrapper } from "../SignupModalContainer";
 import { connect } from "react-redux";
-import SignupSubmitButton from "./SignupSubmitButton/SignupSubmitButton";
 import Spinner from "../../../Spinner/Spinner";
 import ErrorMessage from "../../ErrorMessage/ErrorMessage";
+import SubmitButton from "../../../SubmitButton/SubmitButton";
+import { StyledFormHeader } from "../../../UI/Headers/StyledHeaders";
 const SignUpForm = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -71,7 +71,7 @@ const SignUpForm = (props) => {
   ) : null;
   return (
     <StyledSignupForm onSubmit={signedUpHandler}>
-      <SignupFormHeader>Zarejestruj się</SignupFormHeader>
+      <StyledFormHeader>Zarejestruj się</StyledFormHeader>
       {error}
       <FormInputsWrapper>
         <LoginInput
@@ -97,7 +97,11 @@ const SignUpForm = (props) => {
           value={confirmPassword}
         />
       </FormInputsWrapper>
-      {props.isLoading ? <Spinner centered /> : <SignupSubmitButton />}
+      {props.isLoading ? (
+        <Spinner centered />
+      ) : (
+        <SubmitButton title={"Utwórz konto"} />
+      )}
     </StyledSignupForm>
   );
 };
