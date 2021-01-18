@@ -21,10 +21,10 @@ const Support = (props) => (
         <Route path={routes.support.basic}>
           <Basic name={props.fullName} />
         </Route>
-        <Route path={routes.support.doubleOpened}>
+        <Route exact path={routes.support.doubleOpened}>
           <Double type={config.double.opened} />
         </Route>
-        <Route path={routes.support.doubleClosed}>
+        <Route exact path={routes.support.doubleClosed}>
           <Double type={config.double.closed} />
         </Route>
         <Route path={routes.support.payments}>
