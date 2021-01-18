@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const SrqModalContainer = styled.div`
-  width: 100%;
+export const StyledFormContainer = styled.form`
+  width: 60%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;

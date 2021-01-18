@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import LoginFormHeader from "./LoginFormHeader/LoginFormHeader";
 import LoginInputs from "./LoginInputs/LoginInputs";
-import LoginSubmitButton from "./LoginSubmitButton/LoginSubmitButton";
 import { StyledLoginForm } from "./StyledLoginForm";
 import * as actions from "../../../../store/actions";
 import { connect } from "react-redux";
 import Spinner from "../../../Spinner/Spinner";
 import ErrorMessage from "../../ErrorMessage/ErrorMessage";
+import SubmitButton from "../../../SubmitButton/SubmitButton";
+import { StyledFormHeader } from "../../../UI/Headers/StyledHeaders";
 
 const LoginForm = (props) => {
   const [login, setLogin] = useState("");
@@ -23,13 +23,17 @@ const LoginForm = (props) => {
   return (
     <>
       <StyledLoginForm onSubmit={onLoginSubmitHandler}>
-        <LoginFormHeader>Zaloguj się</LoginFormHeader>
+        <StyledFormHeader>Zaloguj się</StyledFormHeader>
         {error}
         <LoginInputs
           loginChangedHandler={setLogin}
           passwordChangedHandler={setPassword}
         />
-        {props.isLoading ? <Spinner centered /> : <LoginSubmitButton />}
+        {props.isLoading ? (
+          <Spinner centered />
+        ) : (
+          <SubmitButton title="Zaloguj się" />
+        )}
       </StyledLoginForm>
     </>
   );
