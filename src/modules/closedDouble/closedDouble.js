@@ -1,10 +1,10 @@
-const generateClosedDoubleTemplate = (numOfCurrent, numOfClosed) => {
-  if (!numOfCurrent || !numOfClosed) {
+const generateOpenedDoubleTemplate = (numOfCurrent, numOfOpened) => {
+  if (!numOfCurrent || !numOfOpened) {
     throw new Error("Nie ustawiono jednego z numerów zgloszeń!");
   }
-  return `Dziękujemy za zgłoszenie ${numOfCurrent}. Informujemy, że odpowiedź zostanie udzielona w zgłoszeniu ${numOfClosed}, w którym poruszone są te same kwestie.
+  return `Dziękujemy za zgłoszenie ${numOfCurrent}. Informujemy, że odpowiedź zostanie udzielona w zgłoszeniu ${numOfOpened}, w którym poruszone są te same kwestie.
   
 Z poważaniem,
 Obsługa Klienta Play`;
 };
-export default generateClosedDoubleTemplate;
+export default generateOpenedDoubleTemplate;
