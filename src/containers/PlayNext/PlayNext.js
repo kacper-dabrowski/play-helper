@@ -12,7 +12,8 @@ const PlayNext = ({ username }) => {
   const [template, setTemplate] = useState("");
   const [activeTemplate, setActiveTemplate] = useState("");
 
-  const onGenerateTemplate = (type, sex, language, username) => {
+  const onGenerateTemplate = (type) => {
+    setActiveTemplate(type);
     const templateToSet = generateNextTemplate(type, sex, language, username);
     setTemplate(templateToSet);
   };
@@ -55,9 +56,7 @@ const PlayNext = ({ username }) => {
           setSex={setSex}
           activeTemplate={activeTemplate}
           setActiveTemplate={setActiveTemplate}
-          onGenerateTemplate={() =>
-            onGenerateTemplate(activeTemplate, sex, language, username)
-          }
+          onGenerateTemplate={onGenerateTemplate}
           addToCurrentTemplate={addToCurrentTemplate}
         />
         <PlayNextTextArea value={template} setTemplate={setTemplate} />

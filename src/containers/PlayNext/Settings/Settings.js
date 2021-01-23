@@ -4,7 +4,6 @@ import PlayNextButton from "../../../components/PlayNextButton/PlayNextButton";
 import { StyledPlayNextSettings } from "./StyledSettings";
 import identifiers from "../../../shared/identifiers";
 import { isPolish } from "../../../modules/next/next";
-import { StyledConfirmButton } from "./StyledSettings";
 
 const Settings = ({
   language,
@@ -12,7 +11,7 @@ const Settings = ({
   sex,
   setSex,
   activeTemplate,
-  setActiveTemplate,
+
   onGenerateTemplate,
   addToCurrentTemplate,
 }) => {
@@ -27,47 +26,49 @@ const Settings = ({
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.GREETING}
         title={"Przywitaj się"}
-        onClick={() => setActiveTemplate(identifiers.nextTemplates.GREETING)}
+        onClick={() => onGenerateTemplate(identifiers.nextTemplates.GREETING)}
       />
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.DELETE_ACCOUNT}
         title={"Usuń konto"}
         onClick={() =>
-          setActiveTemplate(identifiers.nextTemplates.DELETE_ACCOUNT)
+          onGenerateTemplate(identifiers.nextTemplates.DELETE_ACCOUNT)
         }
       />
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.NOTIFICATION}
         title={"Zgłoszenie"}
         onClick={() =>
-          setActiveTemplate(identifiers.nextTemplates.NOTIFICATION)
+          onGenerateTemplate(identifiers.nextTemplates.NOTIFICATION)
         }
       />
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.MIGRATION}
         title={"Migracja"}
-        onClick={() => setActiveTemplate(identifiers.nextTemplates.MIGRATION)}
+        onClick={() => onGenerateTemplate(identifiers.nextTemplates.MIGRATION)}
       />
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.ROAMING}
         title={"Roaming"}
-        onClick={() => setActiveTemplate(identifiers.nextTemplates.ROAMING)}
+        onClick={() => onGenerateTemplate(identifiers.nextTemplates.ROAMING)}
       />
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.QOS}
         title={"QoS"}
-        onClick={() => setActiveTemplate(identifiers.nextTemplates.QOS)}
+        onClick={() => onGenerateTemplate(identifiers.nextTemplates.QOS)}
       />
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.NO_RESPONSE}
         title={"Brak odpowiedzi"}
-        onClick={() => setActiveTemplate(identifiers.nextTemplates.NO_RESPONSE)}
+        onClick={() =>
+          onGenerateTemplate(identifiers.nextTemplates.NO_RESPONSE)
+        }
       />
       <PlayNextButton
         active={activeTemplate === identifiers.nextTemplates.END_CONVERSATION}
         title={"Zakończ rozmowę"}
         onClick={() =>
-          setActiveTemplate(identifiers.nextTemplates.END_CONVERSATION)
+          onGenerateTemplate(identifiers.nextTemplates.END_CONVERSATION)
         }
       />
       <PlayNextButton
@@ -92,7 +93,6 @@ const Settings = ({
         btnColor={isPolish(language) ? "#f66" : "#fada79"}
         onClick={() => setLanguage(languageToSet)}
       />
-      <StyledConfirmButton onClick={onGenerateTemplate} />
     </StyledPlayNextSettings>
   );
 };
