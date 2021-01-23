@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
 import config from "../../shared/identifiers";
 import routes from "../../shared/routes";
-import Basic from "./Basic/Basic";
-import Double from "./Double/Double";
-import Payments from "./Payments/Payments";
-import Srq from "./Srq/Srq";
 import { Container, StyledSupport } from "./StyledSupport";
 import Navbar from "./SupportNavbar/Navbar";
+
+const Srq = React.lazy(() => import("./Srq/Srq"));
+const Payments = React.lazy(() => import("./Payments/Payments"));
+const Double = React.lazy(() => import("./Double/Double"));
+const Basic = React.lazy(() => import("./Basic/Basic"));
 
 const Support = (props) => (
   <StyledSupport>
