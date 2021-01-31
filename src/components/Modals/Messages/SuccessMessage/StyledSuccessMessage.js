@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const SuccessMessageContainer = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const StyledSuccessMessage = styled.p`
