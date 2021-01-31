@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ConfirmButtons from "../../../components/ConfirmButtons/ConfirmButtons";
 import MainTextarea from "../../../components/MainTextarea/MainTextarea";
 import SexSection from "../../../components/SexSection/SexSection";
+import ErrorBadge from "../../../components/UI/ErrorBadge/ErrorBadge";
 import generateOpenedDoubleTemplate from "../../../modules/closedDouble/closedDouble";
 import generateClosedDoubleTemplate from "../../../modules/openedDouble/openedDouble";
 import config from "../../../shared/identifiers";
@@ -13,6 +14,7 @@ const Double = ({ type }) => {
   const [current, setCurrent] = useState("");
   const [doubled, setDoubled] = useState("");
   const [template, setTemplate] = useState("");
+  const [error, setError] = useState(null);
 
   const clearFields = useCallback(() => {
     setSex(null);
@@ -24,24 +26,32 @@ const Double = ({ type }) => {
   useEffect(() => clearFields(), [clearFields, type]);
 
   const generateTemplateHandler = useCallback(() => {
-    let template;
-    switch (type) {
-      case config.double.opened:
-        template = generateOpenedDoubleTemplate(current, doubled);
-        break;
-      case config.double.closed:
-        template = generateClosedDoubleTemplate(sex, current, doubled);
-        break;
-      default:
-        throw new Error("Invalid double type");
-    }
+    try {
+      let template;
+      switch (type) {
+        case config.double.opened:
+          template = generateOpenedDoubleTemplate(current, doubled);
+          break;
+        case config.double.closed:
+          template = generateClosedDoubleTemplate(sex, current, doubled);
+          break;
+        default:
+          throw new Error("Invalid double type");
+      }
 
-    setTemplate(template);
+      setTemplate(template);
+    } catch (error) {
+      setError(error);
+    }
   }, [type, doubled, current, sex]);
 
   return (
     <>
       <div>
+        <ErrorBadge
+          message={error?.message}
+          deleteError={() => setError(null)}
+        />
         {type === config.double.closed && (
           <StyledSexSection>
             <SexSection setting={sex} setHandler={setSex} />
