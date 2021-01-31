@@ -12,6 +12,7 @@ import {
 } from "../../../modules/payments/payments";
 import ConfirmButtons from "../../../components/ConfirmButtons/ConfirmButtons";
 import { connect } from "react-redux";
+import ErrorBadge from "../../../components/UI/ErrorBadge/ErrorBadge";
 
 const Payments = ({ fullName }) => {
   const [paymentSpan, setPaymentSpan] = useState(null);
@@ -22,21 +23,27 @@ const Payments = ({ fullName }) => {
   const [additionalTemplateActive, setAdditionalTemplateActive] = useState(
     false
   );
-
   const [additionalTemplate, setAdditionalTemplate] = useState("");
+  const [error, setError] = useState(null);
 
   const setInvoicesHandler = (event) => {
-    if (invoices.length === config.payments.maxInvoices) {
-      throw new Error(
-        `Fakturę rozkładamy na maksymalnie ${config.payments.maxInvoices} raty`
-      );
-    }
-    const invoiceString = event.target.value;
-    const invoiceMatch = invoiceString.match(config.payments.invoiceRegex)?.[0];
+    try {
+      if (invoices.length === config.payments.maxInvoices) {
+        throw new Error(
+          `Fakturę rozkładamy na maksymalnie ${config.payments.maxInvoices} raty`
+        );
+      }
+      const invoiceString = event.target.value;
+      const invoiceMatch = invoiceString.match(
+        config.payments.invoiceRegex
+      )?.[0];
 
-    if (invoiceMatch && !invoices.includes(invoiceMatch)) {
-      setInvoices((currentInvoices) => [...currentInvoices, invoiceMatch]);
-      event.target.value = "";
+      if (invoiceMatch && !invoices.includes(invoiceMatch)) {
+        setInvoices((currentInvoices) => [...currentInvoices, invoiceMatch]);
+        event.target.value = "";
+      }
+    } catch (error) {
+      setError(error);
     }
   };
 
@@ -47,29 +54,35 @@ const Payments = ({ fullName }) => {
   };
 
   const onDivideAmount = () => {
-    const parsedAmount = Number(amount);
+    try {
+      const parsedAmount = Number(amount);
 
-    if (
-      Number.isNaN(parsedAmount) ||
-      parsedAmount === 0 ||
-      parsedAmount > config.payments.maxAmount
-    ) {
-      throw new Error("Została podana nieprawidłowa kwota do podziału na raty");
-    }
-    if (invoices.length <= 0 || invoices.length > 3) {
-      throw new Error("Niepoprawna liczba faktur");
-    }
+      if (
+        Number.isNaN(parsedAmount) ||
+        parsedAmount === 0 ||
+        parsedAmount > config.payments.maxAmount
+      ) {
+        throw new Error(
+          "Została podana nieprawidłowa kwota do podziału na raty"
+        );
+      }
+      if (invoices.length <= 0 || invoices.length > 3) {
+        throw new Error("Niepoprawna liczba faktur");
+      }
 
-    const amountsArray = generateAmountsArray(parsedAmount, paymentsCount);
-    const paymentTemplates = generatePaymentTemplates({
-      name: fullName,
-      payments: amountsArray,
-      invoices,
-      paymentSpan,
-    });
-    setTemplate(paymentTemplates.mainTemplate);
-    setAdditionalTemplateActive(true);
-    setAdditionalTemplate(paymentTemplates.additionalTemplate);
+      const amountsArray = generateAmountsArray(parsedAmount, paymentsCount);
+      const paymentTemplates = generatePaymentTemplates({
+        name: fullName,
+        payments: amountsArray,
+        invoices,
+        paymentSpan,
+      });
+      setTemplate(paymentTemplates.mainTemplate);
+      setAdditionalTemplateActive(true);
+      setAdditionalTemplate(paymentTemplates.additionalTemplate);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const onClearFields = () => {
@@ -83,6 +96,10 @@ const Payments = ({ fullName }) => {
   return (
     <>
       <PaymentsContainer>
+        <ErrorBadge
+          message={error?.message}
+          deleteError={() => setError(null)}
+        />
         <PaymentSpan setting={paymentSpan} setHandler={setPaymentSpan} />
         <Calculator
           paymentsCount={paymentsCount}

@@ -19,8 +19,6 @@ export const generateBasicTemplate = ({
     throw new Error("Nie ustawiono płci!");
   }
 
-  const convertedDate = convertDate(date);
-
   switch (type) {
     case config.type.individual:
       convertedType = "790 500 500";
@@ -45,6 +43,21 @@ export const generateBasicTemplate = ({
     default:
       throw new Error("Nie ustawiono kanału wpływu!");
   }
+
+  if (!date) {
+    throw new Error("Nie ustawiono daty!");
+  }
+
+  const convertedDate = convertDate(date);
+
+  if (!details) {
+    throw new Error("Nie ustawiono szczegółów zgłoszenia!");
+  }
+
+  if (!general) {
+    throw new Error("Nie ustawiono ogólnych informacji o zgłoszeniu");
+  }
+
   if (sex === config.sex.man) {
     template = `Szanowny Panie,
 

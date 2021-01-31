@@ -5,6 +5,10 @@ export const generateClosedDoubleTemplate = (
   numOfCurrent,
   numOfClosed
 ) => {
+  if (!numOfCurrent || !numOfClosed) {
+    throw new Error("Nie ustawiono jednego z numerów zgłoszeń!");
+  }
+
   switch (sex) {
     case config.sex.man:
       return `Dziękujemy za zgłoszenie ${numOfCurrent} Poruszane przez Pana kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.

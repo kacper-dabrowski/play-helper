@@ -133,10 +133,7 @@ export const generatePayments = (paymentsConfig) => {
     const { dueDay, dividingDay } = config.payments.deadlines[paymentSpan];
     return generatePaymentsObject(generatorConfig, dividingDay, dueDay);
   } catch (error) {
-    throw new Error(
-      "Unknown payment span was passed to the function, details: " +
-        error.message
-    );
+    throw new Error("Nie wybrano poprawnego okresu rozliczeniowego!");
   }
 };
 

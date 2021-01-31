@@ -16,6 +16,8 @@ import {
   generateBasicTemplate,
   generateTelephoneTemplate,
 } from "../../../modules/basic/basic";
+import ErrorBadge from "../../../components/UI/ErrorBadge/ErrorBadge";
+
 const telephoneTemplate = generateTelephoneTemplate();
 const Basic = (props) => {
   const [template, setTemplate] = useState("");
@@ -26,20 +28,26 @@ const Basic = (props) => {
   const [details, setDetails] = useState(null);
   const [general, setGeneral] = useState(null);
   const [hasOffer, setHasOffer] = useState(false);
+  const [error, setError] = useState(null);
 
   const generateTemplate = useCallback(() => {
-    const templateConfig = {
-      name: props.name,
-      sex,
-      type,
-      channel,
-      date,
-      general,
-      details,
-      hasOffer,
-    };
-    const generatedTemplate = generateBasicTemplate(templateConfig);
-    setTemplate(generatedTemplate);
+    try {
+      const templateConfig = {
+        name: props.name,
+        sex,
+        type,
+        channel,
+        date,
+        general,
+        details,
+        hasOffer,
+      };
+      const generatedTemplate = generateBasicTemplate(templateConfig);
+      setTemplate(generatedTemplate);
+      setError(null);
+    } catch (error) {
+      setError(error);
+    }
   }, [sex, type, channel, date, details, general, hasOffer, props.name]);
 
   const clearFields = useCallback(() => {
@@ -52,10 +60,13 @@ const Basic = (props) => {
     setGeneral("");
     setHasOffer(false);
   }, []);
-
   return (
     <>
       <div>
+        <ErrorBadge
+          message={error?.message}
+          deleteError={() => setError(null)}
+        />
         <SettingsSection>
           <SexSection setHandler={setSex} setting={sex} />
           <ChannelSection setHandler={setChannel} setting={channel} />
