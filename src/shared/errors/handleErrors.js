@@ -6,3 +6,12 @@ export const generateMessageByCode = (code) => {
       return `Wystąpił nieznany błąd`;
   }
 };
+
+export const getLastMessageFromFormikErrors = (formikErrors) => {
+  const errorsArray = [];
+  for (const key in formikErrors) {
+    errorsArray.push(formikErrors[key]);
+  }
+  const currentError = errorsArray.pop();
+  return currentError;
+};

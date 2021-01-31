@@ -8,12 +8,14 @@ import Spinner from "../../../Spinner/Spinner";
 import SubmitButton from "../../../SubmitButton/SubmitButton";
 import { StyledFormContainer } from "./StyledSrqForm";
 import * as Yup from "yup";
+import ErrorBadge from "../../../UI/ErrorBadge/ErrorBadge";
+import { getLastMessageFromFormikErrors } from "../../../../shared/errors/handleErrors";
 
 const validationSchema = Yup.object({
-  title: Yup.string().required(),
-  description: Yup.string().required(),
-  department: Yup.string().required(),
-  content: Yup.string().required(),
+  title: Yup.string().required("Pole jest wymagane"),
+  description: Yup.string().required("Pole jest wymagane"),
+  department: Yup.string().required("Pole jest wymagane"),
+  content: Yup.string().required("Pole jest wymagane"),
 });
 
 const SrqForm = ({ setError, setSuccess }) => {
@@ -56,6 +58,7 @@ const SrqForm = ({ setError, setSuccess }) => {
 
   return (
     <StyledFormContainer onSubmit={formik.handleSubmit}>
+      <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
       <FormInput
         hasErrors={!!formik.errors.title || formik.touched.title}
         value={formik.values.title}

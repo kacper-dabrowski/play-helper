@@ -12,6 +12,8 @@ import SubmitButton from "../../../SubmitButton/SubmitButton";
 import { StyledFormHeader } from "../../../UI/Headers/StyledHeaders";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import ErrorBadge from "../../../UI/ErrorBadge/ErrorBadge";
+import { getLastMessageFromFormikErrors } from "../../../../shared/errors/handleErrors";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -67,6 +69,7 @@ const SignUpForm = (props) => {
   return (
     <StyledSignupForm onSubmit={formik.handleSubmit}>
       <StyledFormHeader>Zarejestruj się</StyledFormHeader>
+      <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
       {error}
       <FormInputsWrapper>
         <LoginInput
