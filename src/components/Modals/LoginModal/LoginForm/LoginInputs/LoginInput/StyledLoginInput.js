@@ -8,8 +8,9 @@ export const StyledLoginInput = styled.input`
   border: none;
   color: white;
   margin: 1rem 1rem;
-  border-bottom: 1px solid #835cbc;
+  border-bottom: 1px solid ${({ hasErrors }) => (hasErrors ? "red" : "#835cbc")};
   transition: ease-in-out 0.2s;
+
   &:focus {
     border-bottom: 1px solid #835cbc;
   }

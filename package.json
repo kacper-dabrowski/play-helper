@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "big.js": "^6.0.2",
     "framer-motion": "^3.2.2-rc.1",
+    "formik": "^2.2.6",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.2",
@@ -21,7 +22,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "yup": "^0.32.8"
   },
   "scripts": {
     "start": "react-scripts start",
