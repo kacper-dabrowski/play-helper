@@ -1,11 +1,12 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import Backdrop from "../Backdrop/Backdrop";
 import { CancelModal } from "./CancelModal/StyledCancelModal";
 
 import { ModalContainer, ModalWrapper } from "./StyledModal";
 
 const Modal = ({ children, isOpened, closeModalHandler }) => {
-  return (
+  return ReactDOM.createPortal(
     <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler}>
       <ModalWrapper>
         <ModalContainer>
@@ -13,7 +14,8 @@ const Modal = ({ children, isOpened, closeModalHandler }) => {
           {children}
         </ModalContainer>
       </ModalWrapper>
-    </Backdrop>
+    </Backdrop>,
+    document.getElementById("modal-portal")
   );
 };
 

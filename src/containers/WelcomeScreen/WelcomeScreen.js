@@ -15,55 +15,31 @@ const WelcomeScreen = (props) => {
   const [signInModalOpened, setSignInModalOpened] = useState(false);
   const [srqModalOpened, setSrqModalOpened] = useState(false);
 
-  const openLoginModalHandler = () => {
-    setLoginModalOpened(true);
-  };
-  const closeLoginModalHandler = () => {
-    setLoginModalOpened(false);
-  };
-  const openSignInModalHandler = () => {
-    setSignInModalOpened(true);
-  };
-  const closeSignInModalHandler = () => {
-    setSignInModalOpened(false);
-  };
-
-  const openSrqModalHandler = () => {
-    setSrqModalOpened(true);
-  };
-  const closeSrqModalHandler = () => {
-    setSrqModalOpened(false);
-  };
-
   return (
     <WelcomeScreenContainer>
       <Topbar
         isAuthenticated={props.isAuthenticated}
         fullName={props.fullName}
-        onLoginModalOpened={openLoginModalHandler}
-        onSignInModalOpened={openSignInModalHandler}
-        onSrqModalOpened={openSrqModalHandler}
+        onLoginModalOpened={() => setLoginModalOpened(true)}
+        onSignInModalOpened={() => setSignInModalOpened(true)}
+        onSrqModalOpened={() => setSrqModalOpened(true)}
       />
 
-      {loginModalOpened && (
-        <LoginModal
-          isOpened={loginModalOpened}
-          closeModalHandler={closeLoginModalHandler}
-        />
-      )}
-      {signInModalOpened && (
-        <SignupModal
-          isOpened={signInModalOpened}
-          closeModalHandler={closeSignInModalHandler}
-        />
-      )}
+      <LoginModal
+        isOpened={loginModalOpened}
+        closeModalHandler={() => setLoginModalOpened(false)}
+      />
 
-      {srqModalOpened && (
-        <SrqModal
-          isOpened={srqModalOpened}
-          closeModalHandler={closeSrqModalHandler}
-        />
-      )}
+      <SignupModal
+        isOpened={signInModalOpened}
+        closeModalHandler={() => setSrqModalOpened(false)}
+      />
+
+      <SrqModal
+        isOpened={srqModalOpened}
+        closeModalHandler={() => setSrqModalOpened(false)}
+      />
+
       <ProjectTile
         projectEndpoint={"/next"}
         projectColorDark={"#303030"}
