@@ -32,7 +32,7 @@ const WelcomeScreen = (props) => {
 
       <SignupModal
         isOpened={signInModalOpened}
-        closeModalHandler={() => setSrqModalOpened(false)}
+        closeModalHandler={() => setSignInModalOpened(false)}
       />
 
       <SrqModal
