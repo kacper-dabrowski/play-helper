@@ -1,32 +1,61 @@
-import React, { useState } from "react";
-import LoginInputs from "./LoginInputs/LoginInputs";
+import React from "react";
 import { StyledLoginForm } from "./StyledLoginForm";
 import * as actions from "../../../../store/actions";
 import { connect } from "react-redux";
 import Spinner from "../../../Spinner/Spinner";
-import ErrorMessage from "../../Messages/ErrorMessage/ErrorMessage";
 import SubmitButton from "../../../SubmitButton/SubmitButton";
 import { StyledFormHeader } from "../../../UI/Headers/StyledHeaders";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { LoginInputsWrapper } from "./LoginInputs/StyledLoginInputs";
+import LoginInput from "./LoginInputs/LoginInput/LoginInput";
+import { generateMessageByCode } from "../../../../shared/errors/handleErrors";
+import ErrorMessage from "../../Messages/ErrorMessage/ErrorMessage";
+
+const validationSchema = Yup.object({
+  login: Yup.string()
+    .max(20, "Login musi być nie dłuzszy niz 20 znaków")
+    .required("Pole jest wymagane"),
+  password: Yup.string()
+    .min(6, "Login musi być nie dłuzszy niz 20 znaków")
+    .required("Pole jest wymagane"),
+});
 
 const LoginForm = (props) => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onLoginSubmitHandler = (event) => {
-    event.preventDefault();
-    props.onAuth(login, password, props.onSuccess);
-  };
-
-  const error = props.error ? <ErrorMessage message={props.error} /> : null;
+  const formik = useFormik({
+    initialValues: { login: "", password: "" },
+    onSubmit: (values) =>
+      props.onAuth(values.login, values.password, props.onSuccess),
+    validationSchema,
+  });
+  const error = props.error && (
+    <ErrorMessage message={generateMessageByCode(props.error)} />
+  );
   return (
     <>
-      <StyledLoginForm onSubmit={onLoginSubmitHandler}>
+      <StyledLoginForm onSubmit={formik.handleSubmit}>
         <StyledFormHeader>Zaloguj się</StyledFormHeader>
         {error}
-        <LoginInputs
-          loginChangedHandler={setLogin}
-          passwordChangedHandler={setPassword}
-        />
+        <LoginInputsWrapper>
+          <LoginInput
+            id="login"
+            name="login"
+            hasErrors={!!formik.errors.login && !!formik.touched.login}
+            onChange={formik.handleChange}
+            value={formik.values.login}
+            type="text"
+            placeholder={"Nazwa użytkownika"}
+          />
+          <LoginInput
+            id="password"
+            name="password"
+            hasErrors={!!formik.errors.password && !!formik.touched.password}
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            type="password"
+            placeholder={"Hasło"}
+          />
+        </LoginInputsWrapper>
         {props.isLoading ? (
           <Spinner centered />
         ) : (
