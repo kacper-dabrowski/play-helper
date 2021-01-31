@@ -15,4 +15,5 @@ export const StyledErrorBadge = styled.div`
   border-radius: 21px 21px 0 0;
   opacity: 0;
   transform: translate(-50%);
+  z-index: 11;
 `;

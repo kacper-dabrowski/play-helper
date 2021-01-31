@@ -9,15 +9,19 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { LoginInputsWrapper } from "./LoginInputs/StyledLoginInputs";
 import LoginInput from "./LoginInputs/LoginInput/LoginInput";
-import { generateMessageByCode } from "../../../../shared/errors/handleErrors";
+import {
+  generateMessageByCode,
+  getLastMessageFromFormikErrors,
+} from "../../../../shared/errors/handleErrors";
 import ErrorMessage from "../../Messages/ErrorMessage/ErrorMessage";
+import ErrorBadge from "../../../UI/ErrorBadge/ErrorBadge";
 
 const validationSchema = Yup.object({
   login: Yup.string()
     .max(20, "Login musi być nie dłuzszy niz 20 znaków")
     .required("Pole jest wymagane"),
   password: Yup.string()
-    .min(6, "Login musi być nie dłuzszy niz 20 znaków")
+    .min(6, "Hasło nie może być krótsze niż 6 znaków")
     .required("Pole jest wymagane"),
 });
 
@@ -27,15 +31,18 @@ const LoginForm = (props) => {
     onSubmit: (values) =>
       props.onAuth(values.login, values.password, props.onSuccess),
     validationSchema,
+    validateOnChange: false,
   });
   const error = props.error && (
     <ErrorMessage message={generateMessageByCode(props.error)} />
   );
+
   return (
     <>
       <StyledLoginForm onSubmit={formik.handleSubmit}>
         <StyledFormHeader>Zaloguj się</StyledFormHeader>
         {error}
+        <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
         <LoginInputsWrapper>
           <LoginInput
             id="login"

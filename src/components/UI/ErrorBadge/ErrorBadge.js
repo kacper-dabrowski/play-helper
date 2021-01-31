@@ -3,10 +3,8 @@ import { StyledErrorBadge } from "./StyledErrorBadge";
 import ReactDOM from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 const ErrorBadge = ({ message, deleteError }) => {
-  if (message) {
-    setTimeout(() => {
-      deleteError();
-    }, 2000);
+  if (message && deleteError) {
+    setTimeout(() => {}, 2000);
   }
 
   return ReactDOM.createPortal(
