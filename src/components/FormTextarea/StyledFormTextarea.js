@@ -11,7 +11,7 @@ export const StyledFormTextarea = styled.textarea`
   font-size: 0.8rem;
   resize: none;
   margin-top: 0.5rem;
-  border-bottom: 2px solid #180f25;
+  border-bottom: 1px solid ${({ hasErrors }) => (hasErrors ? "red" : "#835cbc")};
   transition: ease-in-out 0.2s;
   font-family: inherit;
   &:focus,

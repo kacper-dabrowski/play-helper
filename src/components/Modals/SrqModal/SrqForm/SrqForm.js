@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useFormik } from "formik";
 import React, { useState } from "react";
 import urls from "../../../../shared/urls";
 import FormInput from "../../../FormInput/FormInput";
@@ -6,26 +7,24 @@ import { StyledFormTextarea } from "../../../FormTextarea/StyledFormTextarea";
 import Spinner from "../../../Spinner/Spinner";
 import SubmitButton from "../../../SubmitButton/SubmitButton";
 import { StyledFormContainer } from "./StyledSrqForm";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  title: Yup.string().required(),
+  description: Yup.string().required(),
+  department: Yup.string().required(),
+  content: Yup.string().required(),
+});
+
 const SrqForm = ({ setError, setSuccess }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [department, setDepartment] = useState("");
-  const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const clearForm = () => {
-    setTitle("");
-    setDescription("");
-    setDepartment("");
-    setContent("");
-    setLoading("");
-    setError("");
-  };
-
-  const onSubmit = async (event) => {
+  const onSubmit = async (values, resetForm) => {
     try {
+      setSuccess(null);
+      setError(null);
+      const { title, description, department, content } = values;
       setLoading(true);
-      event.preventDefault();
       const formData = {
         title,
         description,
@@ -36,36 +35,52 @@ const SrqForm = ({ setError, setSuccess }) => {
       await axios.post(urls.srq, formData);
       setLoading(false);
       setSuccess(true);
-      clearForm();
+      resetForm();
     } catch (error) {
       setLoading(false);
       setError(error.message);
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      department: "",
+      content: "",
+    },
+    validationSchema,
+    validateOnChange: true,
+    onSubmit: (values, { resetForm }) => onSubmit(values, resetForm),
+  });
+
   return (
-    <StyledFormContainer onSubmit={onSubmit}>
+    <StyledFormContainer onSubmit={formik.handleSubmit}>
       <FormInput
-        onChange={(event) => setTitle(event.target.value)}
-        required
+        hasErrors={!!formik.errors.title || formik.touched.title}
+        value={formik.values.title}
+        onChange={formik.handleChange}
         name="title"
         placeholder="Tytuł SRQ"
       />
       <FormInput
-        onChange={(event) => setDescription(event.target.value)}
-        required
+        hasErrors={!!formik.errors.description || formik.touched.description}
+        value={formik.values.description}
+        onChange={formik.handleChange}
         name="description"
         placeholder="Opis SRQ"
       />
       <FormInput
-        onChange={(event) => setDepartment(event.target.value)}
-        required
+        hasErrors={!!formik.errors.department || formik.touched.department}
+        value={formik.values.department}
+        onChange={formik.handleChange}
         name="department"
         placeholder="Dział, do którego trafia SRQ"
       />
       <StyledFormTextarea
-        onChange={(event) => setContent(event.target.value)}
-        required
+        hasErrors={!!formik.errors.content || formik.touched.content}
+        value={formik.values.content}
+        onChange={formik.handleChange}
         name="content"
         placeholder="Treść formatki"
       />

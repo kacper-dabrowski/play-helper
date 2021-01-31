@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { StyledFormHeader } from "../../UI/Headers/StyledHeaders";
 import Modal from "../../UI/Modal/Modal";
 import ErrorMessage from "../Messages/ErrorMessage/ErrorMessage";
@@ -10,6 +10,12 @@ const SrqModal = ({ isOpened, closeModalHandler }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const toggleSuccess = useCallback(() => {
+    setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+    }, 5000);
+  }, []);
   return (
     <Modal isOpened={isOpened} closeModalHandler={closeModalHandler}>
       <SrqModalContainer>
@@ -18,7 +24,7 @@ const SrqModal = ({ isOpened, closeModalHandler }) => {
           <SuccessMessage message={"Operacja zakończona powodzeniem"} />
         ) : null}
         {error ? <ErrorMessage message={error} /> : null}
-        <SrqForm setError={setError} setSuccess={setSuccess} />
+        <SrqForm setError={setError} setSuccess={toggleSuccess} />
       </SrqModalContainer>
     </Modal>
   );
