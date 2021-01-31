@@ -10,94 +10,103 @@ import Spinner from "../../../Spinner/Spinner";
 import ErrorMessage from "../../Messages/ErrorMessage/ErrorMessage";
 import SubmitButton from "../../../SubmitButton/SubmitButton";
 import { StyledFormHeader } from "../../../UI/Headers/StyledHeaders";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  username: Yup.string()
+    .max(20, "Pole musi być krótsze niz 20 znaków")
+    .required("Pole jest wymagane"),
+  fullName: Yup.string().required("Pole jest wymagane"),
+  password: Yup.string()
+    .min(6, "Hasło musi być dłuzsze niz 6 znakow")
+    .required("Pole jest wymagane"),
+  confirmPassword: Yup.string()
+    .required("Pole jest wymagane")
+    .oneOf([Yup.ref("password"), null], "Hasła muszą się zgadzać"),
+});
+
 const SignUpForm = (props) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      fullName: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => await signUp(values),
+  });
 
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [hasError, setHasError] = useState({});
+  const [submitError, setSubmitError] = useState(null);
 
-  const signedUpHandler = async (event) => {
-    event.preventDefault();
-    if (password.length < 6) {
-      const error = new Error("Hasło nie może być krótsze niż 6 znaków!");
-      setHasError(error);
-    }
-    if (password !== confirmPassword) {
-      const error = new Error("Hasła nie są takie same!");
-
-      return setHasError(error);
-    }
-    if (!username) {
-      const error = new Error("Nazwa użytkownika nie może być pusta!");
-
-      return setHasError(error);
-    }
-    if (!fullName) {
-      const error = new Error("Imię i nazwisko nie mogą być puste!");
-
-      return setHasError(error);
-    }
-
-    const newUser = {
-      username,
-      password,
-      fullName,
-    };
+  const signUp = async (values) => {
+    const { username, password, fullName } = values;
     try {
-      const signupRequest = await axios.post(
-        urls.signup,
-        JSON.stringify(newUser),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (signupRequest.status !== 201) {
-        const error = new Error();
-        error.message = "Żądanie nie powiodło się.";
-        setHasError(error);
+      setIsLoading(true);
+      const signupRequest = await axios.post(urls.signup, {
+        username,
+        password,
+        fullName,
+      });
+      if (signupRequest.status === 201) {
+        props.onAuth(username, password, props.closeModalHandler);
       }
-      props.onAuth(username, password, props.closeModalHandler());
+      setIsLoading(false);
     } catch (error) {
-      setHasError(error?.response?.data || error);
+      setIsLoading(false);
+      console.log(error.response.status);
+      setSubmitError(error);
     }
   };
-  const error = hasError.message ? (
-    <ErrorMessage message={hasError.message} />
-  ) : null;
+
+  const error = submitError && (
+    <ErrorMessage message="Ta nazwa użytkownika jest już zajęta" />
+  );
   return (
-    <StyledSignupForm onSubmit={signedUpHandler}>
+    <StyledSignupForm onSubmit={formik.handleSubmit}>
       <StyledFormHeader>Zarejestruj się</StyledFormHeader>
       {error}
       <FormInputsWrapper>
         <LoginInput
+          name="username"
+          id="username"
+          hasErrors={!!formik.errors.username && !!formik.touched.username}
           placeholder={"Nazwa użytkownika"}
-          onChange={(event) => setUsername(event.target.value)}
-          value={username}
+          onChange={formik.handleChange}
+          value={formik.values.username}
         />
         <LoginInput
+          name="fullName"
+          id="fullName"
+          hasErrors={!!formik.errors.fullName && !!formik.touched.fullName}
           placeholder={"Imię i nazwisko"}
-          onChange={(event) => setFullName(event.target.value)}
-          value={fullName}
+          onChange={formik.handleChange}
+          value={formik.values.fullName}
         />
         <LoginInput
+          name="password"
+          id="password"
+          hasErrors={!!formik.errors.password && !!formik.touched.password}
           placeholder={"Hasło"}
-          type={"password"}
-          onChange={(event) => setPassword(event.target.value)}
-          value={password}
+          type="password"
+          onChange={formik.handleChange}
+          value={formik.values.password}
         />
         <LoginInput
+          name="confirmPassword"
+          id="confirmPassword"
+          hasErrors={
+            !!formik.errors.confirmPassword && !!formik.touched.confirmPassword
+          }
           placeholder={"Potwierdź hasło"}
           type={"password"}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-          value={confirmPassword}
+          onChange={formik.handleChange}
+          value={formik.values.confirmPassword}
         />
       </FormInputsWrapper>
-      {props.isLoading ? (
+      {isLoading ? (
         <Spinner centered />
       ) : (
         <SubmitButton title={"Utwórz konto"} />
