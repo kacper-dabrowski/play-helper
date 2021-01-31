@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ErrorBadge from "../../../../components/UI/ErrorBadge/ErrorBadge";
 import useRequest from "../../../../hooks/useRequest";
 import urls from "../../../../shared/urls";
 import SrqResults from "./SrqResults/SrqResults";
@@ -10,7 +11,7 @@ const SrqFinder = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const srqResults = response?.data?.supportRequests;
+  const srqResults = response?.data?.supportRequests || [];
 
   const onSearch = (searchPhrase) => {
     const search = srqResults.filter((result) => {
@@ -28,9 +29,10 @@ const SrqFinder = (props) => {
     setSearchQuery(event.target.value);
     onSearch(event.target.value);
   };
-  console.log(srqResults);
+
   return (
     <StyledSrqFinder>
+      <ErrorBadge deleteError={() => {}} message={error?.message} />
       <SrqSearchbar onType={searchSrqHandler} value={searchQuery} />
       <SrqResults
         setTemplate={props.setTemplate}

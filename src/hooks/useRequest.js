@@ -23,7 +23,20 @@ const fetchData = async (requestConfig) => {
     setResponse(fetchedData);
     setIsLoading(false);
   } catch (error) {
-    setError(error);
+    let returnedError;
+    switch (error.response.status) {
+      case 401:
+        returnedError = new Error(
+          "Nie możesz skorzystać z tej funkcji jako niezalogowany użytkownik"
+        );
+        break;
+      default:
+        returnedError = new Error(
+          "Nie udało się pobrać SRQ z serwera. Spróbuj ponownie później"
+        );
+    }
+    setIsLoading(false);
+    setError(returnedError);
   }
 };
 
