@@ -1,12 +1,12 @@
-import React from "react";
-import { StyledSubmitButton } from "./StyledSubmitButton";
+import React from 'react';
+import { StyledSubmitButton } from './StyledSubmitButton';
 
 const SubmitButton = ({ onClick, title }) => {
-  return (
-    <StyledSubmitButton onClick={onClick} type={"submit"}>
-      {title}
-    </StyledSubmitButton>
-  );
+    return (
+        <StyledSubmitButton onClick={onClick} type="submit">
+            {title}
+        </StyledSubmitButton>
+    );
 };
 
 export default SubmitButton;

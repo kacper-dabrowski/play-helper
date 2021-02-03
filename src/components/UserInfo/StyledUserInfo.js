@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledUserInfo = styled.p`
-  color: lime;
-  text-align: center;
+    color: lime;
+    text-align: center;
 `;
