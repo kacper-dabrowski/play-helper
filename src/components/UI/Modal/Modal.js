@@ -11,15 +11,14 @@ const Modal = ({ children, isOpened, closeModalHandler }) => {
         <>
             <AnimatePresence>
                 {isOpened && (
-                    <>
-                        <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler} />
+                    <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler}>
                         <ModalWrapper as={motion.div} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                             <ModalContainer>
                                 <CancelModal onClick={closeModalHandler} />
                                 {children}
                             </ModalContainer>
                         </ModalWrapper>
-                    </>
+                    </Backdrop>
                 )}
             </AnimatePresence>
         </>,
