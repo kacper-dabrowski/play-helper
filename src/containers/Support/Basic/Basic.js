@@ -21,7 +21,7 @@ const Basic = (props) => {
     const [details, setDetails] = useState(null);
     const [general, setGeneral] = useState(null);
     const [hasOffer, setHasOffer] = useState(false);
-    const [error, setError] = useState(null);
+    const [basicError, setBasicError] = useState(null);
 
     const generateTemplate = useCallback(() => {
         try {
@@ -37,9 +37,9 @@ const Basic = (props) => {
             };
             const generatedTemplate = generateBasicTemplate(templateConfig);
             setTemplate(generatedTemplate);
-            setError(null);
+            setBasicError(null);
         } catch (error) {
-            setError(error);
+            setBasicError(error);
         }
     }, [sex, type, channel, date, details, general, hasOffer, props.name]);
 
@@ -56,7 +56,7 @@ const Basic = (props) => {
     return (
         <>
             <div>
-                <ErrorBadge message={error?.message} deleteError={() => setError(null)} />
+                <ErrorBadge message={basicError?.message} deleteError={() => setBasicError(null)} />
                 <SettingsSection>
                     <SexSection setHandler={setSex} setting={sex} />
                     <ChannelSection setHandler={setChannel} setting={channel} />

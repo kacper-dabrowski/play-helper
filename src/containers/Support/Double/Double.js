@@ -14,7 +14,7 @@ const Double = ({ type }) => {
     const [current, setCurrent] = useState('');
     const [doubled, setDoubled] = useState('');
     const [template, setTemplate] = useState('');
-    const [error, setError] = useState(null);
+    const [doubleError, setDoubleError] = useState(null);
 
     const clearFields = useCallback(() => {
         setSex(null);
@@ -27,28 +27,28 @@ const Double = ({ type }) => {
 
     const generateTemplateHandler = useCallback(() => {
         try {
-            let template;
+            let currentTemplate;
             switch (type) {
                 case config.double.opened:
-                    template = generateOpenedDoubleTemplate(current, doubled);
+                    currentTemplate = generateOpenedDoubleTemplate(current, doubled);
                     break;
                 case config.double.closed:
-                    template = generateClosedDoubleTemplate(sex, current, doubled);
+                    currentTemplate = generateClosedDoubleTemplate(sex, current, doubled);
                     break;
                 default:
                     throw new Error('Invalid double type');
             }
 
-            setTemplate(template);
+            setTemplate(currentTemplate);
         } catch (error) {
-            setError(error);
+            setDoubleError(error);
         }
     }, [type, doubled, current, sex]);
 
     return (
         <>
             <div>
-                <ErrorBadge message={error?.message} deleteError={() => setError(null)} />
+                <ErrorBadge message={doubleError?.message} deleteError={() => setDoubleError(null)} />
                 {type === config.double.closed && (
                     <StyledSexSection>
                         <SexSection setting={sex} setHandler={setSex} />

@@ -1,6 +1,6 @@
 import config from '../../shared/identifiers';
 
-export const generateClosedDoubleTemplate = (sex, numOfCurrent, numOfClosed) => {
+const generateClosedDoubleTemplate = (sex, numOfCurrent, numOfClosed) => {
     if (!numOfCurrent || !numOfClosed) {
         throw new Error('Nie ustawiono jednego z numerów zgłoszeń!');
     }
