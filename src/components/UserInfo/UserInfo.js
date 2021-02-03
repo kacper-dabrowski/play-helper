@@ -1,8 +1,12 @@
 import React from 'react';
-import { StyledUserInfo } from './StyledUserInfo';
+import { StyledUserInfo, StyledUserInfoWrapper } from './StyledUserInfo';
 
 const UserInfo = ({ username }) => {
-    return <StyledUserInfo>{username}</StyledUserInfo>;
+    return (
+        <StyledUserInfoWrapper>
+            <StyledUserInfo>{username}</StyledUserInfo>
+        </StyledUserInfoWrapper>
+    );
 };
 
 export default UserInfo;
