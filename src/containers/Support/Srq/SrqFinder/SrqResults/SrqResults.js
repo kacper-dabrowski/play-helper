@@ -4,6 +4,7 @@ import { StyledSrqResults } from './StyledSrqResults';
 import SrqResult from './SrqResult/SrqResult';
 
 const SrqResults = ({ supportRequests, error, isLoading, setTemplate }) => {
+    console.log(supportRequests);
     if (error) {
         return (
             <StyledSrqResults>

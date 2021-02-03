@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyledBackdrop } from './StyledBackdrop';
 
-const Backdrop = ({ isOpened, children, closeModalHandler }) => {
+const Backdrop = ({ isOpened, children }) => {
     if (!isOpened) {
         return null;
     }
 
-    return <StyledBackdrop onClick={closeModalHandler}>{children}</StyledBackdrop>;
+    return <StyledBackdrop>{children}</StyledBackdrop>;
 };
 
 export default Backdrop;
