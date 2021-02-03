@@ -1,18 +1,18 @@
-const { generateBasicTemplate } = require("./basic");
-const config = require("../../shared/identifiers");
+const { generateBasicTemplate } = require('./basic');
+const config = require('../../shared/identifiers');
 
-it("should generate a valid basic template for man, business type and helpline channel with and without offer", () => {
-  const templateConfig = {
-    name: "Test Test",
-    sex: config.default.sex.man,
-    type: config.default.type.business,
-    channel: config.default.channel.helpline,
-    date: "11-12-2020",
-    general: "asd",
-    details: "asd",
-    hasOffer: false,
-  };
-  expect(generateBasicTemplate(templateConfig)).toEqual(`Szanowny Panie,
+it('should generate a valid basic template for man, business type and helpline channel with and without offer', () => {
+    const templateConfig = {
+        name: 'Test Test',
+        sex: config.default.sex.man,
+        type: config.default.type.business,
+        channel: config.default.channel.helpline,
+        date: '11-12-2020',
+        general: 'asd',
+        details: 'asd',
+        hasOffer: false,
+    };
+    expect(generateBasicTemplate(templateConfig)).toEqual(`Szanowny Panie,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 
@@ -31,8 +31,7 @@ Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że oceni
 Z poważaniem,
 Test Test
 Obsługa Klienta Play`);
-  expect(generateBasicTemplate({ ...templateConfig, hasOffer: true }))
-    .toEqual(`Szanowny Panie,
+    expect(generateBasicTemplate({ ...templateConfig, hasOffer: true })).toEqual(`Szanowny Panie,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 
