@@ -1,7 +1,7 @@
 import React from 'react';
-import { ClipLoader } from 'react-spinners';
 import { StyledSrqResults } from './StyledSrqResults';
 import SrqResult from './SrqResult/SrqResult';
+import Spinner from '../../../../../components/Spinner/Spinner';
 
 const SrqResults = ({ supportRequests, error, isLoading, setTemplate }) => {
     if (error) {
@@ -15,7 +15,7 @@ const SrqResults = ({ supportRequests, error, isLoading, setTemplate }) => {
     if (isLoading) {
         return (
             <StyledSrqResults>
-                <ClipLoader color="white" />
+                <Spinner />
             </StyledSrqResults>
         );
     }
