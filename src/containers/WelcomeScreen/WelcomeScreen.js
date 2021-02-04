@@ -9,6 +9,7 @@ import SignupModal from '../../components/Modals/SignupModal/SignupModal';
 
 import Topbar from './Topbar/Topbar';
 import SrqModal from '../../components/Modals/SrqModal/SrqModal';
+import Backdrop from '../../components/UI/Backdrop/Backdrop';
 
 const WelcomeScreen = (props) => {
     const [loginModalOpened, setLoginModalOpened] = useState(false);
@@ -16,36 +17,39 @@ const WelcomeScreen = (props) => {
     const [srqModalOpened, setSrqModalOpened] = useState(false);
 
     return (
-        <WelcomeScreenContainer>
-            <Topbar
-                isAuthenticated={props.isAuthenticated}
-                fullName={props.fullName}
-                onLoginModalOpened={() => setLoginModalOpened(true)}
-                onSignInModalOpened={() => setSignInModalOpened(true)}
-                onSrqModalOpened={() => setSrqModalOpened(true)}
-            />
+        <>
+            <Backdrop isOpened={!props.isAuthenticated} />
+            <WelcomeScreenContainer>
+                <Topbar
+                    isAuthenticated={props.isAuthenticated}
+                    fullName={props.fullName}
+                    onLoginModalOpened={() => setLoginModalOpened(true)}
+                    onSignInModalOpened={() => setSignInModalOpened(true)}
+                    onSrqModalOpened={() => setSrqModalOpened(true)}
+                />
 
-            <LoginModal isOpened={loginModalOpened} closeModalHandler={() => setLoginModalOpened(false)} />
+                <LoginModal isOpened={loginModalOpened} closeModalHandler={() => setLoginModalOpened(false)} />
 
-            <SignupModal isOpened={signInModalOpened} closeModalHandler={() => setSignInModalOpened(false)} />
+                <SignupModal isOpened={signInModalOpened} closeModalHandler={() => setSignInModalOpened(false)} />
 
-            <SrqModal isOpened={srqModalOpened} closeModalHandler={() => setSrqModalOpened(false)} />
+                <SrqModal isOpened={srqModalOpened} closeModalHandler={() => setSrqModalOpened(false)} />
 
-            <ProjectTile
-                projectEndpoint="/next"
-                projectColorDark="#303030"
-                projectColorBright="#009688"
-                projectLogo={arrowLeft}
-                projectText="PLAY NEXT"
-            />
-            <ProjectTile
-                projectEndpoint="/support"
-                projectColorDark="#180f25"
-                projectColorBright="#303030"
-                projectLogo={arrowRight}
-                projectText="Druga Linia"
-            />
-        </WelcomeScreenContainer>
+                <ProjectTile
+                    projectEndpoint="/next"
+                    projectColorDark="#303030"
+                    projectColorBright="#009688"
+                    projectLogo={arrowLeft}
+                    projectText="PLAY NEXT"
+                />
+                <ProjectTile
+                    projectEndpoint="/support"
+                    projectColorDark="#180f25"
+                    projectColorBright="#303030"
+                    projectLogo={arrowRight}
+                    projectText="Druga Linia"
+                />
+            </WelcomeScreenContainer>
+        </>
     );
 };
 const mapStateToProps = (state) => ({
