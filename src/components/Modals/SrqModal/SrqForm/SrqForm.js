@@ -10,6 +10,7 @@ import SubmitButton from '../../../SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSrqForm';
 import ErrorBadge from '../../../UI/ErrorBadge/ErrorBadge';
 import { getLastMessageFromFormikErrors } from '../../../../shared/errors/handleErrors';
+import useFocus from '../../../../hooks/useFocus';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),
@@ -20,6 +21,7 @@ const validationSchema = Yup.object({
 
 const SrqForm = ({ setError, setSuccess }) => {
     const [loading, setLoading] = useState(false);
+    const focusRef = useFocus();
 
     const onSubmit = async (values, resetForm) => {
         try {
@@ -60,6 +62,7 @@ const SrqForm = ({ setError, setSuccess }) => {
         <StyledFormContainer onSubmit={formik.handleSubmit}>
             <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
             <FormInput
+                focusRef={focusRef}
                 hasErrors={!!formik.errors.title || formik.touched.title}
                 value={formik.values.title}
                 onChange={formik.handleChange}

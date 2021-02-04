@@ -14,6 +14,7 @@ import SubmitButton from '../../../SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../../UI/Headers/StyledHeaders';
 import ErrorBadge from '../../../UI/ErrorBadge/ErrorBadge';
 import { getLastMessageFromFormikErrors } from '../../../../shared/errors/handleErrors';
+import useFocus from '../../../../hooks/useFocus';
 
 const validationSchema = Yup.object({
     username: Yup.string().max(20, 'Pole musi być krótsze niz 20 znaków').required('Pole jest wymagane'),
@@ -27,6 +28,7 @@ const validationSchema = Yup.object({
 const SignUpForm = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [submitError, setSubmitError] = useState(null);
+    const focusRef = useFocus();
 
     const formik = useFormik({
         initialValues: {
@@ -55,7 +57,6 @@ const SignUpForm = (props) => {
             }
         },
     });
-
     const error = submitError && <ErrorMessage message="Ta nazwa użytkownika jest już zajęta" />;
     return (
         <StyledSignupForm onSubmit={formik.handleSubmit}>
@@ -64,6 +65,7 @@ const SignUpForm = (props) => {
             {error}
             <FormInputsWrapper>
                 <LoginInput
+                    focusRef={focusRef}
                     name="username"
                     id="username"
                     hasErrors={!!formik.errors.username && !!formik.touched.username}

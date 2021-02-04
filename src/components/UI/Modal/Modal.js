@@ -8,21 +8,20 @@ import { ModalContainer, ModalWrapper } from './StyledModal';
 
 const Modal = ({ children, isOpened, closeModalHandler }) => {
     return ReactDOM.createPortal(
-        <>
-            <AnimatePresence>
-                {isOpened && (
-                    <>
-                        <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler} />
-                        <ModalWrapper as={motion.div} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                            <ModalContainer>
-                                <CancelModal onClick={closeModalHandler} />
-                                {children}
-                            </ModalContainer>
-                        </ModalWrapper>
-                    </>
-                )}
-            </AnimatePresence>
-        </>,
+        <AnimatePresence>
+            {isOpened && (
+                <>
+                    <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler} />
+                    <ModalWrapper as={motion.div} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <ModalContainer>
+                            <CancelModal onClick={closeModalHandler} />
+                            {children}
+                        </ModalContainer>
+                    </ModalWrapper>
+                </>
+            )}
+        </AnimatePresence>,
+
         document.getElementById('modal-portal')
     );
 };

@@ -12,6 +12,7 @@ import LoginInput from './LoginInputs/LoginInput/LoginInput';
 import { generateMessageByCode, getLastMessageFromFormikErrors } from '../../../../shared/errors/handleErrors';
 import ErrorMessage from '../../Messages/ErrorMessage/ErrorMessage';
 import ErrorBadge from '../../../UI/ErrorBadge/ErrorBadge';
+import useFocus from '../../../../hooks/useFocus';
 
 const validationSchema = Yup.object({
     login: Yup.string().max(20, 'Login musi być nie dłuzszy niz 20 znaków').required('Pole jest wymagane'),
@@ -26,6 +27,7 @@ const LoginForm = (props) => {
         validateOnChange: false,
     });
     const error = props.error && <ErrorMessage message={generateMessageByCode(props.error)} />;
+    const focusRef = useFocus();
 
     return (
         <>
@@ -35,6 +37,7 @@ const LoginForm = (props) => {
                 <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
                 <LoginInputsWrapper>
                     <LoginInput
+                        focusRef={focusRef}
                         id="login"
                         name="login"
                         hasErrors={!!formik.errors.login && !!formik.touched.login}
