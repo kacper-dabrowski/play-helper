@@ -1,8 +1,7 @@
 import React from 'react';
 import SupportLayout from '../../layouts/SupportLayout/SupportLayout';
 
-const Solution = (props) => {
-    console.log(props);
+const Solution = () => {
     return <SupportLayout>zamknięcia</SupportLayout>;
 };
 

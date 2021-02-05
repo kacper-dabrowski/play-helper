@@ -1,8 +1,8 @@
 import React from 'react';
 import NavbarItems from './NavbarItems/NavbarItems';
 import { StyledNavbar } from './StyledNavbar';
-import UserInfo from '../../../components/UserInfo/UserInfo';
-import ArrowBack from '../../../components/ArrowBack/ArrowBack';
+import UserInfo from '../../../UserInfo/UserInfo';
+import ArrowBack from '../../../ArrowBack/ArrowBack';
 
 const Navbar = ({ username, routes }) => {
     return (

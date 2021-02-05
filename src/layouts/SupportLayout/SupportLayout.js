@@ -1,9 +1,14 @@
 import React from 'react';
-// import ArrowBack from '../../components/ArrowBack/ArrowBack';
+import Navbar from '../../containers/PlayNext/Navbar/Navbar';
 import { StyledSupportLayout } from './StyledSupportLayout';
 
-const SupportLayout = ({ children }) => {
-    return <StyledSupportLayout>{children}</StyledSupportLayout>;
+const SupportLayout = ({ children, routes, username }) => {
+    return (
+        <StyledSupportLayout>
+            <Navbar routes={routes} username={username} />
+            {children}
+        </StyledSupportLayout>
+    );
 };
 
 export default SupportLayout;

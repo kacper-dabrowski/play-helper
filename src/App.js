@@ -7,6 +7,7 @@ import PlayNext from './containers/PlayNext/PlayNext';
 import Support from './containers/Support/Support';
 import WelcomeScreen from './containers/WelcomeScreen/WelcomeScreen';
 import Solution from './Pages/Solution/Solution';
+import routes from './shared/routes';
 import * as actions from './store/actions';
 
 const App = (props) => {
@@ -17,7 +18,7 @@ const App = (props) => {
     return (
         <Switch>
             <PrivateRoute path="/support">
-                <Support />
+                <Support routes={routes.support} />
             </PrivateRoute>
             <PrivateRoute path="/next">
                 <PlayNext />
