@@ -1,14 +1,15 @@
 import React from 'react';
 import ArrowBack from '../../../components/ArrowBack/ArrowBack';
 import UserInfo from '../../../components/UserInfo/UserInfo';
-import config from '../../../shared/identifiers';
+import NavbarItems from '../../../components/UI/Navbars/SupportNavbar/NavbarItems/NavbarItems';
 import { StyledNavbar } from './StyledNavbar';
 
-const Navbar = ({ username }) => {
+const Navbar = ({ username, routes }) => {
     return (
         <StyledNavbar>
+            <ArrowBack />
+            <NavbarItems routes={routes} />
             <UserInfo username={username} />
-            <ArrowBack type={config.projects.NEXT} />
         </StyledNavbar>
     );
 };

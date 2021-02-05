@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import arrowBackImage from '../../assets/icons/left-arrow-back.svg';
 
 export const StyledArrowBack = styled(Link)`
-    position: absolute;
     top: 0;
     left: 1rem;
     margin: 1rem;

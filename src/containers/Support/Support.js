@@ -9,11 +9,9 @@ import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
 import { Container } from './StyledSupport';
-import Navbar from './SupportNavbar/Navbar';
 
 const Support = (props) => (
-    <SupportLayout>
-        <Navbar username={props.fullName} routes={routes.support} />
+    <SupportLayout routes={props.routes} username={props.fullName}>
         <Container>
             <Switch>
                 <Route path={routes.support.srq.path}>
