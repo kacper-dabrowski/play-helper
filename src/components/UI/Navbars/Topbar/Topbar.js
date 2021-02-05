@@ -1,5 +1,5 @@
 import React from 'react';
-import UserInfo from '../../../components/UserInfo/UserInfo';
+import UserInfo from '../../../UserInfo/UserInfo';
 import { TopbarContainer } from './StyledTopbar';
 import { TopbarButton } from './TopbarButton/TopbarButton';
 import { TopbarNavlink } from './TopbarNavlink/TopbarNavlink';
