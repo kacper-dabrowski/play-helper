@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import Navbar from './Navbar/Navbar';
 import Settings from './Settings/Settings';
 import { PlayNextTextArea, StyledPlayNext, Container } from './StyledPlayNext';
-
 import identifiers from '../../shared/identifiers';
 import { generateNextTemplate, isPolish } from '../../modules/next/next';
+import Navbar from '../../components/UI/Navbars/PageNavbar/Navbar';
 
 const PlayNext = ({ username }) => {
     const [language, setLanguage] = useState(identifiers.language.polish);
