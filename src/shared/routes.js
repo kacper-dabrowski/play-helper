@@ -7,5 +7,7 @@ const routes = {
         payments: { title: 'Raty', exact: true, path: '/support/payments' },
         srq: { title: 'SRQ', exact: true, path: '/support/srq' },
     },
+    userPanel: {},
+    playNext: {},
 };
 export default routes;
