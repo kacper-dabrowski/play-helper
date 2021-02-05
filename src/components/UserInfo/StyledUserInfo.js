@@ -8,6 +8,7 @@ export const StyledUserInfoWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    ${({ rightCorner }) => rightCorner && `position: absolute; top:0; right:0; width:150px`}
 `;
 
 export const StyledUserInfo = styled.p`

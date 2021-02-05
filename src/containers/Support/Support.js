@@ -11,7 +11,7 @@ import Srq from './Srq/Srq';
 import { Container } from './StyledSupport';
 
 const Support = (props) => (
-    <SupportLayout routes={props.routes} username={props.fullName}>
+    <SupportLayout routes={props.routes}>
         <Container>
             <Switch>
                 <Route path={routes.support.srq.path}>

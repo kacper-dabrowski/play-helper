@@ -44,7 +44,7 @@ const PlayNext = ({ username }) => {
     };
     return (
         <StyledPlayNext>
-            <Navbar username={username} />
+            <Navbar username={username} routes={{}} />
             <Container>
                 <Settings
                     language={language}
