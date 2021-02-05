@@ -1,39 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
+import SupportLayout from '../../layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
 import routes from '../../shared/routes';
 import Basic from './Basic/Basic';
 import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
-import { Container, StyledSupport } from './StyledSupport';
+import { Container } from './StyledSupport';
 import Navbar from './SupportNavbar/Navbar';
 
 const Support = (props) => (
-    <StyledSupport>
-        <Navbar username={props.fullName} />
+    <SupportLayout>
+        <Navbar username={props.fullName} routes={routes.support} />
         <Container>
             <Switch>
-                <Route path={routes.support.srq}>
+                <Route path={routes.support.srq.path}>
                     <Srq />
                 </Route>
-                <Route path={routes.support.basic}>
+                <Route path={routes.support.basic.path}>
                     <Basic name={props.fullName} />
                 </Route>
-                <Route exact path={routes.support.doubleOpened}>
+                <Route exact path={routes.support.doubleOpened.path}>
                     <Double type={config.double.opened} />
                 </Route>
-                <Route exact path={routes.support.doubleClosed}>
+                <Route exact path={routes.support.doubleClosed.path}>
                     <Double type={config.double.closed} />
                 </Route>
-                <Route path={routes.support.payments}>
+                <Route path={routes.support.payments.path}>
                     <Payments />
                 </Route>
-                <Route path={routes.support.main} exact />
+                <Route path={routes.support.main.path} exact />
             </Switch>
         </Container>
-    </StyledSupport>
+    </SupportLayout>
 );
 const mapStateToProps = (state) => ({
     isAuthenticated: !!state.auth.token,

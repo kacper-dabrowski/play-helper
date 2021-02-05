@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledUserInfoWrapper = styled.div`
-    height: 64px;
+    height: 60px;
     right: 1rem;
     top: 0;
     position: absolute;
