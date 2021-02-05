@@ -6,7 +6,7 @@ import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
 import PlayNext from './containers/PlayNext/PlayNext';
 import Support from './containers/Support/Support';
 import WelcomeScreen from './containers/WelcomeScreen/WelcomeScreen';
-import Solution from './Pages/Solution/Solution';
+import Solution from './Pages/UserPanel/UserPanel';
 import routes from './shared/routes';
 import * as actions from './store/actions';
 
@@ -23,7 +23,7 @@ const App = (props) => {
             <PrivateRoute path="/next">
                 <PlayNext />
             </PrivateRoute>
-            <PrivateRoute path="/solutions">
+            <PrivateRoute path="/user-panel">
                 <Solution />
             </PrivateRoute>
             <PrivateRoute path="/logout" render={() => <Logout />} />
