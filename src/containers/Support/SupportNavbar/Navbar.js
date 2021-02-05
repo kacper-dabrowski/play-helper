@@ -3,13 +3,12 @@ import NavbarItems from './NavbarItems/NavbarItems';
 import { StyledNavbar } from './StyledNavbar';
 import UserInfo from '../../../components/UserInfo/UserInfo';
 import ArrowBack from '../../../components/ArrowBack/ArrowBack';
-import config from '../../../shared/identifiers';
 
-const Navbar = ({ username }) => {
+const Navbar = ({ username, routes }) => {
     return (
         <StyledNavbar>
-            <ArrowBack type={config.projects.SUPPORT} />
-            <NavbarItems />
+            <ArrowBack />
+            <NavbarItems routes={routes} />
             <UserInfo username={username} />
         </StyledNavbar>
     );

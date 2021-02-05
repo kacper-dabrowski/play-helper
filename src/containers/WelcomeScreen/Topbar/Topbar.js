@@ -11,6 +11,9 @@ const Topbar = ({ onLoginModalOpened, onSignInModalOpened, onSrqModalOpened, isA
             <TopbarButton onClick={onSrqModalOpened} width="12rem">
                 Utwórz nowe SRQ
             </TopbarButton>
+            <TopbarNavlink to="/solutions" width="15rem">
+                Utwórz nowe zamknięcie
+            </TopbarNavlink>
             <UserInfo username={fullName} />
         </>
     ) : (
