@@ -5,6 +5,7 @@ import { PlayNextTextArea, StyledPlayNext, Container } from './StyledPlayNext';
 import identifiers from '../../shared/identifiers';
 import { generateNextTemplate, isPolish } from '../../modules/next/next';
 import Navbar from '../../components/UI/Navbars/PageNavbar/Navbar';
+import routes from '../../shared/routes';
 
 const PlayNext = ({ username }) => {
     const [language, setLanguage] = useState(identifiers.language.polish);
@@ -43,7 +44,7 @@ const PlayNext = ({ username }) => {
     };
     return (
         <StyledPlayNext>
-            <Navbar username={username} routes={{}} />
+            <Navbar username={username} routes={routes.playNext} />
             <Container>
                 <Settings
                     language={language}
