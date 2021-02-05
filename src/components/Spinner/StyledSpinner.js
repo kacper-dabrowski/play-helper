@@ -5,7 +5,7 @@ export const SpinnerContainer = styled.div`
         isCentered
             ? `
   text-align:center;
-  margin: 0 auto;
+  margin: 1rem auto;
   `
             : null}
 `;

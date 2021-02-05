@@ -15,7 +15,7 @@ const SrqResults = ({ supportRequests, error, isLoading, setTemplate }) => {
     if (isLoading) {
         return (
             <StyledSrqResults>
-                <Spinner />
+                <Spinner centered />
             </StyledSrqResults>
         );
     }

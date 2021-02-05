@@ -18,7 +18,7 @@ const fetchData = async (requestConfig) => {
         setIsLoading(false);
     } catch (error) {
         let returnedError;
-        switch (error.response.status) {
+        switch (error?.response?.status) {
             case 401:
                 returnedError = new Error('Nie możesz skorzystać z tej funkcji jako niezalogowany użytkownik');
                 break;
