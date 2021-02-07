@@ -1,5 +1,5 @@
 import React from 'react';
-import SupportLayout from '../../layouts/SupportLayout/SupportLayout';
+import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import routes from '../../shared/routes';
 
 const UserPanel = () => {

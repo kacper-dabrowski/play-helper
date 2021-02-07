@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundImage from '../../assets/backgrounds/support-wave.svg';
+import backgroundImage from '../../../assets/backgrounds/support-wave.svg';
 
 export const StyledSupportLayout = styled.div`
     width: 100%;

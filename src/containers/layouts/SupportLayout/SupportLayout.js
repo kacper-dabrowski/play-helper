@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyledSupportLayout } from './StyledSupportLayout';
-import Navbar from '../../components/UI/Navbars/PageNavbar/Navbar';
+import Navbar from '../../../components/UI/Navbars/PageNavbar/Navbar';
 
 const SupportLayout = ({ children, routes, fullName }) => {
     return (
