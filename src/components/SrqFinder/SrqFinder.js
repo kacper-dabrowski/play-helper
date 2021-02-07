@@ -3,8 +3,8 @@ import ErrorBadge from '../UI/ErrorBadge/ErrorBadge';
 import useRequest from '../../hooks/useRequest';
 import urls from '../../shared/urls';
 import SrqResults from './SrqResults/SrqResults';
-import SrqSearchbar from './SrqSearchbar/SrqSearchbar';
 import { StyledSrqFinder } from './StyledSrqFinder';
+import Searchbar from '../SearchBar/SearchBar';
 
 const SrqFinder = (props) => {
     const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
@@ -32,7 +32,7 @@ const SrqFinder = (props) => {
     return (
         <StyledSrqFinder>
             <ErrorBadge deleteError={() => {}} message={error?.message} />
-            <SrqSearchbar onType={searchSrqHandler} value={searchQuery} />
+            <Searchbar onType={searchSrqHandler} value={searchQuery} />
             <SrqResults
                 onCopy={props.setTemplate && props.setTemplate}
                 supportRequests={searchQuery ? searchResults : srqResults}

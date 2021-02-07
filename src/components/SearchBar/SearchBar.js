@@ -1,12 +1,12 @@
 import React from 'react';
-import useFocus from '../../../hooks/useFocus';
-import { StyledInputWrapper, StyledSrqSearchbar } from './StyledSrqSearchbar';
+import useFocus from '../../hooks/useFocus';
+import { StyledSearchbar, StyledInputWrapper } from './StyledSearchBar';
 
-const SrqSearchbar = ({ onType, value }) => {
+const Searchbar = ({ onType, value }) => {
     const focusRef = useFocus();
     return (
         <StyledInputWrapper>
-            <StyledSrqSearchbar
+            <StyledSearchbar
                 ref={focusRef}
                 value={value}
                 onChange={(event) => {
@@ -18,4 +18,4 @@ const SrqSearchbar = ({ onType, value }) => {
     );
 };
 
-export default SrqSearchbar;
+export default Searchbar;
