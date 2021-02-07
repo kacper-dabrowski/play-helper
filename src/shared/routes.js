@@ -7,7 +7,10 @@ const routes = {
         payments: { title: 'Raty', exact: true, path: '/support/payments' },
         srq: { title: 'SRQ', exact: true, path: '/support/srq' },
     },
-    userPanel: {},
+    userPanel: {
+        solution: { title: 'Własne zamknięcia', exact: true, path: '/user-panel/solutions' },
+        srq: { title: 'SRQ', exact: true, path: '/user-panel/srq' },
+    },
     playNext: {},
 };
 export default routes;

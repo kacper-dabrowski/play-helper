@@ -8,30 +8,28 @@ import Basic from './Basic/Basic';
 import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
-import { Container } from './StyledSupport';
+import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 
 const Support = (props) => (
-    <SupportLayout routes={props.routes}>
-        <Container>
-            <Switch>
-                <Route path={routes.support.srq.path}>
-                    <Srq />
-                </Route>
-                <Route path={routes.support.basic.path}>
-                    <Basic name={props.fullName} />
-                </Route>
-                <Route exact path={routes.support.doubleOpened.path}>
-                    <Double type={config.double.opened} />
-                </Route>
-                <Route exact path={routes.support.doubleClosed.path}>
-                    <Double type={config.double.closed} />
-                </Route>
-                <Route path={routes.support.payments.path}>
-                    <Payments />
-                </Route>
-                <Route path={routes.support.main.path} exact />
-            </Switch>
-        </Container>
+    <SupportLayout routes={props.routes} backgroundImage={backgroundImage}>
+        <Switch>
+            <Route path={routes.support.srq.path}>
+                <Srq />
+            </Route>
+            <Route path={routes.support.basic.path}>
+                <Basic name={props.fullName} />
+            </Route>
+            <Route exact path={routes.support.doubleOpened.path}>
+                <Double type={config.double.opened} />
+            </Route>
+            <Route exact path={routes.support.doubleClosed.path}>
+                <Double type={config.double.closed} />
+            </Route>
+            <Route path={routes.support.payments.path}>
+                <Payments />
+            </Route>
+            <Route path={routes.support.main.path} exact />
+        </Switch>
     </SupportLayout>
 );
 const mapStateToProps = (state) => ({

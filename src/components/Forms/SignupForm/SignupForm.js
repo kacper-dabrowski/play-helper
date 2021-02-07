@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { StyledSignupForm } from './StyledSignupForm';
-import LoginInput from '../../LoginModal/LoginForm/LoginInputs/LoginInput/LoginInput';
-import * as actions from '../../../../store/actions';
-import urls from '../../../../shared/urls';
-import axios from '../../../../axios';
-import { FormInputsWrapper } from '../SignupModalContainer';
-import Spinner from '../../../Spinner/Spinner';
+import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
+import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
+import * as actions from '../../../store/actions';
+import urls from '../../../shared/urls';
+import axios from '../../../axios';
+import Spinner from '../../Spinner/Spinner';
 import ErrorMessage from '../../Messages/ErrorMessage/ErrorMessage';
-import SubmitButton from '../../../SubmitButton/SubmitButton';
-import { StyledFormHeader } from '../../../UI/Headers/StyledHeaders';
-import ErrorBadge from '../../../UI/ErrorBadge/ErrorBadge';
-import { getLastMessageFromFormikErrors } from '../../../../shared/errors/handleErrors';
-import useFocus from '../../../../hooks/useFocus';
+import SubmitButton from '../../SubmitButton/SubmitButton';
+import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
+import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
+import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
+import useFocus from '../../../hooks/useFocus';
 
 const validationSchema = Yup.object({
     username: Yup.string().max(20, 'Pole musi być krótsze niz 20 znaków').required('Pole jest wymagane'),

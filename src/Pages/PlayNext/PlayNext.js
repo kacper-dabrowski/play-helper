@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Settings from './Settings/Settings';
-import { PlayNextTextArea, StyledPlayNext, Container } from './StyledPlayNext';
+import { PlayNextTextArea } from './StyledPlayNext';
 import identifiers from '../../shared/identifiers';
 import { generateNextTemplate, isPolish } from '../../modules/next/next';
-import Navbar from '../../components/UI/Navbars/PageNavbar/Navbar';
+import backgroundImage from '../../assets/backgrounds/play-next-wave.svg';
 import routes from '../../shared/routes';
+import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 
 const PlayNext = ({ username }) => {
     const [language, setLanguage] = useState(identifiers.language.polish);
@@ -43,22 +44,19 @@ const PlayNext = ({ username }) => {
         setTemplate(templateToSet);
     };
     return (
-        <StyledPlayNext>
-            <Navbar username={username} routes={routes.playNext} />
-            <Container>
-                <Settings
-                    language={language}
-                    setLanguage={setLanguage}
-                    sex={sex}
-                    setSex={setSex}
-                    activeTemplate={activeTemplate}
-                    setActiveTemplate={setActiveTemplate}
-                    onGenerateTemplate={onGenerateTemplate}
-                    addToCurrentTemplate={addToCurrentTemplate}
-                />
-                <PlayNextTextArea value={template} setTemplate={setTemplate} />
-            </Container>
-        </StyledPlayNext>
+        <SupportLayout routes={routes.playNext} backgroundImage={backgroundImage}>
+            <Settings
+                language={language}
+                setLanguage={setLanguage}
+                sex={sex}
+                setSex={setSex}
+                activeTemplate={activeTemplate}
+                setActiveTemplate={setActiveTemplate}
+                onGenerateTemplate={onGenerateTemplate}
+                addToCurrentTemplate={addToCurrentTemplate}
+            />
+            <PlayNextTextArea value={template} setTemplate={setTemplate} />
+        </SupportLayout>
     );
 };
 

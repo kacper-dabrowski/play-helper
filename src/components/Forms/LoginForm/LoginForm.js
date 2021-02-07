@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { StyledLoginForm } from './StyledLoginForm';
-import * as actions from '../../../../store/actions';
-import Spinner from '../../../Spinner/Spinner';
-import SubmitButton from '../../../SubmitButton/SubmitButton';
-import { StyledFormHeader } from '../../../UI/Headers/StyledHeaders';
+import * as actions from '../../../store/actions';
+import Spinner from '../../Spinner/Spinner';
+import SubmitButton from '../../SubmitButton/SubmitButton';
+import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
 import LoginInput from './LoginInputs/LoginInput/LoginInput';
-import { generateMessageByCode, getLastMessageFromFormikErrors } from '../../../../shared/errors/handleErrors';
+import { generateMessageByCode, getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
 import ErrorMessage from '../../Messages/ErrorMessage/ErrorMessage';
-import ErrorBadge from '../../../UI/ErrorBadge/ErrorBadge';
-import useFocus from '../../../../hooks/useFocus';
+import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
+import useFocus from '../../../hooks/useFocus';
 
 const validationSchema = Yup.object({
     login: Yup.string().max(20, 'Login musi być nie dłuzszy niz 20 znaków').required('Pole jest wymagane'),
