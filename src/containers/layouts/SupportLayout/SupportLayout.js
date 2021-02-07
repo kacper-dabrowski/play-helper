@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyledSupportLayout } from './StyledSupportLayout';
+import { Container, StyledSupportLayout } from './StyledSupportLayout';
 import Navbar from '../../../components/UI/Navbars/PageNavbar/Navbar';
 
-const SupportLayout = ({ children, routes, fullName }) => {
+const SupportLayout = ({ children, routes, fullName, backgroundImage }) => {
     return (
-        <StyledSupportLayout>
+        <StyledSupportLayout backgroundImage={backgroundImage}>
             <Navbar routes={routes} username={fullName} />
-            {children}
+            <Container>{children}</Container>
         </StyledSupportLayout>
     );
 };

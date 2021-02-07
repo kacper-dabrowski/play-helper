@@ -2,15 +2,15 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import urls from '../../../../shared/urls';
-import FormInput from '../../../FormInput/FormInput';
-import { StyledFormTextarea } from '../../../FormTextarea/StyledFormTextarea';
-import Spinner from '../../../Spinner/Spinner';
-import SubmitButton from '../../../SubmitButton/SubmitButton';
+import urls from '../../../shared/urls';
+import FormInput from '../../FormInput/FormInput';
+import { StyledFormTextarea } from '../../FormTextarea/StyledFormTextarea';
+import Spinner from '../../Spinner/Spinner';
+import SubmitButton from '../../SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSrqForm';
-import ErrorBadge from '../../../UI/ErrorBadge/ErrorBadge';
-import { getLastMessageFromFormikErrors } from '../../../../shared/errors/handleErrors';
-import useFocus from '../../../../hooks/useFocus';
+import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
+import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
+import useFocus from '../../../hooks/useFocus';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../UI/Modal/Modal';
-import SignupForm from './SignupForm/SignupForm';
+import SignupForm from '../../Forms/SignupForm/SignupForm';
 import { SignupModalContainer } from './SignupModalContainer';
 
 const SignUpModal = ({ isOpened, closeModalHandler }) => {
