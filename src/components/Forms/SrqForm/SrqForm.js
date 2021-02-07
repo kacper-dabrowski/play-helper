@@ -11,6 +11,7 @@ import { StyledFormContainer } from './StyledSrqForm';
 import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
 import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
 import useFocus from '../../../hooks/useFocus';
+import SuccessMessage from '../../Messages/SuccessMessage/SuccessMessage';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),
@@ -19,14 +20,16 @@ const validationSchema = Yup.object({
     content: Yup.string().required('Pole jest wymagane'),
 });
 
-const SrqForm = ({ setError, setSuccess }) => {
+const SrqForm = () => {
     const [loading, setLoading] = useState(false);
     const focusRef = useFocus();
+    const [hasError, setHasError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const onSubmit = async (values, resetForm) => {
         try {
-            setSuccess(null);
-            setError(null);
+            setSuccess('');
+            setHasError('');
             const { title, description, department, content } = values;
             setLoading(true);
             const formData = {
@@ -38,11 +41,11 @@ const SrqForm = ({ setError, setSuccess }) => {
 
             await axios.post(urls.srq, formData);
             setLoading(false);
-            setSuccess(true);
+            setSuccess('SRQ dodane pomyślnie');
             resetForm();
         } catch (error) {
             setLoading(false);
-            setError(error.message);
+            setHasError(error.message);
         }
     };
 
@@ -54,13 +57,14 @@ const SrqForm = ({ setError, setSuccess }) => {
             content: '',
         },
         validationSchema,
-        validateOnChange: true,
+        validateOnChange: false,
         onSubmit: (values, { resetForm }) => onSubmit(values, resetForm),
     });
 
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
-            <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
+            <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors) || hasError} />
+            {success && <SuccessMessage message={success} />}
             <FormInput
                 focusRef={focusRef}
                 hasErrors={!!formik.errors.title || formik.touched.title}

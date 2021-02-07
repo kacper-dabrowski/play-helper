@@ -8,7 +8,7 @@ const Invoice = (props) => {
         <StyledInvoice>
             <p>{props.invoiceNumber}</p>
             <p>{props.invoiceAmount}</p>
-            <IconButton src={CancelIcon} width="2rem" height="2rem" onRemoveInvoice={props.onRemoveInvoice} />
+            <IconButton src={CancelIcon} width="2rem" height="2rem" right={0} onClick={props.onRemoveInvoice} />
         </StyledInvoice>
     );
 };

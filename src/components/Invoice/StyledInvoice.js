@@ -4,6 +4,7 @@ export const StyledInvoice = styled.div`
     width: 70%;
     height: 3rem;
     display: grid;
+    position: relative;
     justify-content: center;
     align-items: center;
     grid-template-columns: 4fr 2fr 2fr;

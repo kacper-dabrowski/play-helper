@@ -10,12 +10,13 @@ export const StyledSrqResultContainer = styled.div`
     padding: 0;
     margin: 1rem auto;
     border: 1px solid white;
+    position: relative;
     transition: ease-in-out 0.2s;
     border-radius: 5px;
 
     &:hover {
         background-color: white;
         color: black;
-        cursor: pointer;
+        ${({ clickable }) => clickable && `cursor: pointer;`}
     }
 `;

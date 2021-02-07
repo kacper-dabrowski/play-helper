@@ -1,5 +1,5 @@
 import React from 'react';
-import useFocus from '../../../../../hooks/useFocus';
+import useFocus from '../../../hooks/useFocus';
 import { StyledInputWrapper, StyledSrqSearchbar } from './StyledSrqSearchbar';
 
 const SrqSearchbar = ({ onType, value }) => {

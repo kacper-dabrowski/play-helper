@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Backdrop from '../Backdrop/Backdrop';
-import { CancelModal } from './CancelModal/StyledCancelModal';
-
+import cancelIcon from '../../../assets/icons/cancel.svg';
 import { ModalContainer, ModalWrapper } from './StyledModal';
+import IconButton from '../../IconButton/IconButton';
 
 const Modal = ({ children, isOpened, closeModalHandler }) => {
     return ReactDOM.createPortal(
@@ -14,7 +14,14 @@ const Modal = ({ children, isOpened, closeModalHandler }) => {
                     <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler} />
                     <ModalWrapper as={motion.div} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                         <ModalContainer>
-                            <CancelModal onClick={closeModalHandler} />
+                            <IconButton
+                                src={cancelIcon}
+                                onClick={closeModalHandler}
+                                width="1.5rem"
+                                height="1.5rem"
+                                top="1rem"
+                                right="1rem"
+                            />
                             {children}
                         </ModalContainer>
                     </ModalWrapper>

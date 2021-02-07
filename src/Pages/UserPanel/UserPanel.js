@@ -4,7 +4,7 @@ import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout'
 import routes from '../../shared/routes';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import PrivateRoute from '../../components/Routes/PrivateRoute/PrivateRoute';
-import SrqForm from '../../components/Forms/SrqForm/SrqForm';
+import SrqPanel from './SrqPanel/SrqPanel';
 
 const UserPanel = () => {
     return (
@@ -14,7 +14,7 @@ const UserPanel = () => {
                     <div />
                 </PrivateRoute>
                 <PrivateRoute path={routes.userPanel.srq.path}>
-                    <SrqForm />
+                    <SrqPanel />
                 </PrivateRoute>
             </Switch>
         </SupportLayout>
