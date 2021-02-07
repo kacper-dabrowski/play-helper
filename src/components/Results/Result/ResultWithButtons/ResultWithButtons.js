@@ -1,11 +1,11 @@
 import React from 'react';
-import IconButton from '../../../../IconButton/IconButton';
-import { StyledSrqResultContainer } from '../StyledSrqResult';
-import cancelIcon from '../../../../../assets/icons/cancel.svg';
+import IconButton from '../../../IconButton/IconButton';
+import cancelIcon from '../../../../assets/icons/cancel.svg';
+import { StyledResultContainer } from '../StyledResult';
 
 const CustomResult = ({ id, title, description, department, onClick }) => {
     return (
-        <StyledSrqResultContainer>
+        <StyledResultContainer>
             <IconButton
                 src={cancelIcon}
                 width="1.5rem"
@@ -17,7 +17,7 @@ const CustomResult = ({ id, title, description, department, onClick }) => {
             <h3>{title}</h3>
             <p>{description}</p>
             <p>{department}</p>
-        </StyledSrqResultContainer>
+        </StyledResultContainer>
     );
 };
 

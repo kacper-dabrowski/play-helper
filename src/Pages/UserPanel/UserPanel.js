@@ -5,13 +5,14 @@ import routes from '../../shared/routes';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import PrivateRoute from '../../components/Routes/PrivateRoute/PrivateRoute';
 import SrqPanel from './SrqPanel/SrqPanel';
+import Solution from './Solution/Solution';
 
 const UserPanel = () => {
     return (
         <SupportLayout routes={routes.userPanel} backgroundImage={backgroundImage}>
             <Switch>
                 <PrivateRoute path={routes.userPanel.solution.path}>
-                    <div />
+                    <Solution />
                 </PrivateRoute>
                 <PrivateRoute path={routes.userPanel.srq.path}>
                     <SrqPanel />

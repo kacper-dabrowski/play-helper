@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyledSrqResults } from './StyledSrqResults';
-import SrqResult from './SrqResult/SrqResult';
+import { StyledResults } from './StyledSrqResults';
+import Result from '../../Results/Result/Result';
 import Spinner from '../../Spinner/Spinner';
-import CustomResult from './SrqResult/CustomResult/CustomResult';
+import ResultWithButtons from '../../Results/Result/ResultWithButtons/ResultWithButtons';
 import urls from '../../../shared/urls';
 import axios from '../../../axios';
 
@@ -14,24 +14,24 @@ const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, click
 
     if (error) {
         return (
-            <StyledSrqResults>
+            <StyledResults>
                 <p>{error.message}</p>
-            </StyledSrqResults>
+            </StyledResults>
         );
     }
 
     if (isLoading) {
         return (
-            <StyledSrqResults>
+            <StyledResults>
                 <Spinner centered />
-            </StyledSrqResults>
+            </StyledResults>
         );
     }
     let renderedContent;
 
     if (!editable) {
         renderedContent = supportRequests.map(({ _id, content, title, description, department }) => (
-            <SrqResult
+            <Result
                 clickable={clickable}
                 key={_id}
                 title={title}
@@ -42,7 +42,7 @@ const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, click
         ));
     } else {
         renderedContent = supportRequests.map(({ _id, content, title, description, department }) => (
-            <CustomResult
+            <ResultWithButtons
                 clickable={clickable}
                 key={_id}
                 id={_id}
@@ -55,7 +55,7 @@ const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, click
         ));
     }
 
-    return <StyledSrqResults>{renderedContent}</StyledSrqResults>;
+    return <StyledResults>{renderedContent}</StyledResults>;
 };
 
 export default SrqResults;

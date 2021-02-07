@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledSrqResultContainer = styled.div`
+export const StyledResultContainer = styled.div`
     width: 100%;
     max-height: 33.33%;
     display: flex;
