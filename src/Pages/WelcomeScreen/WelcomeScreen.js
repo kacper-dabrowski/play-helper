@@ -26,13 +26,9 @@ const WelcomeScreen = (props) => {
                     onSignInModalOpened={() => setSignInModalOpened(true)}
                     onSrqModalOpened={() => setSrqModalOpened(true)}
                 />
-
                 <LoginModal isOpened={loginModalOpened} closeModalHandler={() => setLoginModalOpened(false)} />
-
                 <SignupModal isOpened={signInModalOpened} closeModalHandler={() => setSignInModalOpened(false)} />
-
                 <SrqModal isOpened={srqModalOpened} closeModalHandler={() => setSrqModalOpened(false)} />
-
                 <ProjectTile
                     projectEndpoint="/next"
                     projectColorDark="#303030"

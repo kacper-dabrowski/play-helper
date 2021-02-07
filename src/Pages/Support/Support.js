@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
-import SupportLayout from '../../layouts/SupportLayout/SupportLayout';
+import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
 import routes from '../../shared/routes';
 import Basic from './Basic/Basic';
