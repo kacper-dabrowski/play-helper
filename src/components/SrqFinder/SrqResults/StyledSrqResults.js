@@ -5,7 +5,7 @@ export const StyledSrqResults = styled.div`
     height: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     padding: 1rem 4px 1rem 1rem;
     border-radius: 21px;
     background-color: rgba(34, 40, 49, 0.9);

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import ErrorBadge from '../../../../components/UI/ErrorBadge/ErrorBadge';
-import useRequest from '../../../../hooks/useRequest';
-import urls from '../../../../shared/urls';
+import ErrorBadge from '../UI/ErrorBadge/ErrorBadge';
+import useRequest from '../../hooks/useRequest';
+import urls from '../../shared/urls';
 import SrqResults from './SrqResults/SrqResults';
 import SrqSearchbar from './SrqSearchbar/SrqSearchbar';
 import { StyledSrqFinder } from './StyledSrqFinder';
 
 const SrqFinder = (props) => {
-    const [response, error, loading] = useRequest(urls.srq, 'GET', null);
+    const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
@@ -34,10 +34,13 @@ const SrqFinder = (props) => {
             <ErrorBadge deleteError={() => {}} message={error?.message} />
             <SrqSearchbar onType={searchSrqHandler} value={searchQuery} />
             <SrqResults
-                setTemplate={props.setTemplate}
+                onCopy={props.setTemplate && props.setTemplate}
                 supportRequests={searchQuery ? searchResults : srqResults}
                 hasError={error}
                 isLoading={loading}
+                editable={props.editable}
+                clickable={props.clickable}
+                refresh={refresh}
             />
         </StyledSrqFinder>
     );

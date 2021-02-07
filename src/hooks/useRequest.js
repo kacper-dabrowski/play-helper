@@ -35,19 +35,20 @@ const useRequest = (url, data = null, method = 'get') => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
+    const requestConfig = {
+        url,
+        method,
+        data,
+        setResponse,
+        setIsLoading,
+        setError,
+    };
+
     useEffect(() => {
-        const requestConfig = {
-            url,
-            method,
-            data,
-            setResponse,
-            setIsLoading,
-            setError,
-        };
         fetchData(requestConfig);
     }, [data, method, url]);
-
-    return [response, error, isLoading];
+    const refresh = () => fetchData(requestConfig);
+    return [response, error, isLoading, refresh];
 };
 
 export default useRequest;
