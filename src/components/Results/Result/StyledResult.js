@@ -9,7 +9,7 @@ export const StyledResultContainer = styled.div`
     align-items: center;
     padding: 0;
     margin: 1rem auto;
-    border: 1px solid white;
+    border: 1px solid ${({ isPublic }) => (isPublic ? 'lime' : 'white')};
     position: relative;
     transition: ease-in-out 0.2s;
     border-radius: 5px;

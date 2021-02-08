@@ -9,6 +9,7 @@ import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
+import Solutions from './Solutions/Solutions';
 
 const Support = (props) => (
     <SupportLayout routes={props.routes} backgroundImage={backgroundImage}>
@@ -27,6 +28,9 @@ const Support = (props) => (
             </Route>
             <Route path={routes.support.payments.path}>
                 <Payments />
+            </Route>
+            <Route path={routes.support.solutions.path}>
+                <Solutions />
             </Route>
             <Route path={routes.support.main.path} exact />
         </Switch>
