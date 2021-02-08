@@ -43,7 +43,7 @@ const submitHandler = async (values, resetForm, setLoading, setHasError) => {
     }
 };
 
-const SolutionForm = () => {
+const SolutionForm = ({ refresh }) => {
     const [loading, setLoading] = useState(false);
     const [hasError, setHasError] = useState('');
     const formik = useFormik({
@@ -55,7 +55,10 @@ const SolutionForm = () => {
             company: '',
             isPublic: false,
         },
-        onSubmit: async (values, { resetForm }) => submitHandler(values, resetForm, setLoading, setHasError),
+        onSubmit: async (values, { resetForm }) => {
+            submitHandler(values, resetForm, setLoading, setHasError);
+            refresh();
+        },
         validationSchema,
     });
     return (

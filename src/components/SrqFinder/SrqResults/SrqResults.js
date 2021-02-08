@@ -2,7 +2,7 @@ import React from 'react';
 import { StyledResults } from './StyledSrqResults';
 import Result from '../../Results/Result/SRQ/SrqResult';
 import Spinner from '../../Spinner/Spinner';
-import ResultWithButtons from '../../Results/Result/SRQ/ResultWithButtons/ResultWithButtons';
+import ResultWithButtons from '../../Results/Result/SRQ/SrqResultWithButtons/SrqResultWithButtons';
 import urls from '../../../shared/urls';
 import axios from '../../../axios';
 
