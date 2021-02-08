@@ -3,7 +3,7 @@ import IconButton from '../../../../IconButton/IconButton';
 import cancelIcon from '../../../../../assets/icons/cancel.svg';
 import { StyledResultContainer } from '../../StyledResult';
 
-const SolutionResultWithButtons = ({ id, title, description, onRemove }) => {
+const SolutionResultWithButtons = ({ id, title, description, onRemove, isPublic }) => {
     return (
         <StyledResultContainer>
             <IconButton
@@ -16,6 +16,7 @@ const SolutionResultWithButtons = ({ id, title, description, onRemove }) => {
             />
             <h3>{title}</h3>
             <p>{description}</p>
+            {isPublic && <p>Publiczny</p>}
         </StyledResultContainer>
     );
 };
