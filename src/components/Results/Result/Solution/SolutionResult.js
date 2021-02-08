@@ -1,9 +1,9 @@
 import React from 'react';
 import { ResultButtonWrapper, StyledResultContainer, ResultButton } from '../StyledResult';
 
-const SolutionResult = ({ title, description, man, woman, company, setTemplate }) => {
+const SolutionResult = ({ title, description, man, woman, company, setTemplate, isPublic }) => {
     return (
-        <StyledResultContainer>
+        <StyledResultContainer isPublic={isPublic}>
             <h3>{title}</h3>
             <p>{description}</p>
             <ResultButtonWrapper>
