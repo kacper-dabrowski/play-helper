@@ -1,9 +1,9 @@
 import React from 'react';
-import IconButton from '../../../IconButton/IconButton';
-import cancelIcon from '../../../../assets/icons/cancel.svg';
-import { StyledResultContainer } from '../StyledResult';
+import IconButton from '../../../../IconButton/IconButton';
+import cancelIcon from '../../../../../assets/icons/cancel.svg';
+import { StyledResultContainer } from '../../StyledResult';
 
-const CustomResult = ({ id, title, description, department, onClick }) => {
+const SrqResultWithButtons = ({ id, title, description, department, onClick }) => {
     return (
         <StyledResultContainer>
             <IconButton
@@ -21,4 +21,4 @@ const CustomResult = ({ id, title, description, department, onClick }) => {
     );
 };
 
-export default CustomResult;
+export default SrqResultWithButtons;

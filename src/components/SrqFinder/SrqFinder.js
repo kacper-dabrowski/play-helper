@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ErrorBadge from '../UI/ErrorBadge/ErrorBadge';
 import useRequest from '../../hooks/useRequest';
 import urls from '../../shared/urls';
@@ -10,6 +10,12 @@ const SrqFinder = (props) => {
     const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+
+    const { setEntriesRefresh } = props;
+
+    useEffect(() => {
+        setEntriesRefresh?.(() => refresh);
+    }, []);
 
     const srqResults = response?.data?.supportRequests || [];
 

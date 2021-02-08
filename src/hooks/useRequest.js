@@ -47,7 +47,7 @@ const useRequest = (url, data = null, method = 'get') => {
     useEffect(() => {
         fetchData(requestConfig);
     }, [data, method, url]);
-    const refresh = () => fetchData(requestConfig);
+    const refresh = async () => fetchData(requestConfig);
     return [response, error, isLoading, refresh];
 };
 
