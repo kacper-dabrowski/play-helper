@@ -20,3 +20,28 @@ export const StyledResultContainer = styled.div`
         ${({ clickable }) => clickable && `cursor: pointer;`}
     }
 `;
+
+export const ResultButtonWrapper = styled.div`
+    display: flex;
+    margin: 1rem auto;
+    width: 100%;
+    justify-content: space-around;
+`;
+
+export const ResultButton = styled.button`
+    width: 8rem;
+    height: 2rem;
+    padding: 0.5rem;
+    background: linear-gradient(45deg, #835cbc, #5b398d);
+    border: none;
+    border-radius: 5px;
+    justify-self: center;
+    color: white;
+    transition: ease-in-out 0.2s;
+    margin-top: 1rem;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        background: linear-gradient(45deg, #5b398d, #835cbc);
+    }
+`;

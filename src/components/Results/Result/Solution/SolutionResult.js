@@ -1,14 +1,17 @@
 import React from 'react';
+import { ResultButtonWrapper, StyledResultContainer, ResultButton } from '../StyledResult';
 
-const SolutionResult = ({ title, description, man, woman, company }) => {
+const SolutionResult = ({ title, description, man, woman, company, setTemplate }) => {
     return (
-        <div>
-            <p>{title}</p>
+        <StyledResultContainer>
+            <h3>{title}</h3>
             <p>{description}</p>
-            <p>{man}</p>
-            <p>{woman}</p>
-            <p>{company}</p>
-        </div>
+            <ResultButtonWrapper>
+                <ResultButton onClick={() => setTemplate(man)}>Pan</ResultButton>
+                <ResultButton onClick={() => setTemplate(woman)}>Pani</ResultButton>
+                <ResultButton onClick={() => setTemplate(company)}>Spółka</ResultButton>
+            </ResultButtonWrapper>
+        </StyledResultContainer>
     );
 };
 
