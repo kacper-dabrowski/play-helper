@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledResultContainer } from './StyledResult';
+import { StyledResultContainer } from '../StyledResult';
 
 const SrqResult = ({ title, description, department, onClick, clickable }) => {
     return (

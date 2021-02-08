@@ -20,11 +20,13 @@ const validationSchema = Yup.object({
     content: Yup.string().required('Pole jest wymagane'),
 });
 
-const SrqForm = () => {
+const SrqForm = (props) => {
     const [loading, setLoading] = useState(false);
     const focusRef = useFocus();
     const [hasError, setHasError] = useState('');
     const [success, setSuccess] = useState('');
+
+    const { entriesRefresh } = props;
 
     const onSubmit = async (values, resetForm) => {
         try {
@@ -43,6 +45,7 @@ const SrqForm = () => {
             setLoading(false);
             setSuccess('SRQ dodane pomyślnie');
             resetForm();
+            entriesRefresh?.();
         } catch (error) {
             setLoading(false);
             setHasError(error.message);

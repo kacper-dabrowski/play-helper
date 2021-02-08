@@ -17,17 +17,19 @@ const validationSchema = Yup.object({
     man: Yup.string().required('Pole jest wymagane'),
     woman: Yup.string().required('Pole jest wymagane'),
     company: Yup.string().required('Pole jest wymagane'),
+    isPublic: Yup.boolean(),
 });
 
 const submitHandler = async (values, resetForm, setLoading, setHasError) => {
     try {
-        const { title, description, man, woman, company } = values;
+        const { title, description, man, woman, company, isPublic } = values;
         const formData = {
             title,
             description,
             man,
             woman,
             company,
+            isPublic,
         };
 
         setLoading(true);
@@ -51,6 +53,7 @@ const SolutionForm = () => {
             man: '',
             woman: '',
             company: '',
+            isPublic: false,
         },
         onSubmit: async (values, { resetForm }) => submitHandler(values, resetForm, setLoading, setHasError),
         validationSchema,
@@ -93,6 +96,8 @@ const SolutionForm = () => {
                 value={formik.values.company}
                 placeholder="Wersja dla spółki"
             />
+            <label htmlFor="isPublic">Widok publiczny: </label>
+            <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
 
             {loading ? <Spinner centered /> : <SubmitButton title="Dodaj zamknięcie" onClick={formik.handleSubmit} />}
         </StyledFormContainer>
