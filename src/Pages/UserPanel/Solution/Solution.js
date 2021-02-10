@@ -22,7 +22,7 @@ const Solution = () => {
     if (loading) {
         content = <Spinner centered />;
     } else {
-        content = solutions.map(({ _id, title, description, isPublic }) => (
+        content = solutions.map(({ _id, title, description, isPublic, isAuthor }) => (
             <SolutionResultWithButtons
                 key={_id}
                 title={title}
@@ -30,6 +30,7 @@ const Solution = () => {
                 description={description}
                 id={_id}
                 onRemove={removeSolutionHandler}
+                isAuthor={isAuthor}
             />
         ));
     }
