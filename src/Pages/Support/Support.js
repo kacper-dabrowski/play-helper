@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router';
+import { Redirect, Route } from 'react-router';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
 import routes from '../../shared/routes';
@@ -15,10 +15,10 @@ import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwit
 const Support = (props) => (
     <SupportLayout routes={props.routes} backgroundImage={backgroundImage}>
         <NotFoundProviderSwitch>
-            <Route path={routes.support.srq.path}>
+            <Route exact path={routes.support.srq.path}>
                 <Srq />
             </Route>
-            <Route path={routes.support.basic.path}>
+            <Route exact path={routes.support.basic.path}>
                 <Basic name={props.fullName} />
             </Route>
             <Route exact path={routes.support.doubleOpened.path}>
@@ -27,13 +27,15 @@ const Support = (props) => (
             <Route exact path={routes.support.doubleClosed.path}>
                 <Double type={config.double.closed} />
             </Route>
-            <Route path={routes.support.payments.path}>
+            <Route exact path={routes.support.payments.path}>
                 <Payments />
             </Route>
-            <Route path={routes.support.solutions.path}>
+            <Route exact path={routes.support.solutions.path}>
                 <Solutions />
             </Route>
-            <Route path={routes.support.main.path} exact />
+            <Route exact path={routes.support.main.path}>
+                <Redirect to={routes.support.basic.path} />
+            </Route>
         </NotFoundProviderSwitch>
     </SupportLayout>
 );
