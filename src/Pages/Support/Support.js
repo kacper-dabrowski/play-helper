@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
 import routes from '../../shared/routes';
@@ -10,10 +10,11 @@ import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import Solutions from './Solutions/Solutions';
+import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 
 const Support = (props) => (
     <SupportLayout routes={props.routes} backgroundImage={backgroundImage}>
-        <Switch>
+        <NotFoundProviderSwitch>
             <Route path={routes.support.srq.path}>
                 <Srq />
             </Route>
@@ -33,7 +34,7 @@ const Support = (props) => (
                 <Solutions />
             </Route>
             <Route path={routes.support.main.path} exact />
-        </Switch>
+        </NotFoundProviderSwitch>
     </SupportLayout>
 );
 const mapStateToProps = (state) => ({

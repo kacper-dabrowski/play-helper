@@ -7,6 +7,7 @@ export const StyledSupportLayout = styled.div`
     background-size: cover;
     color: white;
     overflow: hidden;
+    z-index: 100;
 `;
 
 export const Container = styled.div`
