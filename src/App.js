@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 import Logout from './components/Logout/Logout';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
 import PlayNext from './Pages/PlayNext/PlayNext';
@@ -9,6 +9,7 @@ import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
 import UserPanel from './Pages/UserPanel/UserPanel';
 import routes from './shared/routes';
 import * as actions from './store/actions';
+import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 
 const App = (props) => {
     useEffect(() => {
@@ -16,7 +17,7 @@ const App = (props) => {
     });
 
     return (
-        <Switch>
+        <NotFoundProviderSwitch>
             <PrivateRoute path="/support">
                 <Support routes={routes.support} />
             </PrivateRoute>
@@ -26,13 +27,14 @@ const App = (props) => {
             <PrivateRoute path="/user-panel">
                 <UserPanel />
             </PrivateRoute>
-            <PrivateRoute path="/logout" render={() => <Logout />} />
+            <PrivateRoute path="/logout" component={Logout} />
             <Route path="/" exact>
                 <WelcomeScreen />
             </Route>
-        </Switch>
+        </NotFoundProviderSwitch>
     );
 };
+
 const mapDispatchToProps = (dispatch) => ({
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
 });

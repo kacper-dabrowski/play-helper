@@ -5,10 +5,12 @@ import Navbar from '../../../components/UI/Navbars/PageNavbar/Navbar';
 
 const SupportLayout = ({ children, routes, fullName, backgroundImage }) => {
     return (
-        <StyledSupportLayout backgroundImage={backgroundImage}>
-            <Navbar routes={routes} username={fullName} />
-            <Container>{children}</Container>
-        </StyledSupportLayout>
+        <>
+            <StyledSupportLayout backgroundImage={backgroundImage}>
+                <Navbar routes={routes} username={fullName} />
+                <Container>{children}</Container>
+            </StyledSupportLayout>
+        </>
     );
 };
 const mapStateToProps = (state) => ({
