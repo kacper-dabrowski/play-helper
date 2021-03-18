@@ -70,28 +70,28 @@ const SrqForm = (props) => {
             {success && <SuccessMessage message={success} />}
             <FormInput
                 focusRef={focusRef}
-                hasErrors={!!formik.errors.title || formik.touched.title}
+                hasErrors={!!formik.errors.title}
                 value={formik.values.title}
                 onChange={formik.handleChange}
                 name="title"
                 placeholder="Tytuł SRQ"
             />
             <FormInput
-                hasErrors={!!formik.errors.description || formik.touched.description}
+                hasErrors={!!formik.errors.description}
                 value={formik.values.description}
                 onChange={formik.handleChange}
                 name="description"
                 placeholder="Opis SRQ"
             />
             <FormInput
-                hasErrors={!!formik.errors.department || formik.touched.department}
+                hasErrors={!!formik.errors.department}
                 value={formik.values.department}
                 onChange={formik.handleChange}
                 name="department"
                 placeholder="Dział, do którego trafia SRQ"
             />
             <StyledFormTextarea
-                hasErrors={!!formik.errors.content || formik.touched.content}
+                hasErrors={!!formik.errors.content}
                 value={formik.values.content}
                 onChange={formik.handleChange}
                 name="content"
