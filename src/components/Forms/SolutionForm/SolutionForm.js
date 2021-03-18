@@ -60,19 +60,21 @@ const SolutionForm = ({ refresh }) => {
             refresh();
         },
         validationSchema,
+        validateOnChange: false,
     });
+
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
             <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors) || hasError} />
             <FormInput
                 name="title"
-                hasErrors={!!formik.errors.title || formik.touched.title}
+                hasErrors={!!formik.errors.title}
                 onChange={formik.handleChange}
                 value={formik.values.title}
                 placeholder="Tytuł zamknięcia"
             />
             <FormInput
-                hasErrors={!!formik.errors.description || formik.touched.description}
+                hasErrors={!!formik.errors.description}
                 name="description"
                 onChange={formik.handleChange}
                 value={formik.values.description}
@@ -80,21 +82,21 @@ const SolutionForm = ({ refresh }) => {
             />
             <StyledFormTextarea
                 name="man"
-                hasErrors={!!formik.errors.man || formik.touched.man}
+                hasErrors={!!formik.errors.man}
                 onChange={formik.handleChange}
                 value={formik.values.man}
                 placeholder="Wersja dla Pana"
             />
             <StyledFormTextarea
                 name="woman"
-                hasErrors={!!formik.errors.woman || formik.touched.woman}
+                hasErrors={!!formik.errors.woman}
                 onChange={formik.handleChange}
                 value={formik.values.woman}
                 placeholder="Wersja dla Pani"
             />
             <StyledFormTextarea
                 name="company"
-                hasErrors={!!formik.errors.company || formik.touched.company}
+                hasErrors={!!formik.errors.company}
                 onChange={formik.handleChange}
                 value={formik.values.company}
                 placeholder="Wersja dla spółki"
