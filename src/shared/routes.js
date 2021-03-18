@@ -10,6 +10,7 @@ const routes = {
     },
     userPanel: {
         solution: { title: 'Własne zamknięcia', exact: true, path: '/user-panel/solutions' },
+        main: { exact: true, path: '/user-panel' },
         srq: { title: 'SRQ', exact: true, path: '/user-panel/srq' },
     },
     playNext: {},

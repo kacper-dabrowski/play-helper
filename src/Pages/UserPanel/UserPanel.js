@@ -11,7 +11,7 @@ const UserPanel = () => {
     return (
         <SupportLayout routes={routes.userPanel} backgroundImage={backgroundImage}>
             <NotFoundProviderSwitch>
-                <PrivateRoute exact path="/" />
+                <PrivateRoute exact path={routes.userPanel.main.path} />
                 <PrivateRoute exact path={routes.userPanel.solution.path}>
                     <Solution />
                 </PrivateRoute>
