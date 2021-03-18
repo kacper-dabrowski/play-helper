@@ -6,6 +6,7 @@ const urls = {
     login: `${API_URL}/login`,
     srq: `${API_URL}/srq`,
     solution: `${API_URL}/solutions`,
+    healthcheck: `${API_URL}/healthcheck`,
 };
 
 export default urls;
