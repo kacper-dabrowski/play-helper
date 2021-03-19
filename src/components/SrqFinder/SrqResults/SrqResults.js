@@ -1,19 +1,16 @@
-import React, { useEffect } from 'react';
-import { StyledResults } from './StyledSrqResults';
-import Result from '../../Results/Result/SRQ/SrqResult';
-import Spinner from '../../Spinner/Spinner';
-import ResultWithButtons from '../../Results/Result/SRQ/SrqResultWithButtons/SrqResultWithButtons';
-import urls from '../../../shared/urls';
+import React from 'react';
 import axios from '../../../axios';
+import urls from '../../../shared/urls';
+import Result from '../../Results/Result/SRQ/SrqResult';
+import ResultWithButtons from '../../Results/Result/SRQ/SrqResultWithButtons/SrqResultWithButtons';
+import Spinner from '../../Spinner/Spinner';
+import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
-    useEffect(() => {
-        refresh();
-    });
     const srqRemovedHandler = async (id) => {
         await axios.delete(`${urls.srq}/${id}`);
+        refresh();
     };
-
     if (error) {
         return (
             <StyledResults>

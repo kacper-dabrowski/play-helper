@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
+import SolutionResult from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import Spinner from '../../../components/Spinner/Spinner';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
@@ -7,16 +8,13 @@ import ErrorBadge from '../../../components/UI/ErrorBadge/ErrorBadge';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { SolutionResults } from './StyledSolutions';
-import SolutionResult from '../../../components/Results/Result/Solution/SolutionResult';
 
 const Solutions = () => {
     const [template, setTemplate] = useState('');
-    const [response, error, loading, refresh] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
+    const [response, error, loading] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
     const solutions = response?.data || [];
     let results;
-    useEffect(() => {
-        refresh();
-    });
+
     if (loading) {
         results = <Spinner centered />;
     } else {
@@ -32,6 +30,7 @@ const Solutions = () => {
             />
         ));
     }
+
     return (
         <>
             <ErrorBadge message={error?.message} />

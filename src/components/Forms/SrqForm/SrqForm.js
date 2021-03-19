@@ -61,7 +61,10 @@ const SrqForm = (props) => {
         },
         validationSchema,
         validateOnChange: false,
-        onSubmit: (values, { resetForm }) => onSubmit(values, resetForm),
+        onSubmit: (values, { resetForm }) => {
+            onSubmit(values, resetForm);
+            entriesRefresh?.();
+        },
     });
 
     return (
