@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
-export const StyledResultContainer = styled.div`
+export const StyledResultContainer = styled.button`
+    background-color: transparent;
     width: 100%;
+    color: white;
     max-height: 33.33%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font: inherit;
     padding: 0;
     margin: 1rem auto;
     border: 1px solid ${({ isPublic }) => (isPublic ? 'lime' : 'white')};
@@ -14,7 +17,8 @@ export const StyledResultContainer = styled.div`
     transition: ease-in-out 0.2s;
     border-radius: 5px;
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: white;
         color: black;
         ${({ clickable }) => clickable && `cursor: pointer;`}
