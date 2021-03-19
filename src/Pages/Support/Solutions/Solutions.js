@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import Spinner from '../../../components/Spinner/Spinner';
@@ -11,9 +11,12 @@ import SolutionResult from '../../../components/Results/Result/Solution/Solution
 
 const Solutions = () => {
     const [template, setTemplate] = useState('');
-    const [response, error, loading] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
+    const [response, error, loading, refresh] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
     const solutions = response?.data || [];
     let content;
+    useEffect(() => {
+        refresh();
+    });
     if (loading) {
         content = <Spinner centered />;
     } else {
