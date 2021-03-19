@@ -13,21 +13,20 @@ const Solutions = () => {
     const [template, setTemplate] = useState('');
     const [response, error, loading, refresh] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
     const solutions = response?.data || [];
-    let content;
+    let results;
     useEffect(() => {
         refresh();
     });
     if (loading) {
-        content = <Spinner centered />;
+        results = <Spinner centered />;
     } else {
-        content = solutions.map(({ title, description, man, woman, company, isPublic, _id }) => (
+        results = solutions.map(({ title, description, content, isPublic, _id }) => (
             <SolutionResult
+                clickable
                 title={title}
                 description={description}
                 key={_id}
-                man={man}
-                woman={woman}
-                company={company}
+                content={content}
                 setTemplate={setTemplate}
                 isPublic={isPublic}
             />
@@ -38,7 +37,7 @@ const Solutions = () => {
             <ErrorBadge message={error?.message} />
             <SolutionResults>
                 <Searchbar />
-                <StyledResults>{content}</StyledResults>
+                <StyledResults>{results}</StyledResults>
             </SolutionResults>
             <MainTextarea setTemplate={setTemplate} value={template} />
         </>
