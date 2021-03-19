@@ -6,6 +6,7 @@ const initialState = {
     error: null,
     loading: false,
     fullName: '',
+    logoutTimeoutId: null,
 };
 
 const authStart = (state) => {
@@ -41,6 +42,13 @@ const authLogout = (state) => {
         userId: null,
     };
 };
+
+const logoutTimeoutSet = (state, action) => {
+    return {
+        ...state,
+        ...action.payload,
+    };
+};
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.AUTH_START:
@@ -51,6 +59,8 @@ const authReducer = (state = initialState, action) => {
             return authFail(state, action);
         case actionTypes.AUTH_LOGOUT:
             return authLogout(state, action);
+        case actionTypes.LOGOUT_TIMEOUT_SET:
+            return logoutTimeoutSet(state, action);
         default:
             return state;
     }

@@ -33,11 +33,19 @@ export const logout = () => {
     };
 };
 
+export const logoutTimeoutSet = (logoutTimeoutId) => ({
+    type: actionTypes.LOGOUT_TIMEOUT_SET,
+    payload: {
+        logoutTimeoutId,
+    },
+});
+
 const checkTimeout = (expirationTime) => {
     return (dispatch) => {
-        setTimeout(() => {
+        const logoutTimeoutId = setTimeout(() => {
             dispatch(logout());
-        }, Number(expirationTime * 1000));
+        }, +expirationTime * 1000);
+        dispatch(logoutTimeoutSet(logoutTimeoutId));
     };
 };
 
