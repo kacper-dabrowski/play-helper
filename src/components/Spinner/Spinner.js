@@ -1,11 +1,11 @@
-import { BarLoader } from 'react-spinners';
+import SyncLoader from 'react-spinners/SyncLoader';
 import React from 'react';
 import { SpinnerContainer } from './StyledSpinner';
 
 const Spinner = ({ centered, size }) => {
     return (
         <SpinnerContainer isCentered={centered}>
-            <BarLoader color="white" size={size} />
+            <SyncLoader color="white" size={size} />
         </SpinnerContainer>
     );
 };
