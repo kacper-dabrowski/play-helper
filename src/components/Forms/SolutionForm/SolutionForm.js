@@ -14,21 +14,17 @@ import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErr
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),
     description: Yup.string().required('Pole jest wymagane'),
-    man: Yup.string().required('Pole jest wymagane'),
-    woman: Yup.string().required('Pole jest wymagane'),
-    company: Yup.string().required('Pole jest wymagane'),
+    content: Yup.string().required('Pole jest wymagane'),
     isPublic: Yup.boolean(),
 });
 
 const submitHandler = async (values, resetForm, setLoading, setHasError) => {
     try {
-        const { title, description, man, woman, company, isPublic } = values;
+        const { title, description, content, isPublic } = values;
         const formData = {
             title,
             description,
-            man,
-            woman,
-            company,
+            content,
             isPublic,
         };
 
@@ -50,9 +46,7 @@ const SolutionForm = ({ refresh }) => {
         initialValues: {
             title: '',
             description: '',
-            man: '',
-            woman: '',
-            company: '',
+            content: '',
             isPublic: false,
         },
         onSubmit: async (values, { resetForm }) => {
@@ -81,25 +75,11 @@ const SolutionForm = ({ refresh }) => {
                 placeholder="Opis zamknięcia"
             />
             <StyledFormTextarea
-                name="man"
-                hasErrors={!!formik.errors.man}
+                name="content"
+                hasErrors={!!formik.errors.content}
                 onChange={formik.handleChange}
-                value={formik.values.man}
-                placeholder="Wersja dla Pana"
-            />
-            <StyledFormTextarea
-                name="woman"
-                hasErrors={!!formik.errors.woman}
-                onChange={formik.handleChange}
-                value={formik.values.woman}
-                placeholder="Wersja dla Pani"
-            />
-            <StyledFormTextarea
-                name="company"
-                hasErrors={!!formik.errors.company}
-                onChange={formik.handleChange}
-                value={formik.values.company}
-                placeholder="Wersja dla spółki"
+                value={formik.values.content}
+                placeholder="Treść zamknięcia"
             />
             <label htmlFor="isPublic">Widok publiczny: </label>
             <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
