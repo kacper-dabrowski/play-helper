@@ -80,6 +80,7 @@ export const authCheckState = () => {
     return (dispatch) => {
         const token = localStorage.getItem('token');
         if (!token) {
+            console.log('State: Logged out due to no token!');
             return dispatch(logout());
         }
         const userId = localStorage.getItem('userId');
@@ -88,10 +89,11 @@ export const authCheckState = () => {
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
         const isTokenValid = expirationDate.getTime() >= new Date().getTime();
         if (isTokenValid) {
+            console.log('State: Logged in');
             dispatch(authSuccess(token, userId, fullName));
             return dispatch(checkTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
         }
-
+        console.log('State: Auth failed, because token is no longer valid');
         return dispatch(logout());
     };
 };
