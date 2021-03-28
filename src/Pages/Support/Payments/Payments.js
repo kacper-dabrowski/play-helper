@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useSnackbar } from 'react-simple-snackbar';
 import Calculator from './Sections/Calculator';
 import Invoices from './Sections/Invoices';
 import PaymentSpan from './Sections/PaymentSpan';
@@ -9,7 +10,6 @@ import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import config from '../../../shared/identifiers';
 import { generatePaymentTemplates, generateAmountsArray } from '../../../modules/payments/payments';
 import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
-import ErrorBadge from '../../../components/UI/ErrorBadge/ErrorBadge';
 
 const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);
@@ -19,7 +19,7 @@ const Payments = ({ fullName }) => {
     const [template, setTemplate] = useState('');
     const [additionalTemplateActive, setAdditionalTemplateActive] = useState(false);
     const [additionalTemplate, setAdditionalTemplate] = useState('');
-    const [paymentsError, setPaymentsError] = useState(null);
+    const [openErrorSnackbar] = useSnackbar();
 
     const setInvoicesHandler = (event) => {
         try {
@@ -35,7 +35,7 @@ const Payments = ({ fullName }) => {
                 invoiceClickEvent.target.value = '';
             }
         } catch (error) {
-            setPaymentsError(error);
+            openErrorSnackbar(error.message);
         }
     };
 
@@ -65,7 +65,7 @@ const Payments = ({ fullName }) => {
             setAdditionalTemplateActive(true);
             setAdditionalTemplate(paymentTemplates.additionalTemplate);
         } catch (error) {
-            setPaymentsError(error);
+            openErrorSnackbar(error.message);
         }
     };
 
@@ -80,7 +80,6 @@ const Payments = ({ fullName }) => {
     return (
         <>
             <PaymentsContainer>
-                <ErrorBadge message={paymentsError?.message} deleteError={() => setPaymentsError(null)} />
                 <PaymentSpan setting={paymentSpan} setHandler={setPaymentSpan} />
                 <Calculator
                     paymentsCount={paymentsCount}
