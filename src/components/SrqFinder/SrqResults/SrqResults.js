@@ -11,6 +11,7 @@ const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, click
     const [setSuccess, setError] = useFeedbackSnackbars();
     const srqRemovedHandler = async (id) => {
         try {
+            setSuccess('');
             await axios.delete(`${urls.srq}/${id}`);
             setSuccess('Pomyślnie usunięto SRQ');
             refresh();
