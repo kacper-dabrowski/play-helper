@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useSnackbar } from 'react-simple-snackbar';
 import useRequest from '../../hooks/useRequest';
 import urls from '../../shared/urls';
 import SrqResults from './SrqResults/SrqResults';
 import { StyledSrqFinder } from './StyledSrqFinder';
 import Searchbar from '../SearchBar/SearchBar';
+import useFeedbackSnackbars from '../../hooks/useFeedbackSnackbars';
 
 const SrqFinder = (props) => {
     const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [openErrorSnackbar] = useSnackbar();
+    const [, setError] = useFeedbackSnackbars();
 
     const { setEntriesRefresh } = props;
 
     useEffect(() => {
         setEntriesRefresh?.(() => refresh);
         if (error) {
-            openErrorSnackbar(error.message);
+            setError(error.message);
         }
     }, [error]);
 

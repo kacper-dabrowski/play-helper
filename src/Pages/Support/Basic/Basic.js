@@ -1,15 +1,15 @@
-import React, { useState, useCallback } from 'react';
-import { useSnackbar } from 'react-simple-snackbar';
+import React, { useCallback, useState } from 'react';
+import AdditionalTemplate from '../../../components/AdditionalTemplate/AdditionalTemplate';
+import Checkbox from '../../../components/Checkbox/Checkbox';
 import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
-import ChannelSection from './Sections/ChannelSection';
+import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
+import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
+import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
+import ChannelSection from './Sections/ChannelSection';
 import TextAreaSection from './Sections/TextAreaSection';
 import TypeSection from './Sections/TypeSection';
-import { SettingsSection, CheckboxContainer, AdditionalTemplateContainer } from './StyledBasic';
-import Checkbox from '../../../components/Checkbox/Checkbox';
-import AdditionalTemplate from '../../../components/AdditionalTemplate/AdditionalTemplate';
-import MainTextarea from '../../../components/MainTextarea/MainTextarea';
-import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
+import { AdditionalTemplateContainer, CheckboxContainer, SettingsSection } from './StyledBasic';
 
 const telephoneTemplate = generateTelephoneTemplate();
 const Basic = (props) => {
@@ -21,7 +21,7 @@ const Basic = (props) => {
     const [details, setDetails] = useState(null);
     const [general, setGeneral] = useState(null);
     const [hasOffer, setHasOffer] = useState(false);
-    const [openErrorSnackbar] = useSnackbar();
+    const [, setError] = useFeedbackSnackbars();
 
     const generateTemplate = useCallback(() => {
         try {
@@ -38,7 +38,7 @@ const Basic = (props) => {
             const generatedTemplate = generateBasicTemplate(templateConfig);
             setTemplate(generatedTemplate);
         } catch (error) {
-            openErrorSnackbar(error.message);
+            setError(error.message);
         }
     }, [sex, type, channel, date, details, general, hasOffer, props.name]);
 

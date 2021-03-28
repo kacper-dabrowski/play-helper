@@ -2,16 +2,15 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
+import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
+import useFocus from '../../../hooks/useFocus';
+import useFormikErrors from '../../../hooks/useFormikErrors';
 import urls from '../../../shared/urls';
 import FormInput from '../../FormInput/FormInput';
 import { StyledFormTextarea } from '../../FormTextarea/StyledFormTextarea';
 import Spinner from '../../Spinner/Spinner';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSrqForm';
-import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
-import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
-import useFocus from '../../../hooks/useFocus';
-import SuccessMessage from '../../Messages/SuccessMessage/SuccessMessage';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),
@@ -23,15 +22,14 @@ const validationSchema = Yup.object({
 const SrqForm = (props) => {
     const [loading, setLoading] = useState(false);
     const focusRef = useFocus();
-    const [hasError, setHasError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [setSuccess, setError] = useFeedbackSnackbars();
 
     const { entriesRefresh } = props;
 
     const onSubmit = async (values, resetForm) => {
         try {
             setSuccess('');
-            setHasError('');
+            setError('');
             const { title, description, department, content } = values;
             setLoading(true);
             const formData = {
@@ -48,7 +46,7 @@ const SrqForm = (props) => {
             entriesRefresh?.();
         } catch (error) {
             setLoading(false);
-            setHasError(error.message);
+            setError(error.message);
         }
     };
 
@@ -60,17 +58,15 @@ const SrqForm = (props) => {
             content: '',
         },
         validationSchema,
-        validateOnChange: false,
         onSubmit: (values, { resetForm }) => {
             onSubmit(values, resetForm);
             entriesRefresh?.();
         },
     });
 
+    useFormikErrors(formik.errors);
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
-            <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors) || hasError} />
-            {success && <SuccessMessage message={success} />}
             <FormInput
                 focusRef={focusRef}
                 hasErrors={!!formik.errors.title}

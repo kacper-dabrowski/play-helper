@@ -1,4 +1,5 @@
 import React from 'react';
+import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
 import Result from '../../Results/Result/SRQ/SrqResult';
@@ -7,9 +8,15 @@ import Spinner from '../../Spinner/Spinner';
 import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
+    const [setSuccess, setError] = useFeedbackSnackbars();
     const srqRemovedHandler = async (id) => {
-        await axios.delete(`${urls.srq}/${id}`);
-        refresh();
+        try {
+            await axios.delete(`${urls.srq}/${id}`);
+            setSuccess('Pomyślnie usunięto SRQ');
+            refresh();
+        } catch (deletionError) {
+            setError(deletionError.message);
+        }
     };
     if (error) {
         return (
