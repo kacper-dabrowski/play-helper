@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useSnackbar } from 'react-simple-snackbar';
+import AdditionalTemplate from '../../../components/AdditionalTemplate/AdditionalTemplate';
+import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
+import MainTextarea from '../../../components/MainTextarea/MainTextarea';
+import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
+import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';
+import config from '../../../shared/identifiers';
 import Calculator from './Sections/Calculator';
 import Invoices from './Sections/Invoices';
 import PaymentSpan from './Sections/PaymentSpan';
 import { PaymentsContainer } from './StyledPayments';
-import AdditionalTemplate from '../../../components/AdditionalTemplate/AdditionalTemplate';
-import MainTextarea from '../../../components/MainTextarea/MainTextarea';
-import config from '../../../shared/identifiers';
-import { generatePaymentTemplates, generateAmountsArray } from '../../../modules/payments/payments';
-import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
 
 const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);
@@ -19,7 +19,7 @@ const Payments = ({ fullName }) => {
     const [template, setTemplate] = useState('');
     const [additionalTemplateActive, setAdditionalTemplateActive] = useState(false);
     const [additionalTemplate, setAdditionalTemplate] = useState('');
-    const [openErrorSnackbar] = useSnackbar();
+    const [, setError] = useFeedbackSnackbars();
 
     const setInvoicesHandler = (event) => {
         try {
@@ -35,7 +35,7 @@ const Payments = ({ fullName }) => {
                 invoiceClickEvent.target.value = '';
             }
         } catch (error) {
-            openErrorSnackbar(error.message);
+            setError(error.message);
         }
     };
 
@@ -65,7 +65,7 @@ const Payments = ({ fullName }) => {
             setAdditionalTemplateActive(true);
             setAdditionalTemplate(paymentTemplates.additionalTemplate);
         } catch (error) {
-            openErrorSnackbar(error.message);
+            setError(error.message);
         }
     };
 

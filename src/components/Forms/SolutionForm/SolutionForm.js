@@ -1,15 +1,15 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import FormInput from '../../FormInput/FormInput';
+import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
+import useFormikErrors from '../../../hooks/useFormikErrors';
 import axios from '../../../libs/axios';
+import urls from '../../../shared/urls';
+import FormInput from '../../FormInput/FormInput';
 import { StyledFormTextarea } from '../../FormTextarea/StyledFormTextarea';
+import Spinner from '../../Spinner/Spinner';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSolutionForm';
-import urls from '../../../shared/urls';
-import Spinner from '../../Spinner/Spinner';
-import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
-import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),
@@ -18,30 +18,10 @@ const validationSchema = Yup.object({
     isPublic: Yup.boolean(),
 });
 
-const submitHandler = async (values, resetForm, setLoading, setHasError) => {
-    try {
-        const { title, description, content, isPublic } = values;
-        const formData = {
-            title,
-            description,
-            content,
-            isPublic,
-        };
-
-        setLoading(true);
-        await axios.put(urls.solution, formData);
-        setLoading(false);
-        setHasError('');
-        resetForm({});
-    } catch (error) {
-        setHasError(error.message);
-        setLoading(false);
-    }
-};
-
 const SolutionForm = ({ refresh }) => {
     const [loading, setLoading] = useState(false);
-    const [hasError, setHasError] = useState('');
+    const [setSuccess, setError] = useFeedbackSnackbars();
+
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -50,16 +30,35 @@ const SolutionForm = ({ refresh }) => {
             isPublic: false,
         },
         onSubmit: async (values, { resetForm }) => {
-            submitHandler(values, resetForm, setLoading, setHasError);
-            refresh();
+            try {
+                const { title, description, content, isPublic } = values;
+                const formData = {
+                    title,
+                    description,
+                    content,
+                    isPublic,
+                };
+
+                setLoading(true);
+                await axios.put(urls.solution, formData);
+                setLoading(false);
+                setError('');
+                setSuccess('Rozwiązanie dodane pomyślnie');
+                resetForm({});
+                refresh();
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
         },
         validationSchema,
         validateOnChange: false,
     });
 
+    useFormikErrors(formik.errors);
+
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
-            <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors) || hasError} />
             <FormInput
                 name="title"
                 hasErrors={!!formik.errors.title}

@@ -9,13 +9,19 @@ import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import ErrorBadge from '../../../components/UI/ErrorBadge/ErrorBadge';
 import Spinner from '../../../components/Spinner/Spinner';
+import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 
 const Solution = () => {
     const [response, error, loading, refresh] = useRequest(urls.solution, REQUEST_METHODS.GET);
-
+    const [setSuccess, setError] = useFeedbackSnackbars();
     const removeSolutionHandler = async (id) => {
-        await axios.delete(`${urls.solution}/${id}`);
-        await refresh();
+        try {
+            await axios.delete(`${urls.solution}/${id}`);
+            await refresh();
+            setSuccess('Rozwiązanie usunięto pomyślnie');
+        } catch (deletionError) {
+            setError(error.message);
+        }
     };
     let content;
     const solutions = response?.data || [];
