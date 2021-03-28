@@ -38,7 +38,7 @@ const SolutionForm = ({ refresh }) => {
                     content,
                     isPublic,
                 };
-
+                setSuccess('');
                 setLoading(true);
                 await axios.put(urls.solution, formData);
                 setLoading(false);

@@ -16,6 +16,7 @@ const Solution = () => {
     const [setSuccess, setError] = useFeedbackSnackbars();
     const removeSolutionHandler = async (id) => {
         try {
+            setSuccess('');
             await axios.delete(`${urls.solution}/${id}`);
             await refresh();
             setSuccess('Rozwiązanie usunięto pomyślnie');
