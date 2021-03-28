@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ErrorBadge from '../UI/ErrorBadge/ErrorBadge';
+import { useSnackbar } from 'react-simple-snackbar';
 import useRequest from '../../hooks/useRequest';
 import urls from '../../shared/urls';
 import SrqResults from './SrqResults/SrqResults';
@@ -10,12 +10,16 @@ const SrqFinder = (props) => {
     const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [openErrorSnackbar] = useSnackbar();
 
     const { setEntriesRefresh } = props;
 
     useEffect(() => {
         setEntriesRefresh?.(() => refresh);
-    }, []);
+        if (error) {
+            openErrorSnackbar(error.message);
+        }
+    }, [error]);
 
     const srqResults = response?.data?.supportRequests || [];
 
@@ -37,7 +41,6 @@ const SrqFinder = (props) => {
 
     return (
         <StyledSrqFinder>
-            <ErrorBadge deleteError={() => {}} message={error?.message} />
             <Searchbar onType={searchSrqHandler} value={searchQuery} />
             <SrqResults
                 onCopy={props.setTemplate && props.setTemplate}
