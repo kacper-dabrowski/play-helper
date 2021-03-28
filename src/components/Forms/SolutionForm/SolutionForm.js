@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import FormInput from '../../FormInput/FormInput';
-import axios from '../../../axios';
+import axios from '../../../libs/axios';
 import { StyledFormTextarea } from '../../FormTextarea/StyledFormTextarea';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSolutionForm';

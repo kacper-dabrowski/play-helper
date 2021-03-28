@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router';
 import axios from 'axios';
+import SnackbarProvider from 'react-simple-snackbar';
 import Logout from './components/Logout/Logout';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
 import PlayNext from './Pages/PlayNext/PlayNext';
@@ -20,21 +21,23 @@ const App = (props) => {
     });
 
     return (
-        <NotFoundProviderSwitch>
-            <PrivateRoute path="/support">
-                <Support routes={routes.support} />
-            </PrivateRoute>
-            <PrivateRoute path="/next">
-                <PlayNext />
-            </PrivateRoute>
-            <PrivateRoute path="/user-panel">
-                <UserPanel />
-            </PrivateRoute>
-            <PrivateRoute path="/logout" component={Logout} />
-            <Route path="/" exact>
-                <WelcomeScreen />
-            </Route>
-        </NotFoundProviderSwitch>
+        <SnackbarProvider>
+            <NotFoundProviderSwitch>
+                <PrivateRoute path="/support">
+                    <Support routes={routes.support} />
+                </PrivateRoute>
+                <PrivateRoute path="/next">
+                    <PlayNext />
+                </PrivateRoute>
+                <PrivateRoute path="/user-panel">
+                    <UserPanel />
+                </PrivateRoute>
+                <PrivateRoute path="/logout" component={Logout} />
+                <Route path="/" exact>
+                    <WelcomeScreen />
+                </Route>
+            </NotFoundProviderSwitch>
+        </SnackbarProvider>
     );
 };
 

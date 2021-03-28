@@ -1,4 +1,4 @@
-import axios from '../../axios';
+import axios from '../../libs/axios';
 import urls from '../../shared/urls';
 import * as actionTypes from './actionsTypes';
 
