@@ -6,7 +6,7 @@ import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
 import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
 import * as actions from '../../../store/actions';
 import urls from '../../../shared/urls';
-import axios from '../../../axios';
+import axios from '../../../libs/axios';
 import Spinner from '../../Spinner/Spinner';
 import ErrorMessage from '../../Messages/ErrorMessage/ErrorMessage';
 import SubmitButton from '../../SubmitButton/SubmitButton';

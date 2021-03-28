@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useSnackbar } from 'react-simple-snackbar';
 import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
 import ChannelSection from './Sections/ChannelSection';
 import SexSection from '../../../components/SexSection/SexSection';
@@ -9,7 +10,6 @@ import Checkbox from '../../../components/Checkbox/Checkbox';
 import AdditionalTemplate from '../../../components/AdditionalTemplate/AdditionalTemplate';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
-import ErrorBadge from '../../../components/UI/ErrorBadge/ErrorBadge';
 
 const telephoneTemplate = generateTelephoneTemplate();
 const Basic = (props) => {
@@ -21,7 +21,7 @@ const Basic = (props) => {
     const [details, setDetails] = useState(null);
     const [general, setGeneral] = useState(null);
     const [hasOffer, setHasOffer] = useState(false);
-    const [basicError, setBasicError] = useState(null);
+    const [openErrorSnackbar] = useSnackbar();
 
     const generateTemplate = useCallback(() => {
         try {
@@ -37,9 +37,8 @@ const Basic = (props) => {
             };
             const generatedTemplate = generateBasicTemplate(templateConfig);
             setTemplate(generatedTemplate);
-            setBasicError(null);
         } catch (error) {
-            setBasicError(error);
+            openErrorSnackbar(error.message);
         }
     }, [sex, type, channel, date, details, general, hasOffer, props.name]);
 
@@ -56,7 +55,6 @@ const Basic = (props) => {
     return (
         <>
             <div>
-                <ErrorBadge message={basicError?.message} deleteError={() => setBasicError(null)} />
                 <SettingsSection>
                     <SexSection setHandler={setSex} setting={sex} />
                     <ChannelSection setHandler={setChannel} setting={channel} />

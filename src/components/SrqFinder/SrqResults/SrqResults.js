@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../../../axios';
+import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
 import Result from '../../Results/Result/SRQ/SrqResult';
 import ResultWithButtons from '../../Results/Result/SRQ/SrqResultWithButtons/SrqResultWithButtons';
