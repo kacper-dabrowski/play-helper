@@ -1,9 +1,13 @@
 import React from 'react';
-import { StyledCounter } from './StyledCounter';
+import { CounterButton, CounterWrapper } from './StyledCounter';
 
-const Counter = (props) => {
-    const { minValue, maxValue, value } = props;
-    return <StyledCounter onClick={() => props.onChangeValue(value, minValue, maxValue)}>{value}</StyledCounter>;
+const Counter = ({ onChangeValue, labelContent, minValue, maxValue, value }) => {
+    return (
+        <CounterWrapper>
+            <label>{labelContent}</label>
+            <CounterButton onClick={() => onChangeValue(value, minValue, maxValue)}>{value}</CounterButton>
+        </CounterWrapper>
+    );
 };
 
 export default Counter;

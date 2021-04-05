@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '../../../../components/Input/Input';
+import SupportInput from '../../../../components/Inputs/SupportInput/SupportInput';
 import config from '../../../../shared/identifiers';
 import { StyledInputSection } from '../StyledDouble';
 
@@ -8,7 +8,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
     switch (type) {
         case config.double.closed:
             secondInput = (
-                <Input
+                <SupportInput
                     onChange={(event) => setDoubledHandler(event.target.value)}
                     value={doubled}
                     labelContent="Numer zgłoszenia zamkniętego"
@@ -17,7 +17,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
             break;
         case config.double.opened:
             secondInput = (
-                <Input
+                <SupportInput
                     onChange={(event) => setDoubledHandler(event.target.value)}
                     value={doubled}
                     labelContent="Numer zgłoszenia otwartego"
@@ -29,7 +29,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
     }
     return (
         <StyledInputSection>
-            <Input
+            <SupportInput
                 onChange={(event) => setCurrentHandler(event.target.value)}
                 value={current}
                 labelContent="Number zgłoszenia bieżącego"
