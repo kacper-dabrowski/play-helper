@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-export const StyledCounter = styled.button`
+export const CounterButton = styled.button`
+    margin-top: 0.5rem;
     align-self: center;
     justify-self: center;
     background-color: #b3b3b3;
@@ -12,9 +13,19 @@ export const StyledCounter = styled.button`
     border: none;
     border-radius: 1rem;
     transition: ease-in-out 0.2s;
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: #583787;
         color: white;
         cursor: pointer;
     }
+`;
+
+export const CounterWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+    margin: auto;
 `;

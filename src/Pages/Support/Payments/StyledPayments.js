@@ -32,3 +32,11 @@ export const InvoicesContainer = styled.div`
 export const ButtonsContainer = styled.div`
     margin-top: 2rem;
 `;
+
+export const CalculatorWrapper = styled.div`
+    display: grid;
+    grid-template-rows: repeat(3, 33%);
+    height: 30%;
+    justify-content: center;
+    align-items: center;
+`;

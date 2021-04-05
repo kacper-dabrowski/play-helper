@@ -5,12 +5,8 @@ export const StyledInputSection = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 80px 80px;
     justify-items: center;
-    align-content: center;
+    align-items: center;
     width: 80%;
-    & label {
-        align-self: center;
-        justify-self: end;
-    }
 `;
 
 export const StyledSexSection = styled.div`
