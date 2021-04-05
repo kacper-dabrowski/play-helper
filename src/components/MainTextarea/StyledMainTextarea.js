@@ -5,6 +5,9 @@ export const MainTextareaWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: auto;
+    width: 80%;
+    height: 60%;
 `;
 
 export const TextAreaButtonsWrapper = styled.div`

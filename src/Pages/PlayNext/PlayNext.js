@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import Settings from './Settings/Settings';
-import { PlayNextTextArea } from './StyledPlayNext';
-import identifiers from '../../shared/identifiers';
-import { generateNextTemplate, isPolish } from '../../modules/next/next';
 import backgroundImage from '../../assets/backgrounds/play-next-wave.svg';
-import routes from '../../shared/routes';
+import MainTextarea from '../../components/MainTextarea/MainTextarea';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
+import { generateNextTemplate, isPolish } from '../../modules/next/next';
+import identifiers from '../../shared/identifiers';
+import routes from '../../shared/routes';
+import Settings from './Settings/Settings';
 
 const PlayNext = ({ username }) => {
     const [language, setLanguage] = useState(identifiers.language.polish);
@@ -55,7 +55,7 @@ const PlayNext = ({ username }) => {
                 onGenerateTemplate={onGenerateTemplate}
                 addToCurrentTemplate={addToCurrentTemplate}
             />
-            <PlayNextTextArea value={template} setTemplate={setTemplate} />
+            <MainTextarea value={template} setTemplate={setTemplate} />
         </SupportLayout>
     );
 };
