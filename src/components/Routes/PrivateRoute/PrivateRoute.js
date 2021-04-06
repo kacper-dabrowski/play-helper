@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router';
-import Logout from '../../Logout/Logout';
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
-    return isAuthenticated ? <Route {...props}>{props.children}</Route> : <Logout />;
+    return isAuthenticated ? <Route {...props}>{props.children}</Route> : null;
 };
 
 const mapStateToProps = (state) => ({
