@@ -23,6 +23,9 @@ const Calculator = (props) => {
                 />
             </div>
             <div>
+                <SupportInput labelContent="Numery faktur" onChange={(event) => props.setInvoiceHandler(event)} />
+            </div>
+            <div>
                 <Counter
                     labelContent="Ilość rat"
                     name="paymentsCount"
@@ -31,9 +34,6 @@ const Calculator = (props) => {
                     maxValue={config.payments.maxCount}
                     minValue={config.payments.minCount}
                 />
-            </div>
-            <div>
-                <SupportInput labelContent="Numery faktur" onChange={(event) => props.setInvoiceHandler(event)} />
             </div>
         </CalculatorWrapper>
     );

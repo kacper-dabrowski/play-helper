@@ -34,9 +34,12 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const CalculatorWrapper = styled.div`
-    display: grid;
-    grid-template-rows: repeat(3, 33%);
-    height: 30%;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+    justify-content: space-around;
     align-items: center;
+    & div {
+        width: 100%;
+    }
 `;
