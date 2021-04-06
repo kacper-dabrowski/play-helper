@@ -19,7 +19,9 @@ export const TopbarNavlink = styled(NavLink)`
     display: flex;
     justify-content: center;
     align-items: center;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         cursor: pointer;
         transform: scale(1.1);
         color: black;

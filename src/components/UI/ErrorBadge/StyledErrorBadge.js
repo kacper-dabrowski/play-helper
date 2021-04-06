@@ -16,7 +16,9 @@ export const StyledErrorBadge = styled.div`
     opacity: 0;
     transform: translate(-50%);
     z-index: 11;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         cursor: pointer;
     }
 `;

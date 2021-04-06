@@ -12,7 +12,9 @@ export const StyledClearButton = styled.button`
     border: none;
     transition: ease-in-out 0.2s;
     color: white;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         background-color: #bb2205;
         cursor: pointer;
     }

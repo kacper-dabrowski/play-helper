@@ -13,7 +13,9 @@ export const TopbarButton = styled.button`
     color: white;
     font-size: 1.1rem;
     transition: ease-in-out 0.2s;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         cursor: pointer;
         transform: scale(1.1);
         color: black;

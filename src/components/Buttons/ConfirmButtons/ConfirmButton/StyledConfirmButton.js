@@ -12,7 +12,9 @@ export const StyledConfirmButton = styled.button`
     border: none;
     transition: ease-in-out 0.2s;
     color: white;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         color: #399547;
         background-color: white;
         cursor: pointer;

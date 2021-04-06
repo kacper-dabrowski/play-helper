@@ -7,7 +7,7 @@ export const MainTextareaWrapper = styled.div`
     align-items: center;
     margin: auto;
     width: 80%;
-    height: 60%;
+    height: 100%;
 `;
 
 export const TextAreaButtonsWrapper = styled.div`
@@ -17,8 +17,8 @@ export const TextAreaButtonsWrapper = styled.div`
     margin: 1rem;
 `;
 export const StyledMainTextarea = styled.textarea`
-    height: 80%;
-    width: 80%;
+    height: 60%;
+    width: 100%;
     border-radius: 21px;
     padding: 0.5rem;
     font-family: inherit;

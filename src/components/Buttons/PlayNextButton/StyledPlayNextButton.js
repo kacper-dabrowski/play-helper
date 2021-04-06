@@ -9,7 +9,9 @@ export const StyledPlayNextButton = styled.button`
     border-radius: 21px;
     background-color: ${({ active }) => (active ? '#f7be16' : '#b3b3b3')};
     transition: ease-in-out 0.2s;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         background-color: #f7be16;
         transform: scale(1.1);
         cursor: pointer;
