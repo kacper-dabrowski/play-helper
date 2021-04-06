@@ -14,9 +14,7 @@ export const StyledAdditionalTemplate = styled.button`
     border: none;
     transition: ease-in-out 0.2s;
 
-    &:hover,
-    &:active,
-    &:focus {
+    &:hover {
         background-color: ${({ enabled }) => (enabled ? '#1c4a23' : '#bb2205')};
         cursor: ${({ enabled }) => (enabled ? 'pointer' : 'not-allowed')};
     }

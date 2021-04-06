@@ -11,9 +11,11 @@ const useFeedbackSnackbars = () => {
     useEffect(() => {
         if (error) {
             openErrorSnackbar(error);
+            setError('');
         }
         if (success) {
             openSuccessSnackbar(success);
+            setSuccess('');
         }
     }, [success, error]);
 
