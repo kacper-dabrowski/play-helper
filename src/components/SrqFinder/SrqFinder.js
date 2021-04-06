@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import useFeedbackSnackbars from '../../hooks/useFeedbackSnackbars';
 import useRequest from '../../hooks/useRequest';
+import useResultsFilter from '../../hooks/useResultsFilter';
 import urls from '../../shared/urls';
+import Searchbar from '../SearchBar/SearchBar';
 import SrqResults from './SrqResults/SrqResults';
 import { StyledSrqFinder } from './StyledSrqFinder';
-import Searchbar from '../SearchBar/SearchBar';
-import useFeedbackSnackbars from '../../hooks/useFeedbackSnackbars';
+
+const searchMethod = (results, searchPhrase) =>
+    results.filter(
+        (result) =>
+            result.title.toLowerCase().includes(searchPhrase) ||
+            result.description.toLowerCase().includes(searchPhrase) ||
+            result.department.toLowerCase().includes(searchPhrase)
+    );
 
 const SrqFinder = (props) => {
     const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
+    const srqResults = response?.data?.supportRequests || [];
+    const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(srqResults, searchMethod);
     const [, setError] = useFeedbackSnackbars();
-
     const { setEntriesRefresh } = props;
 
     useEffect(() => {
@@ -21,30 +29,12 @@ const SrqFinder = (props) => {
         }
     }, [error]);
 
-    const srqResults = response?.data?.supportRequests || [];
-
-    const onSearch = (searchPhrase) => {
-        const search = srqResults.filter((result) => {
-            return (
-                result.title.toLowerCase().includes(searchPhrase) ||
-                result.description.toLowerCase().includes(searchPhrase) ||
-                result.department.toLowerCase().includes(searchPhrase)
-            );
-        });
-        setSearchResults(search);
-    };
-
-    const searchSrqHandler = (event) => {
-        setSearchQuery(event.target.value);
-        onSearch(event.target.value);
-    };
-
     return (
         <StyledSrqFinder>
-            <Searchbar onType={searchSrqHandler} value={searchQuery} />
+            <Searchbar onType={setSearchQuery} value={searchQuery} />
             <SrqResults
                 onCopy={props.setTemplate && props.setTemplate}
-                supportRequests={searchQuery ? searchResults : srqResults}
+                supportRequests={searchResults}
                 hasError={error}
                 isLoading={loading}
                 editable={props.editable}
