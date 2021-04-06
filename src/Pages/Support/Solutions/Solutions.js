@@ -8,15 +8,22 @@ import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { SolutionResults } from './StyledSolutions';
+import useResultsFilter from '../../../hooks/useResultsFilter';
+
+const searchMethod = (results, searchPhrase) =>
+    results.filter(
+        (result) =>
+            result.title.toLowerCase().includes(searchPhrase) ||
+            result.description.toLowerCase().includes(searchPhrase) ||
+            result.content.toLowerCase().includes(searchPhrase)
+    );
 
 const Solutions = () => {
     const [template, setTemplate] = useState('');
     const [response, error, loading] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
     const [, setError] = useFeedbackSnackbars();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-
     const solutions = response?.data || [];
+    const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(solutions, searchMethod);
 
     const normalizeSolutions = ({ title, description, content, isPublic, _id }) => (
         <SolutionResult
@@ -35,40 +42,25 @@ const Solutions = () => {
             setError(error.message);
         }
     }, [error]);
-    const onSearch = (searchPhrase) => {
-        const search = solutions.filter((result) => {
-            return (
-                result.title.toLowerCase().includes(searchPhrase) ||
-                result.description.toLowerCase().includes(searchPhrase) ||
-                result.content.toLowerCase().includes(searchPhrase)
-            );
-        });
-        setSearchResults(search);
-    };
-
-    const searchSolutionHandler = (event) => {
-        setSearchQuery(event.target.value);
-        onSearch(event.target.value);
-    };
 
     let results;
 
     if (loading) {
         results = <Spinner centered />;
     }
-    if (!searchQuery) {
-        results = solutions.map(normalizeSolutions);
-    } else {
-        results = searchResults.map(normalizeSolutions);
-    }
-    if (results.length === 0) {
+
+    if (!loading && results?.length === 0) {
         results = <p>Brak wyników</p>;
+    }
+
+    if (searchResults.length !== 0) {
+        results = searchResults.map(normalizeSolutions);
     }
 
     return (
         <>
             <SolutionResults>
-                <Searchbar onType={searchSolutionHandler} value={searchQuery} />
+                <Searchbar onType={setSearchQuery} value={searchQuery} />
                 <StyledResults>{results}</StyledResults>
             </SolutionResults>
             <MainTextarea setTemplate={setTemplate} value={template} />

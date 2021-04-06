@@ -10,7 +10,7 @@ const Searchbar = ({ onType, value }) => {
                 ref={focusRef}
                 value={value}
                 onChange={(event) => {
-                    onType(event);
+                    onType(event.target.value);
                 }}
                 placeholder="Wpisz wyszukiwaną frazę"
             />
