@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import arrowBackImage from '../../assets/icons/left-arrow-back.svg';
+import arrowBackImage from '../../../assets/icons/left-arrow-back.svg';
 
 export const StyledArrowBack = styled(Link)`
     top: 0;

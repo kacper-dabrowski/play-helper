@@ -1,5 +1,5 @@
 import React from 'react';
-import IconButton from '../../../../IconButton/IconButton';
+import IconButton from '../../../../Buttons/IconButton/IconButton';
 import cancelIcon from '../../../../../assets/icons/cancel.svg';
 import { StyledResultContainer } from '../../StyledResult';
 

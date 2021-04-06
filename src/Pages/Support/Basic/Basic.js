@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import AdditionalTemplate from '../../../components/AdditionalTemplate/AdditionalTemplate';
-import Checkbox from '../../../components/Checkbox/Checkbox';
-import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
+import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
+import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
+import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';

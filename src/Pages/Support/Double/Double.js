@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
+import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
