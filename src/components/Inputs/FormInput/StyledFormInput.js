@@ -12,8 +12,9 @@ export const StyledFormInput = styled.input`
     margin: 0.5rem auto;
     border-bottom: 1px solid ${({ hasErrors }) => (hasErrors ? 'red' : '#835cbc')};
     transition: ease-in-out 0.2s;
-    &:focus,
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         border-bottom: 2px solid #009688;
     }
 `;

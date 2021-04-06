@@ -43,7 +43,9 @@ export const ResultButton = styled.button`
     color: white;
     transition: ease-in-out 0.2s;
     margin-top: 1rem;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         cursor: pointer;
         transform: scale(1.1);
         background: linear-gradient(45deg, #5b398d, #835cbc);

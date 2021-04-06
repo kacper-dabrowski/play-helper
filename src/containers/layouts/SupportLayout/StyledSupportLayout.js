@@ -12,7 +12,7 @@ export const StyledSupportLayout = styled.div`
 
 export const Container = styled.div`
     width: 80%;
-    height: calc(100% - 120px);
+    height: 90%;
     display: grid;
     text-align: center;
     margin: auto;

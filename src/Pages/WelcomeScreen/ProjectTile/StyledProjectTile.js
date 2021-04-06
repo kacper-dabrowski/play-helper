@@ -21,7 +21,9 @@ export const StyledProjectTile = styled.div`
             background-position: 0% 50%;
         }
     }
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         background: linear-gradient(-45deg, ${({ colorBright }) => colorBright}, ${({ colorDark }) => colorDark});
         background-size: 400% 400%;
         animation: gradient 7s ease infinite;

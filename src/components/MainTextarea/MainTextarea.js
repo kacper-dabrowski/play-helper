@@ -6,7 +6,6 @@ import { MainTextareaWrapper, StyledMainTextarea, TextAreaButtonsWrapper } from 
 const MainTextarea = ({ setTemplate, value, ...props }) => (
     <MainTextareaWrapper>
         <StyledMainTextarea {...props} value={value} onChange={(event) => setTemplate(event.target.value)} />
-
         <TextAreaButtonsWrapper>
             <CopyToClipboard text={value}>
                 <ConfirmButton title="Kopiuj" />

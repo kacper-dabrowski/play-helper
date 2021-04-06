@@ -14,6 +14,7 @@ export const CounterButton = styled.button`
     border-radius: 1rem;
     transition: ease-in-out 0.2s;
     &:hover,
+    &:active,
     &:focus {
         background-color: #583787;
         color: white;

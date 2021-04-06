@@ -7,7 +7,9 @@ export const StyledIcon = styled.img`
     position: absolute;
     right: ${({ right }) => right};
     top: ${({ top }) => top};
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         cursor: pointer;
         transform: scale(1.1);
     }

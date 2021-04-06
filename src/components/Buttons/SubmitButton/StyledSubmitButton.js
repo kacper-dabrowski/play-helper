@@ -11,7 +11,10 @@ export const StyledSubmitButton = styled.button`
     color: white;
     transition: ease-in-out 0.2s;
     margin-top: 1rem;
-    &:hover {
+
+    &:hover,
+    &:active,
+    &:focus {
         cursor: pointer;
         transform: scale(1.1);
     }

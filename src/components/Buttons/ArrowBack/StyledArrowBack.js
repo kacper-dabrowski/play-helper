@@ -11,7 +11,9 @@ export const StyledArrowBack = styled(Link)`
     background-image: url('${arrowBackImage}');
     background-size: cover;
     transition: ease-in-out 0.2s;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         transform: scale(1.1);
     }
 `;

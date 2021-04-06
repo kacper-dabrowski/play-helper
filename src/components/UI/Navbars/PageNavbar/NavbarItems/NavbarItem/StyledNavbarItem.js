@@ -5,7 +5,9 @@ export const StyledNavlink = styled(NavLink)`
     text-decoration: none;
     color: white;
     padding: 0.5rem;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         color: #a98dd0;
     }
     &.active {
