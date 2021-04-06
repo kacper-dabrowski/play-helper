@@ -8,7 +8,7 @@ import { SolutionFinderContainer } from './StyledSolution';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import ErrorBadge from '../../../components/UI/ErrorBadge/ErrorBadge';
-import Spinner from '../../../components/Spinner/Spinner';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 
 const Solution = () => {

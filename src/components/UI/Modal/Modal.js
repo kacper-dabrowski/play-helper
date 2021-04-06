@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Backdrop from '../Backdrop/Backdrop';
 import cancelIcon from '../../../assets/icons/cancel.svg';
 import { ModalContainer, ModalWrapper } from './StyledModal';
-import IconButton from '../../IconButton/IconButton';
+import IconButton from '../../Buttons/IconButton/IconButton';
 
 const Modal = ({ children, isOpened, closeModalHandler }) => {
     return ReactDOM.createPortal(

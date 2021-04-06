@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SolutionResult from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
-import Spinner from '../../../components/Spinner/Spinner';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
 import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';

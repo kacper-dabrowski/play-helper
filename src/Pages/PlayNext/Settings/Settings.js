@@ -1,6 +1,6 @@
 import React from 'react';
-import BorderButton from '../../../components/BorderButton/BorderButton';
-import PlayNextButton from '../../../components/PlayNextButton/PlayNextButton';
+import BorderButton from '../../../components/Buttons/BorderButton/BorderButton';
+import PlayNextButton from '../../../components/Buttons/PlayNextButton/PlayNextButton';
 import { StyledPlayNextSettings } from './StyledSettings';
 import identifiers from '../../../shared/identifiers';
 import { isPolish } from '../../../modules/next/next';

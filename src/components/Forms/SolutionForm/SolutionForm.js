@@ -5,10 +5,10 @@ import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import useFormikErrors from '../../../hooks/useFormikErrors';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
-import FormInput from '../../FormInput/FormInput';
-import { StyledFormTextarea } from '../../FormTextarea/StyledFormTextarea';
-import Spinner from '../../Spinner/Spinner';
-import SubmitButton from '../../SubmitButton/SubmitButton';
+import FormInput from '../../Inputs/FormInput/FormInput';
+import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
+import Spinner from '../../UI/Spinner/Spinner';
+import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSolutionForm';
 
 const validationSchema = Yup.object({

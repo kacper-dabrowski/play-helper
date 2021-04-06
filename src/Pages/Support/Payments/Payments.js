@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import AdditionalTemplate from '../../../components/AdditionalTemplate/AdditionalTemplate';
-import ConfirmButtons from '../../../components/ConfirmButtons/ConfirmButtons';
+import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
+import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';

@@ -1,6 +1,6 @@
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import ConfirmButton from '../ConfirmButtons/ConfirmButton/ConfirmButton';
+import ConfirmButton from '../Buttons/ConfirmButtons/ConfirmButton/ConfirmButton';
 import { MainTextareaWrapper, StyledMainTextarea, TextAreaButtonsWrapper } from './StyledMainTextarea';
 
 const MainTextarea = ({ setTemplate, value, ...props }) => (

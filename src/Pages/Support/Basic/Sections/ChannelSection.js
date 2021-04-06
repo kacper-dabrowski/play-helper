@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../../../components/SupportButton/StyledSupportButton';
+import Button from '../../../../components/Buttons/SupportButton/StyledSupportButton';
 import config from '../../../../shared/identifiers';
 
 const ChannelSection = ({ setHandler, setting }) => (

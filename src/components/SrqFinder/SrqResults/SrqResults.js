@@ -4,7 +4,7 @@ import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
 import Result from '../../Results/Result/SRQ/SrqResult';
 import ResultWithButtons from '../../Results/Result/SRQ/SrqResultWithButtons/SrqResultWithButtons';
-import Spinner from '../../Spinner/Spinner';
+import Spinner from '../../UI/Spinner/Spinner';
 import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
