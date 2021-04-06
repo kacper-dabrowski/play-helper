@@ -5,16 +5,7 @@ import { StyledPlayNextSettings } from './StyledSettings';
 import identifiers from '../../../shared/identifiers';
 import { isPolish } from '../../../modules/next/next';
 
-const Settings = ({
-    language,
-    setLanguage,
-    sex,
-    setSex,
-    activeTemplate,
-
-    onGenerateTemplate,
-    addToCurrentTemplate,
-}) => {
+const Settings = ({ language, setLanguage, sex, setSex, activeTemplate, onGenerateTemplate, addToCurrentTemplate }) => {
     const languageToSet =
         language === identifiers.language.polish ? identifiers.language.english : identifiers.language.polish;
     const sexToSet = sex === identifiers.sex.woman ? identifiers.sex.man : identifiers.sex.woman;
