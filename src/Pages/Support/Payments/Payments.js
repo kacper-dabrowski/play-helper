@@ -88,6 +88,7 @@ const Payments = ({ fullName }) => {
                     setAmountHandler={setAmount}
                     invoices={invoices}
                     setInvoiceHandler={setInvoicesHandler}
+                    onRemoveInvoice={onRemoveInvoice}
                 />
                 <Invoices invoices={invoices} removeInvoiceHandler={onRemoveInvoice} />
                 <AdditionalTemplate
