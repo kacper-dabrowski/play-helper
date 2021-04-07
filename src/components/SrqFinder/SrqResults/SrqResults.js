@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import srqFormContext from '../../../contexts/srqFormContext';
 import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
@@ -9,6 +10,8 @@ import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
     const [setSuccess, setError] = useFeedbackSnackbars();
+    const { setEditMode, setFieldsToPopulate } = useContext(srqFormContext);
+
     const srqRemovedHandler = async (id) => {
         try {
             setSuccess('');
@@ -57,7 +60,9 @@ const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, click
                 title={title}
                 description={description}
                 department={department}
-                onClick={srqRemovedHandler}
+                onRemove={srqRemovedHandler}
+                toggleEditMode={setEditMode}
+                setFieldsToPopulate={setFieldsToPopulate}
             />
         ));
     }
