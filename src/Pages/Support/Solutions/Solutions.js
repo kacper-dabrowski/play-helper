@@ -10,7 +10,7 @@ import urls from '../../../shared/urls';
 import { SolutionResults } from './StyledSolutions';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 
-const searchMethod = (results, searchPhrase) =>
+export const solutionSearchMethod = (results, searchPhrase) =>
     results.filter(
         (result) =>
             result.title.toLowerCase().includes(searchPhrase) ||
@@ -23,7 +23,7 @@ const Solutions = () => {
     const [response, error, loading] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
     const [, setError] = useFeedbackSnackbars();
     const solutions = response?.data || [];
-    const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(solutions, searchMethod);
+    const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
 
     const normalizeSolutions = ({ title, description, content, isPublic, _id }) => (
         <SolutionResult
