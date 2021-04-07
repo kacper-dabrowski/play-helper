@@ -54,6 +54,7 @@ const SrqEditableForm = (props) => {
     };
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: props.populatedFields,
         validationSchema,
         onSubmit: (values, { resetForm }) => {

@@ -1,19 +1,31 @@
-import React from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
+import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import SolutionResultWithButtons from '../../../components/Results/Result/Solution/SolutionResultWithButtons/SolutionResultWithButtons';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
-import { SolutionFinderContainer } from './StyledSolution';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
-import ErrorBadge from '../../../components/UI/ErrorBadge/ErrorBadge';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
+import urls from '../../../shared/urls';
+import { SolutionFinderContainer } from './StyledSolution';
+import useResultsFilter from '../../../hooks/useResultsFilter';
+import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 
 const Solution = () => {
     const [response, error, loading, refresh] = useRequest(urls.solution, REQUEST_METHODS.GET);
     const [setSuccess, setError] = useFeedbackSnackbars();
+    const [editMode, setEditMode] = useState(false);
+    const [fieldsToPopulate, setFieldsToPopulate] = useState({});
+    const results = response?.data || [];
+    const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
+
+    const toggleEditModeAndPopulateFields = (solution) => {
+        setEditMode(true);
+        setFieldsToPopulate(solution);
+    };
+
     const removeSolutionHandler = async (id) => {
         try {
             setSuccess('');
@@ -25,28 +37,31 @@ const Solution = () => {
         }
     };
     let content;
-    const solutions = response?.data || [];
     if (loading) {
         content = <Spinner centered />;
     } else {
-        content = solutions.map(({ _id, title, description, isPublic, isAuthor }) => (
+        content = filteredSolutions.map((solution) => (
             <SolutionResultWithButtons
-                key={_id}
-                title={title}
-                isPublic={isPublic}
-                description={description}
-                id={_id}
+                key={solution._id}
+                title={solution.title}
+                isPublic={solution.isPublic}
+                description={solution.description}
+                id={solution._id}
                 onRemove={removeSolutionHandler}
-                isAuthor={isAuthor}
+                onToggleEdit={() => toggleEditModeAndPopulateFields({ ...solution, id: solution._id })}
+                isAuthor={solution.isAuthor}
             />
         ));
     }
     return (
         <>
-            <ErrorBadge message={error?.message} />
-            <SolutionForm refresh={refresh} />
+            {editMode ? (
+                <SolutionEditableForm populatedFields={fieldsToPopulate} refresh={refresh} />
+            ) : (
+                <SolutionForm refresh={refresh} />
+            )}
             <SolutionFinderContainer>
-                <Searchbar />
+                <Searchbar onType={setSearchQuery} value={searchQuery} />
                 <StyledResults>{content}</StyledResults>
             </SolutionFinderContainer>
         </>
