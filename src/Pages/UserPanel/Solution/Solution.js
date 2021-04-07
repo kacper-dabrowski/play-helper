@@ -56,7 +56,7 @@ const Solution = () => {
     return (
         <>
             {editMode ? (
-                <SolutionEditableForm populatedFields={fieldsToPopulate} refresh={refresh} />
+                <SolutionEditableForm populatedFields={fieldsToPopulate} refresh={refresh} setEditMode={setEditMode} />
             ) : (
                 <SolutionForm refresh={refresh} />
             )}
