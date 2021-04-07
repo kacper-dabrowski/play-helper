@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SrqForm from '../../../components/Forms/SrqForm/SrqForm';
 import SrqFinder from '../../../components/SrqFinder/SrqFinder';
+import useRequest from '../../../hooks/useRequest';
+import urls from '../../../shared/urls';
 
 const SrqPanel = () => {
-    const [entriesRefresh, setEntriesRefresh] = useState(() => {});
+    const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
 
     return (
         <>
-            <SrqForm entriesRefresh={entriesRefresh} />
-            <SrqFinder editable setEntriesRefresh={setEntriesRefresh} />
+            <SrqForm entriesRefresh={refresh} />
+            <SrqFinder editable response={response} error={error} loading={loading} />
         </>
     );
 };
