@@ -1,9 +1,23 @@
 import React from 'react';
 import IconButton from '../../../../Buttons/IconButton/IconButton';
 import cancelIcon from '../../../../../assets/icons/cancel.svg';
+import pencilIcon from '../../../../../assets/icons/pencil.png';
 import { StyledResultContainer } from '../../StyledResult';
 
-const SrqResultWithButtons = ({ id, title, description, department, onClick }) => {
+const SrqResultWithButtons = ({
+    id,
+    title,
+    description,
+    department,
+    toggleEditMode,
+    setFieldsToPopulate,
+    onRemove,
+    content,
+}) => {
+    const toggleEditModeAndPopulateFields = () => {
+        toggleEditMode(true);
+        setFieldsToPopulate({ title, description, department, content, srqId: id });
+    };
     return (
         <StyledResultContainer>
             <IconButton
@@ -12,7 +26,15 @@ const SrqResultWithButtons = ({ id, title, description, department, onClick }) =
                 height="1.5rem"
                 top="1rem"
                 right="1rem"
-                onClick={() => onClick(id)}
+                onClick={() => onRemove(id)}
+            />
+            <IconButton
+                src={pencilIcon}
+                width="1.5rem"
+                height="1.5rem"
+                bottm="1rem"
+                right="1rem"
+                onClick={toggleEditModeAndPopulateFields}
             />
             <h3>{title}</h3>
             <p>{description}</p>
