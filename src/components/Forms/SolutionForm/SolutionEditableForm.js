@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
     isPublic: Yup.boolean(),
 });
 
-const SolutionEditableForm = ({ refresh, populatedFields }) => {
+const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
     const [loading, setLoading] = useState(false);
     const [setSuccess, setError] = useFeedbackSnackbars();
     const { title, description, content, isPublic, id } = populatedFields;
@@ -47,6 +47,7 @@ const SolutionEditableForm = ({ refresh, populatedFields }) => {
                 setSuccess('Pomyślnie zapisano zmiany');
                 resetForm({});
                 refresh();
+                setEditMode(false);
             } catch (error) {
                 setError(error.message);
                 setLoading(false);
