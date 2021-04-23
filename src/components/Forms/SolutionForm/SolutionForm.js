@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
+import cogoToast from 'cogo-toast';
 import useFormikErrors from '../../../hooks/useFormikErrors';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
@@ -20,7 +20,6 @@ const validationSchema = Yup.object({
 
 const SolutionForm = ({ refresh }) => {
     const [loading, setLoading] = useState(false);
-    const [setSuccess, setError] = useFeedbackSnackbars();
 
     const formik = useFormik({
         initialValues: {
@@ -38,16 +37,15 @@ const SolutionForm = ({ refresh }) => {
                     content,
                     isPublic,
                 };
-                setSuccess('');
+
                 setLoading(true);
                 await axios.put(urls.solution, formData);
                 setLoading(false);
-                setError('');
-                setSuccess('Rozwiązanie dodane pomyślnie');
+                cogoToast.success('Rozwiązanie dodane pomyślnie');
                 resetForm({});
                 refresh();
             } catch (error) {
-                setError(error.message);
+                cogoToast.error(error.message);
                 setLoading(false);
             }
         },

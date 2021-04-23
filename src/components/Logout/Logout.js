@@ -1,3 +1,4 @@
+import cogoToast from 'cogo-toast';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
@@ -7,6 +8,7 @@ const Logout = (props) => {
     useEffect(() => {
         clearTimeout(props.logoutTimeoutId);
         props.onLogout();
+        cogoToast.info('Zostałeś wylogowany');
     });
 
     return <Redirect to="/" />;

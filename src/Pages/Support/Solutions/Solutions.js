@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import cogoToast from 'cogo-toast';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SolutionResult from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { SolutionResults } from './StyledSolutions';
@@ -21,7 +21,6 @@ export const solutionSearchMethod = (results, searchPhrase) =>
 const Solutions = () => {
     const [template, setTemplate] = useState('');
     const [response, error, loading] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
-    const [, setError] = useFeedbackSnackbars();
     const solutions = response?.data || [];
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
 
@@ -39,7 +38,7 @@ const Solutions = () => {
 
     useEffect(() => {
         if (error) {
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     }, [error]);
 

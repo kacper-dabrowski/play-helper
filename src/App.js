@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router';
-import SnackbarProvider from 'react-simple-snackbar';
+
 import Logout from './components/Logout/Logout';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
@@ -21,23 +21,21 @@ const App = (props) => {
     });
 
     return (
-        <SnackbarProvider>
-            <NotFoundProviderSwitch>
-                <PrivateRoute path="/support">
-                    <Support routes={routes.support} />
-                </PrivateRoute>
-                <PrivateRoute path="/next">
-                    <PlayNext />
-                </PrivateRoute>
-                <PrivateRoute path="/user-panel">
-                    <UserPanel />
-                </PrivateRoute>
-                <PrivateRoute path="/logout" component={Logout} />
-                <Route path="/" exact>
-                    <WelcomeScreen />
-                </Route>
-            </NotFoundProviderSwitch>
-        </SnackbarProvider>
+        <NotFoundProviderSwitch>
+            <PrivateRoute path="/support">
+                <Support routes={routes.support} />
+            </PrivateRoute>
+            <PrivateRoute path="/next">
+                <PlayNext />
+            </PrivateRoute>
+            <PrivateRoute path="/user-panel">
+                <UserPanel />
+            </PrivateRoute>
+            <PrivateRoute path="/logout" component={Logout} />
+            <Route path="/" exact>
+                <WelcomeScreen />
+            </Route>
+        </NotFoundProviderSwitch>
     );
 };
 

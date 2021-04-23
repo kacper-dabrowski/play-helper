@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import cogoToast from 'cogo-toast';
 import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
 import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
 import * as actions from '../../../store/actions';
 import urls from '../../../shared/urls';
 import axios from '../../../libs/axios';
 import Spinner from '../../UI/Spinner/Spinner';
-import ErrorMessage from '../../Messages/ErrorMessage/ErrorMessage';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
-import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
 import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
 import useFocus from '../../../hooks/useFocus';
 
@@ -26,7 +25,6 @@ const validationSchema = Yup.object({
 
 const SignUpForm = (props) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [submitError, setSubmitError] = useState(null);
     const focusRef = useFocus();
 
     const formik = useFormik({
@@ -52,16 +50,17 @@ const SignUpForm = (props) => {
                 setIsLoading(false);
             } catch (error) {
                 setIsLoading(false);
-                setSubmitError(error);
+                cogoToast.error(error);
             }
         },
     });
-    const error = submitError && <ErrorMessage message="Ta nazwa użytkownika jest już zajęta" />;
+    const formikError = getLastMessageFromFormikErrors(formik.errors);
+    if (formikError) {
+        cogoToast.error(formikError);
+    }
     return (
         <StyledSignupForm onSubmit={formik.handleSubmit}>
-            <StyledFormHeader>Zarejestruj się</StyledFormHeader>
-            <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
-            {error}
+            <StyledFormHeader>Zarejestruj się</StyledFormHeader>s
             <FormInputsWrapper>
                 <LoginInput
                     focusRef={focusRef}

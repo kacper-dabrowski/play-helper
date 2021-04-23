@@ -1,9 +1,9 @@
 import axios from 'axios';
+import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useContext, useState } from 'react';
 import * as Yup from 'yup';
 import srqFormContext from '../../../contexts/srqFormContext';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import useFocus from '../../../hooks/useFocus';
 import useFormikErrors from '../../../hooks/useFormikErrors';
 import urls from '../../../shared/urls';
@@ -23,15 +23,12 @@ const validationSchema = Yup.object({
 const SrqEditableForm = (props) => {
     const [loading, setLoading] = useState(false);
     const focusRef = useFocus();
-    const [setSuccess, setError] = useFeedbackSnackbars();
     const { setEditMode } = useContext(srqFormContext);
 
     const { entriesRefresh } = props;
 
     const onSubmit = async (values, resetForm) => {
         try {
-            setSuccess('');
-            setError('');
             const { title, description, department, content } = values;
             setLoading(true);
             const formData = {
@@ -43,13 +40,13 @@ const SrqEditableForm = (props) => {
 
             await axios.patch(`${urls.srq}/${props.populatedFields.srqId}`, formData);
             setLoading(false);
-            setSuccess('Pomyślnie zapisano zmiany');
+            cogoToast.success('Pomyślnie zapisano zmiany');
             resetForm();
             entriesRefresh?.();
             setEditMode(false);
         } catch (error) {
             setLoading(false);
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     };
 
