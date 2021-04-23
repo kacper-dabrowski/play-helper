@@ -38,7 +38,7 @@ const SrqEditableForm = (props) => {
                 content,
             };
 
-            await axios.patch(`${urls.srq}/${props.populatedFields.srqId}`, formData);
+            await axios.post(`${urls.srq}/${props.populatedFields.srqId}`, formData);
             setLoading(false);
             cogoToast.success('Pomyślnie zapisano zmiany');
             resetForm();
@@ -54,11 +54,11 @@ const SrqEditableForm = (props) => {
         enableReinitialize: true,
         initialValues: props.populatedFields,
         validationSchema,
+        validateOnChange: false,
         onSubmit: (values, { resetForm }) => {
             onSubmit(values, resetForm);
             entriesRefresh?.();
         },
-        validateOnChange: false,
     });
 
     useError(formik.errors);
