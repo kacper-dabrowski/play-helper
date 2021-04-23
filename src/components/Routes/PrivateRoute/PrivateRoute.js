@@ -4,7 +4,15 @@ import { Route } from 'react-router';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
-    return isAuthenticated ? <Route {...props}>{props.children}</Route> : <NotFoundPage />;
+    const renderRoute = () => {
+        if (!isAuthenticated) {
+            return <NotFoundPage />;
+        }
+
+        return props.children;
+    };
+
+    return <Route {...props} render={renderRoute} />;
 };
 
 const mapStateToProps = (state) => ({
