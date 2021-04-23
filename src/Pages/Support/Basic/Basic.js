@@ -14,12 +14,12 @@ import { AdditionalTemplateContainer, CheckboxContainer, SettingsSection } from 
 const telephoneTemplate = generateTelephoneTemplate();
 const Basic = (props) => {
     const [template, setTemplate] = useState('');
-    const [sex, setSex] = useState(null);
-    const [type, setType] = useState(null);
-    const [channel, setChannel] = useState(null);
-    const [date, setDate] = useState(null);
-    const [details, setDetails] = useState(null);
-    const [general, setGeneral] = useState(null);
+    const [sex, setSex] = useState('');
+    const [type, setType] = useState('');
+    const [channel, setChannel] = useState('');
+    const [date, setDate] = useState('');
+    const [details, setDetails] = useState('');
+    const [general, setGeneral] = useState('');
     const [hasOffer, setHasOffer] = useState(false);
 
     const generateTemplate = useCallback(() => {
