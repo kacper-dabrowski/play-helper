@@ -1,8 +1,8 @@
+import cogoToast from 'cogo-toast';
 import React, { useCallback, useEffect, useState } from 'react';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDouble';
 import generateClosedDoubleTemplate from '../../../modules/openedDouble/openedDouble';
 import config from '../../../shared/identifiers';
@@ -14,7 +14,6 @@ const Double = ({ type }) => {
     const [current, setCurrent] = useState('');
     const [doubled, setDoubled] = useState('');
     const [template, setTemplate] = useState('');
-    const [, setError] = useFeedbackSnackbars();
 
     const clearFields = useCallback(() => {
         setSex(null);
@@ -41,7 +40,7 @@ const Double = ({ type }) => {
 
             setTemplate(currentTemplate);
         } catch (error) {
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     }, [type, doubled, current, sex]);
 

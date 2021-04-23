@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
+import cogoToast from 'cogo-toast';
 import useFormikErrors from '../../../hooks/useFormikErrors';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
@@ -20,7 +20,6 @@ const validationSchema = Yup.object({
 
 const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
     const [loading, setLoading] = useState(false);
-    const [setSuccess, setError] = useFeedbackSnackbars();
     const { title, description, content, isPublic, id } = populatedFields;
 
     const formik = useFormik({
@@ -39,17 +38,15 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
                     content: values.content,
                     isPublic: values.isPublic,
                 };
-                setSuccess('');
                 setLoading(true);
                 await axios.post(`${urls.solution}/${id}`, formData);
                 setLoading(false);
-                setError('');
-                setSuccess('Pomyślnie zapisano zmiany');
+                cogoToast.success('Pomyślnie zapisano zmiany');
                 resetForm({});
                 refresh();
                 setEditMode(false);
             } catch (error) {
-                setError(error.message);
+                cogoToast.error(error.message);
                 setLoading(false);
             }
         },

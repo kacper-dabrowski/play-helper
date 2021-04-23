@@ -1,8 +1,8 @@
 import axios from 'axios';
+import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import useFocus from '../../../hooks/useFocus';
 import useFormikErrors from '../../../hooks/useFormikErrors';
 import urls from '../../../shared/urls';
@@ -22,14 +22,11 @@ const validationSchema = Yup.object({
 const SrqForm = (props) => {
     const [loading, setLoading] = useState(false);
     const focusRef = useFocus();
-    const [setSuccess, setError] = useFeedbackSnackbars();
 
     const { entriesRefresh } = props;
 
     const onSubmit = async (values, resetForm) => {
         try {
-            setSuccess('');
-            setError('');
             const { title, description, department, content } = values;
             setLoading(true);
             const formData = {
@@ -41,12 +38,12 @@ const SrqForm = (props) => {
 
             await axios.post(urls.srq, formData);
             setLoading(false);
-            setSuccess('SRQ dodane pomyślnie');
+            cogoToast.success('SRQ dodane pomyślnie');
             resetForm();
             entriesRefresh?.();
         } catch (error) {
             setLoading(false);
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     };
 

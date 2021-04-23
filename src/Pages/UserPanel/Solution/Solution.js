@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import cogoToast from 'cogo-toast';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import SolutionResultWithButtons from '../../../components/Results/Result/Solution/SolutionResultWithButtons/SolutionResultWithButtons';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { SolutionFinderContainer } from './StyledSolution';
@@ -15,7 +15,6 @@ import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 
 const Solution = () => {
     const [response, error, loading, refresh] = useRequest(urls.solution, REQUEST_METHODS.GET);
-    const [setSuccess, setError] = useFeedbackSnackbars();
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = response?.data || [];
@@ -28,12 +27,11 @@ const Solution = () => {
 
     const removeSolutionHandler = async (id) => {
         try {
-            setSuccess('');
             await axios.delete(`${urls.solution}/${id}`);
             await refresh();
-            setSuccess('Rozwiązanie usunięto pomyślnie');
+            cogoToast.success('Rozwiązanie usunięto pomyślnie');
         } catch (deletionError) {
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     };
     let content;

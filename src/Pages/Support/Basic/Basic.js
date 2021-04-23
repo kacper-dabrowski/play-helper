@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
+import cogoToast from 'cogo-toast';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
 import ChannelSection from './Sections/ChannelSection';
 import TextAreaSection from './Sections/TextAreaSection';
@@ -21,7 +21,6 @@ const Basic = (props) => {
     const [details, setDetails] = useState(null);
     const [general, setGeneral] = useState(null);
     const [hasOffer, setHasOffer] = useState(false);
-    const [, setError] = useFeedbackSnackbars();
 
     const generateTemplate = useCallback(() => {
         try {
@@ -38,7 +37,7 @@ const Basic = (props) => {
             const generatedTemplate = generateBasicTemplate(templateConfig);
             setTemplate(generatedTemplate);
         } catch (error) {
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     }, [sex, type, channel, date, details, general, hasOffer, props.name]);
 

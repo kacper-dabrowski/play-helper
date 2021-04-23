@@ -1,18 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import * as Yup from 'yup';
-import { StyledLoginForm } from './StyledLoginForm';
+import useFocus from '../../../hooks/useFocus';
+import { generateMessageByCode, getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
 import * as actions from '../../../store/actions';
-import Spinner from '../../UI/Spinner/Spinner';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
-import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
+import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from './LoginInputs/LoginInput/LoginInput';
-import { generateMessageByCode, getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
-import ErrorMessage from '../../Messages/ErrorMessage/ErrorMessage';
-import ErrorBadge from '../../UI/ErrorBadge/ErrorBadge';
-import useFocus from '../../../hooks/useFocus';
+import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
+import { StyledLoginForm } from './StyledLoginForm';
 
 const validationSchema = Yup.object({
     login: Yup.string().max(20, 'Login musi być nie dłuzszy niz 20 znaków').required('Pole jest wymagane'),
@@ -22,19 +21,31 @@ const validationSchema = Yup.object({
 const LoginForm = (props) => {
     const formik = useFormik({
         initialValues: { login: '', password: '' },
-        onSubmit: (values) => props.onAuth(values.login, values.password, props.onSuccess),
+        onSubmit: (values) =>
+            props.onAuth(values.login, values.password, () => {
+                props.onSuccess();
+                cogoToast.success('Zalogowano pomyślnie');
+            }),
         validationSchema,
         validateOnChange: false,
     });
-    const error = props.error && <ErrorMessage message={generateMessageByCode(props.error)} />;
+
     const focusRef = useFocus();
+
+    useEffect(() => {
+        if (props.error) {
+            cogoToast.error(generateMessageByCode(props.error));
+        }
+
+        if (getLastMessageFromFormikErrors(formik.errors)) {
+            cogoToast.error(getLastMessageFromFormikErrors(formik.errors));
+        }
+    }, [cogoToast.error, props.error]);
 
     return (
         <>
             <StyledLoginForm onSubmit={formik.handleSubmit}>
                 <StyledFormHeader>Zaloguj się</StyledFormHeader>
-                {error}
-                <ErrorBadge message={getLastMessageFromFormikErrors(formik.errors)} />
                 <LoginInputsWrapper>
                     <LoginInput
                         focusRef={focusRef}

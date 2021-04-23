@@ -1,6 +1,6 @@
+import cogoToast from 'cogo-toast';
 import React, { useContext } from 'react';
 import srqFormContext from '../../../contexts/srqFormContext';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
 import Result from '../../Results/Result/SRQ/SrqResult';
@@ -9,17 +9,15 @@ import Spinner from '../../UI/Spinner/Spinner';
 import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
-    const [setSuccess, setError] = useFeedbackSnackbars();
     const { setEditMode, setFieldsToPopulate } = useContext(srqFormContext);
 
     const srqRemovedHandler = async (id) => {
         try {
-            setSuccess('');
             await axios.delete(`${urls.srq}/${id}`);
-            setSuccess('Pomyślnie usunięto SRQ');
+            cogoToast.success('Pomyślnie usunięto SRQ');
             refresh();
         } catch (deletionError) {
-            setError(deletionError.message);
+            cogoToast.error(deletionError.message);
         }
     };
     if (error) {

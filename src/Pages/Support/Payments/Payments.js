@@ -1,9 +1,9 @@
+import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
-import useFeedbackSnackbars from '../../../hooks/useFeedbackSnackbars';
 import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';
 import config from '../../../shared/identifiers';
 import Calculator from './Sections/Calculator';
@@ -19,7 +19,6 @@ const Payments = ({ fullName }) => {
     const [template, setTemplate] = useState('');
     const [additionalTemplateActive, setAdditionalTemplateActive] = useState(false);
     const [additionalTemplate, setAdditionalTemplate] = useState('');
-    const [, setError] = useFeedbackSnackbars();
 
     const setInvoicesHandler = (event) => {
         try {
@@ -35,7 +34,7 @@ const Payments = ({ fullName }) => {
                 invoiceClickEvent.target.value = '';
             }
         } catch (error) {
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     };
 
@@ -65,7 +64,7 @@ const Payments = ({ fullName }) => {
             setAdditionalTemplateActive(true);
             setAdditionalTemplate(paymentTemplates.additionalTemplate);
         } catch (error) {
-            setError(error.message);
+            cogoToast.error(error.message);
         }
     };
 
