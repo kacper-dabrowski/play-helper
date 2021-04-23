@@ -1,18 +1,18 @@
+import cogoToast from 'cogo-toast';
+import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import cogoToast from 'cogo-toast';
-import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
-import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
-import * as actions from '../../../store/actions';
-import urls from '../../../shared/urls';
+import useError from '../../../hooks/useError';
+import useFocus from '../../../hooks/useFocus';
 import axios from '../../../libs/axios';
-import Spinner from '../../UI/Spinner/Spinner';
+import urls from '../../../shared/urls';
+import * as actions from '../../../store/actions';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
-import { getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
-import useFocus from '../../../hooks/useFocus';
+import Spinner from '../../UI/Spinner/Spinner';
+import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
+import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
 
 const validationSchema = Yup.object({
     username: Yup.string().max(20, 'Pole musi być krótsze niz 20 znaków').required('Pole jest wymagane'),
@@ -35,6 +35,7 @@ const SignUpForm = (props) => {
             confirmPassword: '',
         },
         validationSchema,
+        validateOnChange: false,
         onSubmit: async (values) => {
             const { username, password, fullName } = values;
             try {
@@ -54,10 +55,8 @@ const SignUpForm = (props) => {
             }
         },
     });
-    const formikError = getLastMessageFromFormikErrors(formik.errors);
-    if (formikError) {
-        cogoToast.error(formikError);
-    }
+    useError(formik.errors);
+
     return (
         <StyledSignupForm onSubmit={formik.handleSubmit}>
             <StyledFormHeader>Zarejestruj się</StyledFormHeader>s

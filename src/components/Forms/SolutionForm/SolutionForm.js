@@ -2,7 +2,6 @@ import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import cogoToast from 'cogo-toast';
-import useFormikErrors from '../../../hooks/useFormikErrors';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -10,6 +9,7 @@ import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea
 import Spinner from '../../UI/Spinner/Spinner';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSolutionForm';
+import useError from '../../../hooks/useError';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),
@@ -53,7 +53,7 @@ const SolutionForm = ({ refresh }) => {
         validateOnChange: false,
     });
 
-    useFormikErrors(formik.errors);
+    useError(formik.errors);
 
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>

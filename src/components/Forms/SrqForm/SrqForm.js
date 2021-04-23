@@ -3,8 +3,8 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
+import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
-import useFormikErrors from '../../../hooks/useFormikErrors';
 import urls from '../../../shared/urls';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -36,7 +36,7 @@ const SrqForm = (props) => {
                 content,
             };
 
-            await axios.post(urls.srq, formData);
+            await axios.put(urls.srq, formData);
             setLoading(false);
             cogoToast.success('SRQ dodane pomyślnie');
             resetForm();
@@ -59,9 +59,11 @@ const SrqForm = (props) => {
             onSubmit(values, resetForm);
             entriesRefresh?.();
         },
+        validateOnChange: false,
     });
 
-    useFormikErrors(formik.errors);
+    useError(formik.errors, null);
+
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
             <FormInput
