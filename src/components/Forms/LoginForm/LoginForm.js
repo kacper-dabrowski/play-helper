@@ -1,10 +1,10 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
+import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
-import { generateMessageByCode, getLastMessageFromFormikErrors } from '../../../shared/errors/handleErrors';
 import * as actions from '../../../store/actions';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
@@ -32,15 +32,7 @@ const LoginForm = (props) => {
 
     const focusRef = useFocus();
 
-    useEffect(() => {
-        if (props.error) {
-            cogoToast.error(generateMessageByCode(props.error));
-        }
-
-        if (getLastMessageFromFormikErrors(formik.errors)) {
-            cogoToast.error(getLastMessageFromFormikErrors(formik.errors));
-        }
-    }, [cogoToast.error, props.error]);
+    useError(formik.errors, props.error);
 
     return (
         <>

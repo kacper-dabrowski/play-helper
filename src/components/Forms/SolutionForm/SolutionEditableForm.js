@@ -1,14 +1,14 @@
+import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import cogoToast from 'cogo-toast';
-import useFormikErrors from '../../../hooks/useFormikErrors';
+import useError from '../../../hooks/useError';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
+import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import Spinner from '../../UI/Spinner/Spinner';
-import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSolutionForm';
 
 const validationSchema = Yup.object({
@@ -54,7 +54,7 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
         validateOnChange: false,
     });
 
-    useFormikErrors(formik.errors);
+    useError(formik.errors);
 
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
