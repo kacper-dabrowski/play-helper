@@ -14,7 +14,7 @@ import { PaymentsContainer } from './StyledPayments';
 const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);
     const [amount, setAmount] = useState(0);
-    const [paymentsCount, setPaymentsCount] = useState(config.payments.minCount);
+    const [paymentsCount, setPaymentsCount] = useState(config.payments.maxCount);
     const [invoices, setInvoices] = useState([]);
     const [template, setTemplate] = useState('');
     const [additionalTemplateActive, setAdditionalTemplateActive] = useState(false);
@@ -71,7 +71,7 @@ const Payments = ({ fullName }) => {
     const onClearFields = () => {
         setPaymentSpan(null);
         setAmount(null);
-        setPaymentsCount(config.payments.minCount);
+        setPaymentsCount(config.payments.maxCount);
         setInvoices([]);
         setTemplate('');
         setAdditionalTemplateActive(false);
