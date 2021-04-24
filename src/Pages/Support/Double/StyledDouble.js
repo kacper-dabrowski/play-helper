@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import config from '../../../shared/identifiers';
 
 export const StyledInputSection = styled.div`
     display: grid;
@@ -23,4 +24,8 @@ export const ConfirmButtonsWrapper = styled.div`
     justify-content: space-around;
     align-items: center;
     margin: 1rem 0;
+`;
+
+export const DoubleContainer = styled.div`
+    margin-top: ${({ type }) => type === config.double.opened && '100px'};
 `;
