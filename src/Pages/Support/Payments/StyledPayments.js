@@ -25,6 +25,7 @@ export const PaymentButtonContainer = styled.div`
 
 export const InvoicesContainer = styled.div`
     width: 80%;
+    height: 200px;
     display: flex;
     flex-direction: column;
 `;
@@ -34,12 +35,7 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const CalculatorWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 40%;
-    justify-content: space-around;
+    display: grid;
+    height: 30%;
     align-items: center;
-    & div {
-        width: 100%;
-    }
 `;
