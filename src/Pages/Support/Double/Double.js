@@ -7,7 +7,7 @@ import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDo
 import generateClosedDoubleTemplate from '../../../modules/openedDouble/openedDouble';
 import config from '../../../shared/identifiers';
 import InputSection from './Sections/InputSection';
-import { StyledSexSection } from './StyledDouble';
+import { DoubleContainer, StyledSexSection } from './StyledDouble';
 
 const Double = ({ type }) => {
     const [sex, setSex] = useState('');
@@ -46,7 +46,7 @@ const Double = ({ type }) => {
 
     return (
         <>
-            <div>
+            <DoubleContainer type={type}>
                 {type === config.double.closed && (
                     <StyledSexSection>
                         <SexSection setting={sex} setHandler={setSex} />
@@ -61,7 +61,7 @@ const Double = ({ type }) => {
                     type={type}
                 />
                 <ConfirmButtons onClearFields={clearFields} onGenerateTemplate={generateTemplateHandler} />
-            </div>
+            </DoubleContainer>
             <MainTextarea value={template} setTemplate={setTemplate} />
         </>
     );
