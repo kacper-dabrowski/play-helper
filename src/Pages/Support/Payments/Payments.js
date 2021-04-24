@@ -29,7 +29,11 @@ const Payments = ({ fullName }) => {
             const invoiceString = event.target.value;
             const invoiceMatch = invoiceString.match(config.payments.invoiceRegex)?.[0];
 
-            if (invoiceMatch && !invoices.includes(invoiceMatch)) {
+            if (invoices.includes(invoiceMatch)) {
+                throw new Error('Ta faktura została już dodana!');
+            }
+
+            if (invoiceMatch) {
                 setInvoices((currentInvoices) => [...currentInvoices, invoiceMatch]);
                 invoiceClickEvent.target.value = '';
             }
@@ -101,7 +105,9 @@ const Payments = ({ fullName }) => {
         </>
     );
 };
+
 const mapStateToProps = (state) => ({
     fullName: state.auth.fullName,
 });
+
 export default connect(mapStateToProps, null)(Payments);

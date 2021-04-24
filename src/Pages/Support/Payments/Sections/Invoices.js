@@ -3,17 +3,15 @@ import Invoice from '../../../../components/Invoice/Invoice';
 import { InvoicesContainer } from '../StyledPayments';
 
 const Invoices = (props) => {
-    return (
-        <InvoicesContainer>
-            {props.invoices.map((element) => (
-                <Invoice
-                    key={element}
-                    invoiceNumber={element}
-                    onRemoveInvoice={() => props.removeInvoiceHandler(element)}
-                />
-            ))}
-        </InvoicesContainer>
-    );
+    const invoicesToComponents = props.invoices.map((invoiceNumber) => (
+        <Invoice
+            key={invoiceNumber}
+            invoiceNumber={invoiceNumber}
+            onRemoveInvoice={() => props.removeInvoiceHandler(invoiceNumber)}
+        />
+    ));
+
+    return <InvoicesContainer>{invoicesToComponents}</InvoicesContainer>;
 };
 
 export default Invoices;
