@@ -2,6 +2,7 @@ import moment from 'moment';
 import Big from 'big.js';
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
+import numberToCurrency from './numberToCurrency';
 
 const generateInvoiceString = (name, invoices) => {
     const genderEnding = name.endsWith('a') ? 'Rozłożyłam' : 'Rozłożyłem';
@@ -46,13 +47,13 @@ const generatePaymentsList = (payments) => {
     const paymentStrings = payments.map((payment, index) => {
         switch (index + 1) {
             case 1:
-                return `Rata pierwsza: ${payment.amount.toFixed(2)} zł z datą płatności ${payment.date},`;
+                return `Rata pierwsza: ${numberToCurrency(payment.amount)} z datą płatności ${payment.date},`;
             case 2:
-                return `rata druga: ${payment.amount.toFixed(2)} zł z datą płatności ${payment.date}${
+                return `rata druga: ${numberToCurrency(payment.amount)} z datą płatności ${payment.date}${
                     index - 1 === payments.length ? '.' : ','
                 }`;
             case 3:
-                return `rata trzecia: ${payment.amount.toFixed(2)} zł z datą płatności ${payment.date}.`;
+                return `rata trzecia: ${numberToCurrency(payment.amount)} z datą płatności ${payment.date}.`;
             default:
                 throw new Error('Nieobsługiwana liczba rat');
         }
@@ -102,7 +103,7 @@ Kwotę każdej przyznanej raty:
 ${paymentsObject
     .map(
         (payment, index) =>
-            `Rata ${index + 1} - ${payment.amount.toFixed(2)}${
+            `Rata ${index + 1} - ${numberToCurrency(payment.amount)}${
                 index + 1 < paymentsObject.length
                     ? `,
 `
