@@ -15,7 +15,7 @@ const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, click
         try {
             await axios.delete(`${urls.srq}/${id}`);
             cogoToast.success('Pomyślnie usunięto SRQ');
-            refresh();
+            refresh?.();
         } catch (deletionError) {
             cogoToast.error(deletionError.message);
         }

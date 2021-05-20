@@ -20,7 +20,7 @@ const SrqPanel = () => {
                     <SrqForm entriesRefresh={refresh} />
                 )}
             </div>
-            <SrqFinder editable response={response} error={error} loading={loading} />
+            <SrqFinder editable response={response} error={error} loading={loading} refresh={refresh} />
         </srqFormContext.Provider>
     );
 };

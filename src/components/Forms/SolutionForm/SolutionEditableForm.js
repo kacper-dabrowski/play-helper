@@ -43,7 +43,7 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
                 setLoading(false);
                 cogoToast.success('Pomyślnie zapisano zmiany');
                 resetForm({});
-                refresh();
+                refresh?.();
                 setEditMode(false);
             } catch (error) {
                 cogoToast.error(error.message);

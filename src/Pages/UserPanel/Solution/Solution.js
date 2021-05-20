@@ -28,7 +28,8 @@ const Solution = () => {
     const removeSolutionHandler = async (id) => {
         try {
             await axios.delete(`${urls.solution}/${id}`);
-            await refresh();
+
+            await refresh?.();
             cogoToast.success('Rozwiązanie usunięto pomyślnie');
         } catch (deletionError) {
             cogoToast.error(error.message);
