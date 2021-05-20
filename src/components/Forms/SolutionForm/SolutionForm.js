@@ -43,7 +43,7 @@ const SolutionForm = ({ refresh }) => {
                 setLoading(false);
                 cogoToast.success('Rozwiązanie dodane pomyślnie');
                 resetForm({});
-                refresh();
+                refresh?.();
             } catch (error) {
                 cogoToast.error(error.message);
                 setLoading(false);
