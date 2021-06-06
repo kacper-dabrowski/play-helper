@@ -7,6 +7,8 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import App from './App';
 import authReducer from './store/reducers/authReducer';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -25,3 +27,6 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 );
+
+serviceWorkerRegistration.register();
+reportWebVitals();
