@@ -59,7 +59,7 @@ const SignUpForm = (props) => {
 
     return (
         <StyledSignupForm onSubmit={formik.handleSubmit}>
-            <StyledFormHeader>Zarejestruj się</StyledFormHeader>s
+            <StyledFormHeader>Zarejestruj się</StyledFormHeader>
             <FormInputsWrapper>
                 <LoginInput
                     focusRef={focusRef}
