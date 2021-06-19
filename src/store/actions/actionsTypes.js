@@ -3,3 +3,7 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const LOGOUT_TIMEOUT_SET = 'LOGOUT_TIMEOUT_SET';
+
+export const USER_FETCH_START = 'USER_FETCH_START';
+export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
+export const USER_FETCH_FAIL = 'USER_FETCH_FAIL';

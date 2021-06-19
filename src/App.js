@@ -1,8 +1,6 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router';
-
 import Logout from './components/Logout/Logout';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
@@ -11,15 +9,18 @@ import Support from './Pages/Support/Support';
 import UserPanel from './Pages/UserPanel/UserPanel';
 import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
 import routes from './shared/routes';
-import urls from './shared/urls';
 import * as actions from './store/actions';
+import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
 
 const App = (props) => {
     useEffect(() => {
-        axios.get(urls.healthcheck);
         props.onTryAutoSignup();
-    });
+        props.fetchUserSettings();
+    }, [props.isAuthenticated]);
 
+    if (props.areSettingsLoading) {
+        return <SplashScreen />;
+    }
     return (
         <NotFoundProviderSwitch>
             <PrivateRoute path="/support">
@@ -41,6 +42,13 @@ const App = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
+    fetchUserSettings: () => dispatch(actions.fetchUserSettings()),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = (state) => ({
+    isAuthenticated: Boolean(state.auth.token),
+    areSettingsLoading: state.user.loading,
+    userSettings: state.user.settings,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

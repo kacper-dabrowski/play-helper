@@ -2,10 +2,10 @@ import SyncLoader from 'react-spinners/SyncLoader';
 import React from 'react';
 import { SpinnerContainer } from './StyledSpinner';
 
-const Spinner = ({ centered, size }) => {
+const Spinner = ({ centered, size, color }) => {
     return (
         <SpinnerContainer isCentered={centered}>
-            <SyncLoader color="white" size={size} />
+            <SyncLoader color={color || 'white'} size={size} />
         </SpinnerContainer>
     );
 };
