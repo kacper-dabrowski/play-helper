@@ -18,6 +18,10 @@ const userFetchFailed = (state, action) => {
     return { ...state, settings: null, error: action.payload.error, loading: false };
 };
 
+const userUpdate = (state, action) => {
+    return { ...state, settings: action.payload.settings };
+};
+
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.USER_FETCH_START:
@@ -26,6 +30,8 @@ export const userReducer = (state = initialState, action) => {
             return userFetchSuccess(state, action);
         case actionTypes.USER_FETCH_FAIL:
             return userFetchFailed(state, action);
+        case actionTypes.USER_UPDATE:
+            return userUpdate(state, action);
         default:
             return state;
     }
