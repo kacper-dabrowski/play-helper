@@ -15,7 +15,7 @@ const SettingsForm = (props) => {
         try {
             await axios.post(urls.settings, { settings: { startingPage: event.target.value } });
             setStartingPage(event.target.value);
-            await props.updateUserSettings({ settings: { startingPage } });
+            await props.updateUserSettings({ startingPage: event.target.value });
             cogoToast.success('Pomyślnie zapisano ustawienie');
         } catch (error) {
             cogoToast.error(error?.data?.message || error.message);
