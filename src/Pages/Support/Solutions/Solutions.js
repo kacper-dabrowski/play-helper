@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import cogoToast from 'cogo-toast';
+import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
 import SolutionResult from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
-import Spinner from '../../../components/UI/Spinner/Spinner';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import useRequest from '../../../hooks/useRequest';
+import useResultsFilter from '../../../hooks/useResultsFilter';
 import urls from '../../../shared/urls';
 import { SolutionResults } from './StyledSolutions';
-import useResultsFilter from '../../../hooks/useResultsFilter';
 
 export const solutionSearchMethod = (results, searchPhrase) =>
     results.filter(
@@ -20,7 +20,7 @@ export const solutionSearchMethod = (results, searchPhrase) =>
 
 const Solutions = () => {
     const [template, setTemplate] = useState('');
-    const [response, error, loading] = useRequest(urls.solution, null, REQUEST_METHODS.GET);
+    const [response, error, loading] = useRequest(urls.solution);
     const solutions = response?.data || [];
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
 
