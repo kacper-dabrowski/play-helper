@@ -34,7 +34,7 @@ const Support = (props) => (
                 <Solutions />
             </Route>
             <Route exact path={routes.support.main.path}>
-                <Redirect to={routes.support.basic.path} />
+                <Redirect to={props.startingPage || routes.support.basic.path} />
             </Route>
         </NotFoundProviderSwitch>
     </SupportLayout>
@@ -42,5 +42,6 @@ const Support = (props) => (
 const mapStateToProps = (state) => ({
     isAuthenticated: !!state.auth.token,
     fullName: state.auth.fullName,
+    startingPage: state?.user?.settings?.startingPage,
 });
 export default connect(mapStateToProps, null)(Support);

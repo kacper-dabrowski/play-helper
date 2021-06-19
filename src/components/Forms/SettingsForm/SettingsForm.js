@@ -15,6 +15,7 @@ const SettingsForm = (props) => {
         try {
             await axios.post(urls.settings, { settings: { startingPage: event.target.value } });
             setStartingPage(event.target.value);
+            await props.updateUserSettings({ settings: { startingPage } });
             cogoToast.success('Pomyślnie zapisano ustawienie');
         } catch (error) {
             cogoToast.error(error?.data?.message || error.message);
@@ -40,7 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchUserSettings: () => dispatch(actions.fetchUserSettings()),
+    updateUserSettings: (settings) => dispatch(actions.updateUserSettings(settings)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsForm);
