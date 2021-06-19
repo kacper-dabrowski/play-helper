@@ -7,7 +7,7 @@ import useRequest from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 
 const SrqPanel = () => {
-    const [response, error, loading, refresh] = useRequest(urls.srq, 'GET', null);
+    const [response, error, loading, refresh] = useRequest(urls.srq);
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
 

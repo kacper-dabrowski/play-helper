@@ -6,7 +6,7 @@ import urls from '../../../shared/urls';
 
 const Srq = () => {
     const [template, setTemplate] = useState('');
-    const [response, error, loading] = useRequest(urls.srq, 'GET', null);
+    const [response, error, loading] = useRequest(urls.srq);
 
     return (
         <>
