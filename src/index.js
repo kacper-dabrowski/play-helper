@@ -9,11 +9,13 @@ import App from './App';
 import authReducer from './store/reducers/authReducer';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { userReducer } from './store/reducers/userReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    user: userReducer,
 });
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 

@@ -52,6 +52,7 @@ const checkTimeout = (expirationTime) => {
 export const auth = (login, password, onSuccess) => {
     return async (dispatch) => {
         dispatch(authStart());
+
         try {
             const authData = { username: login, password };
             const response = await axios.post(urls.login, authData);
