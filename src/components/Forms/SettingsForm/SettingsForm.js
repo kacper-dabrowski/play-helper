@@ -7,6 +7,7 @@ import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsFor
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
 import * as actions from '../../../store/actions';
+import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
 
 const SettingsForm = (props) => {
     const [startingPage, setStartingPage] = useState(props.userSettings.startingPage);
@@ -26,13 +27,15 @@ const SettingsForm = (props) => {
         <StyledSettingsForm>
             <StyledFormHeader>Ustawienia użytkownika</StyledFormHeader>
             <StyledSettingsFormLabel htmlFor="startingPage">Strona startowa</StyledSettingsFormLabel>
-            <select name="startingPage" defaultValue={startingPage} onChange={onStartingPageChange}>
+            <OptionSelect
+                selectProps={{ name: 'startingPage', defaultValue: startingPage, onChange: onStartingPageChange }}
+            >
                 <option value={routes.support.basic.path}>Zamknięcie zwykłe</option>
                 <option value={routes.support.doubleOpened.path}>Dubel otwarty</option>
                 <option value={routes.support.doubleClosed.path}>Dubel zamknięty</option>
                 <option value={routes.support.payments.path}>Raty</option>
                 <option value={routes.support.srq.path}>SRQ</option>
-            </select>
+            </OptionSelect>
         </StyledSettingsForm>
     );
 };
