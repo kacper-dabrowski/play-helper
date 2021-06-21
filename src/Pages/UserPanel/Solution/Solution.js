@@ -3,7 +3,6 @@ import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
-import SolutionResultWithButtons from '../../../components/Results/Result/Solution/SolutionResultWithButtons/SolutionResultWithButtons';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -12,6 +11,7 @@ import useResultsFilter from '../../../hooks/useResultsFilter';
 import urls from '../../../shared/urls';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
+import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 
 const Solution = () => {
     const [response, error, loading, refresh] = useRequest(urls.solution);
@@ -40,7 +40,7 @@ const Solution = () => {
         content = <Spinner centered />;
     } else {
         content = filteredSolutions.map((solution) => (
-            <SolutionResultWithButtons
+            <SolutionResult
                 key={solution._id}
                 title={solution.title}
                 isPublic={solution.isPublic}

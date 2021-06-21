@@ -12,11 +12,18 @@ export const StyledResultContainer = styled.button`
     font: inherit;
     padding: 0;
     margin: 1rem auto;
-    border: 1px solid ${({ isPublic }) => (isPublic ? 'lime' : 'white')};
+    border: 1px solid white;
     position: relative;
     transition: ease-in-out 0.2s;
     border-radius: 5px;
-
+    & p,
+    h3 {
+        width: 80%;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
     &:hover,
     &:focus {
         background-color: white;

@@ -1,7 +1,7 @@
 import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
-import SolutionResult from '../../../components/Results/Result/Solution/SolutionResult';
+import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
