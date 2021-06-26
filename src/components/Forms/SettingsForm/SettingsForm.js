@@ -10,13 +10,13 @@ import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsForm';
 
 const SettingsForm = (props) => {
-    const [startingPage, setStartingPage] = useState(props.userSettings.startingPage);
+    const [startingPage, setStartingPage] = useState(props?.userSettings?.startingPage);
     const { requestHandler, error } = useRequest(urls.settings, REQUEST_METHODS.POST);
 
     const onStartingPageChange = useCallback(
         async (event) => {
             setStartingPage(event.target.value);
-            await requestHandler({ settings: { startingPage } });
+            await requestHandler({ settings: { startingPage } }, () => urls.settings);
             await props.updateUserSettings({ startingPage: event.target.value });
             if (error) {
                 cogoToast.error(error?.data?.message || error.message);
