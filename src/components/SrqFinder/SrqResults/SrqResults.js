@@ -1,7 +1,7 @@
 import cogoToast from 'cogo-toast';
 import React, { useContext } from 'react';
 import srqFormContext from '../../../contexts/srqFormContext';
-import axios from '../../../libs/axios';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import Result from '../../Results/Result/SRQ/SrqResult';
 import Spinner from '../../UI/Spinner/Spinner';
@@ -9,10 +9,11 @@ import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
     const { setEditMode, setFieldsToPopulate } = useContext(srqFormContext);
+    const { requestHandler } = useRequest(urls.srq, REQUEST_METHODS.DELETE);
 
     const srqRemovedHandler = async (id) => {
         try {
-            await axios.delete(`${urls.srq}/${id}`);
+            await requestHandler(null, () => `${urls.srq}/${id}`);
             cogoToast.success('Pomyślnie usunięto SRQ');
             refresh?.();
         } catch (deletionError) {

@@ -20,7 +20,7 @@ export const solutionSearchMethod = (results, searchPhrase) =>
 
 const Solutions = () => {
     const [template, setTemplate] = useState('');
-    const [response, error, loading] = useRequest(urls.solution);
+    const { error, response, loading } = useRequest(urls.solution);
     const solutions = response?.data || [];
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
 

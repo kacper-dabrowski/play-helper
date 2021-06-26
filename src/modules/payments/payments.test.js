@@ -253,11 +253,11 @@ Obsługa Klienta Play.`);
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 2, 31]).toDate()),
+                    date: convertDate(moment([2021, 4, 1]).toDate()),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 4, 1]).toDate()),
+                    date: convertDate(moment([2021, 4, 31]).toDate()),
                     amount: 41,
                 },
             ]);

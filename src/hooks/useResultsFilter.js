@@ -10,7 +10,7 @@ const useResultsFilter = (results, filterMethod) => {
         }
         const filteredResults = filterMethod(results, searchQuery);
         return setSearchResults(filteredResults);
-    }, [searchQuery, results, setSearchResults]);
+    }, [searchQuery, results, setSearchResults, filterMethod]);
 
     return [searchResults, searchQuery, setSearchQuery];
 };

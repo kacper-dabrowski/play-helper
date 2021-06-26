@@ -1,23 +1,28 @@
 import axios from '../libs/axios';
 
-const { useState, useEffect } = require('react');
+const { useState, useEffect, useMemo } = require('react');
 
 export const REQUEST_METHODS = {
-    POST: 'POST',
-    PATCH: 'PATCH',
-    PUT: 'PUT',
-    GET: 'GET',
-    OPTIONS: 'OPTIONS',
+    POST: 'post',
+    PATCH: 'patch',
+    PUT: 'put',
+    GET: 'get',
+    DELETE: 'delete',
+    OPTIONS: 'options',
 };
 
-const fetchData = async (requestConfig) => {
+const sendRequest = async (requestConfig) => {
     const { url, method, data, setResponse, setIsLoading, setError } = requestConfig;
     try {
-        const fetchedData = await axios({ url, method, data });
+        setIsLoading(true);
+
+        const fetchedData = await axios[method](url, data);
         setResponse(fetchedData);
+
         setIsLoading(false);
     } catch (error) {
         let returnedError;
+
         switch (error?.response?.status) {
             case 401:
                 returnedError = new Error('Nie możesz skorzystać z tej funkcji jako niezalogowany użytkownik');
@@ -25,32 +30,47 @@ const fetchData = async (requestConfig) => {
             default:
                 returnedError = new Error('Nie udało się pobrać danych z serwera. Spróbuj ponownie później');
         }
+
         setIsLoading(false);
         setError(returnedError);
     }
 };
 
-const useRequest = (url, data = null, method = 'get') => {
+const useRequest = (url, method = REQUEST_METHODS.GET, data = null) => {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const requestConfig = {
-        url,
-        method,
-        data,
-        setResponse,
-        setIsLoading,
-        setError,
-    };
+    const requestConfig = useMemo(
+        () => ({
+            url,
+            method,
+            data,
+            setResponse,
+            setIsLoading,
+            setError,
+        }),
+        [data, method, url]
+    );
 
     useEffect(() => {
-        if (method === 'get') {
-            fetchData(requestConfig);
+        if (method === REQUEST_METHODS.GET) {
+            sendRequest(requestConfig);
         }
-    }, [data, method, url]);
-    const refresh = async () => fetchData(requestConfig);
-    return [response, error, isLoading, refresh];
+    }, [url, method, data, requestConfig]);
+
+    if (method !== REQUEST_METHODS.GET) {
+        return {
+            requestHandler: (dataToSend, getUrl) => sendRequest({ ...requestConfig, data: dataToSend, url: getUrl() }),
+            error,
+            response,
+            isLoading,
+        };
+    }
+
+    const requestHandler = async () => sendRequest(requestConfig);
+
+    return { error, response, isLoading, requestHandler };
 };
 
 export default useRequest;

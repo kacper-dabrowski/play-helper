@@ -1,11 +1,11 @@
-import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import * as Yup from 'yup';
 import srqFormContext from '../../../contexts/srqFormContext';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -21,7 +21,7 @@ const validationSchema = Yup.object({
 });
 
 const SrqEditableForm = (props) => {
-    const [loading, setLoading] = useState(false);
+    const { isLoading, requestHandler } = useRequest(urls.srq, REQUEST_METHODS.POST);
     const focusRef = useFocus();
     const { setEditMode } = useContext(srqFormContext);
 
@@ -30,7 +30,7 @@ const SrqEditableForm = (props) => {
     const onSubmit = async (values, resetForm) => {
         try {
             const { title, description, department, content } = values;
-            setLoading(true);
+
             const formData = {
                 title,
                 description,
@@ -38,14 +38,13 @@ const SrqEditableForm = (props) => {
                 content,
             };
 
-            await axios.post(`${urls.srq}/${props.populatedFields.srqId}`, formData);
-            setLoading(false);
+            await requestHandler(formData, () => `${urls.srq}/${props.populatedFields.srqId}`);
+
             cogoToast.success('Pomyślnie zapisano zmiany');
             resetForm();
             entriesRefresh?.();
             setEditMode(false);
         } catch (error) {
-            setLoading(false);
             cogoToast.error(error.message);
         }
     };
@@ -94,7 +93,7 @@ const SrqEditableForm = (props) => {
                 name="content"
                 placeholder="Treść formatki"
             />
-            {loading ? <Spinner centered /> : <SubmitButton title="Zapisz zmiany" />}
+            {isLoading ? <Spinner centered /> : <SubmitButton title="Zapisz zmiany" />}
         </StyledFormContainer>
     );
 };

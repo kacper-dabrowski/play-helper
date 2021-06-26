@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import cogoToast from 'cogo-toast';
+import React, { useCallback, useState } from 'react';
+import { connect } from 'react-redux';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import routes from '../../../shared/routes';
-import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
-import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsForm';
-import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
 import * as actions from '../../../store/actions';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
+import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
+import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsForm';
 
 const SettingsForm = (props) => {
     const [startingPage, setStartingPage] = useState(props.userSettings.startingPage);
+    const { requestHandler, error } = useRequest(urls.settings, REQUEST_METHODS.POST);
 
-    const onStartingPageChange = async (event) => {
-        try {
-            await axios.post(urls.settings, { settings: { startingPage: event.target.value } });
+    const onStartingPageChange = useCallback(
+        async (event) => {
             setStartingPage(event.target.value);
+            await requestHandler({ settings: { startingPage } });
             await props.updateUserSettings({ startingPage: event.target.value });
+            if (error) {
+                cogoToast.error(error?.data?.message || error.message);
+            }
             cogoToast.success('Pomyślnie zapisano ustawienie');
-        } catch (error) {
-            cogoToast.error(error?.data?.message || error.message);
-        }
-    };
+        },
+        [error, props, requestHandler, startingPage]
+    );
 
     return (
         <StyledSettingsForm>

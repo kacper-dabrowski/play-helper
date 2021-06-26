@@ -1,15 +1,15 @@
-import { useFormik } from 'formik';
-import React, { useState } from 'react';
-import * as Yup from 'yup';
 import cogoToast from 'cogo-toast';
-import axios from '../../../libs/axios';
+import { useFormik } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
+import useError from '../../../hooks/useError';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
+import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import Spinner from '../../UI/Spinner/Spinner';
-import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormContainer } from './StyledSolutionForm';
-import useError from '../../../hooks/useError';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Pole jest wymagane'),
@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
 });
 
 const SolutionForm = ({ refresh }) => {
-    const [loading, setLoading] = useState(false);
+    const { requestHandler, isLoading } = useRequest(urls.solution, REQUEST_METHODS.PUT);
 
     const formik = useFormik({
         initialValues: {
@@ -38,15 +38,13 @@ const SolutionForm = ({ refresh }) => {
                     isPublic,
                 };
 
-                setLoading(true);
-                await axios.put(urls.solution, formData);
-                setLoading(false);
+                await requestHandler(formData, () => urls.solution);
+
                 cogoToast.success('Rozwiązanie dodane pomyślnie');
                 resetForm({});
                 refresh?.();
             } catch (error) {
                 cogoToast.error(error.message);
-                setLoading(false);
             }
         },
         validationSchema,
@@ -81,7 +79,7 @@ const SolutionForm = ({ refresh }) => {
             <label htmlFor="isPublic">Widok publiczny: </label>
             <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
 
-            {loading ? <Spinner centered /> : <SubmitButton title="Dodaj zamknięcie" onClick={formik.handleSubmit} />}
+            {isLoading ? <Spinner centered /> : <SubmitButton title="Dodaj zamknięcie" onClick={formik.handleSubmit} />}
         </StyledFormContainer>
     );
 };

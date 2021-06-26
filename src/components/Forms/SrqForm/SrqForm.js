@@ -1,10 +1,10 @@
-import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -20,15 +20,14 @@ const validationSchema = Yup.object({
 });
 
 const SrqForm = (props) => {
-    const [loading, setLoading] = useState(false);
     const focusRef = useFocus();
-
+    const { requestHandler, isLoading } = useRequest(urls.srq, REQUEST_METHODS.PUT);
     const { entriesRefresh } = props;
 
     const onSubmit = async (values, resetForm) => {
         try {
             const { title, description, department, content } = values;
-            setLoading(true);
+
             const formData = {
                 title,
                 description,
@@ -36,13 +35,12 @@ const SrqForm = (props) => {
                 content,
             };
 
-            await axios.put(urls.srq, formData);
-            setLoading(false);
+            await requestHandler(formData, () => urls.srq);
+
             cogoToast.success('SRQ dodane pomyślnie');
             resetForm();
             entriesRefresh?.();
         } catch (error) {
-            setLoading(false);
             cogoToast.error(error.message);
         }
     };
@@ -95,7 +93,7 @@ const SrqForm = (props) => {
                 name="content"
                 placeholder="Treść formatki"
             />
-            {loading ? <Spinner centered /> : <SubmitButton title="Dodaj SRQ" />}
+            {isLoading ? <Spinner centered /> : <SubmitButton title="Dodaj SRQ" />}
         </StyledFormContainer>
     );
 };

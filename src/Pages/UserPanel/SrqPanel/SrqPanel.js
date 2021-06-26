@@ -7,7 +7,7 @@ import useRequest from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 
 const SrqPanel = () => {
-    const [response, error, loading, refresh] = useRequest(urls.srq);
+    const { error, response, loading, requestHandler } = useRequest(urls.srq);
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
 
@@ -15,12 +15,12 @@ const SrqPanel = () => {
         <srqFormContext.Provider value={{ editMode, setEditMode, fieldsToPopulate, setFieldsToPopulate }}>
             <div>
                 {editMode ? (
-                    <SrqEditableForm populatedFields={fieldsToPopulate} entriesRefresh={refresh} />
+                    <SrqEditableForm populatedFields={fieldsToPopulate} entriesRefresh={requestHandler} />
                 ) : (
-                    <SrqForm entriesRefresh={refresh} />
+                    <SrqForm entriesRefresh={requestHandler} />
                 )}
             </div>
-            <SrqFinder editable response={response} error={error} loading={loading} refresh={refresh} />
+            <SrqFinder editable response={response} error={error} loading={loading} refresh={requestHandler} />
         </srqFormContext.Provider>
     );
 };

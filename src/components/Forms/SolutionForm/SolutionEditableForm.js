@@ -1,9 +1,9 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import useError from '../../../hooks/useError';
-import axios from '../../../libs/axios';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
 });
 
 const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
-    const [loading, setLoading] = useState(false);
+    const { isLoading, requestHandler } = useRequest(urls.solution, REQUEST_METHODS.POST);
     const { title, description, content, isPublic, id } = populatedFields;
 
     const formik = useFormik({
@@ -38,16 +38,15 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
                     content: values.content,
                     isPublic: values.isPublic,
                 };
-                setLoading(true);
-                await axios.post(`${urls.solution}/${id}`, formData);
-                setLoading(false);
+
+                await requestHandler(formData, () => `${urls.solution}/${id}`);
+
                 cogoToast.success('Pomyślnie zapisano zmiany');
                 resetForm({});
                 refresh?.();
                 setEditMode(false);
             } catch (error) {
                 cogoToast.error(error.message);
-                setLoading(false);
             }
         },
         validationSchema,
@@ -82,7 +81,7 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
             <label htmlFor="isPublic">Widok publiczny: </label>
             <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
 
-            {loading ? <Spinner centered /> : <SubmitButton title="Zapisz zmiany" onClick={formik.handleSubmit} />}
+            {isLoading ? <Spinner centered /> : <SubmitButton title="Zapisz zmiany" onClick={formik.handleSubmit} />}
         </StyledFormContainer>
     );
 };
