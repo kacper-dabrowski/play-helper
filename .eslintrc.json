@@ -8,6 +8,7 @@
         "eslint:recommended",
         "plugin:prettier/recommended",
         "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
         "plugin:jest/recommended"
     ],
     "globals": {},
@@ -31,6 +32,8 @@
         "react/destructuring-assignment": "off",
         "react/jsx-props-no-spreading": "off",
         "no-underscore-dangle": "off",
-        "jsx-a11y/label-has-associated-control": "off"
+        "jsx-a11y/label-has-associated-control": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     }
 }

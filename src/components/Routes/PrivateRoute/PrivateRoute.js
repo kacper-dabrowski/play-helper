@@ -12,7 +12,7 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
         return props.children;
     };
 
-    return <Route {...props} render={renderRoute} />;
+    return <Route {...props}>{renderRoute()}</Route>;
 };
 
 const mapStateToProps = (state) => ({

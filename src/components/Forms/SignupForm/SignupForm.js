@@ -1,11 +1,11 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
-import axios from '../../../libs/axios';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import * as actions from '../../../store/actions';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = (props) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const { requestHandler, error, loading } = useRequest(urls.signup, REQUEST_METHODS.POST);
     const focusRef = useFocus();
 
     const formik = useFormik({
@@ -39,18 +39,12 @@ const SignUpForm = (props) => {
         onSubmit: async (values) => {
             const { username, password, fullName } = values;
             try {
-                setIsLoading(true);
-                const signupRequest = await axios.post(urls.signup, {
-                    username,
-                    password,
-                    fullName,
-                });
+                const signupRequest = requestHandler({ username, password, fullName });
+
                 if (signupRequest.status === 201) {
                     props.onAuth(username, password, props.closeModalHandler);
                 }
-                setIsLoading(false);
-            } catch (error) {
-                setIsLoading(false);
+            } catch (requestError) {
                 cogoToast.error(error);
             }
         },
@@ -97,7 +91,7 @@ const SignUpForm = (props) => {
                     value={formik.values.confirmPassword}
                 />
             </FormInputsWrapper>
-            {isLoading ? <Spinner centered /> : <SubmitButton title="Utwórz konto" />}
+            {loading ? <Spinner centered /> : <SubmitButton title="Utwórz konto" />}
         </StyledSignupForm>
     );
 };

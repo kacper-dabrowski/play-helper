@@ -18,7 +18,7 @@ const SrqResult = ({
     const toggleEditModeAndPopulateFields = useCallback(() => {
         toggleEditMode?.(true);
         setFieldsToPopulate?.({ title, description, department, content, srqId: id });
-    }, [toggleEditMode, setFieldsToPopulate]);
+    }, [toggleEditMode, setFieldsToPopulate, title, description, department, content, id]);
 
     let editButtons;
 

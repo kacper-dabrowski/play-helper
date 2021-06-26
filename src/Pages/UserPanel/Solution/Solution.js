@@ -1,20 +1,20 @@
-import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
+import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import useRequest from '../../../hooks/useRequest';
+import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import urls from '../../../shared/urls';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
-import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 
 const Solution = () => {
-    const [response, error, loading, refresh] = useRequest(urls.solution);
+    const { error, response, loading, requestHandler } = useRequest(urls.solution);
+    const { requestHandler: deleteRequestHandler } = useRequest(urls.solution, REQUEST_METHODS.DELETE);
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = response?.data || [];
@@ -27,9 +27,10 @@ const Solution = () => {
 
     const removeSolutionHandler = async (id) => {
         try {
-            await axios.delete(`${urls.solution}/${id}`);
+            await deleteRequestHandler(null, () => `${urls.solution}/${id}`);
 
-            await refresh?.();
+            await requestHandler?.();
+
             cogoToast.success('Rozwiązanie usunięto pomyślnie');
         } catch (deletionError) {
             cogoToast.error(error.message);
@@ -55,9 +56,13 @@ const Solution = () => {
     return (
         <>
             {editMode ? (
-                <SolutionEditableForm populatedFields={fieldsToPopulate} refresh={refresh} setEditMode={setEditMode} />
+                <SolutionEditableForm
+                    populatedFields={fieldsToPopulate}
+                    refresh={requestHandler}
+                    setEditMode={setEditMode}
+                />
             ) : (
-                <SolutionForm refresh={refresh} />
+                <SolutionForm refresh={requestHandler} />
             )}
             <SolutionFinderContainer>
                 <Searchbar onType={setSearchQuery} value={searchQuery} />

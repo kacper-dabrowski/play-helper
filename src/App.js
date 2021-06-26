@@ -12,13 +12,13 @@ import routes from './shared/routes';
 import * as actions from './store/actions';
 import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
 
-const App = (props) => {
+const App = ({ onTryAutoSignup, fetchUserSettings, areSettingsLoading }) => {
     useEffect(() => {
-        props.onTryAutoSignup();
-        props.fetchUserSettings();
-    }, [props.isAuthenticated]);
+        onTryAutoSignup();
+        fetchUserSettings();
+    }, [fetchUserSettings, onTryAutoSignup]);
 
-    if (props.areSettingsLoading) {
+    if (areSettingsLoading) {
         return <SplashScreen />;
     }
     return (
