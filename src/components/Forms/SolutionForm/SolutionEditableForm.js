@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
 });
 
 const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
-    const { isLoading, requestHandler } = useRequest(urls.solution, REQUEST_METHODS.POST);
+    const { isLoading, requestHandler, error } = useRequest(urls.solution, REQUEST_METHODS.POST);
     const { title, description, content, isPublic, id } = populatedFields;
 
     const formik = useFormik({
@@ -41,11 +41,14 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
 
                 await requestHandler(formData, () => `${urls.solution}/${id}`);
 
+                if (error) {
+                    throw error;
+                }
                 cogoToast.success('Pomyślnie zapisano zmiany');
                 resetForm({});
                 refresh?.();
                 setEditMode(false);
-            } catch (error) {
+            } catch (submitError) {
                 cogoToast.error(error.message);
             }
         },

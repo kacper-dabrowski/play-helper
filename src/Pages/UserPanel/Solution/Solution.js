@@ -1,5 +1,5 @@
 import cogoToast from 'cogo-toast';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
@@ -14,7 +14,10 @@ import { SolutionFinderContainer } from './StyledSolution';
 
 const Solution = () => {
     const { error, response, loading, requestHandler } = useRequest(urls.solution);
-    const { requestHandler: deleteRequestHandler } = useRequest(urls.solution, REQUEST_METHODS.DELETE);
+    const { requestHandler: deleteRequestHandler, error: deleteRequestError } = useRequest(
+        urls.solution,
+        REQUEST_METHODS.DELETE
+    );
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = response?.data || [];
@@ -31,12 +34,23 @@ const Solution = () => {
 
             await requestHandler?.();
 
+            if (deleteRequestError) {
+                throw deleteRequestError;
+            }
+
             cogoToast.success('Rozwiązanie usunięto pomyślnie');
         } catch (deletionError) {
             cogoToast.error(error.message);
         }
     };
     let content;
+
+    useEffect(() => {
+        if (error) {
+            cogoToast.error(error.message);
+        }
+    }, [error]);
+
     if (loading) {
         content = <Spinner centered />;
     } else {

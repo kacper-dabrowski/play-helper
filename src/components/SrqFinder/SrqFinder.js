@@ -15,6 +15,7 @@ const searchMethod = (results, searchPhrase) =>
 
 const SrqFinder = ({ error, response, loading, refresh, editable, clickable, setTemplate }) => {
     const srqResults = response?.data?.supportRequests || [];
+
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(srqResults, searchMethod);
 
     useEffect(() => {

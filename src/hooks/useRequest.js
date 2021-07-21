@@ -1,4 +1,5 @@
 import axios from '../libs/axios';
+import urls from '../shared/urls';
 
 const { useState, useEffect, useMemo } = require('react');
 
@@ -26,6 +27,11 @@ const sendRequest = async (requestConfig) => {
         switch (error?.response?.status) {
             case 401:
                 returnedError = new Error('Nie możesz skorzystać z tej funkcji jako niezalogowany użytkownik');
+                break;
+            case 409:
+                if (url === urls.signup) {
+                    returnedError = new Error('Taki użytkownik już istnieje, spróbuj się zalogować.');
+                }
                 break;
             default:
                 returnedError = new Error('Nie udało się pobrać danych z serwera. Spróbuj ponownie później');

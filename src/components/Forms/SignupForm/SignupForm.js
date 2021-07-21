@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = (props) => {
-    const { requestHandler, error, loading } = useRequest(urls.signup, REQUEST_METHODS.POST);
+    const { requestHandler, error, loading, response } = useRequest(urls.signup, REQUEST_METHODS.POST);
     const focusRef = useFocus();
 
     const formik = useFormik({
@@ -39,13 +39,17 @@ const SignUpForm = (props) => {
         onSubmit: async (values) => {
             const { username, password, fullName } = values;
             try {
-                const signupRequest = requestHandler({ username, password, fullName });
+                await requestHandler({ username, password, fullName }, () => urls.signup);
 
-                if (signupRequest.status === 201) {
-                    props.onAuth(username, password, props.closeModalHandler);
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                if (response) {
+                    return props.onAuth(username, password, props.closeModalHandler);
                 }
             } catch (requestError) {
-                cogoToast.error(error);
+                cogoToast.error(requestError.message);
             }
         },
     });
