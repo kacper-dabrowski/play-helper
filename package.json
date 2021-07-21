@@ -45,7 +45,7 @@
         "eject": "react-scripts eject",
         "format": "prettier -c .prettierrc.json \"./**/*.{ts,tsx,js,jsx}\"",
         "format:fix": "npm run format -- --write",
-        "lint": "eslint --quiet --config=./.eslintrc.json . ",
+        "lint": "eslint --config=./.eslintrc.json . ",
         "lint:fix": "eslint --quiet --fix --config=./.eslintrc.json .",
         "lint:warnings": "eslint  --fix --config=./.eslintrc.json ."
     },

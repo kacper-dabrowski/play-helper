@@ -13,13 +13,6 @@ import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
 
-const validationSchema = Yup.object({
-    title: Yup.string().required('Pole jest wymagane'),
-    description: Yup.string().required('Pole jest wymagane'),
-    department: Yup.string().required('Pole jest wymagane'),
-    content: Yup.string().required('Pole jest wymagane'),
-});
-
 const SrqForm = (props) => {
     const focusRef = useFocus();
     const { requestHandler, isLoading } = useRequest(urls.srq, REQUEST_METHODS.PUT);
