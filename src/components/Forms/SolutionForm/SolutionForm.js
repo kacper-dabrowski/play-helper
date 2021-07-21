@@ -1,22 +1,15 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
-import * as Yup from 'yup';
 import useError from '../../../hooks/useError';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
+import { solutionSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSolutionForm';
-
-const validationSchema = Yup.object({
-    title: Yup.string().required('Pole jest wymagane'),
-    description: Yup.string().required('Pole jest wymagane'),
-    content: Yup.string().required('Pole jest wymagane'),
-    isPublic: Yup.boolean(),
-});
 
 const SolutionForm = ({ refresh }) => {
     const { requestHandler, isLoading } = useRequest(urls.solution, REQUEST_METHODS.PUT);
@@ -47,7 +40,7 @@ const SolutionForm = ({ refresh }) => {
                 cogoToast.error(error.message);
             }
         },
-        validationSchema,
+        validationSchema: solutionSchema,
         validateOnChange: false,
     });
 

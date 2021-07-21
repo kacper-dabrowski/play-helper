@@ -2,9 +2,9 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Yup from 'yup';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
+import { loginSchema } from '../../../shared/validation/validation';
 import * as actions from '../../../store/actions';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
@@ -12,11 +12,6 @@ import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from './LoginInputs/LoginInput/LoginInput';
 import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
 import { StyledLoginForm } from './StyledLoginForm';
-
-const validationSchema = Yup.object({
-    login: Yup.string().max(20, 'Login musi być nie dłuzszy niz 20 znaków').required('Pole jest wymagane'),
-    password: Yup.string().min(6, 'Hasło nie może być krótsze niż 6 znaków').required('Pole jest wymagane'),
-});
 
 const LoginForm = (props) => {
     const formik = useFormik({
@@ -26,7 +21,7 @@ const LoginForm = (props) => {
                 props.onSuccess();
                 cogoToast.success('Zalogowano pomyślnie');
             }),
-        validationSchema,
+        validationSchema: loginSchema,
         validateOnChange: false,
     });
 
