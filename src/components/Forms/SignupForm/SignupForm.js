@@ -2,26 +2,17 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Yup from 'yup';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
+import { signupSchema } from '../../../shared/validation/validation';
 import * as actions from '../../../store/actions';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
 import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
-
-const validationSchema = Yup.object({
-    username: Yup.string().max(20, 'Pole musi być krótsze niz 20 znaków').required('Pole jest wymagane'),
-    fullName: Yup.string().required('Pole jest wymagane'),
-    password: Yup.string().min(6, 'Hasło musi być dłuzsze niz 6 znakow').required('Pole jest wymagane'),
-    confirmPassword: Yup.string()
-        .required('Pole jest wymagane')
-        .oneOf([Yup.ref('password'), null], 'Hasła muszą się zgadzać'),
-});
 
 const SignUpForm = (props) => {
     const { requestHandler, error, loading, response } = useRequest(urls.signup, REQUEST_METHODS.POST);
@@ -34,7 +25,7 @@ const SignUpForm = (props) => {
             password: '',
             confirmPassword: '',
         },
-        validationSchema,
+        validationSchema: signupSchema,
         validateOnChange: false,
         onSubmit: async (values) => {
             const { username, password, fullName } = values;

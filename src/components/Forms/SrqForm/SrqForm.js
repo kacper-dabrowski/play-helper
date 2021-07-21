@@ -6,6 +6,7 @@ import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
+import { srqSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
@@ -52,7 +53,7 @@ const SrqForm = (props) => {
             department: '',
             content: '',
         },
-        validationSchema,
+        validationSchema: srqSchema,
         onSubmit: (values, { resetForm }) => {
             onSubmit(values, resetForm);
             entriesRefresh?.();

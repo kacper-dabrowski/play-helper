@@ -1,24 +1,17 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useContext } from 'react';
-import * as Yup from 'yup';
 import srqFormContext from '../../../contexts/srqFormContext';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
+import { srqSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
-
-const validationSchema = Yup.object({
-    title: Yup.string().required('Pole jest wymagane'),
-    description: Yup.string().required('Pole jest wymagane'),
-    department: Yup.string().required('Pole jest wymagane'),
-    content: Yup.string().required('Pole jest wymagane'),
-});
 
 const SrqEditableForm = (props) => {
     const { isLoading, requestHandler } = useRequest(urls.srq, REQUEST_METHODS.POST);
@@ -52,7 +45,7 @@ const SrqEditableForm = (props) => {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: props.populatedFields,
-        validationSchema,
+        validationSchema: srqSchema,
         validateOnChange: false,
         onSubmit: (values, { resetForm }) => {
             onSubmit(values, resetForm);
