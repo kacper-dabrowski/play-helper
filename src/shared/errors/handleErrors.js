@@ -8,6 +8,10 @@ export const generateMessageByCode = (code) => {
 };
 
 export const getLastMessageFromFormikErrors = (formikErrors) => {
+    if (!formikErrors) {
+        return;
+    }
+
     const formikErrorsKeys = Object.keys(formikErrors);
 
     const errorsArray = formikErrorsKeys.map((errorKey) => formikErrors[errorKey]);

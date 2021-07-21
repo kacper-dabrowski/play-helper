@@ -11,19 +11,29 @@ import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsFor
 
 const SettingsForm = (props) => {
     const [startingPage, setStartingPage] = useState(props?.userSettings?.startingPage);
-    const { requestHandler, error } = useRequest(urls.settings, REQUEST_METHODS.POST);
+    const { requestHandler, error, isLoading } = useRequest(urls.settings, REQUEST_METHODS.POST);
 
     const onStartingPageChange = useCallback(
         async (event) => {
             setStartingPage(event.target.value);
             await requestHandler({ settings: { startingPage } }, () => urls.settings);
             await props.updateUserSettings({ startingPage: event.target.value });
-            if (error) {
-                cogoToast.error(error?.data?.message || error.message);
+
+            if (isLoading) {
+                cogoToast.loading('Zapisuję...');
             }
+
+            if (props?.updateRequestError?.message) {
+                return cogoToast.error(props.updateRequestError.message);
+            }
+
+            if (error) {
+                return cogoToast.error(error?.data?.message || error.message);
+            }
+
             cogoToast.success('Pomyślnie zapisano ustawienie');
         },
-        [error, props, requestHandler, startingPage]
+        [error, props, requestHandler, startingPage, isLoading]
     );
 
     return (
@@ -44,6 +54,7 @@ const SettingsForm = (props) => {
 };
 const mapStateToProps = (state) => ({
     userSettings: state.user.settings,
+    updateRequestError: state.user.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

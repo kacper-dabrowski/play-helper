@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 
 const useResultsFilter = (results, filterMethod) => {
-    const [searchResults, setSearchResults] = useState(results);
+    const [searchResults, setSearchResults] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         if (!searchQuery) {
-            return setSearchResults(results);
+            setSearchResults(results);
+        }
+
+        if (searchResults.length < 0) {
+            return;
         }
         const filteredResults = filterMethod(results, searchQuery);
-        return setSearchResults(filteredResults);
-    }, [searchQuery, results, setSearchResults, filterMethod]);
+
+        setSearchResults(filteredResults);
+    }, [searchQuery, searchResults.length, setSearchResults, filterMethod, results]);
 
     return [searchResults, searchQuery, setSearchQuery];
 };

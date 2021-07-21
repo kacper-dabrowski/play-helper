@@ -29,7 +29,7 @@ const SrqResult = ({
     return (
         <StyledResultContainer onClick={onClick} clickable={clickable}>
             {editButtons}
-            <h3>{title}</h3>
+            <h3 title={title}>{title}</h3>
             <p>{description}</p>
             <p>{department}</p>
         </StyledResultContainer>

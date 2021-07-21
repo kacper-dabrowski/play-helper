@@ -25,7 +25,7 @@ export const SolutionResult = ({
         <StyledResultContainer clickable={clickable} onClick={() => setTemplate?.(content)}>
             {isPublic ? <PublicIcon title="Ta pozycja jest dostępna w widoku publicznym" /> : null}
             {editButtons}
-            <h3>{title}</h3>
+            <h3 title={title}>{title}</h3>
             <p>{description}</p>
         </StyledResultContainer>
     );

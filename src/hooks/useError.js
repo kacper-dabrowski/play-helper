@@ -6,6 +6,7 @@ const useError = (formikErrors, requestError) => {
     useEffect(() => {
         if (requestError) {
             cogoToast.error(generateMessageByCode(requestError));
+            return;
         }
 
         if (getLastMessageFromFormikErrors(formikErrors)) {
