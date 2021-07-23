@@ -1,7 +1,7 @@
 import cogoToast from 'cogo-toast';
 import React, { useEffect } from 'react';
 import useResultsFilter from '../../hooks/useResultsFilter';
-import Searchbar from '../SearchBar/SearchBar';
+import Searchbar from '../../components/SearchBar/SearchBar';
 import SrqResults from './SrqResults/SrqResults';
 import { StyledSrqFinder } from './StyledSrqFinder';
 

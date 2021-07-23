@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SrqEditableForm from '../../../components/Forms/SrqForm/SrqEditableForm';
 import SrqForm from '../../../components/Forms/SrqForm/SrqForm';
-import SrqFinder from '../../../components/SrqFinder/SrqFinder';
+import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 import srqFormContext from '../../../contexts/srqFormContext';
 import useRequest from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';

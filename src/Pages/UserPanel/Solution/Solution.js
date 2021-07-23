@@ -4,7 +4,7 @@ import SolutionEditableForm from '../../../components/Forms/SolutionForm/Solutio
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
-import { StyledResults } from '../../../components/SrqFinder/SrqResults/StyledSrqResults';
+import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import useResultsFilter from '../../../hooks/useResultsFilter';
