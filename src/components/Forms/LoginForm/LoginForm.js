@@ -11,7 +11,7 @@ import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from './LoginInputs/LoginInput/LoginInput';
 import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
 import { StyledLoginForm } from './StyledLoginForm';
-import { authActions } from '../../../stores/auth/actionTypes';
+import { auth } from '../../../stores/auth/auth';
 
 const LoginForm = ({ onSuccess }) => {
     const { error, isLoading } = useSelector((state) => state.auth);
@@ -24,7 +24,7 @@ const LoginForm = ({ onSuccess }) => {
             const { login, password } = values;
 
             dispatch(
-                authActions.auth(login, password, () => {
+                auth(login, password, () => {
                     onSuccess();
                     cogoToast.success('Zalogowano pomyślnie');
                 })

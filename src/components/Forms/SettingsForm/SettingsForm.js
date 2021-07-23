@@ -7,7 +7,7 @@ import urls from '../../../shared/urls';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsForm';
-import { authActions } from '../../../stores/auth/actionTypes';
+import { updateUserSettings } from '../../../stores/user/user';
 
 const SettingsForm = () => {
     const userSettings = useSelector((state) => state.user?.settings?.startingPage);
@@ -24,7 +24,7 @@ const SettingsForm = () => {
 
             await requestHandler({ settings: { startingPage } }, () => urls.settings);
 
-            await dispatch(authActions.updateUserSettings({ startingPage: chosenStartingPage }));
+            await dispatch(updateUserSettings({ startingPage: chosenStartingPage }));
 
             if (error) {
                 return cogoToast.error(error?.data?.message || error.message);
