@@ -1,7 +1,6 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
-import * as Yup from 'yup';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';

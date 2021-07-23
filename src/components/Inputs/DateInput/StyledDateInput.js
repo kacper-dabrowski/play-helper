@@ -6,7 +6,6 @@ export const StyledDateInput = styled.input`
     max-height: 40px;
     margin-left: 1rem;
     margin-right: 1rem;
-    padding: 0;
     font: inherit;
     font-size: 0.9rem;
     padding: 0.5rem;

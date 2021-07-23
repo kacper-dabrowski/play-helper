@@ -4,6 +4,7 @@ import { StyledSearchbar, StyledInputWrapper } from './StyledSearchBar';
 
 const Searchbar = ({ onType, value }) => {
     const focusRef = useFocus();
+
     return (
         <StyledInputWrapper>
             <StyledSearchbar

@@ -11,7 +11,7 @@ export const StyledInvoice = styled.div`
     grid-template-rows: 3rem;
     margin: 0.5rem auto;
     background-color: #7046ab;
-    box-shadow: 17px 10px 42px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 17px 10px 42px 0 rgba(0, 0, 0, 0.75);
     border-radius: 21px;
     & img {
         justify-self: flex-end;

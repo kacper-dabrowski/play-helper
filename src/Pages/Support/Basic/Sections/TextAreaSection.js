@@ -1,5 +1,5 @@
 import React from 'react';
-import TextArea from '../../../../components/TextArea/TextArea';
+import TextArea from '../../../../components/Inputs/TextArea/TextArea';
 import { TextAreaWrapper } from '../StyledBasic';
 
 const TextAreaSection = ({ general, details, generalSetHandler, detailsSetHandler }) => (

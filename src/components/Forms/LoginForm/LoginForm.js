@@ -1,7 +1,7 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import { loginSchema } from '../../../shared/validation/validation';
@@ -13,21 +13,29 @@ import LoginInput from './LoginInputs/LoginInput/LoginInput';
 import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
 import { StyledLoginForm } from './StyledLoginForm';
 
-const LoginForm = (props) => {
+const LoginForm = ({ onSuccess }) => {
+    const { error, isLoading } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const focusRef = useFocus();
+
     const formik = useFormik({
         initialValues: { login: '', password: '' },
-        onSubmit: (values) =>
-            props.onAuth(values.login, values.password, () => {
-                props.onSuccess();
-                cogoToast.success('Zalogowano pomyślnie');
-            }),
+        onSubmit: (values) => {
+            const { login, password } = values;
+
+            dispatch(
+                actions.auth(login, password, () => {
+                    onSuccess();
+                    cogoToast.success('Zalogowano pomyślnie');
+                })
+            );
+        },
+
         validationSchema: loginSchema,
         validateOnChange: false,
     });
 
-    const focusRef = useFocus();
-
-    useError(formik.errors, props.error);
+    useError(formik.errors, error);
 
     return (
         <>
@@ -54,18 +62,10 @@ const LoginForm = (props) => {
                         placeholder="Hasło"
                     />
                 </LoginInputsWrapper>
-                {props.isLoading ? <Spinner centered /> : <SubmitButton title="Zaloguj się" />}
+                {isLoading ? <Spinner centered /> : <SubmitButton title="Zaloguj się" />}
             </StyledLoginForm>
         </>
     );
 };
-const mapDispatchToProps = (dispatch) => ({
-    onAuth: (login, password, onSuccess) => dispatch(actions.auth(login, password, onSuccess)),
-});
 
-const mapStateToProps = (state) => ({
-    isLoading: state.auth.loading,
-    error: state.auth.error,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

@@ -1,9 +1,9 @@
 import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
-import MainTextarea from '../../../components/MainTextarea/MainTextarea';
+import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';
 import config from '../../../shared/identifiers';
 import Calculator from './Sections/Calculator';
@@ -11,7 +11,8 @@ import Invoices from './Sections/Invoices';
 import PaymentSpan from './Sections/PaymentSpan';
 import { PaymentsContainer } from './StyledPayments';
 
-const Payments = ({ fullName }) => {
+const Payments = () => {
+    const fullName = useSelector((state) => state.auth.fullName);
     const [paymentSpan, setPaymentSpan] = useState(null);
     const [amount, setAmount] = useState(0);
     const [paymentsCount, setPaymentsCount] = useState(config.payments.maxCount);
@@ -106,8 +107,4 @@ const Payments = ({ fullName }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    fullName: state.auth.fullName,
-});
-
-export default connect(mapStateToProps, null)(Payments);
+export default Payments;

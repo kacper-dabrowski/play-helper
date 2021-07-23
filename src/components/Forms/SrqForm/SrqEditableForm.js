@@ -13,12 +13,10 @@ import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
 
-const SrqEditableForm = (props) => {
+const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
     const { isLoading, requestHandler } = useRequest(urls.srq, REQUEST_METHODS.POST);
     const focusRef = useFocus();
     const { setEditMode } = useContext(srqFormContext);
-
-    const { entriesRefresh } = props;
 
     const onSubmit = async (values, resetForm) => {
         try {
@@ -31,7 +29,7 @@ const SrqEditableForm = (props) => {
                 content,
             };
 
-            await requestHandler(formData, () => `${urls.srq}/${props.populatedFields.srqId}`);
+            await requestHandler(formData, () => `${urls.srq}/${populatedFields.srqId}`);
 
             cogoToast.success('Pomyślnie zapisano zmiany');
             resetForm();
@@ -44,7 +42,7 @@ const SrqEditableForm = (props) => {
 
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues: props.populatedFields,
+        initialValues: populatedFields,
         validationSchema: srqSchema,
         validateOnChange: false,
         onSubmit: (values, { resetForm }) => {
