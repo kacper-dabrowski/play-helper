@@ -1,14 +1,14 @@
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
-import * as actionTypes from './actionsTypes';
+import { authActions } from './actionTypes';
 
 const authStart = () => {
-    return { type: actionTypes.AUTH_START };
+    return { type: authActions.AUTH_START };
 };
 
 const authSuccess = (token, userId, fullName) => {
     return {
-        type: actionTypes.AUTH_SUCCESS,
+        type: authActions.AUTH_SUCCESS,
         idToken: token,
         userId,
         fullName,
@@ -17,7 +17,7 @@ const authSuccess = (token, userId, fullName) => {
 
 const authFail = (error) => {
     return {
-        type: actionTypes.AUTH_FAIL,
+        type: authActions.AUTH_FAIL,
         error,
     };
 };
@@ -29,12 +29,12 @@ export const logout = () => {
     localStorage.removeItem('fullName');
 
     return {
-        type: actionTypes.AUTH_LOGOUT,
+        type: authActions.AUTH_LOGOUT,
     };
 };
 
 export const logoutTimeoutSet = (logoutTimeoutId) => ({
-    type: actionTypes.LOGOUT_TIMEOUT_SET,
+    type: authActions.LOGOUT_TIMEOUT_SET,
     payload: {
         logoutTimeoutId,
     },

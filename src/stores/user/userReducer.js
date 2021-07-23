@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionsTypes';
+import { userActions } from './actionTypes';
 
 const initialState = {
     settings: null,
@@ -24,13 +24,13 @@ const userUpdate = (state, action) => {
 
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.USER_FETCH_START:
+        case userActions.USER_FETCH_START:
             return userFetchStart(state, action);
-        case actionTypes.USER_FETCH_SUCCESS:
+        case userActions.USER_FETCH_SUCCESS:
             return userFetchSuccess(state, action);
-        case actionTypes.USER_FETCH_FAIL:
+        case userActions.USER_FETCH_FAIL:
             return userFetchFailed(state, action);
-        case actionTypes.USER_UPDATE:
+        case userActions.USER_UPDATE:
             return userUpdate(state, action);
         default:
             return state;

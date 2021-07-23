@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import routes from '../../../shared/routes';
 import urls from '../../../shared/urls';
-import * as actions from '../../../store/actions';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsForm';
+import { authActions } from '../../../stores/auth/actionTypes';
 
 const SettingsForm = () => {
     const userSettings = useSelector((state) => state.user?.settings?.startingPage);
@@ -24,7 +24,7 @@ const SettingsForm = () => {
 
             await requestHandler({ settings: { startingPage } }, () => urls.settings);
 
-            await dispatch(actions.updateUserSettings({ startingPage: chosenStartingPage }));
+            await dispatch(authActions.updateUserSettings({ startingPage: chosenStartingPage }));
 
             if (error) {
                 return cogoToast.error(error?.data?.message || error.message);
