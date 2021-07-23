@@ -1,6 +1,6 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
@@ -16,7 +16,7 @@ import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
 
 const SignUpForm = ({ closeModalHandler }) => {
     const dispatch = useDispatch();
-    const { requestHandler, error, loading } = useRequest(urls.signup, REQUEST_METHODS.POST);
+    const { requestHandler, error, loading, response } = useRequest(urls.signup, REQUEST_METHODS.POST);
     const focusRef = useFocus();
 
     const formik = useFormik({
@@ -30,19 +30,25 @@ const SignUpForm = ({ closeModalHandler }) => {
         validateOnChange: false,
         onSubmit: async (values) => {
             const { username, password, fullName } = values;
+
             try {
                 await requestHandler({ username, password, fullName }, () => urls.signup);
-
                 if (error) {
-                    throw error;
+                    throw new Error(error.message);
                 }
-
-                dispatch(actions.auth(username, password, closeModalHandler));
+                if (response) {
+                    return dispatch(actions.auth(username, password, closeModalHandler));
+                }
             } catch (requestError) {
                 cogoToast.error(requestError.message);
             }
         },
     });
+    useEffect(() => {
+        if (error) {
+            cogoToast.error(error.message);
+        }
+    }, [error]);
     useError(formik.errors);
 
     return (
