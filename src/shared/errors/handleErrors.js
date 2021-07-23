@@ -1,20 +1,11 @@
-export const generateMessageByCode = (code) => {
-    switch (code) {
-        case 400:
-            return `Podane dane nie są prawidłowe`;
-        default:
-            return `Wystąpił nieznany błąd`;
-    }
-};
-
 export const getLastMessageFromFormikErrors = (formikErrors) => {
-    if (!formikErrors) {
+    const formikErrorsKeys = Object.keys(formikErrors);
+
+    if (formikErrorsKeys.length === 0) {
         return;
     }
 
-    const formikErrorsKeys = Object.keys(formikErrors);
-
     const errorsArray = formikErrorsKeys.map((errorKey) => formikErrors[errorKey]);
-    const currentError = errorsArray.pop();
-    return currentError;
+
+    return errorsArray.pop();
 };

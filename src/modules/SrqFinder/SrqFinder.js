@@ -28,7 +28,7 @@ const SrqFinder = ({ error, response, loading, refresh, editable, clickable, set
         <StyledSrqFinder>
             <Searchbar onType={setSearchQuery} value={searchQuery} />
             <SrqResults
-                onCopy={setTemplate && setTemplate}
+                onCopy={() => setTemplate?.()}
                 supportRequests={searchResults}
                 hasError={error}
                 isLoading={loading}

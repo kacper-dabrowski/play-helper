@@ -10,16 +10,16 @@ import UserPanel from './Pages/UserPanel/UserPanel';
 import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
 import routes from './shared/routes';
 import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
-import { authActions } from './stores/auth/actionTypes';
-import { userActions } from './stores/user/actionTypes';
+import { authCheckState } from './stores/auth/auth';
+import { fetchUserSettings } from './stores/user/user';
 
 const App = () => {
     const areSettingsLoading = useSelector((state) => state.user.loading);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(authActions.authCheckState());
-        dispatch(userActions.fetchUserSettings());
+        dispatch(authCheckState());
+        dispatch(fetchUserSettings());
     }, [dispatch]);
 
     if (areSettingsLoading) {
