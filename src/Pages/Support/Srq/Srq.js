@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MainTextarea from '../../../components/MainTextarea/MainTextarea';
-import SrqFinder from '../../../components/SrqFinder/SrqFinder';
+import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 import useRequest from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 

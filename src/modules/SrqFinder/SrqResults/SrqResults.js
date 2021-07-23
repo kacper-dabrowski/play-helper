@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import srqFormContext from '../../../contexts/srqFormContext';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
-import Result from '../../Results/Result/SRQ/SrqResult';
-import Spinner from '../../UI/Spinner/Spinner';
+import Result from '../../../components/Results/Result/SRQ/SrqResult';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
