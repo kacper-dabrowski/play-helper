@@ -62,7 +62,7 @@ export const auth = (login, password, onSuccess) => {
             }
             const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
             localStorage.setItem('token', idToken);
-            localStorage.setItem('expirationDate', expirationDate);
+            localStorage.setItem('expirationDate', expirationDate.toString());
             localStorage.setItem('fullName', fullName);
             localStorage.setItem('userId', userId);
             dispatch(authSuccess(idToken, userId, fullName));

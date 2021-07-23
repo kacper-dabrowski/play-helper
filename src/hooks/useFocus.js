@@ -1,9 +1,9 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 
 const useFocus = () => {
-    const focusOn = React.useRef();
+    const focusOn = useRef();
 
-    React.useEffect(() => {
+    useEffect(() => {
         focusOn?.current.focus();
     }, [focusOn]);
 
