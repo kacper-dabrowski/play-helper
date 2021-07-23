@@ -67,7 +67,8 @@ const useRequest = (url, method = REQUEST_METHODS.GET, data = null) => {
 
     if (method !== REQUEST_METHODS.GET) {
         return {
-            requestHandler: (dataToSend, getUrl) => sendRequest({ ...requestConfig, data: dataToSend, url: getUrl() }),
+            requestHandler: async (dataToSend, getUrl) =>
+                sendRequest({ ...requestConfig, data: dataToSend, url: getUrl() }),
             error,
             response,
             isLoading,
