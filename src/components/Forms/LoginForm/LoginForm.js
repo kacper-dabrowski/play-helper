@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import { loginSchema } from '../../../shared/validation/validation';
-import * as actions from '../../../store/actions';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from './LoginInputs/LoginInput/LoginInput';
 import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
 import { StyledLoginForm } from './StyledLoginForm';
+import { authActions } from '../../../stores/auth/actionTypes';
 
 const LoginForm = ({ onSuccess }) => {
     const { error, isLoading } = useSelector((state) => state.auth);
@@ -24,7 +24,7 @@ const LoginForm = ({ onSuccess }) => {
             const { login, password } = values;
 
             dispatch(
-                actions.auth(login, password, () => {
+                authActions.auth(login, password, () => {
                     onSuccess();
                     cogoToast.success('Zalogowano pomyślnie');
                 })

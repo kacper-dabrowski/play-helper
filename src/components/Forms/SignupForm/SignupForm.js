@@ -7,12 +7,12 @@ import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { signupSchema } from '../../../shared/validation/validation';
-import * as actions from '../../../store/actions';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
 import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
+import { authActions } from '../../../stores/auth/actionTypes';
 
 const SignUpForm = ({ closeModalHandler }) => {
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const SignUpForm = ({ closeModalHandler }) => {
                     throw new Error(error.message);
                 }
                 if (response) {
-                    return dispatch(actions.auth(username, password, closeModalHandler));
+                    return dispatch(authActions.auth(username, password, closeModalHandler));
                 }
             } catch (requestError) {
                 cogoToast.error(requestError.message);

@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionsTypes';
+import { authActions } from './actionTypes';
 
 const initialState = {
     token: null,
@@ -51,15 +51,15 @@ const logoutTimeoutSet = (state, action) => {
 };
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.AUTH_START:
+        case authActions.AUTH_START:
             return authStart(state, action);
-        case actionTypes.AUTH_SUCCESS:
+        case authActions.AUTH_SUCCESS:
             return authSuccess(state, action);
-        case actionTypes.AUTH_FAIL:
+        case authActions.AUTH_FAIL:
             return authFail(state, action);
-        case actionTypes.AUTH_LOGOUT:
+        case authActions.AUTH_LOGOUT:
             return authLogout(state, action);
-        case actionTypes.LOGOUT_TIMEOUT_SET:
+        case authActions.LOGOUT_TIMEOUT_SET:
             return logoutTimeoutSet(state, action);
         default:
             return state;

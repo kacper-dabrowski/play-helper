@@ -1,27 +1,27 @@
-import * as actionTypes from './actionsTypes';
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
+import { userActions } from './actionTypes';
 
 const userFetchStart = () => {
-    return { type: actionTypes.USER_FETCH_START };
+    return { type: userActions.USER_FETCH_START };
 };
 
 const userFetchSuccess = (settings) => {
     return {
-        type: actionTypes.USER_FETCH_SUCCESS,
+        type: userActions.USER_FETCH_SUCCESS,
         payload: { settings },
     };
 };
 
 const userFetchFail = (error) => {
     return {
-        type: actionTypes.USER_FETCH_FAIL,
+        type: userActions.USER_FETCH_FAIL,
         payload: { error },
     };
 };
 
 const userSettingsUpdate = (settings) => {
-    return { type: actionTypes.USER_UPDATE, payload: { settings } };
+    return { type: userActions.USER_UPDATE, payload: { settings } };
 };
 
 export const fetchUserSettings = () => {
