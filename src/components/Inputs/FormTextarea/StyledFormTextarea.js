@@ -5,7 +5,6 @@ export const StyledFormTextarea = styled.textarea`
     height: 6rem;
     background-color: rgba(0, 0, 0, 0.9);
     border: none;
-    padding: 0;
     color: white;
     padding: 0.5rem;
     font-size: 0.8rem;

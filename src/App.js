@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router';
 import Logout from './components/Logout/Logout';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
@@ -12,11 +12,14 @@ import routes from './shared/routes';
 import * as actions from './store/actions';
 import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
 
-const App = ({ onTryAutoSignup, fetchUserSettings, areSettingsLoading }) => {
+const App = () => {
+    const areSettingsLoading = useSelector((state) => state.user.loading);
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        onTryAutoSignup();
-        fetchUserSettings();
-    }, [fetchUserSettings, onTryAutoSignup]);
+        dispatch(actions.authCheckState());
+        dispatch(actions.fetchUserSettings());
+    }, [dispatch]);
 
     if (areSettingsLoading) {
         return <SplashScreen />;
@@ -40,15 +43,4 @@ const App = ({ onTryAutoSignup, fetchUserSettings, areSettingsLoading }) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    onTryAutoSignup: () => dispatch(actions.authCheckState()),
-    fetchUserSettings: () => dispatch(actions.fetchUserSettings()),
-});
-
-const mapStateToProps = (state) => ({
-    isAuthenticated: Boolean(state.auth.token),
-    areSettingsLoading: state.user.loading,
-    userSettings: state.user.settings,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

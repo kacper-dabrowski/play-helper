@@ -3,7 +3,7 @@ import cogoToast from 'cogo-toast';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
-import MainTextarea from '../../../components/MainTextarea/MainTextarea';
+import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
 import ChannelSection from './Sections/ChannelSection';

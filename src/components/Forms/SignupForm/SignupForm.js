@@ -1,7 +1,7 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
@@ -14,8 +14,9 @@ import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
 import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
 
-const SignUpForm = (props) => {
-    const { requestHandler, error, loading, response } = useRequest(urls.signup, REQUEST_METHODS.POST);
+const SignUpForm = ({ closeModalHandler }) => {
+    const dispatch = useDispatch();
+    const { requestHandler, error, loading } = useRequest(urls.signup, REQUEST_METHODS.POST);
     const focusRef = useFocus();
 
     const formik = useFormik({
@@ -33,12 +34,10 @@ const SignUpForm = (props) => {
                 await requestHandler({ username, password, fullName }, () => urls.signup);
 
                 if (error) {
-                    throw new Error(error.message);
+                    throw error;
                 }
 
-                if (response) {
-                    return props.onAuth(username, password, props.closeModalHandler);
-                }
+                dispatch(actions.auth(username, password, closeModalHandler));
             } catch (requestError) {
                 cogoToast.error(requestError.message);
             }
@@ -91,12 +90,4 @@ const SignUpForm = (props) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    onAuth: (login, password, onSuccess) => dispatch(actions.auth(login, password, onSuccess)),
-});
-
-const mapStateToProps = (state) => ({
-    isLoading: state.auth.loading,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default SignUpForm;

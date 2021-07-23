@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import arrowLeft from '../../assets/icons/left-arrow.svg';
 import arrowRight from '../../assets/icons/right-arrow.svg';
 import LoginModal from '../../components/Modals/LoginModal/LoginModal';
@@ -10,18 +10,20 @@ import Topbar from '../../components/UI/Navbars/Topbar/Topbar';
 import ProjectTile from './ProjectTile/ProjectTile';
 import { WelcomeScreenContainer } from './StyledWelcomeScreen';
 
-const WelcomeScreen = (props) => {
+const WelcomeScreen = () => {
     const [loginModalOpened, setLoginModalOpened] = useState(false);
     const [signInModalOpened, setSignInModalOpened] = useState(false);
     const [settingsModalOpened, setSettingsModalOpened] = useState(false);
+    const isAuthenticated = useSelector((state) => !!state.auth.token);
+    const fullName = useSelector((state) => state.auth.fullName);
 
     return (
         <>
-            <Backdrop isOpened={!props.isAuthenticated} />
+            <Backdrop isOpened={!isAuthenticated} />
             <WelcomeScreenContainer>
                 <Topbar
-                    isAuthenticated={props.isAuthenticated}
-                    fullName={props.fullName}
+                    isAuthenticated={isAuthenticated}
+                    fullName={fullName}
                     onLoginModalOpened={() => setLoginModalOpened(true)}
                     onSignInModalOpened={() => setSignInModalOpened(true)}
                     onSettingsModalOpened={() => setSettingsModalOpened(true)}
@@ -47,9 +49,5 @@ const WelcomeScreen = (props) => {
         </>
     );
 };
-const mapStateToProps = (state) => ({
-    isAuthenticated: !!state.auth.token,
-    fullName: state.auth.fullName,
-});
 
-export default connect(mapStateToProps, null)(WelcomeScreen);
+export default WelcomeScreen;

@@ -1,6 +1,6 @@
 import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
-import MainTextarea from '../../../components/MainTextarea/MainTextarea';
+import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';

@@ -1,9 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Route } from 'react-router';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
-const PrivateRoute = ({ isAuthenticated, ...props }) => {
+const PrivateRoute = ({ ...props }) => {
+    const isAuthenticated = useSelector((state) => !!state.auth.token);
+
     const renderRoute = () => {
         if (!isAuthenticated) {
             return <NotFoundPage />;
@@ -15,8 +17,4 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
     return <Route {...props}>{renderRoute()}</Route>;
 };
 
-const mapStateToProps = (state) => ({
-    isAuthenticated: !!state.auth.token,
-});
-
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default PrivateRoute;
