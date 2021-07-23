@@ -1,3 +1,4 @@
+import cogoToast from 'cogo-toast';
 import axios from '../libs/axios';
 import urls from '../shared/urls';
 
@@ -64,6 +65,12 @@ const useRequest = (url, method = REQUEST_METHODS.GET, data = null) => {
             sendRequest(requestConfig);
         }
     }, [url, method, data, requestConfig]);
+
+    useEffect(() => {
+        if (error) {
+            cogoToast.error(error.message);
+        }
+    }, [error]);
 
     if (method !== REQUEST_METHODS.GET) {
         return {
