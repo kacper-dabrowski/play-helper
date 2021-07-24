@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyledPlayNextButton, StyledSupportButton} from './StyledStateButton';
+import { StyledPlayNextButton, StyledSupportButton } from './StyledStateButton';
 import config from '../../../shared/identifiers';
 
-export const StateButton = ({variant, title, ...buttonProps}) => {
+export const StateButton = ({ variant, title, ...buttonProps }) => {
     if (variant === config.projects.NEXT) {
         return <StyledPlayNextButton {...buttonProps}>{title}</StyledPlayNextButton>;
     }

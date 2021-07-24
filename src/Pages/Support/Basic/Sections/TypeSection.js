@@ -1,7 +1,7 @@
 import React from 'react';
 import DateInput from '../../../../components/Inputs/DateInput/DateInput';
 import config from '../../../../shared/identifiers';
-import {StateButton} from '../../../../components/Buttons/StateButton/StateButton';
+import { StateButton } from '../../../../components/Buttons/StateButton/StateButton';
 
 const TypeSection = ({ typeSetHandler, dateSetHandler, date, setting }) => (
     <>
@@ -11,7 +11,7 @@ const TypeSection = ({ typeSetHandler, dateSetHandler, date, setting }) => (
             onClick={() => typeSetHandler(config.type.business)}
             active={setting === config.type.business}
         />
-        <DateInput required onChange={(event) => dateSetHandler(event.target.value)} value={date}/>
+        <DateInput required onChange={(event) => dateSetHandler(event.target.value)} value={date} />
         <StateButton
             variant={config.projects.SUPPORT}
             title="Indywidualny"

@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import backgroundImage from '../../assets/backgrounds/play-next-wave.svg';
 import MainTextarea from '../../components/Inputs/MainTextarea/MainTextarea';
-import {generateNextTemplate, isPolish} from '../../modules/next/next';
+import { generateNextTemplate, isPolish } from '../../modules/next/next';
 import identifiers from '../../shared/identifiers';
 import routes from '../../shared/routes';
 import Settings from './Settings/Settings';
-import {NextLayout} from '../../containers/layouts/NextLayout/NextLayout';
+import { NextLayout } from '../../containers/layouts/NextLayout/NextLayout';
 
 const PlayNext = () => {
     const username = useSelector((state) => state.auth.fullName);
@@ -56,7 +56,7 @@ const PlayNext = () => {
                 onGenerateTemplate={onGenerateTemplate}
                 addToCurrentTemplate={addToCurrentTemplate}
             />
-            <MainTextarea value={template} setTemplate={setTemplate}/>
+            <MainTextarea value={template} setTemplate={setTemplate} />
         </NextLayout>
     );
 };

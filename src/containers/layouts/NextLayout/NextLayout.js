@@ -1,16 +1,16 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {Container} from './StyledNextLayout';
+import { useSelector } from 'react-redux';
+import { Container } from './StyledNextLayout';
 import Navbar from '../../../components/UI/Navbars/PageNavbar/Navbar';
-import {BaseLayout} from '../BaseLayout/BaseLayout';
+import { BaseLayout } from '../BaseLayout/BaseLayout';
 
-export const NextLayout = ({children, routes, backgroundImage}) => {
+export const NextLayout = ({ children, routes, backgroundImage }) => {
     const fullName = useSelector((state) => state.auth.fullName);
 
     return (
         <>
             <BaseLayout backgroundImage={backgroundImage}>
-                <Navbar routes={routes} username={fullName}/>
+                <Navbar routes={routes} username={fullName} />
                 <Container>{children}</Container>
             </BaseLayout>
         </>
