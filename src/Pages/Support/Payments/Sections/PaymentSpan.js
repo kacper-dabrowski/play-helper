@@ -1,37 +1,43 @@
 import React from 'react';
-import Button from '../../../../components/Buttons/SupportButton/StyledSupportButton';
 import config from '../../../../shared/identifiers';
-import { PaymentButtonContainer } from '../StyledPayments';
+import {PaymentButtonContainer} from '../StyledPayments';
+import {StateButton} from '../../../../components/Buttons/StateButton/StateButton';
 
-const PaymentSpan = ({ setting, setHandler }) => {
+const PaymentSpan = ({setting, setHandler}) => {
     return (
         <PaymentButtonContainer>
-            <Button
+            <StateButton
+                variant={config.projects.SUPPORT}
                 title="P01"
                 onClick={() => setHandler(config.payments.spans.P01)}
                 active={setting === config.payments.spans.P01}
             />
-            <Button
+            <StateButton
+                variant={config.projects.SUPPORT}
                 title="P06"
                 onClick={() => setHandler(config.payments.spans.P06)}
                 active={setting === config.payments.spans.P06}
             />
-            <Button
+            <StateButton
+                variant={config.projects.SUPPORT}
                 title="P10"
                 onClick={() => setHandler(config.payments.spans.P10)}
                 active={setting === config.payments.spans.P10}
             />
-            <Button
+            <StateButton
+                variant={config.projects.SUPPORT}
                 title="P15"
                 onClick={() => setHandler(config.payments.spans.P15)}
                 active={setting === config.payments.spans.P15}
             />
-            <Button
+            <StateButton
+                variant={config.projects.SUPPORT}
                 title="P20"
                 onClick={() => setHandler(config.payments.spans.P20)}
                 active={setting === config.payments.spans.P20}
             />
-            <Button
+            <StateButton
+                variant={config.projects.SUPPORT}
                 title="P25"
                 onClick={() => setHandler(config.payments.spans.P25)}
                 active={setting === config.payments.spans.P25}

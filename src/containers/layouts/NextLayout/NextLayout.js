@@ -1,20 +1,18 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import * as Styled from './StyledSupportLayout';
+import {Container} from './StyledNextLayout';
 import Navbar from '../../../components/UI/Navbars/PageNavbar/Navbar';
 import {BaseLayout} from '../BaseLayout/BaseLayout';
 
-const SupportLayout = ({children, routes, backgroundImage}) => {
+export const NextLayout = ({children, routes, backgroundImage}) => {
     const fullName = useSelector((state) => state.auth.fullName);
 
     return (
         <>
             <BaseLayout backgroundImage={backgroundImage}>
                 <Navbar routes={routes} username={fullName}/>
-                <Styled.Container>{children}</Styled.Container>
+                <Container>{children}</Container>
             </BaseLayout>
         </>
     );
 };
-
-export default SupportLayout;
