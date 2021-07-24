@@ -1,9 +1,9 @@
 import cogoToast from 'cogo-toast';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import useResultsFilter from '../../hooks/useResultsFilter';
 import Searchbar from '../../components/SearchBar/SearchBar';
 import SrqResults from './SrqResults/SrqResults';
-import { StyledSrqFinder } from './StyledSrqFinder';
+import {StyledSrqFinder} from './StyledSrqFinder';
 
 const searchMethod = (results, searchPhrase) =>
     results.filter(
@@ -28,7 +28,7 @@ const SrqFinder = ({ error, response, loading, refresh, editable, clickable, set
         <StyledSrqFinder>
             <Searchbar onType={setSearchQuery} value={searchQuery} />
             <SrqResults
-                onCopy={() => setTemplate?.()}
+                onCopy={setTemplate || null}
                 supportRequests={searchResults}
                 hasError={error}
                 isLoading={loading}
