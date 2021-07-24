@@ -72,7 +72,7 @@ export const auth = (login, password, onSuccess) => {
                 onSuccess();
             }
         } catch (error) {
-            dispatch(authFail(error.response.status || error.message));
+            dispatch(authFail(error?.response?.data.message || error.message));
         }
     };
 };
