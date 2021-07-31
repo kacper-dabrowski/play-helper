@@ -8,11 +8,10 @@ import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { signupSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
-import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
-import { FormInputsWrapper, StyledSignupForm } from './StyledSignupForm';
 import { auth } from '../../../stores/auth/auth';
+import { StyledBaseForm, StyledFormHeader, TwoColumnFormLayout } from '../BaseForm/BaseForm';
 
 const SignUpForm = ({ closeModalHandler }) => {
     const dispatch = useDispatch();
@@ -54,9 +53,9 @@ const SignUpForm = ({ closeModalHandler }) => {
     useError(formik.errors);
 
     return (
-        <StyledSignupForm onSubmit={formik.handleSubmit}>
+        <StyledBaseForm onSubmit={formik.handleSubmit}>
             <StyledFormHeader>Zarejestruj się</StyledFormHeader>
-            <FormInputsWrapper>
+            <TwoColumnFormLayout>
                 <LoginInput
                     focusRef={focusRef}
                     name="username"
@@ -92,9 +91,9 @@ const SignUpForm = ({ closeModalHandler }) => {
                     onChange={formik.handleChange}
                     value={formik.values.confirmPassword}
                 />
-            </FormInputsWrapper>
+            </TwoColumnFormLayout>
             {loading ? <Spinner centered /> : <SubmitButton title="Utwórz konto" />}
-        </StyledSignupForm>
+        </StyledBaseForm>
     );
 };
 

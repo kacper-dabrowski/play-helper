@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../../shared/colors';
 
 export const StyledDateInput = styled.input`
     width: 9rem;
@@ -9,11 +10,11 @@ export const StyledDateInput = styled.input`
     font-size: 0.9rem;
     padding: 0.5rem;
     border-radius: 20px;
-    background-color: #b3b3b3;
+    background-color: ${colors.backgroundGrey};
     border: none;
 
     &:invalid {
         color: transparent;
-        background-color: #fa7f72;
+        background-color: ${colors.forbidden};
     }
 `;

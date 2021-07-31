@@ -6,12 +6,11 @@ import useError from '../../../hooks/useError';
 import useFocus from '../../../hooks/useFocus';
 import { loginSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
-import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
 import Spinner from '../../UI/Spinner/Spinner';
 import LoginInput from './LoginInputs/LoginInput/LoginInput';
 import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
-import { StyledLoginForm } from './StyledLoginForm';
 import { auth } from '../../../stores/auth/auth';
+import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
 
 const LoginForm = ({ onSuccess }) => {
     const error = useSelector((state) => state.auth.error);
@@ -45,7 +44,7 @@ const LoginForm = ({ onSuccess }) => {
     }, [error]);
 
     return (
-        <StyledLoginForm onSubmit={formik.handleSubmit}>
+        <StyledBaseForm onSubmit={formik.handleSubmit}>
             <StyledFormHeader>Zaloguj się</StyledFormHeader>
             <LoginInputsWrapper>
                 <LoginInput
@@ -69,7 +68,7 @@ const LoginForm = ({ onSuccess }) => {
                 />
             </LoginInputsWrapper>
             {isLoading ? <Spinner centered /> : <SubmitButton title="Zaloguj się" />}
-        </StyledLoginForm>
+        </StyledBaseForm>
     );
 };
 

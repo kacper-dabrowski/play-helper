@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { colors } from '../../../../../../shared/colors';
 
 export const StyledNavlink = styled(NavLink)`
     text-decoration: none;
@@ -8,9 +9,9 @@ export const StyledNavlink = styled(NavLink)`
     &:hover,
     &:active,
     &:focus {
-        color: #a98dd0;
+        color: ${colors.navlinkActive};
     }
     &.active {
-        color: #a98dd0;
+        color: ${colors.navlinkActive};
     }
 `;
