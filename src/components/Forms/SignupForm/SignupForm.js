@@ -9,9 +9,9 @@ import urls from '../../../shared/urls';
 import { signupSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import Spinner from '../../UI/Spinner/Spinner';
-import LoginInput from '../LoginForm/LoginInputs/LoginInput/LoginInput';
 import { auth } from '../../../stores/auth/auth';
 import { StyledBaseForm, StyledFormHeader, TwoColumnFormLayout } from '../BaseForm/BaseForm';
+import FormInput from '../../Inputs/FormInput/FormInput';
 
 const SignUpForm = ({ closeModalHandler }) => {
     const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const SignUpForm = ({ closeModalHandler }) => {
         <StyledBaseForm onSubmit={formik.handleSubmit}>
             <StyledFormHeader>Zarejestruj się</StyledFormHeader>
             <TwoColumnFormLayout>
-                <LoginInput
+                <FormInput
                     focusRef={focusRef}
                     name="username"
                     id="username"
@@ -65,7 +65,7 @@ const SignUpForm = ({ closeModalHandler }) => {
                     onChange={formik.handleChange}
                     value={formik.values.username}
                 />
-                <LoginInput
+                <FormInput
                     name="fullName"
                     id="fullName"
                     hasErrors={!!formik.errors.fullName && !!formik.touched.fullName}
@@ -73,7 +73,7 @@ const SignUpForm = ({ closeModalHandler }) => {
                     onChange={formik.handleChange}
                     value={formik.values.fullName}
                 />
-                <LoginInput
+                <FormInput
                     name="password"
                     id="password"
                     hasErrors={!!formik.errors.password && !!formik.touched.password}
@@ -82,7 +82,7 @@ const SignUpForm = ({ closeModalHandler }) => {
                     onChange={formik.handleChange}
                     value={formik.values.password}
                 />
-                <LoginInput
+                <FormInput
                     name="confirmPassword"
                     id="confirmPassword"
                     hasErrors={!!formik.errors.confirmPassword && !!formik.touched.confirmPassword}
