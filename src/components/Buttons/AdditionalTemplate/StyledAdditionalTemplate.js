@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { BaseButton } from '../BaseButton/StyledBaseButton';
+import { colors } from '../../../shared/colors';
 
 export const StyledAdditionalTemplate = styled(BaseButton)`
-    background-color: ${({ enabled }) => (enabled ? '#399547' : '#fa7f72')};
+    background-color: ${({ enabled }) => (enabled ? colors.allowed : colors.forbidden)};
     margin: 1rem auto;
     color: white;
     text-align: center;
@@ -10,7 +11,7 @@ export const StyledAdditionalTemplate = styled(BaseButton)`
     width: 15rem;
 
     &:hover {
-        background-color: ${({ enabled }) => (enabled ? '#1c4a23' : '#bb2205')};
+        background-color: ${({ enabled }) => (enabled ? colors.allowedHover : colors.forbiddenHover)};
         cursor: ${({ enabled }) => (enabled ? 'pointer' : 'not-allowed')};
     }
 `;

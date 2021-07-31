@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../../../../shared/colors';
 
 export const StyledLoginInput = styled.input`
     width: 10rem;
@@ -8,7 +9,7 @@ export const StyledLoginInput = styled.input`
     border: none;
     color: white;
     margin: 1rem 1rem;
-    border-bottom: 1px solid ${({ hasErrors }) => (hasErrors ? 'red' : '#835cbc')};
+    border-bottom: 1px solid ${({ hasErrors }) => (hasErrors ? colors.forbidden : '#835cbc')};
     transition: ease-in-out 0.2s;
 
     &:focus {
