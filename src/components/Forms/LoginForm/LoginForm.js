@@ -7,10 +7,10 @@ import useFocus from '../../../hooks/useFocus';
 import { loginSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import Spinner from '../../UI/Spinner/Spinner';
-import LoginInput from './LoginInputs/LoginInput/LoginInput';
-import { LoginInputsWrapper } from './LoginInputs/StyledLoginInputs';
 import { auth } from '../../../stores/auth/auth';
 import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
+import FormInput from '../../Inputs/FormInput/FormInput';
+import { LoginInputsWrapper } from './StyledLoginForm';
 
 const LoginForm = ({ onSuccess }) => {
     const error = useSelector((state) => state.auth.error);
@@ -47,7 +47,7 @@ const LoginForm = ({ onSuccess }) => {
         <StyledBaseForm onSubmit={formik.handleSubmit}>
             <StyledFormHeader>Zaloguj się</StyledFormHeader>
             <LoginInputsWrapper>
-                <LoginInput
+                <FormInput
                     focusRef={focusRef}
                     id="login"
                     name="login"
@@ -57,7 +57,7 @@ const LoginForm = ({ onSuccess }) => {
                     type="text"
                     placeholder="Nazwa użytkownika"
                 />
-                <LoginInput
+                <FormInput
                     id="password"
                     name="password"
                     hasErrors={!!formik.errors.password && !!formik.touched.password}

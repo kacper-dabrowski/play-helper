@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../../shared/colors';
 
 export const StyledFormInput = styled.input`
     position: relative;
@@ -10,11 +11,11 @@ export const StyledFormInput = styled.input`
     border: none;
     padding: 0.5rem;
     margin: 0.5rem auto;
-    border-bottom: 1px solid ${({ hasErrors }) => (hasErrors ? 'red' : '#835cbc')};
+    border-bottom: 1px solid ${({ hasErrors }) => (hasErrors ? 'red' : colors.borders.purple)};
     transition: ease-in-out 0.2s;
     &:hover,
     &:active,
     &:focus {
-        border-bottom: 2px solid #009688;
+        border-bottom: 2px solid ${colors.borders.activeOceanic};
     }
 `;

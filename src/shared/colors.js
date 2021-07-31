@@ -26,4 +26,8 @@ export const colors = {
         },
     },
     navlinkActive: '#a98dd0',
+    borders: {
+        purple: '#835cbc',
+        activeOceanic: '#009688',
+    },
 };

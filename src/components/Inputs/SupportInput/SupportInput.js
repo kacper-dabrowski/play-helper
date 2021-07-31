@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyledSupportInput } from './StyledSupportInput';
+import FormInput from '../FormInput/FormInput';
 
 const SupportInput = (props) => (
     <>
         {props.labelContent && <label htmlFor={props.name}>{props.labelContent}</label>}
-        <StyledSupportInput {...props} />
+        <FormInput {...props} />
     </>
 );
 
