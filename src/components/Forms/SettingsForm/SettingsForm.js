@@ -5,9 +5,9 @@ import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import routes from '../../../shared/routes';
 import urls from '../../../shared/urls';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
-import { StyledFormHeader } from '../../UI/Headers/StyledHeaders';
-import { StyledSettingsForm, StyledSettingsFormLabel } from './StyledSettingsForm';
+import { FormLabel } from './StyledSettingsForm';
 import { updateUserSettings } from '../../../stores/user/user';
+import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
 
 const SettingsForm = () => {
     const userSettings = useSelector((state) => state.user?.settings?.startingPage);
@@ -36,9 +36,9 @@ const SettingsForm = () => {
     );
 
     return (
-        <StyledSettingsForm>
+        <StyledBaseForm>
             <StyledFormHeader>Ustawienia użytkownika</StyledFormHeader>
-            <StyledSettingsFormLabel htmlFor="startingPage">Strona startowa</StyledSettingsFormLabel>
+            <FormLabel htmlFor="startingPage">Strona startowa</FormLabel>
             <OptionSelect
                 selectProps={{ name: 'startingPage', defaultValue: startingPage, onChange: onStartingPageChange }}
             >
@@ -48,7 +48,7 @@ const SettingsForm = () => {
                 <option value={routes.support.payments.path}>Raty</option>
                 <option value={routes.support.srq.path}>SRQ</option>
             </OptionSelect>
-        </StyledSettingsForm>
+        </StyledBaseForm>
     );
 };
 

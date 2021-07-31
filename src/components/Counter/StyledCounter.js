@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { colors } from '../../shared/colors';
 
 export const CounterButton = styled.button`
     margin-top: 0.5rem;
     align-self: center;
     justify-self: center;
-    background-color: #b3b3b3;
+    background-color: ${colors.backgroundGrey};
     width: 2rem;
     height: 2rem;
     padding: 0.5rem;
@@ -16,7 +17,7 @@ export const CounterButton = styled.button`
     &:hover,
     &:active,
     &:focus {
-        background-color: #583787;
+        background-color: ${colors.stateButtons.support.activeBackgroundColor};
         color: white;
         cursor: pointer;
     }

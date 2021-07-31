@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../../shared/colors';
 
 export const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
     &[type='checkbox'] {
@@ -9,12 +10,12 @@ export const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
         position: relative;
         transition: 0.15s;
         border-radius: 21px;
-        background-color: #bb2205;
+        background-color: ${colors.forbidden};
         margin-left: 0.5rem;
 
         &:checked {
             animation: spring 1s;
-            background-color: #399547;
+            background-color: ${colors.allowed};
         }
         @keyframes spring {
             0% {

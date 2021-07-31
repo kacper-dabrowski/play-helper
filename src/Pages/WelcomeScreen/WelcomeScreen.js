@@ -9,6 +9,7 @@ import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import Topbar from '../../components/UI/Navbars/Topbar/Topbar';
 import ProjectTile from './ProjectTile/ProjectTile';
 import { WelcomeScreenContainer } from './StyledWelcomeScreen';
+import { colors } from '../../shared/colors';
 
 const WelcomeScreen = () => {
     const [loginModalOpened, setLoginModalOpened] = useState(false);
@@ -33,15 +34,15 @@ const WelcomeScreen = () => {
                 <SettingsModal isOpened={settingsModalOpened} closeModalHandler={() => setSettingsModalOpened(false)} />
                 <ProjectTile
                     projectEndpoint="/next"
-                    projectColorDark="#303030"
-                    projectColorBright="#009688"
+                    projectColorDark={colors.projectSpecificColors.playNext.colorDark}
+                    projectColorBright={colors.projectSpecificColors.playNext.colorBright}
                     projectLogo={arrowLeft}
                     projectText="PLAY NEXT"
                 />
                 <ProjectTile
                     projectEndpoint="/support"
-                    projectColorDark="#180f25"
-                    projectColorBright="#303030"
+                    projectColorDark={colors.projectSpecificColors.support.colorDark}
+                    projectColorBright={colors.mainBackground}
                     projectLogo={arrowRight}
                     projectText="Druga Linia"
                 />

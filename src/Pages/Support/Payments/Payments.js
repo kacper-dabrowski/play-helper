@@ -31,12 +31,13 @@ const Payments = () => {
             const invoiceMatch = invoiceString.match(config.payments.invoiceRegex)?.[0];
 
             if (invoices.includes(invoiceMatch)) {
-                throw new Error('Ta faktura została już dodana!');
+                throw new Error('Ta faktura została już dodana!');
             }
 
             if (invoiceMatch) {
                 setInvoices((currentInvoices) => [...currentInvoices, invoiceMatch]);
                 invoiceClickEvent.target.value = '';
+                cogoToast.success(`Faktura o numerze ${invoiceMatch} została dodana do listy`);
             }
         } catch (error) {
             cogoToast.error(error.message);
@@ -44,7 +45,8 @@ const Payments = () => {
     };
 
     const onRemoveInvoice = (invoiceNumber) => {
-        return setInvoices((currentInvoices) => currentInvoices.filter((invoice) => invoice !== invoiceNumber));
+        setInvoices((currentInvoices) => currentInvoices.filter((invoice) => invoice !== invoiceNumber));
+        return cogoToast.success(`Faktura o numerze ${invoiceNumber} została pomyślnie usunięta z listy`);
     };
 
     const onDivideAmount = () => {
