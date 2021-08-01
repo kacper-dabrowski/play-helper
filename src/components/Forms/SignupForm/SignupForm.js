@@ -2,7 +2,7 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import useError from '../../../hooks/useError';
+import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
@@ -50,7 +50,7 @@ const SignUpForm = ({ closeModalHandler }) => {
             cogoToast.error(error.message);
         }
     }, [error]);
-    useError(formik.errors);
+    useFormikError(formik.errors);
 
     return (
         <StyledBaseForm onSubmit={formik.handleSubmit}>

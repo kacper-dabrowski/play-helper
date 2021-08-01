@@ -1,7 +1,7 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
-import useError from '../../../hooks/useError';
+import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
@@ -53,7 +53,7 @@ const SrqForm = (props) => {
         validateOnChange: false,
     });
 
-    useError(formik.errors, null);
+    useFormikError(formik.errors, null);
 
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>

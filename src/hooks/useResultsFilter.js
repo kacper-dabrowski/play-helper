@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-const useResultsFilter = (results, filterMethod) => {
+const useResultsFilter = (list, filterMethod) => {
+    const results = useMemo(() => list, [list.length]);
     const [searchResults, setSearchResults] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         if (!searchQuery) {
             setSearchResults(results);
+            return;
         }
 
         if (searchResults.length < 0) {

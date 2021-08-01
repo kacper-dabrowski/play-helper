@@ -2,7 +2,7 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useError from '../../../hooks/useError';
+import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
 import { loginSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
@@ -36,7 +36,7 @@ const LoginForm = ({ onSuccess }) => {
         validateOnChange: false,
     });
 
-    useError(formik.errors);
+    useFormikError(formik.errors);
     useEffect(() => {
         if (error) {
             cogoToast.error(error);
