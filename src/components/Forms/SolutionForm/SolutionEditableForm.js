@@ -2,7 +2,7 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
 
-import useError from '../../../hooks/useError';
+import useFormikError from '../../../hooks/useFormikError';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { solutionSchema } from '../../../shared/validation/validation';
@@ -50,7 +50,7 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
         validateOnChange: false,
     });
 
-    useError(formik.errors);
+    useFormikError(formik.errors);
 
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>

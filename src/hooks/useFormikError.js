@@ -2,7 +2,7 @@ import cogoToast from 'cogo-toast';
 import { useEffect } from 'react';
 import { getLastMessageFromFormikErrors } from '../shared/errors/handleErrors';
 
-const useError = (formikErrors, requestError) => {
+const useFormikError = (formikErrors, requestError) => {
     useEffect(() => {
         if (getLastMessageFromFormikErrors(formikErrors)) {
             cogoToast.error(getLastMessageFromFormikErrors(formikErrors));
@@ -10,4 +10,4 @@ const useError = (formikErrors, requestError) => {
     }, [formikErrors, requestError]);
 };
 
-export default useError;
+export default useFormikError;

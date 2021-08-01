@@ -2,7 +2,7 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useContext } from 'react';
 import srqFormContext from '../../../contexts/srqFormContext';
-import useError from '../../../hooks/useError';
+import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
@@ -51,7 +51,7 @@ const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
         },
     });
 
-    useError(formik.errors);
+    useFormikError(formik.errors);
 
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
