@@ -10,12 +10,14 @@ import authReducer from './stores/auth/authReducer';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { userReducer } from './stores/user/userReducer';
+import { basicReducer } from './stores/basic/basicReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
     user: userReducer,
+    basicTemplates: basicReducer,
 });
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 

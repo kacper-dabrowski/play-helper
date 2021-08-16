@@ -10,17 +10,21 @@ import ChannelSection from './Sections/ChannelSection';
 import TextAreaSection from './Sections/TextAreaSection';
 import TypeSection from './Sections/TypeSection';
 import { AdditionalTemplateContainer, CheckboxContainer, SettingsSection } from './StyledBasic';
+import basicActions from '../../../stores/basic/actionTypes';
 
 const telephoneTemplate = generateTelephoneTemplate();
+
 const Basic = (props) => {
+    const { storeDispatch, storeValues } = props;
+
     const [template, setTemplate] = useState('');
-    const [sex, setSex] = useState('');
-    const [type, setType] = useState('');
-    const [channel, setChannel] = useState('');
-    const [date, setDate] = useState('');
-    const [details, setDetails] = useState('');
-    const [general, setGeneral] = useState('');
-    const [hasOffer, setHasOffer] = useState(false);
+    const [sex, setSex] = useState(storeValues.sex);
+    const [type, setType] = useState(storeValues.type);
+    const [channel, setChannel] = useState(storeValues.channel);
+    const [date, setDate] = useState(storeValues.date);
+    const [details, setDetails] = useState(storeValues.details);
+    const [general, setGeneral] = useState(storeValues.general);
+    const [hasOffer, setHasOffer] = useState(storeValues.hasOffer);
 
     const generateTemplate = useCallback(() => {
         try {
@@ -36,6 +40,10 @@ const Basic = (props) => {
             };
             const generatedTemplate = generateBasicTemplate(templateConfig);
             setTemplate(generatedTemplate);
+
+            delete templateConfig.name;
+
+            storeDispatch({ type: basicActions.SET_FIELDS_VALUES, payload: templateConfig });
         } catch (error) {
             cogoToast.error(error.message);
         }
@@ -50,7 +58,9 @@ const Basic = (props) => {
         setDetails('');
         setGeneral('');
         setHasOffer(false);
-    }, []);
+        storeDispatch({ type: basicActions.CLEAR_FIELDS_VALUES });
+    }, [storeDispatch]);
+
     return (
         <>
             <div>

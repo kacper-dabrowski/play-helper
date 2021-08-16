@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
@@ -18,6 +18,8 @@ const Support = () => {
         isAuthenticated: Boolean(state.auth.token),
     }));
     const startingPage = useSelector((state) => state.user?.settings?.startingPage);
+    const basicTemplateValues = useSelector((state) => state.basicTemplates);
+    const basicTemplateDispatch = useDispatch();
 
     return (
         <SupportLayout routes={routes.support} backgroundImage={backgroundImage}>
@@ -26,7 +28,7 @@ const Support = () => {
                     <Srq />
                 </Route>
                 <Route exact path={routes.support.basic.path}>
-                    <Basic name={fullName} />
+                    <Basic name={fullName} storeValues={basicTemplateValues} storeDispatch={basicTemplateDispatch} />
                 </Route>
                 <Route exact path={routes.support.doubleOpened.path}>
                     <Double type={config.double.opened} />
