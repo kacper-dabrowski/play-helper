@@ -1,98 +1,64 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
-import { authActions } from './actionTypes';
+import { actions } from './authSlice';
 
-const authStart = () => {
-    return { type: authActions.AUTH_START };
-};
+const checkTimeout = createAsyncThunk('auth/session-inactive', async ({ expirationTime }, { dispatch }) => {
+    const logoutTimeoutId = setTimeout(() => {
+        dispatch(actions.logout());
+    }, +expirationTime * 1000);
 
-const authSuccess = (token, userId, fullName) => {
-    return {
-        type: authActions.AUTH_SUCCESS,
-        idToken: token,
-        userId,
-        fullName,
-    };
-};
-
-const authFail = (error) => {
-    return {
-        type: authActions.AUTH_FAIL,
-        error,
-    };
-};
-
-export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('fullName');
-
-    return {
-        type: authActions.AUTH_LOGOUT,
-    };
-};
-
-export const logoutTimeoutSet = (logoutTimeoutId) => ({
-    type: authActions.LOGOUT_TIMEOUT_SET,
-    payload: {
-        logoutTimeoutId,
-    },
+    dispatch(actions.setLogoutTimeoutId(logoutTimeoutId));
 });
 
-const checkTimeout = (expirationTime) => {
-    return (dispatch) => {
-        const logoutTimeoutId = setTimeout(() => {
-            dispatch(logout());
-        }, +expirationTime * 1000);
-        dispatch(logoutTimeoutSet(logoutTimeoutId));
-    };
-};
+export const loginUser = createAsyncThunk('auth/login', async ({ username, password, onSuccess }, { dispatch }) => {
+    try {
+        const response = await axios.post(urls.login, { username, password });
 
-export const auth = (login, password, onSuccess) => {
-    return async (dispatch) => {
-        dispatch(authStart());
+        const { token: idToken, userId, fullName, expiresIn } = response.data;
 
-        try {
-            const authData = { username: login, password };
-            const response = await axios.post(urls.login, authData);
-            const { token: idToken, userId, fullName, expiresIn } = response.data;
-            if (!idToken || !userId) {
-                throw new Error('Unable to authenticate');
-            }
-            const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-            localStorage.setItem('token', idToken);
-            localStorage.setItem('expirationDate', expirationDate.toString());
-            localStorage.setItem('fullName', fullName);
-            localStorage.setItem('userId', userId);
-            dispatch(authSuccess(idToken, userId, fullName));
-            dispatch(checkTimeout(expiresIn));
-
-            if (onSuccess) {
-                onSuccess();
-            }
-        } catch (error) {
-            dispatch(authFail(error?.response?.data.message || error.message));
-        }
-    };
-};
-
-export const authCheckState = () => {
-    return (dispatch) => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            return dispatch(logout());
-        }
-        const userId = localStorage.getItem('userId');
-        const fullName = localStorage.getItem('fullName');
-
-        const expirationDate = new Date(localStorage.getItem('expirationDate'));
-        const isTokenValid = expirationDate.getTime() >= new Date().getTime();
-        if (isTokenValid) {
-            dispatch(authSuccess(token, userId, fullName));
-            return dispatch(checkTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+        if (!idToken || !userId) {
+            throw new Error('Unable to authenticate');
         }
 
-        return dispatch(logout());
-    };
-};
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+        localStorage.setItem('token', idToken);
+        localStorage.setItem('expirationDate', expirationDate.toString());
+        localStorage.setItem('fullName', fullName);
+        localStorage.setItem('userId', userId);
+
+        if (onSuccess && typeof onSuccess === 'function') {
+            onSuccess();
+        }
+
+        dispatch(checkTimeout({ expirationTime: expiresIn }));
+
+        dispatch(actions.loginSuccess(response.data));
+    } catch (error) {
+        return { error: error.message };
+    }
+});
+
+export const authCheckState = createAsyncThunk('auth/auth-check-state', async (payload, { dispatch }) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        return dispatch(actions.logout());
+    }
+    const userId = localStorage.getItem('userId');
+    const fullName = localStorage.getItem('fullName');
+
+    const expirationDate = new Date(localStorage.getItem('expirationDate'));
+
+    const isTokenValid = expirationDate.getTime() >= new Date().getTime();
+
+    if (isTokenValid) {
+        dispatch(actions.loginSuccess({ token, userId, fullName }));
+        const calculatedTimeLeft = (expirationDate.getTime() - new Date().getTime()) / 1000;
+
+        return dispatch(checkTimeout({ expirationTime: calculatedTimeLeft }));
+    }
+
+    return dispatch(actions.logout());
+});

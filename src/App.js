@@ -10,8 +10,9 @@ import UserPanel from './Pages/UserPanel/UserPanel';
 import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
 import routes from './shared/routes';
 import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
-import { authCheckState } from './stores/auth/auth';
+
 import { fetchUserSettings } from './stores/user/user';
+import { authCheckState } from './stores/auth/auth';
 
 const App = () => {
     const areSettingsLoading = useSelector((state) => state.user.loading);
