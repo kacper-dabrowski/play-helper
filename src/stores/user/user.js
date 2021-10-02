@@ -1,48 +1,23 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
-import { userActions } from './actionTypes';
+import { actions } from './userSlice';
 
-const userFetchStart = () => {
-    return { type: userActions.USER_FETCH_START };
-};
+export const fetchUserSettings = createAsyncThunk('user/fetch-settings', async (payload, { dispatch }) => {
+    dispatch(actions.userFetchStart());
+    try {
+        const response = await axios.get(urls.settings);
 
-const userFetchSuccess = (settings) => {
-    return {
-        type: userActions.USER_FETCH_SUCCESS,
-        payload: { settings },
-    };
-};
+        dispatch(actions.userFetchSuccess({ settings: response.data.settings }));
+    } catch (error) {
+        dispatch(actions.userFetchFailed({ error: error.message }));
+    }
+});
 
-const userFetchFail = (error) => {
-    return {
-        type: userActions.USER_FETCH_FAIL,
-        payload: { error },
-    };
-};
-
-const userSettingsUpdate = (settings) => {
-    return { type: userActions.USER_UPDATE, payload: { settings } };
-};
-
-export const fetchUserSettings = () => {
-    return async (dispatch) => {
-        dispatch(userFetchStart());
-        try {
-            const response = await axios.get(urls.settings);
-
-            dispatch(userFetchSuccess(response.data.settings));
-        } catch (error) {
-            dispatch(userFetchFail(error));
-        }
-    };
-};
-
-export const updateUserSettings = (settings) => {
-    return async (dispatch) => {
-        try {
-            dispatch(userSettingsUpdate(settings));
-        } catch (error) {
-            dispatch(userFetchFail(error));
-        }
-    };
-};
+export const updateUserSettings = createAsyncThunk('user/update-settings', (payload, { dispatch }) => {
+    try {
+        dispatch(actions.userSettingsUpdate(payload));
+    } catch (error) {
+        dispatch(actions.userFetchFailed({ error: error.message }));
+    }
+});

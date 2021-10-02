@@ -9,9 +9,9 @@ import urls from '../../../shared/urls';
 import { signupSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import Spinner from '../../UI/Spinner/Spinner';
-import { auth } from '../../../stores/auth/auth';
 import { StyledBaseForm, StyledFormHeader, TwoColumnFormLayout } from '../BaseForm/BaseForm';
 import FormInput from '../../Inputs/FormInput/FormInput';
+import { loginUser } from '../../../stores/auth/auth';
 
 const SignUpForm = ({ closeModalHandler }) => {
     const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const SignUpForm = ({ closeModalHandler }) => {
                 }
 
                 if (response) {
-                    return dispatch(auth(username, password, closeModalHandler));
+                    return dispatch(loginUser({ username, password, onSuccess: closeModalHandler }));
                 }
             } catch (requestError) {
                 cogoToast.error(requestError.message);

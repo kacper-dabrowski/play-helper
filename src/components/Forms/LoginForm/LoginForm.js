@@ -7,10 +7,11 @@ import useFocus from '../../../hooks/useFocus';
 import { loginSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import Spinner from '../../UI/Spinner/Spinner';
-import { auth } from '../../../stores/auth/auth';
+
 import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { LoginInputsWrapper } from './StyledLoginForm';
+import { loginUser } from '../../../stores/auth/auth';
 
 const LoginForm = ({ onSuccess }) => {
     const error = useSelector((state) => state.auth.error);
@@ -25,9 +26,13 @@ const LoginForm = ({ onSuccess }) => {
             const { login, password } = values;
 
             dispatch(
-                auth(login, password, () => {
-                    onSuccess();
-                    cogoToast.success('Zalogowano pomyślnie');
+                loginUser({
+                    username: login,
+                    password,
+                    onSuccess: () => {
+                        onSuccess();
+                        cogoToast.success('Zalogowano pomyślnie');
+                    },
                 })
             );
         },

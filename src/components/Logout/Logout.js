@@ -2,7 +2,7 @@ import cogoToast from 'cogo-toast';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
-import { logout } from '../../stores/auth/auth';
+import { actions } from '../../stores/auth/authSlice';
 
 const Logout = () => {
     const logoutTimeoutId = useSelector((state) => state.auth.logoutTimeoutId);
@@ -10,7 +10,7 @@ const Logout = () => {
 
     useEffect(() => {
         clearTimeout(logoutTimeoutId);
-        dispatch(logout());
+        dispatch(actions.logout());
         cogoToast.info('Zostałeś wylogowany');
     });
 
