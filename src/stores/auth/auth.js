@@ -71,3 +71,22 @@ export const logout = createAsyncThunk('auth/logout', async (payload, { dispatch
     localStorage.removeItem('userId');
     dispatch(actions.logout());
 });
+
+export const registerUser = createAsyncThunk('auth/register', async (payload, { dispatch }) => {
+    try {
+        const { username, password, fullName } = payload;
+
+        dispatch(actions.registerStart());
+
+        const response = await axios.post(urls.signup, { username, password, fullName });
+
+        dispatch(actions.registerSuccess(response.data));
+        dispatch(loginUser({ username, password }));
+
+        if (typeof payload?.onSuccess === 'function') {
+            payload.onSuccess();
+        }
+    } catch (error) {
+        dispatch(actions.registerFail({ error: error?.response?.data?.message || error.message }));
+    }
+});

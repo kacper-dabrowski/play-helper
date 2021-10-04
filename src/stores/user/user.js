@@ -10,7 +10,7 @@ export const fetchUserSettings = createAsyncThunk('user/fetch-settings', async (
 
         dispatch(actions.userFetchSuccess({ settings: response.data.settings }));
     } catch (error) {
-        dispatch(actions.userFetchFailed({ error: error.message }));
+        dispatch(actions.userFetchFail({ error: error.message }));
     }
 });
 
@@ -19,5 +19,17 @@ export const updateUserSettings = createAsyncThunk('user/update-settings', (payl
         dispatch(actions.userSettingsUpdate(payload));
     } catch (error) {
         dispatch(actions.userFetchFailed({ error: error.message }));
+    }
+});
+
+export const fetchSupportRequests = createAsyncThunk('user/fetch-srq', async (payload, { dispatch }) => {
+    try {
+        dispatch(actions.supportRequestsFetchStart());
+
+        const response = await axios.get(urls.srq);
+
+        dispatch(actions.supportRequestsFetchSuccess(response.data));
+    } catch (error) {
+        dispatch(actions.supportRequestsFetchFail({ error: error?.response?.message || error.message }));
     }
 });
