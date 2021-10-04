@@ -1,5 +1,6 @@
 import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
+import { useStore } from 'react-redux';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
@@ -12,15 +13,14 @@ import urls from '../../../shared/urls';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 
-const Solution = () => {
-    const { error, response, loading, requestHandler } = useRequest(urls.solution);
+const Solution = ({ solutions, requestStatus, refreshSolutions }) => {
     const { requestHandler: deleteRequestHandler, error: deleteRequestError } = useRequest(
         urls.solution,
         REQUEST_METHODS.DELETE
     );
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
-    const results = response?.data || [];
+    const results = solutions || [];
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
 
     const toggleEditModeAndPopulateFields = (solution) => {
@@ -32,7 +32,7 @@ const Solution = () => {
         try {
             await deleteRequestHandler(null, () => `${urls.solution}/${id}`);
 
-            await requestHandler?.();
+            refreshSolutions();
 
             if (deleteRequestError) {
                 throw deleteRequestError;
@@ -40,18 +40,18 @@ const Solution = () => {
 
             cogoToast.success('Rozwiązanie usunięto pomyślnie');
         } catch (deletionError) {
-            cogoToast.error(error.message);
+            cogoToast.error(deletionError.message);
         }
     };
     let content;
 
     useEffect(() => {
-        if (error) {
-            cogoToast.error(error.message);
+        if (requestStatus.error) {
+            cogoToast.error(requestStatus.error);
         }
-    }, [error]);
+    }, [requestStatus.error]);
 
-    if (loading) {
+    if (requestStatus.loading) {
         content = <Spinner centered />;
     } else {
         content = filteredSolutions.map((solution) => (
@@ -72,11 +72,11 @@ const Solution = () => {
             {editMode ? (
                 <SolutionEditableForm
                     populatedFields={fieldsToPopulate}
-                    refresh={requestHandler}
+                    refresh={refreshSolutions}
                     setEditMode={setEditMode}
                 />
             ) : (
-                <SolutionForm refresh={requestHandler} />
+                <SolutionForm refresh={refreshSolutions} />
             )}
             <SolutionFinderContainer>
                 <Searchbar onType={setSearchQuery} value={searchQuery} />
