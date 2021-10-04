@@ -45,3 +45,22 @@ export const fetchSolutions = createAsyncThunk('user/fetch-solutions', async (pa
         dispatch(actions.solutionsFetchFail({ error: error?.response?.message || error.message }));
     }
 });
+
+export const removeSolution = createAsyncThunk(
+    'user/remove-solution',
+    async ({ solutionId, onSuccess }, { dispatch }) => {
+        try {
+            dispatch(actions.solutionRemoveStart());
+
+            await axios.delete(`${urls.solution}/${solutionId}`);
+
+            dispatch(actions.solutionRemoveSuccess());
+
+            if (typeof onSuccess === 'function') {
+                onSuccess();
+            }
+        } catch (error) {
+            dispatch(actions.solutionRemoveFail({ error: error?.response?.message || error.message }));
+        }
+    }
+);

@@ -6,18 +6,18 @@ import { SolutionResult } from '../../../components/Results/Result/Solution/Solu
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import useResultsFilter from '../../../hooks/useResultsFilter';
-import urls from '../../../shared/urls';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 
-const Solution = ({ solutions, requestStatus, refreshSolutions, onFetchSolutions }) => {
-    const { requestHandler: deleteRequestHandler, error: deleteRequestError } = useRequest(
-        urls.solution,
-        REQUEST_METHODS.DELETE
-    );
-
+const Solution = ({
+    solutions,
+    requestStatus,
+    refreshSolutions,
+    onFetchSolutions,
+    onRemoveSolution,
+    deletionRequestStatus,
+}) => {
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = solutions || [];
@@ -33,27 +33,23 @@ const Solution = ({ solutions, requestStatus, refreshSolutions, onFetchSolutions
     };
 
     const removeSolutionHandler = async (id) => {
-        try {
-            await deleteRequestHandler(null, () => `${urls.solution}/${id}`);
-
+        const onSuccess = () => {
             refreshSolutions();
+            cogoToast.success('Rozwiązanie usunięte pomyślnie.');
+        };
 
-            if (deleteRequestError) {
-                throw deleteRequestError;
-            }
-
-            cogoToast.success('Rozwiązanie usunięto pomyślnie');
-        } catch (deletionError) {
-            cogoToast.error(deletionError.message);
-        }
+        onRemoveSolution(id, onSuccess);
     };
     let content;
 
     useEffect(() => {
+        if (deletionRequestStatus.error) {
+            cogoToast.error(deletionRequestStatus.error);
+        }
         if (requestStatus.error) {
             cogoToast.error(requestStatus.error);
         }
-    }, [requestStatus.error]);
+    }, [deletionRequestStatus.error, requestStatus.error]);
 
     if (requestStatus.loading) {
         content = <Spinner centered />;

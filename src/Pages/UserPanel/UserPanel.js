@@ -7,7 +7,7 @@ import SrqPanel from './SrqPanel/SrqPanel';
 import Solution from './Solution/Solution';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import { useStore } from '../../hooks/useStore';
-import { fetchSolutions, fetchSupportRequests } from '../../stores/user/user';
+import { fetchSolutions, fetchSupportRequests, removeSolution } from '../../stores/user/user';
 
 const UserPanel = () => {
     const { userStore, dispatch } = useStore();
@@ -20,6 +20,13 @@ const UserPanel = () => {
         dispatch(fetchSupportRequests());
     }, [dispatch]);
 
+    const onRemoveSolution = useCallback(
+        (solutionId, onSuccess) => {
+            dispatch(removeSolution({ solutionId, onSuccess }));
+        },
+        [dispatch]
+    );
+
     return (
         <SupportLayout routes={routes.userPanel} backgroundImage={backgroundImage}>
             <NotFoundProviderSwitch>
@@ -30,6 +37,8 @@ const UserPanel = () => {
                         requestStatus={userStore.fetchSolutionsRequest}
                         solutions={userStore.solutions}
                         refreshSolutions={onFetchSolutions}
+                        onRemoveSolution={onRemoveSolution}
+                        deletionRequestStatus={userStore.removeSolutionRequest}
                     />
                 </PrivateRoute>
                 <PrivateRoute exact path={routes.userPanel.srq.path}>
