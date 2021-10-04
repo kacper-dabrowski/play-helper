@@ -5,9 +5,7 @@ import { SolutionResult } from '../../../components/Results/Result/Solution/Solu
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import useRequest from '../../../hooks/useRequest';
 import useResultsFilter from '../../../hooks/useResultsFilter';
-import urls from '../../../shared/urls';
 import { SolutionResults } from './StyledSolutions';
 
 export const solutionSearchMethod = (results, searchPhrase) =>
@@ -18,11 +16,13 @@ export const solutionSearchMethod = (results, searchPhrase) =>
             result.content.toLowerCase().includes(searchPhrase)
     );
 
-const Solutions = () => {
+const Solutions = ({ requestStatus, solutions, onFetchSolutions }) => {
     const [template, setTemplate] = useState('');
-    const { error, response, loading } = useRequest(urls.solution);
-    const solutions = response?.data || [];
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
+
+    useEffect(() => {
+        onFetchSolutions();
+    }, [onFetchSolutions]);
 
     const normalizeSolutions = ({ title, description, content, isPublic, _id }) => (
         <SolutionResult
@@ -37,18 +37,18 @@ const Solutions = () => {
     );
 
     useEffect(() => {
-        if (error) {
-            cogoToast.error(error.message);
+        if (requestStatus.error) {
+            cogoToast.error(requestStatus.error);
         }
-    }, [error]);
+    }, [requestStatus.error]);
 
     let results;
 
-    if (loading) {
+    if (requestStatus.loading) {
         results = <Spinner centered />;
     }
 
-    if (!loading && results?.length === 0) {
+    if (!requestStatus.loading && results?.length === 0) {
         results = <p>Brak wyników</p>;
     }
 

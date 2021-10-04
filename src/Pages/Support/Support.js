@@ -1,5 +1,4 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
 import { Redirect, Route } from 'react-router';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
@@ -11,19 +10,29 @@ import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import Solutions from './Solutions/Solutions';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import routes from '../../shared/routes';
+import { useStore } from '../../hooks/useStore';
+import { fetchSolutions, fetchSupportRequests } from '../../stores/user/user';
 
 const Support = () => {
-    const { fullName } = useSelector((state) => state.auth.user);
-    const startingPage = useSelector((state) => state.user?.settings?.startingPage);
+    const { authStore, dispatch, userStore } = useStore();
+    const { settings } = userStore;
+
+    const onFetchSolutions = useCallback(() => {
+        dispatch(fetchSolutions());
+    }, [dispatch]);
+
+    const onFetchSupportRequests = useCallback(() => {
+        dispatch(fetchSupportRequests());
+    }, [dispatch]);
 
     return (
         <SupportLayout routes={routes.support} backgroundImage={backgroundImage}>
             <NotFoundProviderSwitch>
                 <Route exact path={routes.support.srq.path}>
-                    <Srq />
+                    <Srq onFetchSupportRequests={onFetchSupportRequests} />
                 </Route>
                 <Route exact path={routes.support.basic.path}>
-                    <Basic name={fullName} />
+                    <Basic name={authStore.fullName} />
                 </Route>
                 <Route exact path={routes.support.doubleOpened.path}>
                     <Double type={config.double.opened} />
@@ -35,10 +44,14 @@ const Support = () => {
                     <Payments />
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
-                    <Solutions />
+                    <Solutions
+                        solutions={userStore.solutions}
+                        onFetchSolutions={onFetchSolutions}
+                        requestStatus={userStore.fetchSolutionsRequest}
+                    />
                 </Route>
                 <Route exact path={routes.support.main.path}>
-                    <Redirect to={startingPage || routes.support.basic.path} />
+                    <Redirect to={settings?.startingPage || routes.support.basic.path} />
                 </Route>
             </NotFoundProviderSwitch>
         </SupportLayout>
