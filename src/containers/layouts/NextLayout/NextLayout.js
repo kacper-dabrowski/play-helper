@@ -5,7 +5,7 @@ import Navbar from '../../../components/UI/Navbars/PageNavbar/Navbar';
 import { BaseLayout } from '../BaseLayout/BaseLayout';
 
 export const NextLayout = ({ children, routes, backgroundImage }) => {
-    const fullName = useSelector((state) => state.auth.fullName);
+    const fullName = useSelector((state) => state.auth.user.fullName);
 
     return (
         <>

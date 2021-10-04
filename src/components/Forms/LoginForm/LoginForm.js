@@ -14,8 +14,7 @@ import { LoginInputsWrapper } from './StyledLoginForm';
 import { loginUser } from '../../../stores/auth/auth';
 
 const LoginForm = ({ onSuccess }) => {
-    const error = useSelector((state) => state.auth.error);
-    const isLoading = useSelector((state) => state.auth.loading);
+    const { error, loading } = useSelector((state) => state.auth.loginRequest);
 
     const dispatch = useDispatch();
     const focusRef = useFocus();
@@ -72,7 +71,7 @@ const LoginForm = ({ onSuccess }) => {
                     placeholder="Hasło"
                 />
             </LoginInputsWrapper>
-            {isLoading ? <Spinner centered /> : <SubmitButton title="Zaloguj się" />}
+            {loading ? <Spinner centered /> : <SubmitButton title="Zaloguj się" />}
         </StyledBaseForm>
     );
 };

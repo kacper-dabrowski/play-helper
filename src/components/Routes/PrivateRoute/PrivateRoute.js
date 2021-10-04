@@ -4,7 +4,7 @@ import { Route } from 'react-router';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 const PrivateRoute = ({ ...props }) => {
-    const isAuthenticated = useSelector((state) => !!state.auth.token);
+    const isAuthenticated = useSelector((state) => !!state.auth.user.token);
 
     const renderRoute = () => {
         if (!isAuthenticated) {
