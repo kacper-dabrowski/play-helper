@@ -15,8 +15,8 @@ const WelcomeScreen = () => {
     const [loginModalOpened, setLoginModalOpened] = useState(false);
     const [signInModalOpened, setSignInModalOpened] = useState(false);
     const [settingsModalOpened, setSettingsModalOpened] = useState(false);
-    const isAuthenticated = useSelector((state) => !!state.auth.token);
-    const fullName = useSelector((state) => state.auth.fullName);
+    const isAuthenticated = useSelector((state) => !!state.auth.user.token);
+    const fullName = useSelector((state) => state.auth.user.fullName);
 
     return (
         <>

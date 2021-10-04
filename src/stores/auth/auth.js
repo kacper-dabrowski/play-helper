@@ -13,6 +13,7 @@ const checkTimeout = createAsyncThunk('auth/session-inactive', async ({ expirati
 
 export const loginUser = createAsyncThunk('auth/login', async ({ username, password, onSuccess }, { dispatch }) => {
     try {
+        dispatch(actions.loginStart());
         const response = await axios.post(urls.login, { username, password });
 
         const { token: idToken, userId, fullName, expiresIn } = response.data;
@@ -36,7 +37,7 @@ export const loginUser = createAsyncThunk('auth/login', async ({ username, passw
 
         dispatch(actions.loginSuccess(response.data));
     } catch (error) {
-        return { error: error.message };
+        dispatch(actions.loginFail({ error: error?.response?.data?.message || error.message }));
     }
 });
 
@@ -61,4 +62,12 @@ export const authCheckState = createAsyncThunk('auth/auth-check-state', async (p
     }
 
     return dispatch(actions.logout());
+});
+
+export const logout = createAsyncThunk('auth/logout', async (payload, { dispatch }) => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationDate');
+    localStorage.removeItem('fullName');
+    localStorage.removeItem('userId');
+    dispatch(actions.logout());
 });

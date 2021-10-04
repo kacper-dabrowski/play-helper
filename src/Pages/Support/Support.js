@@ -13,10 +13,7 @@ import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwit
 import routes from '../../shared/routes';
 
 const Support = () => {
-    const { fullName } = useSelector((state) => ({
-        fullName: state.auth.fullName,
-        isAuthenticated: Boolean(state.auth.token),
-    }));
+    const { fullName } = useSelector((state) => state.auth.user);
     const startingPage = useSelector((state) => state.user?.settings?.startingPage);
 
     return (

@@ -9,7 +9,7 @@ import Settings from './Settings/Settings';
 import { NextLayout } from '../../containers/layouts/NextLayout/NextLayout';
 
 const PlayNext = () => {
-    const username = useSelector((state) => state.auth.fullName);
+    const username = useSelector((state) => state.auth.user.fullName);
     const [language, setLanguage] = useState(identifiers.language.polish);
     const [sex, setSex] = useState(identifiers.sex.man);
     const [template, setTemplate] = useState('');

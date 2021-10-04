@@ -1,12 +1,20 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import {
+    requestFinishedSuccessfully,
+    requestFinishedWithError,
+    requestLoading,
+    createRequestStatus,
+} from '../../shared/requestStatus/requestStatus';
 
 const initialState = {
-    token: null,
-    userId: null,
-    error: null,
-    loading: false,
-    fullName: '',
+    user: {
+        token: null,
+        userId: null,
+        fullName: '',
+    },
+    loginRequest: createRequestStatus(),
+    registrationRequest: createRequestStatus(),
     logoutTimeoutId: null,
 };
 
@@ -15,25 +23,39 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         loginStart: (state) => {
-            state.loading = true;
+            state.loginRequest = requestLoading();
         },
         loginFail: (state, action) => {
-            state.loading = false;
-            state.error = action.payload.error;
+            state.loginRequest = requestFinishedWithError(action.payload.error);
         },
         loginSuccess: (state, action) => {
-            state.loading = false;
-            state.error = null;
-            state.token = action.payload.token;
-            state.fullName = action.payload.fullName;
-            state.userId = action.payload.userId;
+            state.loginRequest = requestFinishedSuccessfully();
+            // state.token = action.payload.token;
+            // state.fullName = action.payload.fullName;
+            // state.userId = action.payload.userId;
+
+            state.user = {
+                token: action.payload.token,
+                fullName: action.payload.fullName,
+                userId: action.payload.userId,
+            };
+        },
+        registerStart: (state) => {
+            state.registrationRequest = requestLoading();
+        },
+
+        registerFail: (state, action) => {
+            state.registrationRequest = requestFinishedWithError(action.payload.error);
+        },
+        registerSuccess: (state) => {
+            state.registrationRequest = requestFinishedSuccessfully();
         },
         setLogoutTimeoutId: (state, action) => {
             state.logoutTimeoutId = action.payload.logoutTimeoutId;
         },
         logout: (state) => {
             clearTimeout(state.logoutTimeoutId);
-            state.token = null;
+            state.user = { token: null, userId: null, fullName: '' };
         },
     },
 });
