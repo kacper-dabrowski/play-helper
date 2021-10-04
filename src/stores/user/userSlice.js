@@ -15,7 +15,7 @@ export const userSlice = createSlice({
         fetchSolutionsRequest: createRequestStatus(),
         settings: null,
         supportRequests: null,
-        solutions: null,
+        solutions: [],
     },
     reducers: {
         userFetchStart: (state) => {

@@ -39,7 +39,7 @@ export const fetchSolutions = createAsyncThunk('user/fetch-solutions', async (pa
         dispatch(actions.solutionsFetchStart());
 
         const response = await axios.get(urls.solution);
-        console.log(response.data);
+
         dispatch(actions.solutionsFetchSuccess({ solutions: response.data }));
     } catch (error) {
         dispatch(actions.solutionsFetchFail({ error: error?.response?.message || error.message }));

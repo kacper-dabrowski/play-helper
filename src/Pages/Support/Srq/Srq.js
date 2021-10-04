@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 import { useStore } from '../../../hooks/useStore';
-import { fetchSupportRequests } from '../../../stores/user/user';
 
-const Srq = () => {
+const Srq = ({ onFetchSupportRequests }) => {
     const [template, setTemplate] = useState('');
-    const { userStore, dispatch } = useStore();
+    const { userStore } = useStore();
 
     useEffect(() => {
-        dispatch(fetchSupportRequests());
-    }, [dispatch]);
+        onFetchSupportRequests();
+    }, [onFetchSupportRequests]);
 
     return (
         <>

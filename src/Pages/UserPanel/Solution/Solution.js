@@ -1,6 +1,5 @@
 import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
-import { useStore } from 'react-redux';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
@@ -13,15 +12,20 @@ import urls from '../../../shared/urls';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 
-const Solution = ({ solutions, requestStatus, refreshSolutions }) => {
+const Solution = ({ solutions, requestStatus, refreshSolutions, onFetchSolutions }) => {
     const { requestHandler: deleteRequestHandler, error: deleteRequestError } = useRequest(
         urls.solution,
         REQUEST_METHODS.DELETE
     );
+
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = solutions || [];
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
+
+    useEffect(() => {
+        onFetchSolutions();
+    }, [onFetchSolutions]);
 
     const toggleEditModeAndPopulateFields = (solution) => {
         setEditMode(true);
