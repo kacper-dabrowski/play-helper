@@ -12,8 +12,10 @@ export const userSlice = createSlice({
     initialState: {
         fetchUserRequestStatus: createRequestStatus(),
         fetchSupportRequestsStatus: createRequestStatus(),
+        fetchSolutionsRequest: createRequestStatus(),
         settings: null,
         supportRequests: null,
+        solutions: null,
     },
     reducers: {
         userFetchStart: (state) => {
@@ -38,6 +40,16 @@ export const userSlice = createSlice({
         },
         supportRequestsFetchFail: (state, action) => {
             state.fetchSupportRequestsStatus = requestFinishedWithError(action.payload.error);
+        },
+        solutionsFetchStart: (state) => {
+            state.fetchSolutionsRequest = requestLoading();
+        },
+        solutionsFetchSuccess: (state, action) => {
+            state.fetchSolutionsRequest = requestFinishedSuccessfully();
+            state.solutions = action.payload.solutions;
+        },
+        solutionsFetchFail: (state, action) => {
+            state.fetchSolutionsRequest = requestFinishedWithError(action.payload.error);
         },
     },
 });

@@ -33,3 +33,15 @@ export const fetchSupportRequests = createAsyncThunk('user/fetch-srq', async (pa
         dispatch(actions.supportRequestsFetchFail({ error: error?.response?.message || error.message }));
     }
 });
+
+export const fetchSolutions = createAsyncThunk('user/fetch-solutions', async (payload, { dispatch }) => {
+    try {
+        dispatch(actions.solutionsFetchStart());
+
+        const response = await axios.get(urls.solution);
+        console.log(response.data);
+        dispatch(actions.solutionsFetchSuccess({ solutions: response.data }));
+    } catch (error) {
+        dispatch(actions.solutionsFetchFail({ error: error?.response?.message || error.message }));
+    }
+});
