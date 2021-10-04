@@ -1,26 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SrqEditableForm from '../../../components/Forms/SrqForm/SrqEditableForm';
 import SrqForm from '../../../components/Forms/SrqForm/SrqForm';
 import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 import srqFormContext from '../../../contexts/srqFormContext';
-import useRequest from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
+import { useStore } from '../../../hooks/useStore';
+import { fetchSupportRequests } from '../../../stores/user/user';
 
 const SrqPanel = () => {
-    const { error, response, loading, requestHandler } = useRequest(urls.srq);
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
+    const { userStore, dispatch } = useStore();
+    useEffect(() => {
+        dispatch(fetchSupportRequests());
+    }, [dispatch]);
 
     return (
         <srqFormContext.Provider value={{ editMode, setEditMode, fieldsToPopulate, setFieldsToPopulate }}>
             <div>
                 {editMode ? (
-                    <SrqEditableForm populatedFields={fieldsToPopulate} entriesRefresh={requestHandler} />
+                    <SrqEditableForm
+                        populatedFields={fieldsToPopulate}
+                        entriesRefresh={() => dispatch(fetchSupportRequests())}
+                    />
                 ) : (
-                    <SrqForm entriesRefresh={requestHandler} />
+                    <SrqForm entriesRefresh={() => dispatch(fetchSupportRequests())} />
                 )}
             </div>
-            <SrqFinder editable response={response} error={error} loading={loading} refresh={requestHandler} />
+            <SrqFinder
+                editable
+                requestStatus={userStore.fetchSupportRequestsStatus}
+                supportRequests={userStore.supportRequests}
+                refresh={() => dispatch(fetchSupportRequests())}
+            />
         </srqFormContext.Provider>
     );
 };

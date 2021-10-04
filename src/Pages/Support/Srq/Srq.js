@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
-import useRequest from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
+import { useStore } from '../../../hooks/useStore';
+import { fetchSupportRequests } from '../../../stores/user/user';
 
 const Srq = () => {
     const [template, setTemplate] = useState('');
-    const { error, response, loading } = useRequest(urls.srq);
+    const { userStore, dispatch } = useStore();
+
+    useEffect(() => {
+        dispatch(fetchSupportRequests());
+    }, [dispatch]);
 
     return (
         <>
-            <SrqFinder setTemplate={setTemplate} clickable response={response} error={error} loading={loading} />
+            <SrqFinder
+                setTemplate={setTemplate}
+                clickable
+                requestStatus={userStore.fetchSupportRequestsStatus}
+                supportRequests={userStore.supportRequests}
+            />
             <MainTextarea value={template} setTemplate={setTemplate} />
         </>
     );

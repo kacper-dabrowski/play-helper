@@ -1,21 +1,15 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
 import { signupSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledBaseForm, StyledFormHeader, TwoColumnFormLayout } from '../BaseForm/BaseForm';
 import FormInput from '../../Inputs/FormInput/FormInput';
-import { loginUser } from '../../../stores/auth/auth';
 
-const SignUpForm = ({ closeModalHandler }) => {
-    const dispatch = useDispatch();
-    const { requestHandler, error, loading, response } = useRequest(urls.signup, REQUEST_METHODS.POST);
+const SignUpForm = ({ closeModalHandler, onRegisterUser, requestStatus }) => {
     const focusRef = useFocus();
 
     const formik = useFormik({
@@ -28,28 +22,16 @@ const SignUpForm = ({ closeModalHandler }) => {
         validationSchema: signupSchema,
         validateOnChange: false,
         onSubmit: async (values) => {
-            const { username, password, fullName } = values;
-
-            try {
-                await requestHandler({ username, password, fullName }, () => urls.signup);
-
-                if (error) {
-                    throw new Error(error.message);
-                }
-
-                if (response) {
-                    return dispatch(loginUser({ username, password, onSuccess: closeModalHandler }));
-                }
-            } catch (requestError) {
-                cogoToast.error(requestError.message);
-            }
+            const { username, fullName, password } = values;
+            onRegisterUser({ username, fullName, password, onSuccess: closeModalHandler });
         },
     });
+
     useEffect(() => {
-        if (error) {
-            cogoToast.error(error.message);
+        if (requestStatus.error) {
+            cogoToast.error(requestStatus.error);
         }
-    }, [error]);
+    }, [requestStatus]);
     useFormikError(formik.errors);
 
     return (
@@ -92,7 +74,7 @@ const SignUpForm = ({ closeModalHandler }) => {
                     value={formik.values.confirmPassword}
                 />
             </TwoColumnFormLayout>
-            {loading ? <Spinner centered /> : <SubmitButton title="Utwórz konto" />}
+            {requestStatus.loading ? <Spinner centered /> : <SubmitButton title="Utwórz konto" />}
         </StyledBaseForm>
     );
 };

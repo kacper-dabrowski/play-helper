@@ -13,16 +13,15 @@ const searchMethod = (results, searchPhrase) =>
             result.department.toLowerCase().includes(searchPhrase)
     );
 
-const SrqFinder = ({ error, response, loading, refresh, editable, clickable, setTemplate }) => {
-    const srqResults = response?.data?.supportRequests || [];
-
+const SrqFinder = ({ requestStatus, supportRequests, refresh, editable, clickable, setTemplate }) => {
+    const srqResults = supportRequests || [];
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(srqResults, searchMethod);
 
     useEffect(() => {
-        if (error) {
-            cogoToast.error(error.message);
+        if (requestStatus.error) {
+            cogoToast.error(requestStatus.error);
         }
-    }, [error]);
+    }, [requestStatus]);
 
     return (
         <StyledSrqFinder>
@@ -30,8 +29,8 @@ const SrqFinder = ({ error, response, loading, refresh, editable, clickable, set
             <SrqResults
                 onCopy={setTemplate || null}
                 supportRequests={searchResults}
-                hasError={error}
-                isLoading={loading}
+                hasError={requestStatus?.error}
+                isLoading={requestStatus.loading}
                 editable={editable}
                 clickable={clickable}
                 refresh={refresh}

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router';
 import Logout from './components/Logout/Logout';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
@@ -13,17 +12,17 @@ import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
 
 import { fetchUserSettings } from './stores/user/user';
 import { authCheckState } from './stores/auth/auth';
+import { useStore } from './hooks/useStore';
 
 const App = () => {
-    const areSettingsLoading = useSelector((state) => state.user.loading);
-    const dispatch = useDispatch();
+    const { userStore, authStore, dispatch } = useStore();
 
     useEffect(() => {
         dispatch(authCheckState());
         dispatch(fetchUserSettings());
-    }, [dispatch]);
+    }, [dispatch, authStore.user.token]);
 
-    if (areSettingsLoading) {
+    if (userStore.fetchUserRequestStatus.loading) {
         return <SplashScreen />;
     }
     return (

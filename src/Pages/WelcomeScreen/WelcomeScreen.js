@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import arrowLeft from '../../assets/icons/left-arrow.svg';
 import arrowRight from '../../assets/icons/right-arrow.svg';
 import LoginModal from '../../components/Modals/LoginModal/LoginModal';
@@ -10,13 +9,17 @@ import Topbar from '../../components/UI/Navbars/Topbar/Topbar';
 import ProjectTile from './ProjectTile/ProjectTile';
 import { WelcomeScreenContainer } from './StyledWelcomeScreen';
 import { colors } from '../../shared/colors';
+import { useStore } from '../../hooks/useStore';
+import { registerUser } from '../../stores/auth/auth';
 
 const WelcomeScreen = () => {
+    const { authStore, dispatch } = useStore();
     const [loginModalOpened, setLoginModalOpened] = useState(false);
     const [signInModalOpened, setSignInModalOpened] = useState(false);
     const [settingsModalOpened, setSettingsModalOpened] = useState(false);
-    const isAuthenticated = useSelector((state) => !!state.auth.user.token);
-    const fullName = useSelector((state) => state.auth.user.fullName);
+    const isAuthenticated = Boolean(authStore?.user?.token);
+    const fullName = authStore?.user?.fullName;
+    const onRegisterUser = (payload) => dispatch(registerUser(payload));
 
     return (
         <>
@@ -30,7 +33,12 @@ const WelcomeScreen = () => {
                     onSettingsModalOpened={() => setSettingsModalOpened(true)}
                 />
                 <LoginModal isOpened={loginModalOpened} closeModalHandler={() => setLoginModalOpened(false)} />
-                <SignupModal isOpened={signInModalOpened} closeModalHandler={() => setSignInModalOpened(false)} />
+                <SignupModal
+                    isOpened={signInModalOpened}
+                    closeModalHandler={() => setSignInModalOpened(false)}
+                    onRegisterUser={onRegisterUser}
+                    requestStatus={authStore.registrationRequest}
+                />
                 <SettingsModal isOpened={settingsModalOpened} closeModalHandler={() => setSettingsModalOpened(false)} />
                 <ProjectTile
                     projectEndpoint="/next"

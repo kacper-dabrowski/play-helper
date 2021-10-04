@@ -30,10 +30,6 @@ export const authSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             state.loginRequest = requestFinishedSuccessfully();
-            // state.token = action.payload.token;
-            // state.fullName = action.payload.fullName;
-            // state.userId = action.payload.userId;
-
             state.user = {
                 token: action.payload.token,
                 fullName: action.payload.fullName,

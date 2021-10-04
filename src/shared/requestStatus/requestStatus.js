@@ -16,6 +16,7 @@ export const requestFinishedWithError = (error) => {
 
 export const requestLoading = () => {
     return {
+        error: '',
         loading: true,
     };
 };
