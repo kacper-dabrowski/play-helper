@@ -4,14 +4,15 @@ export const isEvening = (language) => {
     const now = new Date();
     const hours = now.getHours();
 
-    switch (language) {
-        case identifiers.language.english:
-            return hours >= 18 ? 'evening' : 'day';
-        case identifiers.language.polish:
-            return hours >= 18 ? 'wieczoru' : 'dnia';
-        default:
-            throw new Error('Nie udało się pobrać pory dnia');
+    if (language === identifiers.language.english) {
+        return hours >= 18 ? 'evening' : 'day';
     }
+
+    if (language === identifiers.language.polish) {
+        return hours >= 18 ? 'wieczoru' : 'dnia';
+    }
+
+    throw new Error('Nie rozpoznano języka');
 };
 
 export const returnSalutationArray = (sex) => {
