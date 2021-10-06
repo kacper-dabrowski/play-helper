@@ -1,6 +1,5 @@
 import config from '../../shared/identifiers';
 import { isEvening, isPolish, returnSalutationArray } from './next';
-import identifiers from '../../shared/identifiers';
 
 describe('modules - next', () => {
     describe('isEvening', () => {
@@ -36,7 +35,9 @@ describe('modules - next', () => {
             { gender: config.sex.woman, expected: ['Pani', 'Pani', 'Pani', 'Panią', 'Panią', 'Pani', 'Pani'] },
             { gender: config.sex.man, expected: ['Pan', 'Pana', 'Panu', 'Pana', 'Panem', 'Panu', 'Panie'] },
         ].forEach(({ gender, expected }) => {
-            expect(returnSalutationArray(gender)).toEqual(expected);
+            it(`should return expected salutation array for ${gender}`, () => {
+                expect(returnSalutationArray(gender)).toEqual(expected);
+            });
         });
         it('should throw if gender is unknown', () => {
             expect(() => returnSalutationArray('unknown')).toThrow();

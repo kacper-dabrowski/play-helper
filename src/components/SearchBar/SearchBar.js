@@ -1,6 +1,6 @@
 import React from 'react';
 import useFocus from '../../hooks/useFocus';
-import { StyledSearchbar, StyledInputWrapper } from './StyledSearchBar';
+import { StyledInputWrapper, StyledSearchbar } from './StyledSearchBar';
 
 const Searchbar = ({ onType, value }) => {
     const focusRef = useFocus();

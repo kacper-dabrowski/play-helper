@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import {
+    createRequestStatus,
     requestFinishedSuccessfully,
     requestFinishedWithError,
     requestLoading,
-    createRequestStatus,
 } from '../../shared/requestStatus/requestStatus';
 
 const initialState = {
