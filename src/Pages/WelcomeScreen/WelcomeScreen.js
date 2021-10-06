@@ -15,7 +15,7 @@ import { registerUser } from '../../stores/auth/auth';
 const WelcomeScreen = () => {
     const { authStore, dispatch } = useStore();
     const [loginModalOpened, setLoginModalOpened] = useState(false);
-    const [signInModalOpened, setSignInModalOpened] = useState(false);
+    const [signUpModalOpened, setSignUpModalOpened] = useState(false);
     const [settingsModalOpened, setSettingsModalOpened] = useState(false);
     const isAuthenticated = Boolean(authStore?.user?.token);
     const fullName = authStore?.user?.fullName;
@@ -29,13 +29,13 @@ const WelcomeScreen = () => {
                     isAuthenticated={isAuthenticated}
                     fullName={fullName}
                     onLoginModalOpened={() => setLoginModalOpened(true)}
-                    onSignInModalOpened={() => setSignInModalOpened(true)}
+                    onSignUpModalOpened={() => setSignUpModalOpened(true)}
                     onSettingsModalOpened={() => setSettingsModalOpened(true)}
                 />
                 <LoginModal isOpened={loginModalOpened} closeModalHandler={() => setLoginModalOpened(false)} />
                 <SignupModal
-                    isOpened={signInModalOpened}
-                    closeModalHandler={() => setSignInModalOpened(false)}
+                    isOpened={signUpModalOpened}
+                    closeModalHandler={() => setSignUpModalOpened(false)}
                     onRegisterUser={onRegisterUser}
                     requestStatus={authStore.registrationRequest}
                 />
