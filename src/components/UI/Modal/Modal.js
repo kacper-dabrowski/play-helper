@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Backdrop from '../Backdrop/Backdrop';
 import cancelIcon from '../../../assets/icons/cancel.svg';
 import { ModalContainer, ModalWrapper } from './StyledModal';

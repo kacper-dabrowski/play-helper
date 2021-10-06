@@ -20,7 +20,7 @@
             "jsx": true
         }
     },
-    "plugins": ["react", "prettier"],
+    "plugins": ["react", "prettier","import","autofix"],
     "rules": {
         "no-unused-vars": "warn",
         "prettier/prettier": "error",
@@ -35,6 +35,7 @@
         "jsx-a11y/label-has-associated-control": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "consistent-return": "off"
+        "consistent-return": "off",
+        "import/order": "error"
     }
 }
