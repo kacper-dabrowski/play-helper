@@ -48,7 +48,8 @@
         "format:fix": "npm run format -- --write",
         "lint": "eslint --config=./.eslintrc.json . ",
         "lint:fix": "eslint --quiet --fix --config=./.eslintrc.json .",
-        "lint:warnings": "eslint  --fix --config=./.eslintrc.json ."
+        "lint:warnings": "eslint  --fix --config=./.eslintrc.json .",
+        "check-coverage": "npm run test -- --coverage ."
     },
     "eslintConfig": {
         "extends": [
