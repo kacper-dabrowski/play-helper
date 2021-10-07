@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../../shared/colors';
 
 export const StyledSubmitButton = styled.button`
     width: 10rem;
@@ -12,9 +13,13 @@ export const StyledSubmitButton = styled.button`
     transition: ease-in-out 0.2s;
     margin-top: 1rem;
 
-    &:hover,
-    &:active,
-    &:focus {
+    &:disabled {
+        background: ${colors.grayedPurple};
+        cursor: not-allowed;
+    }
+    &:hover:not(:disabled),
+    &:active:not(:disabled),
+    &:focus:not(:disabled) {
         cursor: pointer;
         transform: scale(1.1);
     }

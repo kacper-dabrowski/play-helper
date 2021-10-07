@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../../shared/colors';
 
 export const PaymentsContainer = styled.div`
     display: flex;
@@ -38,4 +39,20 @@ export const CalculatorWrapper = styled.div`
     display: grid;
     height: 30%;
     align-items: center;
+`;
+
+export const InvoicesTips = styled.div`
+    width: 25rem;
+    padding: 4rem;
+    background-color: ${colors.mainBackground};
+    border: 1px solid purple;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    z-index: 12;
+    transform: 0;
+
+    & div {
+        width: 20rem;
+    }
 `;

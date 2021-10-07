@@ -1,15 +1,14 @@
 import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';
 import config from '../../../shared/identifiers';
 import Calculator from './Sections/Calculator';
-import Invoices from './Sections/Invoices';
 import PaymentSpan from './Sections/PaymentSpan';
 import { PaymentsContainer } from './StyledPayments';
+import InvoicesContainer from './Sections/InvoicesContainer';
 
 const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);
@@ -19,6 +18,7 @@ const Payments = ({ fullName }) => {
     const [template, setTemplate] = useState('');
     const [additionalTemplateActive, setAdditionalTemplateActive] = useState(false);
     const [additionalTemplate, setAdditionalTemplate] = useState('');
+    const [invoiceListOpened, setInvoiceListOpened] = useState(false);
 
     const setInvoicesHandler = (event) => {
         try {
@@ -88,6 +88,7 @@ const Payments = ({ fullName }) => {
                 <PaymentSpan setting={paymentSpan} setHandler={setPaymentSpan} />
                 <Calculator
                     paymentsCount={paymentsCount}
+                    openOverlayHandler={() => setInvoiceListOpened(true)}
                     setPaymentsCountHandler={setPaymentsCount}
                     amount={amount}
                     setAmountHandler={setAmount}
@@ -95,7 +96,12 @@ const Payments = ({ fullName }) => {
                     setInvoiceHandler={setInvoicesHandler}
                     onRemoveInvoice={onRemoveInvoice}
                 />
-                <Invoices invoices={invoices} removeInvoiceHandler={onRemoveInvoice} />
+                <InvoicesContainer
+                    isOpened={invoiceListOpened}
+                    invoices={invoices}
+                    closeHandler={() => setInvoiceListOpened(false)}
+                    removeInvoiceHandler={onRemoveInvoice}
+                />
                 <AdditionalTemplate
                     title="Formatka ratalna"
                     enabled={additionalTemplateActive}

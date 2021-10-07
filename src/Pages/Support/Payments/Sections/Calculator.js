@@ -3,6 +3,7 @@ import Counter from '../../../../components/Counter/Counter';
 import SupportInput from '../../../../components/Inputs/SupportInput/SupportInput';
 import config from '../../../../shared/identifiers';
 import { CalculatorWrapper } from '../StyledPayments';
+import SubmitButton from '../../../../components/Buttons/SubmitButton/SubmitButton';
 
 const Calculator = (props) => {
     const counterClickedHandler = (currentValue, minValue, maxValue) => {
@@ -24,6 +25,12 @@ const Calculator = (props) => {
             </div>
             <div>
                 <SupportInput labelContent="Numery faktur" onChange={(event) => props.setInvoiceHandler(event)} />
+                <p>Liczba faktur: {props.invoices.length}</p>
+                <SubmitButton
+                    disabled={!props.invoices.length}
+                    onClick={props.openOverlayHandler}
+                    title="Zobacz listę faktur"
+                />
             </div>
             <div>
                 <Counter

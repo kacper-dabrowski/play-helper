@@ -6,5 +6,5 @@ export const BaseContainer = styled.div`
     display: grid;
     text-align: center;
     margin: auto;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: auto 1.5fr 1fr auto;
 `;

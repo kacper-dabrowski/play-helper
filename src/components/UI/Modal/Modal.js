@@ -5,14 +5,15 @@ import Backdrop from '../Backdrop/Backdrop';
 import cancelIcon from '../../../assets/icons/cancel.svg';
 import { ModalContainer, ModalWrapper } from './StyledModal';
 import IconButton from '../../Buttons/IconButton/IconButton';
+import { fadeInOut } from '../../../shared/animations/animations';
 
 const Modal = ({ children, isOpened, closeModalHandler }) => {
     return ReactDOM.createPortal(
         <AnimatePresence>
             {isOpened && (
                 <>
-                    <Backdrop isOpened={isOpened} closeModalHandler={closeModalHandler} />
-                    <ModalWrapper as={motion.div} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                    <Backdrop isOpened={isOpened} closeHandler={closeModalHandler} />
+                    <ModalWrapper as={motion.div} {...fadeInOut()}>
                         <ModalContainer>
                             <IconButton
                                 src={cancelIcon}

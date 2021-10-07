@@ -5,7 +5,6 @@ export const TextAreaWrapper = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: auto;
     margin: 1rem 0;
 `;
 
