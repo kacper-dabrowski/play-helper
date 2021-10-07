@@ -41,7 +41,7 @@ const Support = () => {
                     <Double type={config.double.closed} />
                 </Route>
                 <Route exact path={routes.support.payments.path}>
-                    <Payments />
+                    <Payments fullName={authStore.user.fullName} />
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
                     <Solutions
