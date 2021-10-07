@@ -9,6 +9,7 @@ import Calculator from './Sections/Calculator';
 import PaymentSpan from './Sections/PaymentSpan';
 import { PaymentsContainer } from './StyledPayments';
 import InvoicesContainer from './Sections/InvoicesContainer';
+import { BaseButton } from '../../../components/Buttons/BaseButton/StyledBaseButton';
 
 const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);

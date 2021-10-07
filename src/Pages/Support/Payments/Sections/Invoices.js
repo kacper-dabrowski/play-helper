@@ -1,6 +1,5 @@
 import React from 'react';
 import Invoice from '../../../../components/Invoice/Invoice';
-import { InvoicesContainer } from '../StyledPayments';
 
 const Invoices = ({ invoices, removeInvoiceHandler }) => {
     const invoicesToComponents = invoices.map((invoiceNumber) => (
@@ -11,7 +10,7 @@ const Invoices = ({ invoices, removeInvoiceHandler }) => {
         />
     ));
 
-    return <InvoicesContainer>{invoicesToComponents}</InvoicesContainer>;
+    return invoicesToComponents;
 };
 
 export default Invoices;

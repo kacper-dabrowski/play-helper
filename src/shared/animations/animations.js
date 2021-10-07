@@ -1,7 +1,7 @@
 export const flyFromLeft = () => ({
-    initial: { translateX: '-100vh' },
-    animate: { translateX: '0%' },
-    exit: { translateX: '-100vh' },
+    initial: { translateX: '-150vh', translateY: '-50%' },
+    animate: { translateX: '-50%', translateY: '-50%' },
+    exit: { translateX: '-150vh', translateY: '-50%' },
 });
 
 export const fadeInOut = () => ({
