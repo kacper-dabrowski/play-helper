@@ -13,6 +13,7 @@ const InvoicesContainer = ({ isOpened, invoices, removeInvoiceHandler, closeHand
             closeHandler();
         }
     }, [closeHandler, invoices.length]);
+
     return (
         <AnimatePresence>
             {isOpened ? (

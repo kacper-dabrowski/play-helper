@@ -2,21 +2,22 @@ import styled from 'styled-components';
 import { colors } from '../../../shared/colors';
 
 export const PaymentsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    grid-template-rows: 1fr 1fr 1fr;
+    display: grid;
+    grid-template-areas:
+        'spans inputs'
+        'invoices buttons';
     justify-items: center;
     align-content: center;
 `;
+
 export const PaymentButtonContainer = styled.div`
     display: grid;
     height: 8rem;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    justify-items: center;
-    align-content: center;
+    justify-self: center;
+    align-self: center;
+
     & button {
         width: 80%;
         align-self: center;
@@ -24,35 +25,27 @@ export const PaymentButtonContainer = styled.div`
     }
 `;
 
-export const InvoicesContainer = styled.div`
-    width: 80%;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-`;
-
 export const ButtonsContainer = styled.div`
     margin-top: 2rem;
 `;
 
 export const CalculatorWrapper = styled.div`
-    display: grid;
-    height: 30%;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 30rem;
+    justify-content: space-around;
 `;
 
 export const InvoicesTips = styled.div`
+    top: 50%;
+    left: 50%;
     width: 25rem;
-    padding: 4rem;
+    padding: 4rem 2rem;
     background-color: ${colors.mainBackground};
     border: 1px solid purple;
     position: absolute;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     z-index: 12;
-    transform: 0;
-
-    & div {
-        width: 20rem;
-    }
 `;
