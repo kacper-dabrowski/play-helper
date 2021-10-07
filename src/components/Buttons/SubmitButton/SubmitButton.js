@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyledSubmitButton } from './StyledSubmitButton';
 
-const SubmitButton = ({ onClick, title }) => {
+const SubmitButton = ({ onClick, title, disabled }) => {
     return (
-        <StyledSubmitButton onClick={onClick} type="submit">
+        <StyledSubmitButton disabled={disabled} onClick={onClick} type="submit">
             {title}
         </StyledSubmitButton>
     );
