@@ -11,8 +11,7 @@ import Invoices from './Sections/Invoices';
 import PaymentSpan from './Sections/PaymentSpan';
 import { PaymentsContainer } from './StyledPayments';
 
-const Payments = () => {
-    const fullName = useSelector((state) => state.auth.fullName);
+const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);
     const [amount, setAmount] = useState(0);
     const [paymentsCount, setPaymentsCount] = useState(config.payments.maxCount);
