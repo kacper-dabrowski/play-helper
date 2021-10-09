@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
+import cogoToast from 'cogo-toast';
 import Double from './Double';
 import config from '../../../shared/identifiers';
 import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDouble';
@@ -31,6 +32,40 @@ describe('Support - Double', () => {
 
         return waitFor(() => {
             expect(generateOpenedDoubleTemplate).toHaveBeenCalledWith(defaultValues.current, defaultValues.doubled);
+        });
+    });
+
+    it('should show a toast message, when generate template for double opened fails', () => {
+        generateOpenedDoubleTemplate.mockImplementation(() => {
+            throw new Error('error!');
+        });
+
+        render(<Double type={config.double.opened} />);
+
+        fillAndSubmitForm();
+
+        userEvent.click(screen.getByText('Zatwierdź'));
+        const errorToastSpy = jest.spyOn(cogoToast, 'error');
+
+        return waitFor(() => {
+            expect(errorToastSpy).toHaveBeenCalledWith('error!');
+        });
+    });
+
+    it('should show a toast message, when generate template for double closed fails', () => {
+        generateClosedDoubleTemplate.mockImplementation(() => {
+            throw new Error('error!');
+        });
+
+        render(<Double type={config.double.closed} />);
+
+        fillAndSubmitForm({ ...defaultValues, sex: 'Mężczyzna' });
+
+        userEvent.click(screen.getByText('Zatwierdź'));
+        const errorToastSpy = jest.spyOn(cogoToast, 'error');
+
+        return waitFor(() => {
+            expect(errorToastSpy).toHaveBeenCalledWith('error!');
         });
     });
 
