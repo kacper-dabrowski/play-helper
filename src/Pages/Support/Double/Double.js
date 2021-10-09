@@ -1,5 +1,6 @@
 import cogoToast from 'cogo-toast';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useFormik } from 'formik';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
@@ -10,57 +11,62 @@ import InputSection from './Sections/InputSection';
 import { DoubleContainer, StyledSexSection } from './StyledDouble';
 
 const Double = ({ type }) => {
-    const [sex, setSex] = useState('');
-    const [current, setCurrent] = useState('');
-    const [doubled, setDoubled] = useState('');
+    const formik = useFormik({
+        initialValues: {
+            sex: '',
+            current: '',
+            doubled: '',
+        },
+
+        onSubmit: (values) => {
+            try {
+                let currentTemplate;
+                switch (type) {
+                    case config.double.opened:
+                        currentTemplate = generateOpenedDoubleTemplate(values.current, values.doubled);
+                        break;
+                    case config.double.closed:
+                        currentTemplate = generateClosedDoubleTemplate(values.sex, values.current, values.doubled);
+                        break;
+                    default:
+                        throw new Error('Invalid double type');
+                }
+
+                setTemplate(currentTemplate);
+            } catch (error) {
+                cogoToast.error(error.message);
+            }
+        },
+    });
     const [template, setTemplate] = useState('');
 
     const clearFields = useCallback(() => {
-        setSex(null);
+        formik.resetForm();
         setTemplate('');
-        setDoubled('');
-        setCurrent('');
     }, []);
 
     useEffect(() => clearFields(), [clearFields, type]);
-
-    const generateTemplateHandler = useCallback(() => {
-        try {
-            let currentTemplate;
-            switch (type) {
-                case config.double.opened:
-                    currentTemplate = generateOpenedDoubleTemplate(current, doubled);
-                    break;
-                case config.double.closed:
-                    currentTemplate = generateClosedDoubleTemplate(sex, current, doubled);
-                    break;
-                default:
-                    throw new Error('Invalid double type');
-            }
-
-            setTemplate(currentTemplate);
-        } catch (error) {
-            cogoToast.error(error.message);
-        }
-    }, [type, doubled, current, sex]);
 
     return (
         <>
             <DoubleContainer type={type}>
                 {type === config.double.closed && (
                     <StyledSexSection>
-                        <SexSection setting={sex} setHandler={setSex} />
+                        <SexSection
+                            setting={formik.values.sex}
+                            setHandler={(value) => formik.setFieldValue('sex', value)}
+                        />
                     </StyledSexSection>
                 )}
 
                 <InputSection
-                    current={current}
-                    doubled={doubled}
-                    setCurrentHandler={setCurrent}
-                    setDoubledHandler={setDoubled}
+                    current={formik.values.current}
+                    doubled={formik.values.doubled}
+                    setCurrentHandler={(value) => formik.setFieldValue('current', value)}
+                    setDoubledHandler={(value) => formik.setFieldValue('doubled', value)}
                     type={type}
                 />
-                <ConfirmButtons onClearFields={clearFields} onGenerateTemplate={generateTemplateHandler} />
+                <ConfirmButtons onClearFields={clearFields} onGenerateTemplate={formik.handleSubmit} />
             </DoubleContainer>
             <MainTextarea value={template} setTemplate={setTemplate} />
         </>
