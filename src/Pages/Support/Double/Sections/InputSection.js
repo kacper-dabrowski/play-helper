@@ -12,6 +12,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
                     onChange={(event) => setDoubledHandler(event.target.value)}
                     value={doubled}
                     labelContent="Numer zgłoszenia zamkniętego"
+                    placeholder="Numer zamkniętego zgłoszenia"
                 />
             );
             break;
@@ -21,6 +22,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
                     onChange={(event) => setDoubledHandler(event.target.value)}
                     value={doubled}
                     labelContent="Numer zgłoszenia otwartego"
+                    placeholder="Numer otwartego zgłoszenia"
                 />
             );
             break;
@@ -33,6 +35,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
                 onChange={(event) => setCurrentHandler(event.target.value)}
                 value={current}
                 labelContent="Number zgłoszenia bieżącego"
+                placeholder="Numer Twojego zgłoszenia"
             />
             {secondInput}
         </StyledInputSection>
