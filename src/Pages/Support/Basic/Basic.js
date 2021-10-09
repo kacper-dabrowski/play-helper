@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
+import { useFormik } from 'formik';
 import cogoToast from 'cogo-toast';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
-import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
+import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
@@ -12,66 +13,76 @@ import TypeSection from './Sections/TypeSection';
 import { AdditionalTemplateContainer, CheckboxContainer, SettingsSection } from './StyledBasic';
 
 const telephoneTemplate = generateTelephoneTemplate();
-const Basic = (props) => {
+
+const Basic = ({ name }) => {
+    const formik = useFormik({
+        initialValues: {
+            sex: '',
+            type: '',
+            channel: '',
+            date: '',
+            general: '',
+            details: '',
+            hasOffer: false,
+        },
+        onSubmit: (values) => {
+            try {
+                const templateConfig = {
+                    name,
+                    ...values,
+                };
+
+                const generatedTemplate = generateBasicTemplate(templateConfig);
+                setTemplate(generatedTemplate);
+            } catch (error) {
+                cogoToast.error(error.message);
+            }
+        },
+    });
+
     const [template, setTemplate] = useState('');
-    const [sex, setSex] = useState('');
-    const [type, setType] = useState('');
-    const [channel, setChannel] = useState('');
-    const [date, setDate] = useState('');
-    const [details, setDetails] = useState('');
-    const [general, setGeneral] = useState('');
-    const [hasOffer, setHasOffer] = useState(false);
 
-    const generateTemplate = useCallback(() => {
-        try {
-            const templateConfig = {
-                name: props.name,
-                sex,
-                type,
-                channel,
-                date,
-                general,
-                details,
-                hasOffer,
-            };
-            const generatedTemplate = generateBasicTemplate(templateConfig);
-            setTemplate(generatedTemplate);
-        } catch (error) {
-            cogoToast.error(error.message);
-        }
-    }, [sex, type, channel, date, details, general, hasOffer, props.name]);
-
-    const clearFields = useCallback(() => {
+    const onClearFields = () => {
+        formik.resetForm();
         setTemplate('');
-        setSex('');
-        setType('');
-        setChannel('');
-        setDate('');
-        setDetails('');
-        setGeneral('');
-        setHasOffer(false);
-    }, []);
+    };
+
     return (
         <>
             <div>
                 <SettingsSection>
-                    <SexSection setHandler={setSex} setting={sex} />
-                    <ChannelSection setHandler={setChannel} setting={channel} />
-                    <TypeSection typeSetHandler={setType} dateSetHandler={setDate} setting={type} date={date} />
+                    <SexSection
+                        setHandler={(value) => formik.setFieldValue('sex', value)}
+                        setting={formik.values.sex}
+                    />
+                    <ChannelSection
+                        setHandler={(value) => formik.setFieldValue('channel', value)}
+                        setting={formik.values.channel}
+                    />
+                    <TypeSection
+                        typeSetHandler={(value) => formik.setFieldValue('type', value)}
+                        dateSetHandler={(value) => formik.setFieldValue('date', value)}
+                        setting={formik.values.type}
+                        date={formik.values.date}
+                    />
                 </SettingsSection>
                 <TextAreaSection
-                    generalSetHandler={setGeneral}
-                    general={general}
-                    detailsSetHandler={setDetails}
-                    details={details}
+                    generalSetHandler={(value) => formik.setFieldValue('general', value)}
+                    general={formik.values.general}
+                    detailsSetHandler={(value) => formik.setFieldValue('details', value)}
+                    details={formik.values.details}
                 />
                 <CheckboxContainer>
-                    <Checkbox labelContent="Zapytanie o ofertę" setHandler={setHasOffer} value={hasOffer} />
+                    <Checkbox
+                        labelContent="Zapytanie o ofertę"
+                        setHandler={(value) => formik.setFieldValue('hasOffer', value)}
+                        value={formik.values.hasOffer}
+                    />
                 </CheckboxContainer>
                 <AdditionalTemplateContainer>
                     <AdditionalTemplate title="Zamknięcie telefoniczne" enabled template={telephoneTemplate} />
                 </AdditionalTemplateContainer>
-                <ConfirmButtons onClearFields={clearFields} onGenerateTemplate={generateTemplate} />
+                <ConfirmButtons onClearFields={onClearFields} onGenerateTemplate={formik.handleSubmit} />
             </div>
             <MainTextarea value={template} setTemplate={setTemplate} />
         </>

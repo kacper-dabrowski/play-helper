@@ -11,7 +11,12 @@ const TypeSection = ({ typeSetHandler, dateSetHandler, date, setting }) => (
             onClick={() => typeSetHandler(config.type.business)}
             active={setting === config.type.business}
         />
-        <DateInput required onChange={(event) => dateSetHandler(event.target.value)} value={date} />
+        <DateInput
+            required
+            data-testid="basic-date-input"
+            onChange={(event) => dateSetHandler(event.target.value)}
+            value={date}
+        />
         <StateButton
             variant={config.projects.SUPPORT}
             title="Indywidualny"

@@ -8,7 +8,7 @@ const Checkbox = ({ labelContent, setHandler, value }, ...props) => (
             type="checkbox"
             {...props}
             onChange={(event) => setHandler(event.target.checked)}
-            checked={value}
+            value={value}
         />
     </>
 );

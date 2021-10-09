@@ -20,7 +20,7 @@
             "jsx": true
         }
     },
-    "plugins": ["react", "prettier","import","autofix"],
+    "plugins": ["react", "prettier", "import", "autofix"],
     "rules": {
         "no-unused-vars": "warn",
         "prettier/prettier": "error",
@@ -36,6 +36,7 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "consistent-return": "off",
-        "import/order": "error"
+        "import/order": "error",
+        "no-use-before-define": "off"
     }
 }
