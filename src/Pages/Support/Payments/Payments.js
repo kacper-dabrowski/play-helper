@@ -6,10 +6,9 @@ import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';
 import config from '../../../shared/identifiers';
 import Calculator from './Sections/Calculator';
+import InvoicesContainer from './Sections/InvoicesContainer';
 import PaymentSpan from './Sections/PaymentSpan';
 import { PaymentsContainer } from './StyledPayments';
-import InvoicesContainer from './Sections/InvoicesContainer';
-import { BaseButton } from '../../../components/Buttons/BaseButton/StyledBaseButton';
 
 const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);
