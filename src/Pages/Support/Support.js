@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { Redirect, Route } from 'react-router';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
-import Basic from './Basic/Basic';
 import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
@@ -12,6 +11,7 @@ import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwit
 import routes from '../../shared/routes';
 import { useStore } from '../../hooks/useStore';
 import { fetchSolutions, fetchSupportRequests } from '../../stores/user/user';
+import { BasicContainer } from './Basic/BasicContainer';
 
 const Support = () => {
     const { authStore, dispatch, userStore } = useStore();
@@ -32,7 +32,7 @@ const Support = () => {
                     <Srq onFetchSupportRequests={onFetchSupportRequests} />
                 </Route>
                 <Route exact path={routes.support.basic.path}>
-                    <Basic name={authStore.fullName} />
+                    <BasicContainer name={authStore.fullName} />
                 </Route>
                 <Route exact path={routes.support.doubleOpened.path}>
                     <Double type={config.double.opened} />
