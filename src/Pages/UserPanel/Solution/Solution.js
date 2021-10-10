@@ -10,6 +10,8 @@ import useResultsFilter from '../../../hooks/useResultsFilter';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 import { useErrorNotification } from '../../../hooks/useErrorNotification';
+import { useStore } from '../../../hooks/useStore';
+import { updateSolution } from '../../../stores/user/user';
 
 const Solution = ({
     solutions,
@@ -23,6 +25,11 @@ const Solution = ({
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = solutions || [];
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
+    const { userStore, dispatch } = useStore();
+
+    const onSolutionUpdate = async (payload) => {
+        dispatch(updateSolution(payload));
+    };
 
     useEffect(() => {
         onFetchSolutions();
@@ -34,12 +41,9 @@ const Solution = ({
     };
 
     const removeSolutionHandler = async (id) => {
-        const onSuccess = () => {
-            refreshSolutions();
+        onRemoveSolution(id, () => {
             cogoToast.success('Rozwiązanie usunięte pomyślnie.');
-        };
-
-        onRemoveSolution(id, onSuccess);
+        });
     };
     let content;
 
@@ -69,6 +73,8 @@ const Solution = ({
                     populatedFields={fieldsToPopulate}
                     refresh={refreshSolutions}
                     setEditMode={setEditMode}
+                    onSolutionUpdate={onSolutionUpdate}
+                    solutionUpdateRequest={userStore.solutionUpdateRequest}
                 />
             ) : (
                 <SolutionForm refresh={refreshSolutions} />

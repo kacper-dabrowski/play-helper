@@ -14,7 +14,7 @@ const searchMethod = (results, searchPhrase) =>
     );
 
 const SrqFinder = ({ requestStatus, supportRequests, refresh, editable, clickable, setTemplate }) => {
-    const srqResults = supportRequests || [];
+    const srqResults = supportRequests;
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(srqResults, searchMethod);
 
     useErrorNotification(requestStatus);

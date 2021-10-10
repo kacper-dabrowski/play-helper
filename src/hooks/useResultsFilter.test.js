@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import useResultsFilter from './useResultsFilter';
@@ -8,7 +8,7 @@ const dummyFilterFn = (results, searchQuery) => {
 };
 
 const DummyInputComponent = () => {
-    const results = ['abc', 'a', 'b'];
+    const results = useMemo(() => ['abc', 'a', 'b'], []);
 
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(results, dummyFilterFn);
 

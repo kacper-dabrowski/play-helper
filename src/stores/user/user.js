@@ -60,6 +60,8 @@ export const removeSolution = createAsyncThunk(
 
             dispatch(actions.solutionRemoveSuccess());
 
+            await dispatch(fetchSolutions());
+
             if (typeof onSuccess === 'function') {
                 onSuccess();
             }
@@ -68,3 +70,17 @@ export const removeSolution = createAsyncThunk(
         }
     }
 );
+
+export const updateSolution = createAsyncThunk('user/update-solution', async (payload, { dispatch }) => {
+    try {
+        dispatch(actions.solutionUpdateStart());
+
+        await axios.post(`${urls.solution}/${payload.id}`, { ...payload.updatedSolution });
+
+        await dispatch(fetchSolutions());
+
+        dispatch(actions.solutionUpdateSuccess());
+    } catch (error) {
+        dispatch(actions.solutionUpdateFail({ error: error.message }));
+    }
+});
