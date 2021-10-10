@@ -1,9 +1,10 @@
 import cogoToast from 'cogo-toast';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import routes from '../../../shared/routes';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
 import { FormLabel } from './StyledSettingsForm';
 import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
 
 const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest }) => {
     const [startingPage, setStartingPage] = useState(userSettings.startingPage);
@@ -21,11 +22,7 @@ const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest })
         [onSettingsUpdate]
     );
 
-    useEffect(() => {
-        if (settingsUpdateRequest.error) {
-            return cogoToast.error(settingsUpdateRequest.error);
-        }
-    }, [settingsUpdateRequest.error]);
+    useErrorNotification(settingsUpdateRequest);
 
     return (
         <StyledBaseForm>

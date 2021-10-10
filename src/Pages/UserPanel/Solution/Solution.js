@@ -9,6 +9,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
 
 const Solution = ({
     solutions,
@@ -42,14 +43,8 @@ const Solution = ({
     };
     let content;
 
-    useEffect(() => {
-        if (deletionRequestStatus.error) {
-            cogoToast.error(deletionRequestStatus.error);
-        }
-        if (requestStatus.error) {
-            cogoToast.error(requestStatus.error);
-        }
-    }, [deletionRequestStatus.error, requestStatus.error]);
+    useErrorNotification(requestStatus);
+    useErrorNotification(deletionRequestStatus);
 
     if (requestStatus.loading) {
         content = <Spinner centered />;

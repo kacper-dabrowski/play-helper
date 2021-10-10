@@ -15,13 +15,16 @@ import { updateUserSettings } from '../../stores/user/user';
 
 const WelcomeScreen = () => {
     const { authStore, userStore, dispatch } = useStore();
+
+    const isAuthenticated = Boolean(authStore?.user?.token);
+    const fullName = authStore?.user?.fullName;
+
+    const onRegisterUser = (payload) => dispatch(registerUser(payload));
+    const onSettingsUpdate = (payload) => dispatch(updateUserSettings(payload));
+
     const [loginModalOpened, setLoginModalOpened] = useState(false);
     const [signUpModalOpened, setSignUpModalOpened] = useState(false);
     const [settingsModalOpened, setSettingsModalOpened] = useState(false);
-    const isAuthenticated = Boolean(authStore?.user?.token);
-    const fullName = authStore?.user?.fullName;
-    const onRegisterUser = (payload) => dispatch(registerUser(payload));
-    const onSettingsUpdate = (payload) => dispatch(updateUserSettings(payload));
 
     return (
         <>
