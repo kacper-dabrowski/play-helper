@@ -9,4 +9,9 @@ export const Select = styled.select`
     border-bottom: 1px solid ${colors.playPurple};
     color: white;
     cursor: pointer;
+
+    & option {
+        color: white;
+        background-color: ${colors.mainBackground};
+    }
 `;
