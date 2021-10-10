@@ -11,15 +11,17 @@ import { WelcomeScreenContainer } from './StyledWelcomeScreen';
 import { colors } from '../../shared/colors';
 import { useStore } from '../../hooks/useStore';
 import { registerUser } from '../../stores/auth/auth';
+import { updateUserSettings } from '../../stores/user/user';
 
 const WelcomeScreen = () => {
-    const { authStore, dispatch } = useStore();
+    const { authStore, userStore, dispatch } = useStore();
     const [loginModalOpened, setLoginModalOpened] = useState(false);
     const [signUpModalOpened, setSignUpModalOpened] = useState(false);
     const [settingsModalOpened, setSettingsModalOpened] = useState(false);
     const isAuthenticated = Boolean(authStore?.user?.token);
     const fullName = authStore?.user?.fullName;
     const onRegisterUser = (payload) => dispatch(registerUser(payload));
+    const onSettingsUpdate = (payload) => dispatch(updateUserSettings(payload));
 
     return (
         <>
@@ -39,7 +41,13 @@ const WelcomeScreen = () => {
                     onRegisterUser={onRegisterUser}
                     requestStatus={authStore.registrationRequest}
                 />
-                <SettingsModal isOpened={settingsModalOpened} closeModalHandler={() => setSettingsModalOpened(false)} />
+                <SettingsModal
+                    isOpened={settingsModalOpened}
+                    onSettingsUpdate={onSettingsUpdate}
+                    userSettings={userStore.settings}
+                    settingsUpdateRequest={userStore.settingsUpdateRequest}
+                    closeModalHandler={() => setSettingsModalOpened(false)}
+                />
                 <ProjectTile
                     projectEndpoint="/next"
                     projectColorDark={colors.projectSpecificColors.playNext.colorDark}
