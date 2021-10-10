@@ -1,4 +1,3 @@
-import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
@@ -7,6 +6,7 @@ import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqRe
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { SolutionResults } from './StyledSolutions';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
 
 export const solutionSearchMethod = (results, searchPhrase) =>
     results.filter(
@@ -36,11 +36,7 @@ const Solutions = ({ requestStatus, solutions, onFetchSolutions }) => {
         />
     );
 
-    useEffect(() => {
-        if (requestStatus.error) {
-            cogoToast.error(requestStatus.error);
-        }
-    }, [requestStatus.error]);
+    useErrorNotification(requestStatus);
 
     let results;
 

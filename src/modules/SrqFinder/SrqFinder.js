@@ -1,9 +1,9 @@
-import cogoToast from 'cogo-toast';
-import React, { useEffect } from 'react';
+import React from 'react';
 import useResultsFilter from '../../hooks/useResultsFilter';
 import Searchbar from '../../components/SearchBar/SearchBar';
 import SrqResults from './SrqResults/SrqResults';
 import { StyledSrqFinder } from './StyledSrqFinder';
+import { useErrorNotification } from '../../hooks/useErrorNotification';
 
 const searchMethod = (results, searchPhrase) =>
     results.filter(
@@ -17,11 +17,7 @@ const SrqFinder = ({ requestStatus, supportRequests, refresh, editable, clickabl
     const srqResults = supportRequests || [];
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(srqResults, searchMethod);
 
-    useEffect(() => {
-        if (requestStatus.error) {
-            cogoToast.error(requestStatus.error);
-        }
-    }, [requestStatus]);
+    useErrorNotification(requestStatus);
 
     return (
         <StyledSrqFinder>

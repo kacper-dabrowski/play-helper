@@ -1,6 +1,5 @@
-import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
 import { signupSchema } from '../../../shared/validation/validation';
@@ -8,6 +7,7 @@ import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledBaseForm, StyledFormHeader, TwoColumnFormLayout } from '../BaseForm/BaseForm';
 import FormInput from '../../Inputs/FormInput/FormInput';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
 
 const SignUpForm = ({ closeModalHandler, onRegisterUser, requestStatus }) => {
     const focusRef = useFocus();
@@ -27,11 +27,7 @@ const SignUpForm = ({ closeModalHandler, onRegisterUser, requestStatus }) => {
         },
     });
 
-    useEffect(() => {
-        if (requestStatus.error) {
-            cogoToast.error(requestStatus.error);
-        }
-    }, [requestStatus]);
+    useErrorNotification(requestStatus);
     useFormikError(formik.errors);
 
     return (
