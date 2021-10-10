@@ -1,20 +1,12 @@
 import cogoToast from 'cogo-toast';
-import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
+import React, { useCallback, useEffect, useState } from 'react';
 import routes from '../../../shared/routes';
-import urls from '../../../shared/urls';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
 import { FormLabel } from './StyledSettingsForm';
-import { updateUserSettings } from '../../../stores/user/user';
 import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
 
-const SettingsForm = () => {
-    const userSettings = useSelector((state) => state.user?.settings?.startingPage);
-
-    const dispatch = useDispatch();
-    const [startingPage, setStartingPage] = useState(userSettings);
-    const { requestHandler, error } = useRequest(urls.settings, REQUEST_METHODS.POST);
+const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest }) => {
+    const [startingPage, setStartingPage] = useState(userSettings.startingPage);
 
     const onStartingPageChange = useCallback(
         async (event) => {
@@ -22,25 +14,30 @@ const SettingsForm = () => {
 
             setStartingPage(chosenStartingPage);
 
-            await requestHandler({ settings: { startingPage } }, () => urls.settings);
-
-            await dispatch(updateUserSettings({ startingPage: chosenStartingPage }));
-
-            if (error) {
-                return cogoToast.error(error?.data?.message || error.message);
-            }
+            await onSettingsUpdate({ settings: { startingPage: chosenStartingPage } });
 
             cogoToast.success('Pomyślnie zapisano ustawienie');
         },
-        [error, dispatch, requestHandler, startingPage]
+        [onSettingsUpdate]
     );
+
+    useEffect(() => {
+        if (settingsUpdateRequest.error) {
+            return cogoToast.error(settingsUpdateRequest.error);
+        }
+    }, [settingsUpdateRequest.error]);
 
     return (
         <StyledBaseForm>
             <StyledFormHeader>Ustawienia użytkownika</StyledFormHeader>
             <FormLabel htmlFor="startingPage">Strona startowa</FormLabel>
             <OptionSelect
-                selectProps={{ name: 'startingPage', defaultValue: startingPage, onChange: onStartingPageChange }}
+                selectProps={{
+                    name: 'startingPage',
+                    defaultValue: startingPage,
+                    onChange: onStartingPageChange,
+                    'data-testid': 'settings-select',
+                }}
             >
                 <option value={routes.support.basic.path}>Zamknięcie zwykłe</option>
                 <option value={routes.support.doubleOpened.path}>Dubel otwarty</option>

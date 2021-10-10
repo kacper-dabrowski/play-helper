@@ -14,11 +14,15 @@ export const fetchUserSettings = createAsyncThunk('user/fetch-settings', async (
     }
 });
 
-export const updateUserSettings = createAsyncThunk('user/update-settings', (payload, { dispatch }) => {
+export const updateUserSettings = createAsyncThunk('user/update-settings', async (payload, { dispatch }) => {
     try {
-        dispatch(actions.userSettingsUpdate(payload));
+        dispatch(actions.settingsUpdateStart());
+
+        await axios.post(urls.settings, { settings: payload.settings });
+
+        dispatch(actions.settingsUpdateSuccess({ settings: payload.settings }));
     } catch (error) {
-        dispatch(actions.userFetchFailed({ error: error.message }));
+        dispatch(actions.settingsUpdateFail({ error: error.message }));
     }
 });
 
