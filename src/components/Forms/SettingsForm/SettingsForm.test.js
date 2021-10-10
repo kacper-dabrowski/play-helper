@@ -7,19 +7,13 @@ import { createRequestStatus, requestFinishedWithError } from '../../../shared/r
 
 describe('Forms - Settings form', () => {
     const onSettingsUpdateMock = jest.fn();
-    const userSettings = {
-        startingPage: 'some-page',
-    };
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
     it('should display the component correctly', () => {
-        const fakeRequestStatus = createRequestStatus();
-        render(
-            <SettingsForm
-                onSettingsUpdate={onSettingsUpdateMock}
-                userSettings={userSettings}
-                settingsUpdateRequest={fakeRequestStatus}
-            />
-        );
+        render(getComponentWithProps());
 
         expect(getFormHeader()).toBeInTheDocument();
         expect(getFormLabel()).toBeInTheDocument();
@@ -27,49 +21,26 @@ describe('Forms - Settings form', () => {
     });
 
     it('should display initial value from store', () => {
-        const fakeRequestStatus = createRequestStatus();
         const userSettingsWithInitialValue = {
             startingPage: '/support/double-closed',
         };
 
-        render(
-            <SettingsForm
-                onSettingsUpdate={onSettingsUpdateMock}
-                userSettings={userSettingsWithInitialValue}
-                settingsUpdateRequest={fakeRequestStatus}
-            />
-        );
+        render(getComponentWithProps({ ...defaultProps, userSettings: userSettingsWithInitialValue }));
 
         expect(getSelectInput()).toHaveValue('/support/double-closed');
     });
 
     it('should display default value if initial value is unknown', () => {
-        const fakeRequestStatus = createRequestStatus();
-
-        render(
-            <SettingsForm
-                onSettingsUpdate={onSettingsUpdateMock}
-                userSettings={userSettings}
-                settingsUpdateRequest={fakeRequestStatus}
-            />
-        );
+        render(getComponentWithProps());
 
         expect(getSelectInput()).toHaveValue('/support/basic');
     });
 
     it('should call settings update mock and show toast if it was successful', () => {
-        const fakeRequestStatus = createRequestStatus();
-        render(
-            <SettingsForm
-                onSettingsUpdate={onSettingsUpdateMock}
-                userSettings={userSettings}
-                settingsUpdateRequest={fakeRequestStatus}
-            />
-        );
+        const cogoToastSpy = jest.spyOn(cogoToast, 'success');
+        render(getComponentWithProps());
 
         userEvent.selectOptions(getSelectInput(), '/support/double-opened');
-
-        const cogoToastSpy = jest.spyOn(cogoToast, 'success');
 
         return waitFor(() => {
             expect(onSettingsUpdateMock).toHaveBeenCalledWith({ settings: { startingPage: '/support/double-opened' } });
@@ -78,32 +49,31 @@ describe('Forms - Settings form', () => {
     });
 
     it('should call settings update mock and show error toast if it was not successful', () => {
-        const fakeRequestStatus = createRequestStatus();
         const cogoToastSpy = jest.spyOn(cogoToast, 'error');
 
-        const { rerender } = render(
-            <SettingsForm
-                onSettingsUpdate={onSettingsUpdateMock}
-                userSettings={userSettings}
-                settingsUpdateRequest={fakeRequestStatus}
-            />
-        );
+        const { rerender } = render(getComponentWithProps());
 
         userEvent.selectOptions(getSelectInput(), '/support/double-opened');
 
-        rerender(
-            <SettingsForm
-                onSettingsUpdate={onSettingsUpdateMock}
-                userSettings={userSettings}
-                settingsUpdateRequest={requestFinishedWithError('error')}
-            />
-        );
+        rerender(getComponentWithProps({ ...defaultProps, settingsUpdateRequest: requestFinishedWithError('error!') }));
 
         return waitFor(() => {
             expect(onSettingsUpdateMock).toHaveBeenCalledWith({ settings: { startingPage: '/support/double-opened' } });
-            expect(cogoToastSpy).toHaveBeenCalledWith('error');
+            expect(cogoToastSpy).toHaveBeenCalledWith('error!');
         });
     });
+
+    const defaultProps = {
+        onSettingsUpdate: onSettingsUpdateMock,
+        userSettings: {
+            startingPage: 'some-page',
+        },
+        settingsUpdateRequest: createRequestStatus(),
+    };
+
+    function getComponentWithProps(props = defaultProps) {
+        return <SettingsForm {...props} />;
+    }
 
     function getFormHeader() {
         return screen.getByText('Ustawienia użytkownika');
