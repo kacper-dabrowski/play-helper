@@ -1,19 +1,22 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const useResultsFilter = (list, filterMethod) => {
-    const results = useMemo(() => list, [list.length]);
     const [searchResults, setSearchResults] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     const filterResults = useCallback(() => {
-        const filtered = filterMethod(results, searchQuery);
+        const filtered = filterMethod(list, searchQuery);
 
         setSearchResults(filtered);
-    }, [filterMethod, results, searchQuery]);
+    }, [filterMethod, list, searchQuery]);
 
     useEffect(() => {
+        if (!list) {
+            return;
+        }
+
         if (!searchQuery) {
-            setSearchResults(results);
+            setSearchResults(list);
             return;
         }
 
@@ -21,7 +24,7 @@ const useResultsFilter = (list, filterMethod) => {
             return;
         }
         filterResults();
-    }, [filterResults, results, searchQuery, searchResults.length]);
+    }, [filterResults, list, searchQuery, searchResults.length]);
 
     return [searchResults, searchQuery, setSearchQuery];
 };

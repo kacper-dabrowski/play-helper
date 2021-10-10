@@ -15,6 +15,7 @@ export const userSlice = createSlice({
         fetchSolutionsRequest: createRequestStatus(),
         removeSolutionRequest: createRequestStatus(),
         settingsUpdateRequest: createRequestStatus(),
+        solutionUpdateRequest: createRequestStatus(),
         settings: null,
         supportRequests: null,
         solutions: [],
@@ -68,6 +69,15 @@ export const userSlice = createSlice({
         },
         solutionRemoveFail: (state, action) => {
             state.removeSolutionRequest = requestFinishedWithError(action.payload.error);
+        },
+        solutionUpdateStart: (state) => {
+            state.solutionUpdateRequest = requestLoading();
+        },
+        solutionUpdateSuccess: (state) => {
+            state.solutionUpdateRequest = requestFinishedSuccessfully();
+        },
+        solutionUpdateFail: (state, action) => {
+            state.solutionUpdateRequest = requestFinishedWithError(action.payload.error);
         },
     },
 });

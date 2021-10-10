@@ -1,10 +1,7 @@
 import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
-
 import useFormikError from '../../../hooks/useFormikError';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
 import { solutionSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -12,8 +9,7 @@ import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSolutionForm';
 
-const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
-    const { isLoading, requestHandler, error } = useRequest(urls.solution, REQUEST_METHODS.POST);
+const SolutionEditableForm = ({ refresh, populatedFields, setEditMode, onSolutionUpdate, solutionUpdateRequest }) => {
     const { title, description, content, isPublic, id } = populatedFields;
 
     const formik = useFormik({
@@ -25,26 +21,20 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
             isPublic,
         },
         onSubmit: async (values, { resetForm }) => {
-            try {
-                const formData = {
-                    title: values.title,
-                    description: values.description,
-                    content: values.content,
-                    isPublic: values.isPublic,
-                };
+            const formData = {
+                title: values.title,
+                description: values.description,
+                content: values.content,
+                isPublic: values.isPublic,
+            };
 
-                await requestHandler(formData, () => `${urls.solution}/${id}`);
+            await onSolutionUpdate({ updatedSolution: formData, id });
 
-                if (error) {
-                    throw error;
-                }
-                cogoToast.success('Pomyślnie zapisano zmiany');
-                resetForm({});
-                refresh?.();
-                setEditMode(false);
-            } catch (submitError) {
-                cogoToast.error(error.message);
-            }
+            cogoToast.success('Pomyślnie zapisano zmiany');
+
+            resetForm({});
+            refresh?.();
+            setEditMode(false);
         },
         validationSchema: solutionSchema,
         validateOnChange: false,
@@ -78,7 +68,11 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode }) => {
             <label htmlFor="isPublic">Widok publiczny: </label>
             <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
 
-            {isLoading ? <Spinner centered /> : <SubmitButton title="Zapisz zmiany" onClick={formik.handleSubmit} />}
+            {solutionUpdateRequest.loading ? (
+                <Spinner centered />
+            ) : (
+                <SubmitButton title="Zapisz zmiany" onClick={formik.handleSubmit} />
+            )}
         </StyledFormContainer>
     );
 };
