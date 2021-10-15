@@ -1,5 +1,6 @@
-import moment from 'moment';
 import Big from 'big.js';
+import dateAdd from 'date-fns/add';
+import dateSet from 'date-fns/set';
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
 import numberToCurrency from './numberToCurrency';
@@ -24,19 +25,20 @@ const generatePaymentsObject = (generatorConfig, dividingDay, dueDay) => {
     if (dueDay === 7) {
         startingMonth += 1;
     }
-    const startingDate = moment(currentDate).set('month', startingMonth).set('date', dueDay);
+    const startingDate = dateSet(currentDate, { month: startingMonth, date: dueDay });
 
     const payments = [];
 
     for (let i = 0; i < paymentsCount; i += 1) {
-        const date = moment(startingDate).add(i, 'months');
+        let date = dateAdd(startingDate, { months: i });
+
         if (dueDay === 31 && i !== 0) {
-            date.set('date', dueDay);
+            date = dateSet(date, { date: dueDay });
         }
 
         payments.push({
             amount: amounts[i],
-            date: convertDate(date.toDate()),
+            date: convertDate(date),
         });
     }
 
