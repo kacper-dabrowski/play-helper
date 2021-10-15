@@ -43,6 +43,7 @@ const Double = ({ type }) => {
     const clearFields = useCallback(() => {
         formik.resetForm();
         setTemplate('');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => clearFields(), [clearFields, type]);
