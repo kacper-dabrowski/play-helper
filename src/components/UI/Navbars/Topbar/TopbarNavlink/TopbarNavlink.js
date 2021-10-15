@@ -6,7 +6,6 @@ export const TopbarNavlink = styled(NavLink)`
     height: 40px;
     padding: 0.5rem;
     background: transparent;
-    border: none;
     border-radius: 5px;
     border: 1px solid white;
     justify-self: center;
@@ -19,6 +18,7 @@ export const TopbarNavlink = styled(NavLink)`
     display: flex;
     justify-content: center;
     align-items: center;
+
     &:hover,
     &:active,
     &:focus {
