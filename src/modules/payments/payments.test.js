@@ -1,7 +1,6 @@
-import moment from 'moment';
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
-import { generatePaymentTemplates, generatePayments } from './payments';
+import { generatePayments, generatePaymentTemplates } from './payments';
 
 describe('payments', () => {
     beforeEach(() => {
@@ -36,15 +35,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 11, 17]).toDate()),
+                    date: convertDate(new Date(2020, 11, 17)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 17]).toDate()),
+                    date: convertDate(new Date(2021, 0, 17)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 1, 17]).toDate()),
+                    date: convertDate(new Date(2021, 1, 17)),
                     amount: 41,
                 },
             ]);
@@ -59,15 +58,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 10, 17]).toDate()),
+                    date: convertDate(new Date(2020, 10, 17)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2020, 11, 17]).toDate()),
+                    date: convertDate(new Date(2020, 11, 17)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 17]).toDate()),
+                    date: convertDate(new Date(2021, 0, 17)),
                     amount: 41,
                 },
             ]);
@@ -84,15 +83,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 11, 22]).toDate()),
+                    date: convertDate(new Date(2020, 11, 22)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 22]).toDate()),
+                    date: convertDate(new Date(2021, 0, 22)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 1, 22]).toDate()),
+                    date: convertDate(new Date(2021, 1, 22)),
                     amount: 41,
                 },
             ]);
@@ -107,15 +106,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 10, 22]).toDate()),
+                    date: convertDate(new Date(2020, 10, 22)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2020, 11, 22]).toDate()),
+                    date: convertDate(new Date(2020, 11, 22)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 22]).toDate()),
+                    date: convertDate(new Date(2021, 0, 22)),
                     amount: 41,
                 },
             ]);
@@ -132,15 +131,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 11, 26]).toDate()),
+                    date: convertDate(new Date(2020, 11, 26)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 26]).toDate()),
+                    date: convertDate(new Date(2021, 0, 26)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 1, 26]).toDate()),
+                    date: convertDate(new Date(2021, 1, 26)),
                     amount: 41,
                 },
             ]);
@@ -155,15 +154,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 10, 26]).toDate()),
+                    date: convertDate(new Date(2020, 10, 26)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2020, 11, 26]).toDate()),
+                    date: convertDate(new Date(2020, 11, 26)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 26]).toDate()),
+                    date: convertDate(new Date(2021, 0, 26)),
                     amount: 41,
                 },
             ]);
@@ -180,15 +179,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 11, 1]).toDate()),
+                    date: convertDate(new Date(2020, 11, 1)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 31]).toDate()),
+                    date: convertDate(new Date(2021, 0, 31)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 2, 3]).toDate()),
+                    date: convertDate(new Date(2021, 2, 3)),
                     amount: 41,
                 },
             ]);
@@ -203,15 +202,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 9, 31]).toDate()),
+                    date: convertDate(new Date(2020, 9, 31)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2020, 11, 1]).toDate()),
+                    date: convertDate(new Date(2020, 11, 1)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2020, 11, 31]).toDate()),
+                    date: convertDate(new Date(2020, 11, 31)),
                     amount: 41,
                 },
             ]);
@@ -226,15 +225,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 11, 31]).toDate()),
+                    date: convertDate(new Date(2020, 11, 31)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 31]).toDate()),
+                    date: convertDate(new Date(2021, 0, 31)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 2, 3]).toDate()),
+                    date: convertDate(new Date(2021, 2, 3)),
                     amount: 41,
                 },
             ]);
@@ -249,15 +248,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2021, 2, 3]).toDate()),
+                    date: convertDate(new Date(2021, 2, 3)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 4, 1]).toDate()),
+                    date: convertDate(new Date(2021, 4, 1)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 4, 31]).toDate()),
+                    date: convertDate(new Date(2021, 4, 31)),
                     amount: 41,
                 },
             ]);
@@ -273,15 +272,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 11, 7]).toDate()),
+                    date: convertDate(new Date(2020, 11, 7)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 7]).toDate()),
+                    date: convertDate(new Date(2021, 0, 7)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 1, 7]).toDate()),
+                    date: convertDate(new Date(2021, 1, 7)),
                     amount: 41,
                 },
             ]);
@@ -296,15 +295,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2021, 0, 7]).toDate()),
+                    date: convertDate(new Date(2021, 0, 7)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 1, 7]).toDate()),
+                    date: convertDate(new Date(2021, 1, 7)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 2, 7]).toDate()),
+                    date: convertDate(new Date(2021, 2, 7)),
                     amount: 41,
                 },
             ]);
@@ -321,15 +320,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 10, 10]).toDate()),
+                    date: convertDate(new Date(2020, 10, 10)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2020, 11, 10]).toDate()),
+                    date: convertDate(new Date(2020, 11, 10)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 10]).toDate()),
+                    date: convertDate(new Date(2021, 0, 10)),
                     amount: 41,
                 },
             ]);
@@ -344,15 +343,15 @@ Obsługa Klienta Play.`);
             };
             expect(generatePayments(paymentsConfig)).toEqual([
                 {
-                    date: convertDate(moment([2020, 11, 10]).toDate()),
+                    date: convertDate(new Date(2020, 11, 10)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 0, 10]).toDate()),
+                    date: convertDate(new Date(2021, 0, 10)),
                     amount: 41,
                 },
                 {
-                    date: convertDate(moment([2021, 1, 10]).toDate()),
+                    date: convertDate(new Date(2021, 1, 10)),
                     amount: 41,
                 },
             ]);
