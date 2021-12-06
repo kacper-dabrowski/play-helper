@@ -44,6 +44,7 @@ describe('WelcomeBackdrop - Register', () => {
                 password: 'password',
                 username: 'name',
                 fullName: 'Name Surname',
+                confirmPassword: 'password',
             });
         });
     });
