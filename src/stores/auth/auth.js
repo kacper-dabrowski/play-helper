@@ -74,11 +74,16 @@ export const logout = createAsyncThunk('auth/logout', async (payload, { dispatch
 
 export const registerUser = createAsyncThunk('auth/register', async (payload, { dispatch }) => {
     try {
-        const { username, password, fullName } = payload;
+        const { username, password, fullName, confirmPassword } = payload;
 
         dispatch(actions.registerStart());
 
-        const response = await axios.post(urls.signup, { username, password, fullName });
+        const response = await axios.post(urls.signup, {
+            username,
+            password,
+            fullName,
+            repeatPassword: confirmPassword,
+        });
 
         dispatch(actions.registerSuccess(response.data));
         dispatch(loginUser({ username, password }));

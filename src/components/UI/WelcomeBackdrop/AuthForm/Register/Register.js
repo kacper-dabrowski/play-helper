@@ -23,8 +23,8 @@ export const Register = ({ registrationRequest, onRegisterUser }) => {
         validationSchema: signupSchema,
         validateOnChange: false,
         onSubmit: async (values) => {
-            const { username, fullName, password } = values;
-            onRegisterUser({ username, fullName, password });
+            const { username, fullName, password, confirmPassword } = values;
+            onRegisterUser({ username, fullName, password, confirmPassword });
         },
     });
 
