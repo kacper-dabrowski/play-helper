@@ -12,13 +12,8 @@ export const userSlice = createSlice({
     initialState: {
         fetchUserRequestStatus: createRequestStatus(),
         fetchSupportRequestsStatus: createRequestStatus(),
-        fetchSolutionsRequest: createRequestStatus(),
-        removeSolutionRequest: createRequestStatus(),
         settingsUpdateRequest: createRequestStatus(),
-        solutionUpdateRequest: createRequestStatus(),
         settings: null,
-        supportRequests: null,
-        solutions: [],
     },
     reducers: {
         userFetchStart: (state) => {
@@ -40,44 +35,6 @@ export const userSlice = createSlice({
         settingsUpdateSuccess: (state, action) => {
             state.settingsUpdateRequest = requestFinishedSuccessfully();
             state.settings = action.payload.settings;
-        },
-        supportRequestsFetchStart: (state) => {
-            state.fetchSupportRequestsStatus = requestLoading();
-        },
-        supportRequestsFetchSuccess: (state, action) => {
-            state.fetchSupportRequestsStatus = requestFinishedSuccessfully();
-            state.supportRequests = action.payload.supportRequests;
-        },
-        supportRequestsFetchFail: (state, action) => {
-            state.fetchSupportRequestsStatus = requestFinishedWithError(action.payload.error);
-        },
-        solutionsFetchStart: (state) => {
-            state.fetchSolutionsRequest = requestLoading();
-        },
-        solutionsFetchSuccess: (state, action) => {
-            state.fetchSolutionsRequest = requestFinishedSuccessfully();
-            state.solutions = action.payload.solutions;
-        },
-        solutionsFetchFail: (state, action) => {
-            state.fetchSolutionsRequest = requestFinishedWithError(action.payload.error);
-        },
-        solutionRemoveStart: (state) => {
-            state.removeSolutionRequest = requestLoading();
-        },
-        solutionRemoveSuccess: (state) => {
-            state.removeSolutionRequest = requestFinishedSuccessfully();
-        },
-        solutionRemoveFail: (state, action) => {
-            state.removeSolutionRequest = requestFinishedWithError(action.payload.error);
-        },
-        solutionUpdateStart: (state) => {
-            state.solutionUpdateRequest = requestLoading();
-        },
-        solutionUpdateSuccess: (state) => {
-            state.solutionUpdateRequest = requestFinishedSuccessfully();
-        },
-        solutionUpdateFail: (state, action) => {
-            state.solutionUpdateRequest = requestFinishedWithError(action.payload.error);
         },
     },
 });

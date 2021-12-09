@@ -11,7 +11,7 @@ import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 import { useErrorNotification } from '../../../hooks/useErrorNotification';
 import { useStore } from '../../../hooks/useStore';
-import { updateSolution } from '../../../stores/user/user';
+import { updateSolution } from '../../../stores/solutions/solutions';
 
 const Solution = ({
     solutions,
@@ -20,6 +20,8 @@ const Solution = ({
     onFetchSolutions,
     onRemoveSolution,
     deletionRequestStatus,
+    onAddSolution,
+    addSolutionRequest,
 }) => {
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
@@ -41,9 +43,8 @@ const Solution = ({
     };
 
     const removeSolutionHandler = async (id) => {
-        onRemoveSolution(id, () => {
-            cogoToast.success('Rozwiązanie usunięte pomyślnie.');
-        });
+        await onRemoveSolution(id);
+        await onFetchSolutions();
     };
     let content;
 
@@ -77,7 +78,11 @@ const Solution = ({
                     solutionUpdateRequest={userStore.solutionUpdateRequest}
                 />
             ) : (
-                <SolutionForm refresh={refreshSolutions} />
+                <SolutionForm
+                    refresh={refreshSolutions}
+                    onAddSolution={onAddSolution}
+                    addSolutionRequest={addSolutionRequest}
+                />
             )}
             <SolutionFinderContainer>
                 <Searchbar onType={setSearchQuery} value={searchQuery} />

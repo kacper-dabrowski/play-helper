@@ -2,8 +2,6 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
 import { solutionSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -11,9 +9,7 @@ import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSolutionForm';
 
-const SolutionForm = ({ refresh }) => {
-    const { requestHandler, isLoading } = useRequest(urls.solution, REQUEST_METHODS.PUT);
-
+const SolutionForm = ({ refresh, onAddSolution, addSolutionRequest }) => {
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -31,9 +27,8 @@ const SolutionForm = ({ refresh }) => {
                     isPublic,
                 };
 
-                await requestHandler(formData, () => urls.solution);
+                await onAddSolution({ solution: formData });
 
-                cogoToast.success('Rozwiązanie dodane pomyślnie');
                 resetForm({});
                 refresh?.();
             } catch (error) {
@@ -72,7 +67,11 @@ const SolutionForm = ({ refresh }) => {
             <label htmlFor="isPublic">Widok publiczny: </label>
             <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
 
-            {isLoading ? <Spinner centered /> : <SubmitButton title="Dodaj zamknięcie" onClick={formik.handleSubmit} />}
+            {addSolutionRequest.loading ? (
+                <Spinner centered />
+            ) : (
+                <SubmitButton title="Dodaj zamknięcie" onClick={formik.handleSubmit} />
+            )}
         </StyledFormContainer>
     );
 };

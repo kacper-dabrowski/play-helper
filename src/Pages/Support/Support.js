@@ -10,8 +10,9 @@ import Solutions from './Solutions/Solutions';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import routes from '../../shared/routes';
 import { useStore } from '../../hooks/useStore';
-import { fetchSolutions, fetchSupportRequests } from '../../stores/user/user';
 import { BasicContainer } from './Basic/BasicContainer';
+import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
+import { fetchSolutions } from '../../stores/solutions/solutions';
 
 const Support = () => {
     const { authStore, dispatch, userStore } = useStore();

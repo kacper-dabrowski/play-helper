@@ -7,10 +7,11 @@ import SrqPanel from './SrqPanel/SrqPanel';
 import Solution from './Solution/Solution';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import { useStore } from '../../hooks/useStore';
-import { fetchSolutions, fetchSupportRequests, removeSolution } from '../../stores/user/user';
+import { removeSolution, fetchSolutions, addSolution } from '../../stores/solutions/solutions';
+import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
 
 const UserPanel = () => {
-    const { userStore, dispatch } = useStore();
+    const { dispatch, solutionsStore, supportRequestsStore } = useStore();
 
     const onFetchSolutions = useCallback(() => {
         dispatch(fetchSolutions());
@@ -27,6 +28,13 @@ const UserPanel = () => {
         [dispatch]
     );
 
+    const onAddSolution = useCallback(
+        (payload) => {
+            dispatch(addSolution(payload));
+        },
+        [dispatch]
+    );
+
     return (
         <SupportLayout routes={routes.userPanel} backgroundImage={backgroundImage}>
             <NotFoundProviderSwitch>
@@ -34,18 +42,20 @@ const UserPanel = () => {
                 <PrivateRoute exact path={routes.userPanel.solution.path}>
                     <Solution
                         onFetchSolutions={onFetchSolutions}
-                        requestStatus={userStore.fetchSolutionsRequest}
-                        solutions={userStore.solutions}
+                        requestStatus={solutionsStore.fetchSolutionsRequest}
+                        solutions={solutionsStore.solutions}
                         refreshSolutions={onFetchSolutions}
                         onRemoveSolution={onRemoveSolution}
-                        deletionRequestStatus={userStore.removeSolutionRequest}
+                        deletionRequestStatus={solutionsStore.removeSolutionRequest}
+                        onAddSolution={onAddSolution}
+                        addSolutionRequest={solutionsStore.addSolutionRequest}
                     />
                 </PrivateRoute>
                 <PrivateRoute exact path={routes.userPanel.srq.path}>
                     <SrqPanel
                         onFetchSupportRequests={onFetchSupportRequests}
-                        supportRequests={userStore.supportRequests}
-                        requestStatus={userStore.fetchSolutionsRequest}
+                        supportRequests={supportRequestsStore.supportRequests}
+                        requestStatus={supportRequestsStore.fetchSolutionsRequest}
                     />
                 </PrivateRoute>
             </NotFoundProviderSwitch>
