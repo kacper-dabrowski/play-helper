@@ -21,7 +21,6 @@ export const solutions = createSlice({
             state.fetchSolutionsRequest = requestLoading();
         },
         solutionsFetchSuccess: (state, action) => {
-            console.log(action);
             state.fetchSolutionsRequest = requestFinishedSuccessfully();
             state.solutions = action.payload.solutions;
         },

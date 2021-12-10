@@ -15,7 +15,7 @@ import { fetchSupportRequests } from '../../stores/supportRequests/supportReques
 import { fetchSolutions } from '../../stores/solutions/solutions';
 
 const Support = () => {
-    const { authStore, dispatch, userStore } = useStore();
+    const { authStore, dispatch, solutionsStore, userStore } = useStore();
     const { settings } = userStore;
 
     const onFetchSolutions = useCallback(() => {
@@ -46,9 +46,9 @@ const Support = () => {
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
                     <Solutions
-                        solutions={userStore.solutions}
+                        solutions={solutionsStore.solutions}
                         onFetchSolutions={onFetchSolutions}
-                        requestStatus={userStore.fetchSolutionsRequest}
+                        requestStatus={solutionsStore.fetchSolutionsRequest}
                     />
                 </Route>
                 <Route exact path={routes.support.main.path}>

@@ -27,7 +27,7 @@ const Solution = ({
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = solutions || [];
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
-    const { userStore, dispatch } = useStore();
+    const { solutionsStore, dispatch } = useStore();
 
     const onSolutionUpdate = async (payload) => {
         dispatch(updateSolution(payload));
@@ -43,9 +43,9 @@ const Solution = ({
     };
 
     const removeSolutionHandler = async (id) => {
-        await onRemoveSolution(id);
-        await onFetchSolutions();
+        onRemoveSolution(id);
     };
+
     let content;
 
     useErrorNotification(requestStatus);
@@ -75,7 +75,7 @@ const Solution = ({
                     refresh={refreshSolutions}
                     setEditMode={setEditMode}
                     onSolutionUpdate={onSolutionUpdate}
-                    solutionUpdateRequest={userStore.solutionUpdateRequest}
+                    solutionUpdateRequest={solutionsStore.updateSolutionRequest}
                 />
             ) : (
                 <SolutionForm

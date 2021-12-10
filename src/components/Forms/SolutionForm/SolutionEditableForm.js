@@ -28,7 +28,7 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode, onSolutio
                 isPublic: values.isPublic,
             };
 
-            await onSolutionUpdate({ updatedSolution: formData, id });
+            await onSolutionUpdate({ solution: formData, solutionId: id });
 
             cogoToast.success('Pomyślnie zapisano zmiany');
 

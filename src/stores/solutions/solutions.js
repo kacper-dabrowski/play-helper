@@ -18,11 +18,12 @@ export const fetchSolutions = createAsyncThunk('solution/fetch', async (payload,
 export const removeSolution = createAsyncThunk('solution/remove', async (payload, { dispatch }) => {
     try {
         dispatch(actions.solutionRemoveStart());
+
         await axios.delete(`${urls.solution}/${payload.solutionId}`);
 
-        await fetchSolutions();
-
         dispatch(actions.solutionRemoveSuccess());
+
+        dispatch(fetchSolutions());
     } catch (error) {
         dispatch(actions.solutionRemoveFail({ error: error.response.message || error.message }));
     }
@@ -35,6 +36,8 @@ export const addSolution = createAsyncThunk('solution/add', async (payload, { di
         await axios.put(`${urls.solution}`, { ...payload.solution });
 
         dispatch(actions.solutionAddSuccess());
+
+        dispatch(fetchSolutions());
     } catch (error) {
         dispatch(actions.solutionAddFail({ error: error.response.message || error.message }));
     }
@@ -47,6 +50,8 @@ export const updateSolution = createAsyncThunk('solution/update', async (payload
         await axios.post(`${urls.solution}/${payload.solutionId}`, { ...payload.solution });
 
         dispatch(actions.solutionUpdateSuccess());
+
+        dispatch(fetchSolutions());
     } catch (error) {
         dispatch(actions.solutionUpdateFail({ error: error.response.message || error.message }));
     }
