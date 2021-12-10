@@ -22,6 +22,8 @@ export const removeSupportRequests = createAsyncThunk('supportRequests/remove', 
         await axios.delete(`${urls.srq}/${payload.srqId}`);
 
         dispatch(actions.removeSupportRequestSuccess());
+
+        dispatch(fetchSupportRequests());
     } catch (error) {
         dispatch(actions.removeSupportRequestFail({ error: error?.response?.message || error.message }));
     }

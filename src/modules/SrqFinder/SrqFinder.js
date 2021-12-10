@@ -13,7 +13,16 @@ const searchMethod = (results, searchPhrase) =>
             result.department.toLowerCase().includes(searchPhrase)
     );
 
-const SrqFinder = ({ fetchSupportRequestsRequest, supportRequests, refresh, editable, clickable, setTemplate }) => {
+const SrqFinder = ({
+    fetchSupportRequestsRequest,
+    supportRequests,
+    removeSupportRequestRequest,
+    onRemoveSupportRequest,
+    refresh,
+    editable,
+    clickable,
+    setTemplate,
+}) => {
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(supportRequests, searchMethod);
 
     useErrorNotification(fetchSupportRequestsRequest);
@@ -24,8 +33,9 @@ const SrqFinder = ({ fetchSupportRequestsRequest, supportRequests, refresh, edit
             <SrqResults
                 onCopy={setTemplate || null}
                 supportRequests={searchResults}
-                hasError={fetchSupportRequestsRequest?.error}
-                isLoading={fetchSupportRequestsRequest.loading}
+                fetchSupportRequestsRequest={fetchSupportRequestsRequest}
+                removeSupportRequestRequest={removeSupportRequestRequest}
+                onRemoveSupportRequest={onRemoveSupportRequest}
                 editable={editable}
                 clickable={clickable}
                 refresh={refresh}

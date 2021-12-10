@@ -6,29 +6,21 @@ import urls from '../../../shared/urls';
 import Result from '../../../components/Results/Result/SRQ/SrqResult';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { StyledResults } from './StyledSrqResults';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
 
-const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, clickable, refresh }) => {
+const SrqResults = ({
+    supportRequests,
+    onRemoveSupportRequest,
+    removeSupportRequestRequest,
+    onCopy,
+    editable,
+    clickable,
+}) => {
     const { setEditMode, setFieldsToPopulate } = useContext(srqFormContext);
-    const { requestHandler } = useRequest(urls.srq, REQUEST_METHODS.DELETE);
 
-    const srqRemovedHandler = async (id) => {
-        try {
-            await requestHandler(null, () => `${urls.srq}/${id}`);
-            cogoToast.success('Pomyślnie usunięto SRQ');
-            refresh?.();
-        } catch (deletionError) {
-            cogoToast.error(deletionError.message);
-        }
-    };
-    if (error) {
-        return (
-            <StyledResults>
-                <p>{error.message}</p>
-            </StyledResults>
-        );
-    }
+    useErrorNotification(removeSupportRequestRequest);
 
-    if (isLoading) {
+    if (removeSupportRequestRequest.loading) {
         return (
             <StyledResults>
                 <Spinner centered />
@@ -48,7 +40,7 @@ const SrqResults = ({ supportRequests, error, isLoading, onCopy, editable, click
             editable={editable}
             toggleEditMode={setEditMode}
             setFieldsToPopulate={setFieldsToPopulate}
-            onRemove={srqRemovedHandler}
+            onRemove={() => onRemoveSupportRequest(_id)}
         />
     ));
 
