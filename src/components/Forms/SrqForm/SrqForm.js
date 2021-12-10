@@ -3,8 +3,6 @@ import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
 import { srqSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -12,10 +10,8 @@ import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
 
-const SrqForm = (props) => {
+const SrqForm = ({ entriesRefresh, onAddSupportRequest, addSupportRequestRequest }) => {
     const focusRef = useFocus();
-    const { requestHandler, isLoading } = useRequest(urls.srq, REQUEST_METHODS.PUT);
-    const { entriesRefresh } = props;
 
     const onSubmit = async (values, resetForm) => {
         try {
@@ -28,7 +24,7 @@ const SrqForm = (props) => {
                 content,
             };
 
-            await requestHandler(formData, () => urls.srq);
+            await onAddSupportRequest({ srq: formData });
 
             cogoToast.success('SRQ dodane pomyślnie');
             resetForm();
@@ -46,9 +42,9 @@ const SrqForm = (props) => {
             content: '',
         },
         validationSchema: srqSchema,
-        onSubmit: (values, { resetForm }) => {
-            onSubmit(values, resetForm);
-            entriesRefresh?.();
+        onSubmit: async (values, { resetForm }) => {
+            await onSubmit(values, resetForm);
+            await entriesRefresh?.();
         },
         validateOnChange: false,
     });
@@ -86,7 +82,7 @@ const SrqForm = (props) => {
                 name="content"
                 placeholder="Treść formatki"
             />
-            {isLoading ? <Spinner centered /> : <SubmitButton title="Dodaj SRQ" />}
+            {addSupportRequestRequest?.loading ? <Spinner centered /> : <SubmitButton title="Dodaj SRQ" />}
         </StyledFormContainer>
     );
 };

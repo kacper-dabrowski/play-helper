@@ -31,7 +31,7 @@ export const addSupportRequest = createAsyncThunk('supportRequests/add', async (
     try {
         dispatch(actions.addSupportRequestStart());
 
-        await axios.put(`${urls.srq}/${payload.srqId}`, { ...payload.srq });
+        await axios.put(`${urls.srq}`, { ...payload.srq });
 
         dispatch(actions.addSupportRequestSuccess());
     } catch (error) {

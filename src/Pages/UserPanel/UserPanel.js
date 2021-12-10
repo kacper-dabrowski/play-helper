@@ -8,7 +8,7 @@ import Solution from './Solution/Solution';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import { useStore } from '../../hooks/useStore';
 import { removeSolution, fetchSolutions, addSolution } from '../../stores/solutions/solutions';
-import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
+import { addSupportRequest, fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
 
 const UserPanel = () => {
     const { dispatch, solutionsStore, supportRequestsStore } = useStore();
@@ -20,6 +20,13 @@ const UserPanel = () => {
     const onFetchSupportRequests = useCallback(() => {
         dispatch(fetchSupportRequests());
     }, [dispatch]);
+
+    const onAddSupportRequest = useCallback(
+        (payload) => {
+            dispatch(addSupportRequest(payload));
+        },
+        [dispatch]
+    );
 
     const onRemoveSolution = useCallback(
         (solutionId, onSuccess) => {
@@ -53,6 +60,8 @@ const UserPanel = () => {
                 </PrivateRoute>
                 <PrivateRoute exact path={routes.userPanel.srq.path}>
                     <SrqPanel
+                        onAddSupportRequest={onAddSupportRequest}
+                        addSupportRequestRequest={supportRequestsStore.addSupportRequestRequest}
                         onFetchSupportRequests={onFetchSupportRequests}
                         supportRequests={supportRequestsStore.supportRequests}
                         fetchSupportRequestsRequest={supportRequestsStore.fetchSupportRequestsRequest}
