@@ -5,13 +5,13 @@ import urls from '../../shared/urls';
 
 export const fetchSupportRequests = createAsyncThunk('supportRequests/fetch', async (payload, { dispatch }) => {
     try {
-        dispatch(actions.supportRequestsFetchStart());
+        dispatch(actions.fetchSupportRequestsStart());
 
         const response = await axios.get(urls.srq);
 
-        dispatch(actions.supportRequestsFetchSuccess(response.data));
+        dispatch(actions.fetchSupportRequestsSuccess(response.data));
     } catch (error) {
-        dispatch(actions.supportRequestsFetchFail({ error: error?.response?.message || error.message }));
+        dispatch(actions.fetchSupportRequestsFail({ error: error?.response?.message || error.message }));
     }
 });
 

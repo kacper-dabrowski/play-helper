@@ -55,7 +55,7 @@ const UserPanel = () => {
                     <SrqPanel
                         onFetchSupportRequests={onFetchSupportRequests}
                         supportRequests={supportRequestsStore.supportRequests}
-                        requestStatus={supportRequestsStore.fetchSolutionsRequest}
+                        fetchSupportRequestsRequest={supportRequestsStore.fetchSupportRequestsRequest}
                     />
                 </PrivateRoute>
             </NotFoundProviderSwitch>

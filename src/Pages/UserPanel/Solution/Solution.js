@@ -1,4 +1,3 @@
-import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';

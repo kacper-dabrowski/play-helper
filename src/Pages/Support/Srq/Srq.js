@@ -5,7 +5,7 @@ import { useStore } from '../../../hooks/useStore';
 
 const Srq = ({ onFetchSupportRequests }) => {
     const [template, setTemplate] = useState('');
-    const { userStore } = useStore();
+    const { supportRequestsStore } = useStore();
 
     useEffect(() => {
         onFetchSupportRequests();
@@ -16,8 +16,8 @@ const Srq = ({ onFetchSupportRequests }) => {
             <SrqFinder
                 setTemplate={setTemplate}
                 clickable
-                requestStatus={userStore.fetchSupportRequestsStatus}
-                supportRequests={userStore.supportRequests}
+                fetchSupportRequestsRequest={supportRequestsStore.fetchSupportRequestsRequest}
+                supportRequests={supportRequestsStore.supportRequests}
             />
             <MainTextarea value={template} setTemplate={setTemplate} />
         </>

@@ -13,11 +13,10 @@ const searchMethod = (results, searchPhrase) =>
             result.department.toLowerCase().includes(searchPhrase)
     );
 
-const SrqFinder = ({ requestStatus, supportRequests, refresh, editable, clickable, setTemplate }) => {
-    const srqResults = supportRequests;
-    const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(srqResults, searchMethod);
+const SrqFinder = ({ fetchSupportRequestsRequest, supportRequests, refresh, editable, clickable, setTemplate }) => {
+    const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(supportRequests, searchMethod);
 
-    useErrorNotification(requestStatus);
+    useErrorNotification(fetchSupportRequestsRequest);
 
     return (
         <StyledSrqFinder>
@@ -25,8 +24,8 @@ const SrqFinder = ({ requestStatus, supportRequests, refresh, editable, clickabl
             <SrqResults
                 onCopy={setTemplate || null}
                 supportRequests={searchResults}
-                hasError={requestStatus?.error}
-                isLoading={requestStatus.loading}
+                hasError={fetchSupportRequestsRequest?.error}
+                isLoading={fetchSupportRequestsRequest.loading}
                 editable={editable}
                 clickable={clickable}
                 refresh={refresh}

@@ -4,7 +4,7 @@ import SrqForm from '../../../components/Forms/SrqForm/SrqForm';
 import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 import srqFormContext from '../../../contexts/srqFormContext';
 
-const SrqPanel = ({ onFetchSupportRequests, requestStatus, supportRequests }) => {
+const SrqPanel = ({ onFetchSupportRequests, fetchSupportRequestsRequest, supportRequests }) => {
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
 
@@ -23,7 +23,7 @@ const SrqPanel = ({ onFetchSupportRequests, requestStatus, supportRequests }) =>
             </div>
             <SrqFinder
                 editable
-                requestStatus={requestStatus}
+                fetchSupportRequestsRequest={fetchSupportRequestsRequest}
                 supportRequests={supportRequests}
                 refresh={onFetchSupportRequests}
             />
