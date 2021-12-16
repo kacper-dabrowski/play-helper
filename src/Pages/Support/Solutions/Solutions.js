@@ -6,7 +6,6 @@ import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqRe
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { SolutionResults } from './StyledSolutions';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
 
 export const solutionSearchMethod = (results, searchPhrase) =>
     results.filter(
@@ -35,8 +34,6 @@ const Solutions = ({ requestStatus, solutions, onFetchSolutions }) => {
             isPublic={isPublic}
         />
     );
-
-    useErrorNotification(requestStatus);
 
     let results;
 

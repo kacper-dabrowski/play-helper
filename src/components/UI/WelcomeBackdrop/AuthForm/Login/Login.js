@@ -5,7 +5,6 @@ import { StyledFormHeader } from '../../../../Forms/BaseForm/BaseForm';
 import SubmitButton from '../../../../Buttons/SubmitButton/SubmitButton';
 import { loginSchema } from '../../../../../shared/validation/validation';
 import useFormikError from '../../../../../hooks/useFormikError';
-import { useErrorNotification } from '../../../../../hooks/useErrorNotification';
 import useFocus from '../../../../../hooks/useFocus';
 import * as Styled from '../StyledAuthForm';
 import Spinner from '../../../Spinner/Spinner';
@@ -28,7 +27,6 @@ export const Login = ({ loginRequest, onLoginUser }) => {
     });
 
     useFormikError(formik.errors);
-    useErrorNotification(loginRequest);
 
     return (
         <Styled.AuthForm onSubmit={formik.handleSubmit} data-testid="login-form">

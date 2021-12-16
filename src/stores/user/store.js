@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, onBecomeObserved } from 'mobx';
 import { createUserService, UserService } from './service';
 
 export class UserStore {
@@ -6,6 +6,7 @@ export class UserStore {
         this.userService = userService;
         this.settings = null;
         makeAutoObservable(this);
+        onBecomeObserved(this, 'settings', this.fetchUserSettings);
     }
 
     get updateUserRequest() {
@@ -16,25 +17,27 @@ export class UserStore {
         return this.userService.userRequest;
     }
 
-    async fetchUserSettings() {
-        const response = await this.userService.fetchSettings();
+    fetchUserSettings = async () => {
+        const response = await this.userService.fetchUserSettings();
 
-        if (response.error) {
+        if (response?.error) {
             return response.error;
         }
 
-        this.settings = response?.data?.settings;
-    }
-
-    async updateSettings(settings) {
-        const response = await this.userService.updateSettings(settings);
-
-        if (response.error) {
-            return response.error;
+        if (!response?.settings) {
+            return;
         }
 
-        this.settings = response?.data?.settings;
-    }
+        this.settings = response.settings;
+    };
+
+    updateSettings = async (settings) => {
+        const data = await this.userService.updateUserSettings(settings);
+
+        if (data?.error) {
+            return data.error;
+        }
+    };
 }
 
 let userStore;

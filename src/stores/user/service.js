@@ -9,19 +9,23 @@ export class UserService {
     }
 
     async fetchUserSettings() {
-        const response = this.userRequest(() => axios.get(urls.settings));
+        const response = await this.userRequest.handle(() => axios.get(urls.settings));
 
         if (!response) {
             return { error: this.userRequest.error };
         }
+
+        return response.data;
     }
 
     async updateUserSettings(settings) {
-        const response = this.updateUserRequest(() => axios.post(urls.settings, settings));
+        const response = await this.updateUserRequest.handle(() => axios.post(urls.settings, settings));
 
         if (!response) {
             return { error: this.userRequest.error };
         }
+
+        return response.data;
     }
 }
 

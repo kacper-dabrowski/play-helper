@@ -33,6 +33,8 @@ export class SupportRequestsStore {
     addSupportRequest = async ({ title, description, department, content }) => {
         const data = await this.supportRequestsService.addSupportRequest({ title, description, department, content });
 
+        await this.refreshSupportRequests();
+
         return !!data.error;
     };
 
@@ -45,11 +47,15 @@ export class SupportRequestsStore {
             content,
         });
 
+        await this.refreshSupportRequests();
+
         return !!data.error;
     };
 
     removeSupportRequest = async (payload) => {
         const data = await this.supportRequestsService.removeSupportRequest(payload);
+
+        await this.refreshSupportRequests();
 
         return !!data.error;
     };

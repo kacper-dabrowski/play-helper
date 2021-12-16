@@ -11,9 +11,10 @@ import { BasicContainer } from './Basic/BasicContainer';
 import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
+import Solutions from './Solutions/Solutions';
 
 const Support = observer(() => {
-    const { authStore, userStore, supportRequestsStore } = useStore();
+    const { authStore, userStore, supportRequestsStore, solutionsStore } = useStore();
     const { settings } = userStore;
 
     return (
@@ -35,11 +36,11 @@ const Support = observer(() => {
                     <Payments fullName={authStore.user.fullName} />
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
-                    {/* <Solutions
+                    <Solutions
                         solutions={solutionsStore.solutions}
-                        onFetchSolutions={onFetchSolutions}
-                        requestStatus={solutionsStore.fetchSolutionsRequest}
-                    /> */}
+                        onFetchSolutions={solutionsStore.refreshSolutions}
+                        requestStatus={solutionsStore.refreshSolutionsRequest}
+                    />
                 </Route>
                 <Route exact path={routes.support.main.path}>
                     <Redirect to={settings?.startingPage || routes.support.basic.path} />

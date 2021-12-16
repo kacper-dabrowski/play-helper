@@ -4,10 +4,9 @@ import routes from '../../../shared/routes';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
 import { FormLabel } from './StyledSettingsForm';
 import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
 
 const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest }) => {
-    const [startingPage, setStartingPage] = useState(userSettings.startingPage);
+    const [startingPage, setStartingPage] = useState(userSettings?.startingPage);
 
     const onStartingPageChange = useCallback(
         async (event) => {
@@ -21,8 +20,6 @@ const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest })
         },
         [onSettingsUpdate]
     );
-
-    useErrorNotification(settingsUpdateRequest);
 
     return (
         <StyledBaseForm>

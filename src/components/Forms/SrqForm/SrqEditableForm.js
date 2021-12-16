@@ -26,6 +26,7 @@ const SrqEditableForm = ({ entriesRefresh, populatedFields, onSupportRequestUpda
                 content,
             };
             const { srqId } = populatedFields;
+
             await onSupportRequestUpdate({ srqId, ...formData });
 
             cogoToast.success('Pomyślnie zapisano zmiany');

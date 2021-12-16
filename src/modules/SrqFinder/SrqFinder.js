@@ -3,7 +3,6 @@ import useResultsFilter from '../../hooks/useResultsFilter';
 import Searchbar from '../../components/SearchBar/SearchBar';
 import SrqResults from './SrqResults/SrqResults';
 import { StyledSrqFinder } from './StyledSrqFinder';
-import { useErrorNotification } from '../../hooks/useErrorNotification';
 
 const searchMethod = (results, searchPhrase) =>
     results.filter(
@@ -24,8 +23,6 @@ const SrqFinder = ({
     setTemplate,
 }) => {
     const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(supportRequests, searchMethod);
-
-    useErrorNotification(fetchSupportRequestsRequest);
 
     return (
         <StyledSrqFinder>

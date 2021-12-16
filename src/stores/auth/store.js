@@ -28,14 +28,14 @@ export class AuthStore {
     login = async ({ username, password, onSuccess }) => {
         const data = await this.authService.login({ username, password });
 
-        if (data.error) {
-            throw new Error(data.error);
+        if (data?.error) {
+            return;
         }
 
         const { token: idToken, userId, fullName, expiresIn } = data;
 
         if (!idToken || !userId) {
-            throw new Error('Unable to authenticate');
+            return;
         }
 
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
@@ -107,7 +107,6 @@ export class AuthStore {
     };
 
     _checkTimeout = async (expiresIn) => {
-        clearTimeout(this.logoutTimeoutId);
         this.logoutTimeoutId = setTimeout(() => {
             this.logout();
         }, +expiresIn);

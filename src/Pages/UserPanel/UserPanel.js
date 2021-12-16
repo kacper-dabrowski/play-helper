@@ -1,31 +1,34 @@
-import React from 'react';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import PrivateRoute from '../../components/Routes/PrivateRoute/PrivateRoute';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import routes from '../../shared/routes';
 import { useStore } from '../../stores/stores';
+import Solution from './Solution/Solution';
 import SrqPanel from './SrqPanel/SrqPanel';
 
 const UserPanel = observer(() => {
-    const { supportRequestsStore } = useStore();
+    const { supportRequestsStore, solutionsStore } = useStore();
 
     return (
         <SupportLayout routes={routes.userPanel} backgroundImage={backgroundImage}>
             <NotFoundProviderSwitch>
                 <PrivateRoute exact path={routes.userPanel.main.path} />
                 <PrivateRoute exact path={routes.userPanel.solution.path}>
-                    {/* <Solution
-                        onFetchSolutions={onFetchSolutions}
-                        requestStatus={solutionsStore.fetchSolutionsRequest}
+                    <Solution
+                        onFetchSolutions={solutionsStore.refreshSolutions}
+                        requestStatus={solutionsStore.refreshSolutionsRequest}
                         solutions={solutionsStore.solutions}
-                        refreshSolutions={onFetchSolutions}
-                        onRemoveSolution={}
+                        refreshSolutions={solutionsStore.refreshSolutions}
+                        onRemoveSolution={solutionsStore.removeSolution}
                         deletionRequestStatus={solutionsStore.removeSolutionRequest}
-                        onAddSolution={onAddSolution}
+                        onAddSolution={solutionsStore.addSolution}
                         addSolutionRequest={solutionsStore.addSolutionRequest}
-                    /> */}
+                        solutionUpdateRequest={solutionsStore.updateSolutionRequest}
+                        onUpdateSolution={solutionsStore.updateSolution}
+                    />
                 </PrivateRoute>
                 <PrivateRoute exact path={routes.userPanel.srq.path}>
                     <SrqPanel

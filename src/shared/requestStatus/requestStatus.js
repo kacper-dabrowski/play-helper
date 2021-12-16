@@ -1,30 +1,10 @@
-export const createRequestStatus = () => ({ error: '', loading: false });
-
-export const requestFinishedSuccessfully = () => {
-    return {
-        error: '',
-        loading: false,
-    };
-};
-
-export const requestFinishedWithError = (error) => {
-    return {
-        error,
-        loading: false,
-    };
-};
-
-export const requestLoading = () => {
-    return {
-        error: '',
-        loading: true,
-    };
-};
+import { makeAutoObservable } from 'mobx';
 
 export class RequestStatus {
     constructor() {
         this.loading = false;
         this.error = '';
+        makeAutoObservable(this);
     }
 
     async handle(fn) {
@@ -37,9 +17,8 @@ export class RequestStatus {
 
             return response;
         } catch (error) {
-            this.error = error.response.message || error.message || 'Wystąpił nieznany błąd.';
-        } finally {
             this.loading = false;
+            this.error = error.response.message || error.message || 'Wystąpił nieznany błąd.';
         }
     }
 
