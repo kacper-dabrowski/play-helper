@@ -1,30 +1,24 @@
-import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { Route } from 'react-router';
 import Logout from './components/Logout/Logout';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
+import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
 import PlayNext from './Pages/PlayNext/PlayNext';
 import Support from './Pages/Support/Support';
 import UserPanel from './Pages/UserPanel/UserPanel';
 import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
 import routes from './shared/routes';
-import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
+import { useStore } from './stores/stores';
 
-import { fetchUserSettings } from './stores/user/user';
-import { authCheckState } from './stores/auth/auth';
-import { useStore } from './hooks/useStore';
+const App = observer(() => {
+    const { userStore } = useStore();
 
-const App = () => {
-    const { userStore, authStore, dispatch } = useStore();
-
-    useEffect(() => {
-        dispatch(authCheckState());
-        dispatch(fetchUserSettings());
-    }, [dispatch, authStore.user.token]);
-
-    if (userStore.fetchUserRequestStatus.loading) {
+    if (userStore.fetchUserRequest.loading) {
         return <SplashScreen />;
     }
+
     return (
         <NotFoundProviderSwitch>
             <PrivateRoute path="/support">
@@ -42,6 +36,6 @@ const App = () => {
             </Route>
         </NotFoundProviderSwitch>
     );
-};
+});
 
 export default App;

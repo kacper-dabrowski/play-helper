@@ -12,6 +12,8 @@ const SrqPanel = ({
     addSupportRequestRequest,
     onRemoveSupportRequest,
     removeSupportRequestRequest,
+    onSupportRequestUpdate,
+    supportRequestUpdateRequestStatus,
 }) => {
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
@@ -24,7 +26,12 @@ const SrqPanel = ({
         <srqFormContext.Provider value={{ editMode, setEditMode, fieldsToPopulate, setFieldsToPopulate }}>
             <div>
                 {editMode ? (
-                    <SrqEditableForm populatedFields={fieldsToPopulate} entriesRefresh={onFetchSupportRequests} />
+                    <SrqEditableForm
+                        populatedFields={fieldsToPopulate}
+                        entriesRefresh={onFetchSupportRequests}
+                        onSupportRequestUpdate={onSupportRequestUpdate}
+                        updateRequestStatus={supportRequestUpdateRequestStatus}
+                    />
                 ) : (
                     <SrqForm
                         entriesRefresh={onFetchSupportRequests}

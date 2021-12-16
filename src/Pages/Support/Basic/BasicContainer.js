@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStore } from '../../../hooks/useStore';
+import { useStore } from '../../../stores/stores';
 import Basic from './Basic';
 
 export const BasicContainer = () => {

@@ -1,13 +1,13 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Route } from 'react-router';
+import { useStore } from '../../../stores/stores';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
-const PrivateRoute = ({ ...props }) => {
-    const isAuthenticated = useSelector((state) => !!state.auth.user.token);
-
+const PrivateRoute = observer((props) => {
+    const { authStore } = useStore();
     const renderRoute = () => {
-        if (!isAuthenticated) {
+        if (!authStore.user) {
             return <NotFoundPage />;
         }
 
@@ -15,6 +15,6 @@ const PrivateRoute = ({ ...props }) => {
     };
 
     return <Route {...props}>{renderRoute()}</Route>;
-};
+});
 
 export default PrivateRoute;

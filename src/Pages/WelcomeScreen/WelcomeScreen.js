@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import arrowLeft from '../../assets/icons/left-arrow.svg';
 import arrowRight from '../../assets/icons/right-arrow.svg';
 import SettingsModal from '../../components/Modals/SettingsModal/SettingsModal';
 import Topbar from '../../components/UI/Navbars/Topbar/Topbar';
+import { SplashScreen } from '../../components/UI/SplashScreen/SplashScreen';
+import { WelcomeBackdrop } from '../../components/UI/WelcomeBackdrop/WelcomeBackdrop';
+import { colors } from '../../shared/colors';
+import { useStore } from '../../stores/stores';
 import ProjectTile from './ProjectTile/ProjectTile';
 import { WelcomeScreenContainer } from './StyledWelcomeScreen';
-import { colors } from '../../shared/colors';
-import { useStore } from '../../hooks/useStore';
-import { updateUserSettings } from '../../stores/user/user';
-import { WelcomeBackdrop } from '../../components/UI/WelcomeBackdrop/WelcomeBackdrop';
-import { SplashScreen } from '../../components/UI/SplashScreen/SplashScreen';
 
-const WelcomeScreen = () => {
-    const { authStore, userStore, dispatch } = useStore();
+const WelcomeScreen = observer(() => {
+    const { authStore, userStore } = useStore();
 
     const isAuthenticated = Boolean(authStore?.user?.token);
     const fullName = authStore?.user?.fullName;
 
-    const onSettingsUpdate = (payload) => dispatch(updateUserSettings(payload));
-
     const [settingsModalOpened, setSettingsModalOpened] = useState(false);
 
-    if (userStore.fetchUserRequestStatus.loading) {
+    if (userStore.fetchUserRequest.loading) {
         return <SplashScreen />;
     }
 
@@ -37,9 +35,9 @@ const WelcomeScreen = () => {
 
                 <SettingsModal
                     isOpened={settingsModalOpened}
-                    onSettingsUpdate={onSettingsUpdate}
+                    onSettingsUpdate={userStore.updateSettings}
                     userSettings={userStore.settings}
-                    settingsUpdateRequest={userStore.settingsUpdateRequest}
+                    settingsUpdateRequest={userStore.updateUserRequest}
                     closeModalHandler={() => setSettingsModalOpened(false)}
                 />
                 <ProjectTile
@@ -59,6 +57,6 @@ const WelcomeScreen = () => {
             </WelcomeScreenContainer>
         </>
     );
-};
+});
 
 export default WelcomeScreen;

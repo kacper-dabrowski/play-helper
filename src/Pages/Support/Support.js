@@ -1,36 +1,26 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router';
+import { observer } from 'mobx-react-lite';
+import backgroundImage from '../../assets/backgrounds/support-wave.svg';
+import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
+import routes from '../../shared/routes';
+import { useStore } from '../../stores/stores';
+import { BasicContainer } from './Basic/BasicContainer';
 import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
-import backgroundImage from '../../assets/backgrounds/support-wave.svg';
-import Solutions from './Solutions/Solutions';
-import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
-import routes from '../../shared/routes';
-import { useStore } from '../../hooks/useStore';
-import { BasicContainer } from './Basic/BasicContainer';
-import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
-import { fetchSolutions } from '../../stores/solutions/solutions';
 
-const Support = () => {
-    const { authStore, dispatch, solutionsStore, userStore } = useStore();
+const Support = observer(() => {
+    const { authStore, userStore, supportRequestsStore } = useStore();
     const { settings } = userStore;
-
-    const onFetchSolutions = useCallback(() => {
-        dispatch(fetchSolutions());
-    }, [dispatch]);
-
-    const onFetchSupportRequests = useCallback(() => {
-        dispatch(fetchSupportRequests());
-    }, [dispatch]);
 
     return (
         <SupportLayout routes={routes.support} backgroundImage={backgroundImage}>
             <NotFoundProviderSwitch>
                 <Route exact path={routes.support.srq.path}>
-                    <Srq onFetchSupportRequests={onFetchSupportRequests} />
+                    <Srq onFetchSupportRequests={supportRequestsStore.refreshSupportRequests} />
                 </Route>
                 <Route exact path={routes.support.basic.path}>
                     <BasicContainer name={authStore.fullName} />
@@ -45,11 +35,11 @@ const Support = () => {
                     <Payments fullName={authStore.user.fullName} />
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
-                    <Solutions
+                    {/* <Solutions
                         solutions={solutionsStore.solutions}
                         onFetchSolutions={onFetchSolutions}
                         requestStatus={solutionsStore.fetchSolutionsRequest}
-                    />
+                    /> */}
                 </Route>
                 <Route exact path={routes.support.main.path}>
                     <Redirect to={settings?.startingPage || routes.support.basic.path} />
@@ -57,6 +47,6 @@ const Support = () => {
             </NotFoundProviderSwitch>
         </SupportLayout>
     );
-};
+});
 
 export default Support;

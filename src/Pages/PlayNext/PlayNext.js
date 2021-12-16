@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import backgroundImage from '../../assets/backgrounds/play-next-wave.svg';
 import MainTextarea from '../../components/Inputs/MainTextarea/MainTextarea';
 import { generateNextTemplate, isPolish } from '../../modules/next/next';
@@ -7,9 +6,10 @@ import identifiers from '../../shared/identifiers';
 import routes from '../../shared/routes';
 import Settings from './Settings/Settings';
 import { NextLayout } from '../../containers/layouts/NextLayout/NextLayout';
+import { useStore } from '../../stores/stores';
 
 const PlayNext = () => {
-    const username = useSelector((state) => state.auth.user.fullName);
+    const { authStore } = useStore();
     const [language, setLanguage] = useState(identifiers.language.polish);
     const [sex, setSex] = useState(identifiers.sex.man);
     const [template, setTemplate] = useState('');
@@ -17,7 +17,7 @@ const PlayNext = () => {
 
     const onGenerateTemplate = (type) => {
         setActiveTemplate(type);
-        const templateToSet = generateNextTemplate(type, sex, language, username);
+        const templateToSet = generateNextTemplate(type, sex, language, authStore.user.fullName);
         setTemplate(templateToSet);
     };
 

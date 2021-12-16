@@ -24,7 +24,7 @@ const SrqForm = ({ entriesRefresh, onAddSupportRequest, addSupportRequestRequest
                 content,
             };
 
-            await onAddSupportRequest({ srq: formData });
+            await onAddSupportRequest(formData);
 
             cogoToast.success('SRQ dodane pomyślnie');
             resetForm();

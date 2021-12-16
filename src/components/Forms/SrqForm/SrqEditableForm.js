@@ -2,10 +2,8 @@ import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useContext } from 'react';
 import srqFormContext from '../../../contexts/srqFormContext';
-import useFormikError from '../../../hooks/useFormikError';
 import useFocus from '../../../hooks/useFocus';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
+import useFormikError from '../../../hooks/useFormikError';
 import { srqSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -13,8 +11,7 @@ import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
 
-const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
-    const { isLoading, requestHandler } = useRequest(urls.srq, REQUEST_METHODS.POST);
+const SrqEditableForm = ({ entriesRefresh, populatedFields, onSupportRequestUpdate, updateRequestStatus }) => {
     const focusRef = useFocus();
     const { setEditMode } = useContext(srqFormContext);
 
@@ -28,8 +25,8 @@ const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
                 department,
                 content,
             };
-
-            await requestHandler(formData, () => `${urls.srq}/${populatedFields.srqId}`);
+            const { srqId } = populatedFields;
+            await onSupportRequestUpdate({ srqId, ...formData });
 
             cogoToast.success('Pomyślnie zapisano zmiany');
             resetForm();
@@ -84,7 +81,7 @@ const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
                 name="content"
                 placeholder="Treść formatki"
             />
-            {isLoading ? <Spinner centered /> : <SubmitButton title="Zapisz zmiany" />}
+            {updateRequestStatus.loading ? <Spinner centered /> : <SubmitButton title="Zapisz zmiany" />}
         </StyledFormContainer>
     );
 };

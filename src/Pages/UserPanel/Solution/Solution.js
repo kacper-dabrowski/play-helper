@@ -6,9 +6,9 @@ import Searchbar from '../../../components/SearchBar/SearchBar';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { useErrorNotification } from '../../../hooks/useErrorNotification';
 import useResultsFilter from '../../../hooks/useResultsFilter';
-import { useStore } from '../../../hooks/useStore';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import { updateSolution } from '../../../stores/solutions/solutions';
+import { useStore } from '../../../stores/stores';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 

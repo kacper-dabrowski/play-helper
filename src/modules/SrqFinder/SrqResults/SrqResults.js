@@ -37,7 +37,7 @@ const SrqResults = ({
             editable={editable}
             toggleEditMode={setEditMode}
             setFieldsToPopulate={setFieldsToPopulate}
-            onRemove={() => onRemoveSupportRequest(_id)}
+            onRemove={() => onRemoveSupportRequest({ srqId: _id })}
         />
     ));
 
