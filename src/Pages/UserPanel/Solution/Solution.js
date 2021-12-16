@@ -3,14 +3,14 @@ import SolutionEditableForm from '../../../components/Forms/SolutionForm/Solutio
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
-import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
 import useResultsFilter from '../../../hooks/useResultsFilter';
+import { useStore } from '../../../hooks/useStore';
+import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
+import { updateSolution } from '../../../stores/solutions/solutions';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
-import { useStore } from '../../../hooks/useStore';
-import { updateSolution } from '../../../stores/solutions/solutions';
 
 const Solution = ({
     solutions,

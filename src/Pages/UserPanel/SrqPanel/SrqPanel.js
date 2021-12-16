@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SrqEditableForm from '../../../components/Forms/SrqForm/SrqEditableForm';
 import SrqForm from '../../../components/Forms/SrqForm/SrqForm';
-import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 import srqFormContext from '../../../contexts/srqFormContext';
-import { removeSupportRequests } from '../../../stores/supportRequests/supportRequests';
+import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 
 const SrqPanel = ({
     onFetchSupportRequests,

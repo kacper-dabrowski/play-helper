@@ -1,12 +1,9 @@
-import cogoToast from 'cogo-toast';
 import React, { useContext } from 'react';
-import srqFormContext from '../../../contexts/srqFormContext';
-import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
-import urls from '../../../shared/urls';
 import Result from '../../../components/Results/Result/SRQ/SrqResult';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import { StyledResults } from './StyledSrqResults';
+import srqFormContext from '../../../contexts/srqFormContext';
 import { useErrorNotification } from '../../../hooks/useErrorNotification';
+import { StyledResults } from './StyledSrqResults';
 
 const SrqResults = ({
     supportRequests,
