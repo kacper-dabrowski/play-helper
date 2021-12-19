@@ -1,42 +1,48 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
-        "airbnb",
-        "eslint:recommended",
-        "plugin:prettier/recommended",
         "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:jest/recommended"
+        "airbnb",
+        "prettier"
     ],
-    "globals": {},
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 2020,
-        "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true
-        }
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
     },
-    "plugins": ["react", "prettier", "import", "autofix"],
+    "plugins": [
+        "react",
+        "react-hooks",
+        "@typescript-eslint",
+        "jest",
+        "prettier"
+    ],
     "rules": {
-        "no-unused-vars": "warn",
-        "prettier/prettier": "error",
-        "react/jsx-filename-extension": "off",
-        "react/prop-types": "off",
-        "jsx-a11y/click-events-have-key-events": "off",
-        "react/state-in-constructor": "off",
-        "import/prefer-default-export": "off",
-        "react/destructuring-assignment": "off",
-        "react/jsx-props-no-spreading": "off",
-        "no-underscore-dangle": "off",
-        "jsx-a11y/label-has-associated-control": "off",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
         "consistent-return": "off",
-        "import/order": "error",
-        "no-use-before-define": "off"
+        "react/prop-types": "off",
+        "max-len": [
+            "warn",
+            {
+                "code": 120
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "react/jsx-filename-extension": "warn",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": [
+            "error"
+        ],
+        "react/function-component-definition": "off",
+        "prettier/prettier": "error",
+        "react/jsx-props-no-spreading": "off",
+        "jsx-a11y/label-has-associated-control": "warn",
+        "no-underscore-dangle": "off"
     }
 }

@@ -9,9 +9,7 @@ const generateInvoiceString = (name, invoices) => {
     const genderEnding = name.endsWith('a') ? 'Rozłożyłam' : 'Rozłożyłem';
 
     const invoiceEnding = invoices.length > 1 ? 'faktury o numerach:' : 'fakturę o numerze';
-    const invoicesList = invoices.map((invoice, index) => {
-        return `${invoice}${index + 1 === invoices.length ? '' : `,`}`;
-    });
+    const invoicesList = invoices.map((invoice, index) => `${invoice}${index + 1 === invoices.length ? '' : `,`}`);
 
     return `Dziękuję za zgłoszenie. ${genderEnding} ${invoiceEnding} ${invoicesList.join(' ')}`;
 };

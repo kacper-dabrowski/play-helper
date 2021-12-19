@@ -51,7 +51,7 @@ export class AuthStore {
             fullName,
         };
 
-        this._checkTimeout(expiresIn);
+        this.checkTimeout(expiresIn);
 
         if (onSuccess && typeof onSuccess === 'function') {
             onSuccess();
@@ -59,7 +59,12 @@ export class AuthStore {
     };
 
     register = async ({ username, password, repeatPassword, fullName }) => {
-        const response = await this.authService.register({ username, password, repeatPassword, fullName });
+        const response = await this.authService.register({
+            username,
+            password,
+            repeatPassword,
+            fullName,
+        });
 
         if (response.error) {
             throw new Error(response.error);
@@ -100,13 +105,13 @@ export class AuthStore {
 
             const calculatedTimeLeft = (expirationDate.getTime() - new Date().getTime()) / 1000;
 
-            return this._checkTimeout(calculatedTimeLeft);
+            return this.checkTimeout(calculatedTimeLeft);
         }
 
         return this.logout();
     };
 
-    _checkTimeout = async (expiresIn) => {
+    checkTimeout = async (expiresIn) => {
         this.logoutTimeoutId = setTimeout(() => {
             this.logout();
         }, +expiresIn);
