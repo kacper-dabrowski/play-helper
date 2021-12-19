@@ -23,7 +23,7 @@ export const signupSchema = Yup.object({
     username: Yup.string().max(20, 'Pole musi być krótsze niz 20 znaków').required('Pole jest wymagane'),
     fullName: Yup.string().required('Pole jest wymagane'),
     password: Yup.string().min(6, 'Hasło musi być dłuzsze niz 6 znakow').required('Pole jest wymagane'),
-    confirmPassword: Yup.string()
+    repeatPassword: Yup.string()
         .required('Pole jest wymagane')
         .oneOf([Yup.ref('password'), null], 'Hasła muszą się zgadzać'),
 });

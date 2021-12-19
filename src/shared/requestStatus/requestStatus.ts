@@ -12,7 +12,7 @@ export class RequestStatus {
         makeAutoObservable(this);
     }
 
-    async handle(fn: Function) {
+    async handle<T>(fn: () => Promise<T>): Promise<T | undefined> {
         try {
             this.loading = true;
 

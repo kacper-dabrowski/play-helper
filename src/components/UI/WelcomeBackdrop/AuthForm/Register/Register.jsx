@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import FormInput from '../../../../Inputs/FormInput/FormInput';
 import * as Styled from '../StyledAuthForm';
 import { StyledFormHeader } from '../../../../Forms/BaseForm/BaseForm';
@@ -9,7 +10,7 @@ import { signupSchema } from '../../../../../shared/validation/validation';
 import useFormikError from '../../../../../hooks/useFormikError';
 import Spinner from '../../../Spinner/Spinner';
 
-export const Register = ({ registrationRequest, onRegisterUser }) => {
+export const Register = observer(({ registrationRequest, onRegisterUser }) => {
     const focusRef = useFocus();
 
     const formik = useFormik({
@@ -17,13 +18,12 @@ export const Register = ({ registrationRequest, onRegisterUser }) => {
             username: '',
             fullName: '',
             password: '',
-            confirmPassword: '',
+            repeatPassword: '',
         },
         validationSchema: signupSchema,
         validateOnChange: false,
         onSubmit: async (values) => {
-            const { username, fullName, password, confirmPassword } = values;
-            onRegisterUser({ username, fullName, password, confirmPassword });
+            onRegisterUser(values);
         },
     });
 
@@ -58,15 +58,16 @@ export const Register = ({ registrationRequest, onRegisterUser }) => {
                 type="password"
                 onChange={formik.handleChange}
                 value={formik.values.password}
+                autocomplete="new-password"
             />
             <FormInput
-                name="confirmPassword"
-                id="confirmPassword"
-                hasErrors={!!formik.errors.confirmPassword && !!formik.touched.confirmPassword}
+                name="repeatPassword"
+                id="repeatPassword"
+                hasErrors={!!formik.errors.repeatPassword && !!formik.touched.repeatPassword}
                 placeholder="Potwierdź hasło"
                 type="password"
                 onChange={formik.handleChange}
-                value={formik.values.confirmPassword}
+                value={formik.values.repeatPassword}
             />
             {registrationRequest.loading ? (
                 <Spinner />
@@ -75,4 +76,4 @@ export const Register = ({ registrationRequest, onRegisterUser }) => {
             )}
         </Styled.AuthForm>
     );
-};
+});

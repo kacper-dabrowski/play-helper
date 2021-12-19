@@ -3,7 +3,7 @@ import { StyledCheckbox } from './StyledCheckbox';
 
 const Checkbox = ({ labelContent, setHandler, value }, ...props) => (
     <>
-        {labelContent && <label>{labelContent}</label>}
+        {labelContent && <label htmlFor={props.name}>{labelContent}</label>}
         <StyledCheckbox
             type="checkbox"
             name={props.name}

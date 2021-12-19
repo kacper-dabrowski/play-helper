@@ -1,10 +1,16 @@
 import { makeAutoObservable, onBecomeObserved } from 'mobx';
-import { AuthService, createAuthService } from './service';
+import { Maybe } from '../../../shared/types/types';
+import { LoginDto, RegistrationDto, UserModel } from '../model';
+import { DefaultAuthService, createAuthService } from '../service/defaultService';
 
-let authStore;
+let authStore: AuthStore;
 
 export class AuthStore {
-    constructor(authService = new AuthService()) {
+    private logoutTimeoutId: Maybe<ReturnType<typeof setTimeout>>;
+
+    user: Maybe<UserModel>;
+
+    constructor(private authService = new DefaultAuthService()) {
         this.authService = authService;
         this.logoutTimeoutId = null;
         this.user = {
@@ -25,8 +31,8 @@ export class AuthStore {
         return this.authService.registrationRequest;
     }
 
-    login = async ({ username, password, onSuccess }) => {
-        const data = await this.authService.login({ username, password });
+    login = async (loginDto: LoginDto, onSuccess?: () => void) => {
+        const data = await this.authService.login(loginDto);
 
         if (data?.error) {
             return;
@@ -58,24 +64,25 @@ export class AuthStore {
         }
     };
 
-    register = async ({ username, password, repeatPassword, fullName }) => {
-        const response = await this.authService.register({
-            username,
-            password,
-            repeatPassword,
-            fullName,
-        });
+    register = async (registrationDto: RegistrationDto): Promise<void> => {
+        await this.authService.register(registrationDto);
 
-        if (response.error) {
-            throw new Error(response.error);
+        if (this.registrationRequest.error) {
+            return;
         }
+
+        const { username, password } = registrationDto;
 
         await this.login({ username, password });
     };
 
     logout = async () => {
         this.user = null;
-        clearTimeout(this.logoutTimeoutId);
+
+        if (this.logoutTimeoutId) {
+            clearTimeout(this.logoutTimeoutId);
+        }
+
         this.logoutTimeoutId = null;
         localStorage.removeItem('token');
         localStorage.removeItem('expirationDate');
@@ -92,7 +99,13 @@ export class AuthStore {
         const userId = localStorage.getItem('userId');
         const fullName = localStorage.getItem('fullName');
 
-        const expirationDate = new Date(localStorage.getItem('expirationDate'));
+        const maybeExpirationDateFromLocalStorage = localStorage.getItem('expirationDate');
+
+        if (!maybeExpirationDateFromLocalStorage) {
+            return this.logout();
+        }
+
+        const expirationDate = new Date(maybeExpirationDateFromLocalStorage);
 
         const isTokenValid = expirationDate.getTime() >= new Date().getTime();
 
@@ -111,7 +124,7 @@ export class AuthStore {
         return this.logout();
     };
 
-    checkTimeout = async (expiresIn) => {
+    checkTimeout = async (expiresIn: string | number) => {
         this.logoutTimeoutId = setTimeout(() => {
             this.logout();
         }, +expiresIn);

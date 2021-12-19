@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { ChannelType, CustomerType, Salutation } from '../../shared/identifiers';
 import { BasicTemplateOptions } from './basic';
 

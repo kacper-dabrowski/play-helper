@@ -1,4 +1,5 @@
-import identifiers, { Language, NextTemplateType, Salutation } from '../../shared/identifiers';
+/* eslint-disable max-len */
+import { Language, NextTemplateType, Salutation } from '../../shared/identifiers';
 
 export const isEvening = (language) => {
     const now = new Date();

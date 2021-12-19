@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { useStore } from '../../../../stores/stores';
 import { Login } from './Login/Login';
@@ -5,7 +6,7 @@ import { Register } from './Register/Register';
 import * as Styled from './StyledAuthForm';
 import { SwitchAuthNotice } from './SwitchAuthNotice/SwitchAuthNotice';
 
-export const AuthForm = () => {
+export const AuthForm = observer(() => {
     const { authStore } = useStore();
 
     const [isLogin, setIsLogin] = useState(true);
@@ -22,4 +23,4 @@ export const AuthForm = () => {
             </Styled.Container>
         </Styled.Wrapper>
     );
-};
+});

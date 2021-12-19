@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import backgroundImage from '../../assets/backgrounds/play-next-wave.svg';
 import MainTextarea from '../../components/Inputs/MainTextarea/MainTextarea';
 import { generateNextTemplate, isPolish } from '../../modules/next/next';
-import identifiers from '../../shared/identifiers';
 import routes from '../../shared/routes';
 import Settings from './Settings/Settings';
 import { NextLayout } from '../../containers/layouts/NextLayout/NextLayout';
 import { useStore } from '../../stores/stores';
+import { Language, NextNotes, Salutation } from '../../shared/identifiers';
 
 const PlayNext = () => {
     const { authStore } = useStore();
-    const [language, setLanguage] = useState(identifiers.language.polish);
-    const [sex, setSex] = useState(identifiers.sex.man);
+    const [language, setLanguage] = useState(Language.Polish);
+    const [sex, setSex] = useState(Salutation.Man);
     const [template, setTemplate] = useState('');
     const [activeTemplate, setActiveTemplate] = useState('');
 
@@ -24,7 +24,7 @@ const PlayNext = () => {
     const addToCurrentTemplate = (type, currentLanguage) => {
         let templateToSet;
         switch (type) {
-            case identifiers.nextNotes.ASK:
+            case NextNotes.Ask:
                 if (isPolish(currentLanguage)) {
                     templateToSet = `${template} Mogę jakoś jeszcze pomóc?`;
                 } else {
@@ -32,10 +32,12 @@ const PlayNext = () => {
                 }
 
                 break;
-            case identifiers.nextNotes.JOB_EVALUATION:
+            case NextNotes.JobEvaluation:
                 if (isPolish(currentLanguage)) {
+                    // eslint-disable-next-line max-len
                     templateToSet = `${template} Po zakończeniu rozmowy wyświetli się okno z prośbą o krótką ocenę mojej pracy. Będę wdzięczny za jej wypełnienie. `;
                 } else {
+                    // eslint-disable-next-line max-len
                     templateToSet = `${template} After our conversation you will be able to mark our conversation in a short poll. It would be great if you filled that.`;
                 }
                 break;

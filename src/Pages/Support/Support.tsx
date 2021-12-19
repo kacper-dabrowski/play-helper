@@ -33,7 +33,7 @@ const Support: FC = observer(() => {
                     <Double type={DoubledNotificationType.Closed} />
                 </Route>
                 <Route exact path={routes.support.payments.path}>
-                    <Payments fullName={authStore.user.fullName} />
+                    <Payments fullName={authStore?.user?.fullName} />
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
                     <Solutions

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Salutation } from '../../shared/identifiers';
 
 const generateClosedDoubleTemplate = (sex, numOfCurrent, numOfClosed) => {

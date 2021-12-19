@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { createAuthStore } from './auth/store';
+import { createAuthStore } from './auth/store/store';
 import { createSolutionsStore } from './solutions/store';
 import { createSupportRequestsStore } from './supportRequests/store';
 import { createUserStore } from './user/store';

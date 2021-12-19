@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import FormInput from '../../../../Inputs/FormInput/FormInput';
 import { StyledFormHeader } from '../../../../Forms/BaseForm/BaseForm';
 import SubmitButton from '../../../../Buttons/SubmitButton/SubmitButton';
@@ -9,7 +10,7 @@ import useFocus from '../../../../../hooks/useFocus';
 import * as Styled from '../StyledAuthForm';
 import Spinner from '../../../Spinner/Spinner';
 
-export const Login = ({ loginRequest, onLoginUser }) => {
+export const Login = observer(({ loginRequest, onLoginUser }) => {
     const focusRef = useFocus();
     const formik = useFormik({
         initialValues: { login: '', password: '' },
@@ -57,4 +58,4 @@ export const Login = ({ loginRequest, onLoginUser }) => {
             )}
         </Styled.AuthForm>
     );
-};
+});

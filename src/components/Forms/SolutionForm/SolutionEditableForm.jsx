@@ -65,8 +65,10 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode, onSolutio
                 value={formik.values.content}
                 placeholder="Treść zamknięcia"
             />
-            <label htmlFor="isPublic">Widok publiczny: </label>
-            <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
+            <label htmlFor="isPublic">
+                Widok publiczny:
+                <input type="checkbox" name="isPublic" onChange={formik.handleChange} value={formik.values.isPublic} />
+            </label>
 
             {solutionUpdateRequest.loading ? (
                 <Spinner centered />
