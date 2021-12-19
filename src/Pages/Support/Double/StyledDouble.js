@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import config from '../../../shared/identifiers';
+import { DoubledNotificationType } from '../../../shared/identifiers';
 
 export const StyledInputSection = styled.div`
     display: grid;
@@ -27,5 +27,5 @@ export const ConfirmButtonsWrapper = styled.div`
 `;
 
 export const DoubleContainer = styled.div`
-    margin-top: ${({ type }) => type === config.double.opened && '100px'};
+    margin-top: ${({ type }) => type === DoubledNotificationType.Opened && '100px'};
 `;

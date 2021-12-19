@@ -1,9 +1,9 @@
 import React from 'react';
+import SubmitButton from '../../../../components/Buttons/SubmitButton/SubmitButton';
 import Counter from '../../../../components/Counter/Counter';
 import SupportInput from '../../../../components/Inputs/SupportInput/SupportInput';
-import config from '../../../../shared/identifiers';
+import { config } from '../../../../shared/identifiers';
 import { CalculatorWrapper } from '../StyledPayments';
-import SubmitButton from '../../../../components/Buttons/SubmitButton/SubmitButton';
 
 const Calculator = ({
     setPaymentsCountHandler,

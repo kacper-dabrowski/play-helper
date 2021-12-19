@@ -1,13 +1,13 @@
 import React from 'react';
+import { Project } from '../../../shared/identifiers';
 import { StyledPlayNextButton, StyledSupportButton } from './StyledStateButton';
-import config from '../../../shared/identifiers';
 
 export const StateButton = ({ variant, title, ...buttonProps }) => {
-    if (variant === config.projects.NEXT) {
+    if (variant === Project.Next) {
         return <StyledPlayNextButton {...buttonProps}>{title}</StyledPlayNextButton>;
     }
 
-    if (variant === config.projects.SUPPORT) {
+    if (variant === Project.Support) {
         return <StyledSupportButton {...buttonProps}>{title}</StyledSupportButton>;
     }
 

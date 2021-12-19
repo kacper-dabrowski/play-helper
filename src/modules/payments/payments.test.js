@@ -1,4 +1,4 @@
-import config from '../../shared/identifiers';
+import { BillingPeriodCode } from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
 import { generatePayments, generatePaymentTemplates } from './payments';
 
@@ -12,7 +12,7 @@ describe('payments', () => {
             name: 'Kacper Dąbrowski',
             invoices: ['F/123', 'F/1234', 'F/12345'],
             payments: [41.5, 41.5, 41.5],
-            paymentSpan: config.payments.spans.P01,
+            paymentSpan: BillingPeriodCode.P01,
         };
         const { mainTemplate } = generatePaymentTemplates(paymentConfig);
         expect(mainTemplate)
@@ -28,7 +28,7 @@ Obsługa Klienta Play.`);
     describe('P01', () => {
         it('should generate a valid payments set for P01 after due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P01,
+                paymentSpan: BillingPeriodCode.P01,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/17'),
                 paymentsCount: 3,
@@ -51,7 +51,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P01 before due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P01,
+                paymentSpan: BillingPeriodCode.P01,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/07'),
                 paymentsCount: 3,
@@ -76,7 +76,7 @@ Obsługa Klienta Play.`);
     describe('P06', () => {
         it('should generate a valid payments set for P06 after due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P06,
+                paymentSpan: BillingPeriodCode.P06,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/13'),
                 paymentsCount: 3,
@@ -99,7 +99,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P06 before due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P06,
+                paymentSpan: BillingPeriodCode.P06,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/11'),
                 paymentsCount: 3,
@@ -124,7 +124,7 @@ Obsługa Klienta Play.`);
     describe('P10', () => {
         it('should generate a valid payments set for P10 after due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P10,
+                paymentSpan: BillingPeriodCode.P10,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/17'),
                 paymentsCount: 3,
@@ -147,7 +147,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P10 before due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P10,
+                paymentSpan: BillingPeriodCode.P10,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/15'),
                 paymentsCount: 3,
@@ -172,7 +172,7 @@ Obsługa Klienta Play.`);
     describe('P15', () => {
         it('should generate a valid payments set for P15 before due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
+                paymentSpan: BillingPeriodCode.P15,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/21'),
                 paymentsCount: 3,
@@ -195,7 +195,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P15 before due date (30 days month in the middle)', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
+                paymentSpan: BillingPeriodCode.P15,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/10/21'),
                 paymentsCount: 3,
@@ -218,7 +218,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P15 after due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
+                paymentSpan: BillingPeriodCode.P15,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/22'),
                 paymentsCount: 3,
@@ -241,7 +241,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P15 after due date (hardest case)', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
+                paymentSpan: BillingPeriodCode.P15,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2021/01/22'),
                 paymentsCount: 3,
@@ -265,7 +265,7 @@ Obsługa Klienta Play.`);
     describe('P20', () => {
         it('should generate a valid payments set for P20 before due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P20,
+                paymentSpan: BillingPeriodCode.P20,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/27'),
                 paymentsCount: 3,
@@ -288,7 +288,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P20 after due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P20,
+                paymentSpan: BillingPeriodCode.P20,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/28'),
                 paymentsCount: 3,
@@ -313,7 +313,7 @@ Obsługa Klienta Play.`);
     describe('P25', () => {
         it('should generate a valid payments set for P25 before due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P25,
+                paymentSpan: BillingPeriodCode.P25,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/01'),
                 paymentsCount: 3,
@@ -336,7 +336,7 @@ Obsługa Klienta Play.`);
 
         it('should generate a valid payments set for P25 after due date', () => {
             const paymentsConfig = {
-                paymentSpan: config.payments.spans.P25,
+                paymentSpan: BillingPeriodCode.P25,
                 amounts: [41, 41, 41],
                 currentDate: new Date('2020/11/02'),
                 paymentsCount: 3,

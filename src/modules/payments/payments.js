@@ -1,7 +1,7 @@
 import Big from 'big.js';
 import dateAdd from 'date-fns/add';
 import dateSet from 'date-fns/set';
-import config from '../../shared/identifiers';
+import { config } from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
 import numberToCurrency from './numberToCurrency';
 
@@ -70,6 +70,7 @@ export const generatePayments = (paymentsConfig) => {
         amounts,
         paymentsCount,
     };
+
     try {
         const { dueDay, dividingDay } = config.payments.deadlines[paymentSpan];
         return generatePaymentsObject(generatorConfig, dividingDay, dueDay);

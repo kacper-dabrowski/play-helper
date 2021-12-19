@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import cogoToast from 'cogo-toast';
 import React from 'react';
 import { generateBasicTemplate } from '../../../modules/basic/basic';
+import { ChannelType, CustomerType, Salutation } from '../../../shared/identifiers';
 import Basic from './Basic';
 
 jest.mock('../../../modules/basic/basic', () => ({
@@ -43,14 +44,14 @@ describe('Support - Basic', () => {
 
         return waitFor(() => {
             expect(generateBasicTemplate).toHaveBeenCalledWith({
-                channel: 'HELPLINE',
+                channel: ChannelType.Helpline,
                 date: '2021-01-01',
                 details: 'some details',
                 general: 'some general text',
                 hasOffer: false,
                 name: 'Test Testing',
-                sex: 'MAN',
-                type: 'BUSINESS',
+                sex: Salutation.Man,
+                type: CustomerType.Business,
             });
         });
     });

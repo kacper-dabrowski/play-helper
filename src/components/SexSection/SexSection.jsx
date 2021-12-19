@@ -1,26 +1,26 @@
 import React from 'react';
-import config from '../../shared/identifiers';
+import { Project, Salutation } from '../../shared/identifiers';
 import { StateButton } from '../Buttons/StateButton/StateButton';
 
 const SexSection = ({ setHandler, setting }) => (
     <>
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="Mężczyzna"
-            active={setting === config.sex.man}
-            onClick={() => setHandler(config.sex.man)}
+            active={setting === Salutation.Man}
+            onClick={() => setHandler(Salutation.Man)}
         />
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="Kobieta"
-            active={setting === config.sex.woman}
-            onClick={() => setHandler(config.sex.woman)}
+            active={setting === Salutation.Woman}
+            onClick={() => setHandler(Salutation.Woman)}
         />
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="Spółka"
-            active={setting === config.sex.company}
-            onClick={() => setHandler(config.sex.company)}
+            active={setting === Salutation.Company}
+            onClick={() => setHandler(Salutation.Company)}
         />
     </>
 );

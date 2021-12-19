@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import React from 'react';
 import userEvent from '@testing-library/user-event';
 import cogoToast from 'cogo-toast';
-import Double from './Double';
-import config from '../../../shared/identifiers';
+import React from 'react';
 import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDouble';
 import generateClosedDoubleTemplate from '../../../modules/openedDouble/openedDouble';
+import { DoubledNotificationType } from '../../../shared/identifiers';
+import Double from './Double';
 
 jest.mock('../../../modules/closedDouble/closedDouble', () => jest.fn());
 jest.mock('../../../modules/openedDouble/openedDouble', () => jest.fn());
@@ -29,19 +29,19 @@ function fillAndSubmitForm(values = defaultValues) {
 
 describe('Support - Double', () => {
     it('should render additional gender setting buttons if double is closed', () => {
-        render(<Double type={config.double.closed} />);
+        render(<Double type={DoubledNotificationType.Closed} />);
 
         expect(screen.getByText('Mężczyzna')).toBeInTheDocument();
     });
 
     it('should not render additional gender setting buttons if double is opened', () => {
-        render(<Double type={config.double.opened} />);
+        render(<Double type={DoubledNotificationType.Opened} />);
 
         expect(screen.queryByText('Mężczyzna')).not.toBeInTheDocument();
     });
 
     it('should call generate double opened template on confirm button click', () => {
-        render(<Double type={config.double.opened} />);
+        render(<Double type={DoubledNotificationType.Opened} />);
 
         fillAndSubmitForm();
 
@@ -57,7 +57,7 @@ describe('Support - Double', () => {
             throw new Error('error!');
         });
 
-        render(<Double type={config.double.opened} />);
+        render(<Double type={DoubledNotificationType.Opened} />);
 
         fillAndSubmitForm();
 
@@ -74,7 +74,7 @@ describe('Support - Double', () => {
             throw new Error('error!');
         });
 
-        render(<Double type={config.double.closed} />);
+        render(<Double type={DoubledNotificationType.Closed} />);
 
         fillAndSubmitForm({ ...defaultValues, sex: 'Mężczyzna' });
 
@@ -87,7 +87,7 @@ describe('Support - Double', () => {
     });
 
     it('should call generate double closed template on confirm button click', () => {
-        render(<Double type={config.double.closed} />);
+        render(<Double type={DoubledNotificationType.Closed} />);
 
         fillAndSubmitForm({ ...defaultValues, sex: 'Mężczyzna' });
 

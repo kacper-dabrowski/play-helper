@@ -1,17 +1,17 @@
+import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { Redirect, Route } from 'react-router';
-import { observer } from 'mobx-react-lite';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
-import config from '../../shared/identifiers';
+import { DoubledNotificationType } from '../../shared/identifiers';
 import routes from '../../shared/routes';
 import { useStore } from '../../stores/stores';
 import { BasicContainer } from './Basic/BasicContainer';
 import Double from './Double/Double';
 import Payments from './Payments/Payments';
-import Srq from './Srq/Srq';
 import Solutions from './Solutions/Solutions';
+import Srq from './Srq/Srq';
 
 const Support: FC = observer(() => {
     const { authStore, userStore, supportRequestsStore, solutionsStore } = useStore();
@@ -27,10 +27,10 @@ const Support: FC = observer(() => {
                     <BasicContainer />
                 </Route>
                 <Route exact path={routes.support.doubleOpened.path}>
-                    <Double type={config.double.opened} />
+                    <Double type={DoubledNotificationType.Opened} />
                 </Route>
                 <Route exact path={routes.support.doubleClosed.path}>
-                    <Double type={config.double.closed} />
+                    <Double type={DoubledNotificationType.Closed} />
                 </Route>
                 <Route exact path={routes.support.payments.path}>
                     <Payments fullName={authStore.user.fullName} />

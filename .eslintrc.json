@@ -7,7 +7,8 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "prettier"
+        "prettier",
+        "eslint-config-prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -24,6 +25,18 @@
         "jest",
         "prettier"
     ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".tsx",
+                    ".ts"
+                ]
+            }
+        }
+    },
     "rules": {
         "consistent-return": "off",
         "react/prop-types": "off",
@@ -34,7 +47,7 @@
             }
         ],
         "import/prefer-default-export": "off",
-        "react/jsx-filename-extension": "warn",
+        "react/jsx-filename-extension": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": [
             "error"
@@ -43,6 +56,12 @@
         "prettier/prettier": "error",
         "react/jsx-props-no-spreading": "off",
         "jsx-a11y/label-has-associated-control": "warn",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "import/extensions": "off",
+        "indent": "off"
     }
 }

@@ -1,4 +1,4 @@
-import config from '../../shared/identifiers';
+import { Salutation } from '../../shared/identifiers';
 
 const generateClosedDoubleTemplate = (sex, numOfCurrent, numOfClosed) => {
     if (!numOfCurrent || !numOfClosed) {
@@ -6,17 +6,17 @@ const generateClosedDoubleTemplate = (sex, numOfCurrent, numOfClosed) => {
     }
 
     switch (sex) {
-        case config.sex.man:
+        case Salutation.Man:
             return `Dziękujemy za zgłoszenie ${numOfCurrent} Poruszane przez Pana kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
 
 Z poważaniem, 
 Obsługa Klienta Play`;
-        case config.sex.woman:
+        case Salutation.Woman:
             return `Dziękujemy za zgłoszenie ${numOfCurrent}. Poruszane przez Panią kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
       
 Z poważaniem, 
 Obsługa Klienta Play`;
-        case config.sex.company:
+        case Salutation.Company:
             return `Dziękujemy za zgłoszenie ${numOfCurrent}. Poruszane przez Państwa kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
 
 Z poważaniem,

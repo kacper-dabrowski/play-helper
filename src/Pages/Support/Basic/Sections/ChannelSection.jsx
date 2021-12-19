@@ -1,26 +1,26 @@
 import React from 'react';
-import config from '../../../../shared/identifiers';
 import { StateButton } from '../../../../components/Buttons/StateButton/StateButton';
+import { ChannelType, Project } from '../../../../shared/identifiers';
 
 const ChannelSection = ({ setHandler, setting }) => (
     <>
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="Infolinia"
-            active={setting === config.channel.helpline}
-            onClick={() => setHandler(config.channel.helpline)}
+            active={setting === ChannelType.Helpline}
+            onClick={() => setHandler(ChannelType.Helpline)}
         />
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="POS"
-            active={setting === config.channel.pos}
-            onClick={() => setHandler(config.channel.pos)}
+            active={setting === ChannelType.Pos}
+            onClick={() => setHandler(ChannelType.Pos)}
         />
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="Czat"
-            active={setting === config.channel.chat}
-            onClick={() => setHandler(config.channel.chat)}
+            active={setting === ChannelType.Chat}
+            onClick={() => setHandler(ChannelType.Chat)}
         />
     </>
 );

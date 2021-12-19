@@ -1,77 +1,77 @@
 import React from 'react';
 import BorderButton from '../../../components/Buttons/BorderButton/BorderButton';
 import { StyledPlayNextSettings } from './StyledSettings';
-import config from '../../../shared/identifiers';
+import { Language, NextNotes, NextTemplateType, Project, Salutation } from '../../../shared/identifiers';
 import { isPolish } from '../../../modules/next/next';
 import { StateButton } from '../../../components/Buttons/StateButton/StateButton';
 
 const Settings = ({ language, setLanguage, sex, setSex, activeTemplate, onGenerateTemplate, addToCurrentTemplate }) => {
-    const languageToSet = language === config.language.polish ? config.language.english : config.language.polish;
-    const sexToSet = sex === config.sex.woman ? config.sex.man : config.sex.woman;
+    const languageToSet = language === Language.Polish ? Language.English : Language.Polish;
+    const sexToSet = sex === Salutation.Woman ? Salutation.Man : Salutation.Woman;
 
     return (
         <StyledPlayNextSettings>
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.GREETING}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.Greeting}
                 title="Przywitaj się"
-                onClick={() => onGenerateTemplate(config.nextTemplates.GREETING)}
+                onClick={() => onGenerateTemplate(NextTemplateType.Greeting)}
             />
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.DELETE_ACCOUNT}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.DeleteAccount}
+                onClick={() => onGenerateTemplate(NextTemplateType.DeleteAccount)}
                 title="Usuń konto"
-                onClick={() => onGenerateTemplate(config.nextTemplates.DELETE_ACCOUNT)}
             />
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.NOTIFICATION}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.Notification}
+                onClick={() => onGenerateTemplate(NextTemplateType.Notification)}
                 title="Zgłoszenie"
-                onClick={() => onGenerateTemplate(config.nextTemplates.NOTIFICATION)}
             />
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.MIGRATION}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.Migration}
+                onClick={() => onGenerateTemplate(NextTemplateType.Migration)}
                 title="Migracja"
-                onClick={() => onGenerateTemplate(config.nextTemplates.MIGRATION)}
             />
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.ROAMING}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.Roaming}
+                onClick={() => onGenerateTemplate(NextTemplateType.Roaming)}
                 title="Roaming"
-                onClick={() => onGenerateTemplate(config.nextTemplates.ROAMING)}
             />
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.QOS}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.QoS}
+                onClick={() => onGenerateTemplate(NextTemplateType.QoS)}
                 title="QoS"
-                onClick={() => onGenerateTemplate(config.nextTemplates.QOS)}
             />
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.NO_RESPONSE}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.NoResponse}
+                onClick={() => onGenerateTemplate(NextTemplateType.NoResponse)}
                 title="Brak odpowiedzi"
-                onClick={() => onGenerateTemplate(config.nextTemplates.NO_RESPONSE)}
             />
             <StateButton
-                variant={config.projects.NEXT}
-                active={activeTemplate === config.nextTemplates.END_CONVERSATION}
+                variant={Project.Next}
+                active={activeTemplate === NextTemplateType.EndConversation}
+                onClick={() => onGenerateTemplate(NextTemplateType.EndConversation)}
                 title="Zakończ rozmowę"
-                onClick={() => onGenerateTemplate(config.nextTemplates.END_CONVERSATION)}
             />
             <StateButton
-                variant={config.projects.NEXT}
+                variant={Project.Next}
                 title="+ Dopytaj"
-                onClick={() => addToCurrentTemplate(config.nextNotes.ASK, language)}
+                onClick={() => addToCurrentTemplate(NextNotes.Ask, language)}
             />
             <StateButton
-                variant={config.projects.NEXT}
+                variant={Project.Next}
                 title="+ Ocena pracy"
-                onClick={() => addToCurrentTemplate(config.nextNotes.JOB_EVALUATION, language)}
+                onClick={() => addToCurrentTemplate(NextNotes.JobEvaluation.JOB_EVALUATION, language)}
             />
             <BorderButton
-                title={sex === config.sex.woman ? 'Pani' : 'Pan'}
-                btnColor={sex === config.sex.woman ? 'pink' : '#0ff'}
+                title={sex === Salutation.Woman ? 'Pani' : 'Pan'}
+                btnColor={sex === Salutation.Woman ? 'pink' : '#0ff'}
                 onClick={() => setSex(sexToSet)}
             />
             <BorderButton

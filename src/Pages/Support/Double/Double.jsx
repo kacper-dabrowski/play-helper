@@ -1,12 +1,12 @@
 import cogoToast from 'cogo-toast';
-import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
+import React, { useCallback, useEffect, useState } from 'react';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDouble';
 import generateClosedDoubleTemplate from '../../../modules/openedDouble/openedDouble';
-import config from '../../../shared/identifiers';
+import { DoubledNotificationType } from '../../../shared/identifiers';
 import InputSection from './Sections/InputSection';
 import { DoubleContainer, StyledSexSection } from './StyledDouble';
 
@@ -26,10 +26,10 @@ const Double = ({ type }) => {
                 const { current, doubled, sex } = values;
 
                 switch (type) {
-                    case config.double.opened:
+                    case DoubledNotificationType.Opened:
                         currentTemplate = generateOpenedDoubleTemplate(current, doubled);
                         break;
-                    case config.double.closed:
+                    case DoubledNotificationType.Closed:
                         currentTemplate = generateClosedDoubleTemplate(sex, current, doubled);
                         break;
                     default:
@@ -55,7 +55,7 @@ const Double = ({ type }) => {
     return (
         <>
             <DoubleContainer type={type}>
-                {type === config.double.closed && (
+                {type === DoubledNotificationType.Closed && (
                     <StyledSexSection>
                         <SexSection
                             setting={formik.values.sex}

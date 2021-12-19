@@ -1,15 +1,15 @@
 import React from 'react';
-import DateInput from '../../../../components/Inputs/DateInput/DateInput';
-import config from '../../../../shared/identifiers';
 import { StateButton } from '../../../../components/Buttons/StateButton/StateButton';
+import DateInput from '../../../../components/Inputs/DateInput/DateInput';
+import { CustomerType, Project } from '../../../../shared/identifiers';
 
 const TypeSection = ({ typeSetHandler, dateSetHandler, date, setting }) => (
     <>
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="Biznesowy"
-            onClick={() => typeSetHandler(config.type.business)}
-            active={setting === config.type.business}
+            onClick={() => typeSetHandler(CustomerType.Business)}
+            active={setting === CustomerType.Business}
         />
         <DateInput
             required
@@ -18,10 +18,10 @@ const TypeSection = ({ typeSetHandler, dateSetHandler, date, setting }) => (
             value={date}
         />
         <StateButton
-            variant={config.projects.SUPPORT}
+            variant={Project.Support}
             title="Indywidualny"
-            onClick={() => typeSetHandler(config.type.individual)}
-            active={setting === config.type.individual}
+            onClick={() => typeSetHandler(CustomerType.Individual)}
+            active={setting === CustomerType.Individual}
         />
     </>
 );

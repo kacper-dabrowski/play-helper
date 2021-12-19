@@ -1,4 +1,4 @@
-import config from '../../shared/identifiers';
+import { Language, Salutation } from '../../shared/identifiers';
 import { isEvening, isPolish, returnSalutationArray } from './next';
 
 describe('modules - next', () => {
@@ -7,8 +7,8 @@ describe('modules - next', () => {
         const setMorning = () => jest.useFakeTimers('modern').setSystemTime(new Date('2020-01-01 8:00').getTime());
 
         [
-            { language: config.language.polish, expected: { evening: 'wieczoru', morning: 'dnia' } },
-            { language: config.language.english, expected: { evening: 'evening', morning: 'day' } },
+            { language: Language.Polish, expected: { evening: 'wieczoru', morning: 'dnia' } },
+            { language: Language.English, expected: { evening: 'evening', morning: 'day' } },
         ].forEach(({ language, expected }) => {
             it(`should return evening version in ${language} language`, () => {
                 setEvening();
@@ -32,8 +32,8 @@ describe('modules - next', () => {
 
     describe('returnSalutationArray', () => {
         [
-            { gender: config.sex.woman, expected: ['Pani', 'Pani', 'Pani', 'Panią', 'Panią', 'Pani', 'Pani'] },
-            { gender: config.sex.man, expected: ['Pan', 'Pana', 'Panu', 'Pana', 'Panem', 'Panu', 'Panie'] },
+            { gender: Salutation.Woman, expected: ['Pani', 'Pani', 'Pani', 'Panią', 'Panią', 'Pani', 'Pani'] },
+            { gender: Salutation.Man, expected: ['Pan', 'Pana', 'Panu', 'Pana', 'Panem', 'Panu', 'Panie'] },
         ].forEach(({ gender, expected }) => {
             it(`should return expected salutation array for ${gender}`, () => {
                 expect(returnSalutationArray(gender)).toEqual(expected);
@@ -46,10 +46,10 @@ describe('modules - next', () => {
 
     describe('isPolish', () => {
         it('should return true if the language is polish', () => {
-            expect(isPolish(config.language.polish)).toEqual(true);
+            expect(isPolish(Language.Polish)).toEqual(true);
         });
         it('should return false if the language is english', () => {
-            expect(isPolish(config.language.english)).toEqual(false);
+            expect(isPolish(Language.English)).toEqual(false);
         });
     });
 });
