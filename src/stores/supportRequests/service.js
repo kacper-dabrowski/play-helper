@@ -1,4 +1,4 @@
-import { RequestStatus } from '../../shared/requestStatus/requestStatus';
+import { RequestStatus } from '../../shared/requestStatus/requestStatus.ts';
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
 

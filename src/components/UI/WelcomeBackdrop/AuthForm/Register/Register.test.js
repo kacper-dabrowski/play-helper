@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cogoToast from 'cogo-toast';
 import React from 'react';
-import { createRequestStatus, requestLoading } from '../../../../../shared/requestStatus/requestStatus';
+import { RequestStatus } from '../../../../../shared/requestStatus/requestStatus.ts';
 import { Register } from './Register';
 
 jest.mock('../../../Spinner/Spinner', () => ({
@@ -50,7 +50,7 @@ describe('WelcomeBackdrop - Register', () => {
     });
 
     it('should display a loader when login request pending', () => {
-        render(getComponentWithProps({ ...defaultProps, registrationRequest: requestLoading() }));
+        render(getComponentWithProps({ ...defaultProps, registrationRequest: { loading: true } }));
 
         return waitFor(() => {
             expect(screen.queryByText('Loader')).toBeInTheDocument();
@@ -74,7 +74,7 @@ describe('WelcomeBackdrop - Register', () => {
 
     const defaultProps = {
         onRegisterUser: onRegisterMock,
-        registrationRequest: createRequestStatus(),
+        registrationRequest: new RequestStatus(),
     };
 
     function getComponentWithProps(props = defaultProps) {

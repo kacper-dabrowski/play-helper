@@ -3,7 +3,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import cogoToast from 'cogo-toast';
 import SettingsForm from './SettingsForm';
-import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
+import { RequestStatus } from '../../../shared/requestStatus/requestStatus.ts';
 
 describe('Forms - Settings form', () => {
     const onSettingsUpdateMock = jest.fn();

@@ -1,13 +1,13 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { useStore } from '../../../../hooks/useStore';
-import { createRequestStatus } from '../../../../shared/requestStatus/requestStatus';
+import React from 'react';
+import { RequestStatus } from '../../../../shared/requestStatus/requestStatus.ts';
+import { useStore } from '../../../../stores/stores';
 import { AuthForm } from './AuthForm';
 
-const defaultRequestStatus = createRequestStatus();
+const defaultRequestStatus = new RequestStatus();
 
-jest.mock('../../../../hooks/useStore', () => ({
+jest.mock('../../../../stores/stores', () => ({
     useStore: jest.fn(),
 }));
 

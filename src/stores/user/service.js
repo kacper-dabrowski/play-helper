@@ -1,5 +1,5 @@
 import axios from '../../libs/axios';
-import { RequestStatus } from '../../shared/requestStatus/requestStatus';
+import { RequestStatus } from '../../shared/requestStatus/requestStatus.ts';
 import urls from '../../shared/urls';
 
 export class UserService {

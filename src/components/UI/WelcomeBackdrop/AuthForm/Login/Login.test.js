@@ -3,7 +3,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import cogoToast from 'cogo-toast';
 import { Login } from './Login';
-import { createRequestStatus, requestLoading } from '../../../../../shared/requestStatus/requestStatus';
+import { RequestStatus } from '../../../../../shared/requestStatus/requestStatus.ts';
 
 jest.mock('../../../Spinner/Spinner', () => ({
     __esModule: true,
@@ -39,7 +39,7 @@ describe('WelcomeBackdrop - Login', () => {
     });
 
     it('should display a loader when login request pending', () => {
-        render(getComponentWithProps({ ...defaultProps, loginRequest: requestLoading() }));
+        render(getComponentWithProps({ ...defaultProps, loginRequest: { loading: true } }));
 
         return waitFor(() => {
             expect(screen.queryByText('Loader')).toBeInTheDocument();
@@ -63,7 +63,7 @@ describe('WelcomeBackdrop - Login', () => {
 
     const defaultProps = {
         onLoginUser: onLoginUserMock,
-        loginRequest: createRequestStatus(),
+        loginRequest: new RequestStatus(),
     };
 
     function getComponentWithProps(props = defaultProps) {
