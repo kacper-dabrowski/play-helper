@@ -3,7 +3,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import cogoToast from 'cogo-toast';
 import SettingsForm from './SettingsForm';
-import { createRequestStatus, requestFinishedWithError } from '../../../shared/requestStatus/requestStatus';
+import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 
 describe('Forms - Settings form', () => {
     const onSettingsUpdateMock = jest.fn();
@@ -49,17 +49,14 @@ describe('Forms - Settings form', () => {
     });
 
     it('should call settings update mock and show error toast if it was not successful', () => {
-        const cogoToastSpy = jest.spyOn(cogoToast, 'error');
-
         const { rerender } = render(getComponentWithProps());
 
         userEvent.selectOptions(getSelectInput(), '/support/double-opened');
 
-        rerender(getComponentWithProps({ ...defaultProps, settingsUpdateRequest: requestFinishedWithError('error!') }));
+        rerender(getComponentWithProps({ ...defaultProps, settingsUpdateRequest: { error: 'error!' } }));
 
         return waitFor(() => {
             expect(onSettingsUpdateMock).toHaveBeenCalledWith({ settings: { startingPage: '/support/double-opened' } });
-            expect(cogoToastSpy).toHaveBeenCalledWith('error!');
         });
     });
 
@@ -68,7 +65,7 @@ describe('Forms - Settings form', () => {
         userSettings: {
             startingPage: 'some-page',
         },
-        settingsUpdateRequest: createRequestStatus(),
+        settingsUpdateRequest: new RequestStatus(),
     };
 
     function getComponentWithProps(props = defaultProps) {
