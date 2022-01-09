@@ -11,7 +11,7 @@ import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 import { useErrorNotification } from '../../../hooks/useErrorNotification';
 import { useStore } from '../../../hooks/useStore';
-import { updateSolution } from '../../../stores/user/user';
+import { updateSolution } from '../../../stores/solutions/solutions';
 
 const Solution = ({
     solutions,
@@ -25,7 +25,7 @@ const Solution = ({
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
     const results = useMemo(() => solutions || [], [solutions]);
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
-    const { userStore, dispatch } = useStore();
+    const { solutionsStore, dispatch } = useStore();
 
     const onSolutionUpdate = async (payload) => {
         dispatch(updateSolution(payload));
@@ -74,7 +74,7 @@ const Solution = ({
                     refresh={refreshSolutions}
                     setEditMode={setEditMode}
                     onSolutionUpdate={onSolutionUpdate}
-                    solutionUpdateRequest={userStore.solutionUpdateRequest}
+                    solutionUpdateRequest={solutionsStore.solutionUpdateRequest}
                 />
             ) : (
                 <SolutionForm refresh={refreshSolutions} />

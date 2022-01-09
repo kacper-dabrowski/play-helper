@@ -10,11 +10,12 @@ import Solutions from './Solutions/Solutions';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import routes from '../../shared/routes';
 import { useStore } from '../../hooks/useStore';
-import { fetchSolutions, fetchSupportRequests } from '../../stores/user/user';
+import { fetchSupportRequests } from '../../stores/user/user';
 import { BasicContainer } from './Basic/BasicContainer';
+import { fetchSolutions } from '../../stores/solutions/solutions';
 
 const Support = () => {
-    const { authStore, dispatch, userStore } = useStore();
+    const { authStore, dispatch, userStore, solutionsStore } = useStore();
     const { settings } = userStore;
 
     const onFetchSolutions = useCallback(() => {
@@ -45,9 +46,9 @@ const Support = () => {
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
                     <Solutions
-                        solutions={userStore.solutions}
+                        solutions={solutionsStore.solutions}
                         onFetchSolutions={onFetchSolutions}
-                        requestStatus={userStore.fetchSolutionsRequest}
+                        requestStatus={solutionsStore.fetchSolutionsRequest}
                     />
                 </Route>
                 <Route exact path={routes.support.main.path}>
