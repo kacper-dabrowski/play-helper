@@ -1,5 +1,5 @@
 import cogoToast from 'cogo-toast';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
@@ -23,7 +23,7 @@ const Solution = ({
 }) => {
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
-    const results = solutions || [];
+    const results = useMemo(() => solutions || [], [solutions]);
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
     const { userStore, dispatch } = useStore();
 

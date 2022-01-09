@@ -1,13 +1,96 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import {
+    fetchSolutions,
+    fetchSupportRequests,
+    fetchUserSettings,
+    removeSolution,
+    updateSolution,
+    updateUserSettings,
+} from './user';
+import {
     createRequestStatus,
     requestFinishedSuccessfully,
     requestFinishedWithError,
     requestLoading,
 } from '../../shared/requestStatus/requestStatus';
 
-export const userSlice = createSlice({
+const handleSettingsFetch = (builder) =>
+    builder
+        .addCase(fetchUserSettings.pending, (state) => {
+            state.fetchUserRequestStatus = requestLoading();
+        })
+        .addCase(fetchUserSettings.fulfilled, (state, action) => {
+            state.fetchUserRequestStatus = requestFinishedSuccessfully();
+            state.settings = action.payload;
+        })
+        .addCase(fetchUserSettings.rejected, (state, action) => {
+            state.fetchUserRequestStatus = requestFinishedWithError(action.error.message);
+        });
+
+const handleSettingsUpdate = (builder) =>
+    builder
+        .addCase(updateUserSettings.pending, (state) => {
+            state.settingsUpdateRequest = requestLoading();
+        })
+        .addCase(updateUserSettings.fulfilled, (state) => {
+            state.settingsUpdateRequest = requestFinishedSuccessfully();
+        })
+        .addCase(updateUserSettings.rejected, (state, action) => {
+            state.settingsUpdateRequest = requestFinishedWithError(action.error.message);
+        });
+
+const handleSupportRequestsFetch = (builder) =>
+    builder
+        .addCase(fetchSupportRequests.pending, (state) => {
+            state.fetchSupportRequestsStatus = requestLoading();
+        })
+        .addCase(fetchSupportRequests.fulfilled, (state, action) => {
+            state.fetchSupportRequestsStatus = requestFinishedSuccessfully();
+            state.supportRequests = action.payload.supportRequests;
+        })
+        .addCase(fetchSupportRequests.rejected, (state, action) => {
+            state.fetchSupportRequestsStatus = requestFinishedWithError(action.error.message);
+        });
+
+const handleSolutionsFetch = (builder) =>
+    builder
+        .addCase(fetchSolutions.pending, (state) => {
+            state.fetchSolutionsRequest = requestLoading();
+        })
+        .addCase(fetchSolutions.fulfilled, (state, action) => {
+            state.fetchSolutionsRequest = requestFinishedSuccessfully();
+            state.solutions = action?.payload?.solutions;
+        })
+        .addCase(fetchSolutions.rejected, (state, action) => {
+            state.fetchSolutionsRequest = requestFinishedWithError(action.error.message);
+        });
+
+const handleSolutionsRemove = (builder) =>
+    builder
+        .addCase(removeSolution.pending, (state) => {
+            state.removeSolutionRequest = requestLoading();
+        })
+        .addCase(removeSolution.fulfilled, (state) => {
+            state.removeSolutionRequest = requestFinishedSuccessfully();
+        })
+        .addCase(removeSolution.rejected, (state, action) => {
+            state.removeSolutionRequest = requestFinishedWithError(action.error.message);
+        });
+
+const handleSolutionsUpdate = (builder) =>
+    builder
+        .addCase(updateSolution.pending, (state) => {
+            state.solutionUpdateRequest = requestLoading();
+        })
+        .addCase(updateSolution.fulfilled, (state) => {
+            state.solutionUpdateRequest = requestFinishedSuccessfully();
+        })
+        .addCase(updateSolution.rejected, (state, action) => {
+            state.solutionUpdateRequest = requestFinishedWithError(action.error.message);
+        });
+
+const userSlice = createSlice({
     name: 'user',
     initialState: {
         fetchUserRequestStatus: createRequestStatus(),
@@ -18,67 +101,15 @@ export const userSlice = createSlice({
         solutionUpdateRequest: createRequestStatus(),
         settings: null,
         supportRequests: null,
-        solutions: [],
+        solutions: null,
     },
-    reducers: {
-        userFetchStart: (state) => {
-            state.fetchUserRequestStatus = requestLoading();
-        },
-        userFetchSuccess: (state, action) => {
-            state.fetchUserRequestStatus = requestFinishedSuccessfully();
-            state.settings = action.payload.settings;
-        },
-        userFetchFail: (state, action) => {
-            state.fetchUserRequestStatus = requestFinishedWithError(action.payload.error);
-        },
-        settingsUpdateStart: (state) => {
-            state.settingsUpdateRequest = requestLoading();
-        },
-        settingsUpdateFail: (state, action) => {
-            state.settingsUpdateRequest = requestFinishedWithError(action.payload.error);
-        },
-        settingsUpdateSuccess: (state, action) => {
-            state.settingsUpdateRequest = requestFinishedSuccessfully();
-            state.settings = action.payload.settings;
-        },
-        supportRequestsFetchStart: (state) => {
-            state.fetchSupportRequestsStatus = requestLoading();
-        },
-        supportRequestsFetchSuccess: (state, action) => {
-            state.fetchSupportRequestsStatus = requestFinishedSuccessfully();
-            state.supportRequests = action.payload.supportRequests;
-        },
-        supportRequestsFetchFail: (state, action) => {
-            state.fetchSupportRequestsStatus = requestFinishedWithError(action.payload.error);
-        },
-        solutionsFetchStart: (state) => {
-            state.fetchSolutionsRequest = requestLoading();
-        },
-        solutionsFetchSuccess: (state, action) => {
-            state.fetchSolutionsRequest = requestFinishedSuccessfully();
-            state.solutions = action.payload.solutions;
-        },
-        solutionsFetchFail: (state, action) => {
-            state.fetchSolutionsRequest = requestFinishedWithError(action.payload.error);
-        },
-        solutionRemoveStart: (state) => {
-            state.removeSolutionRequest = requestLoading();
-        },
-        solutionRemoveSuccess: (state) => {
-            state.removeSolutionRequest = requestFinishedSuccessfully();
-        },
-        solutionRemoveFail: (state, action) => {
-            state.removeSolutionRequest = requestFinishedWithError(action.payload.error);
-        },
-        solutionUpdateStart: (state) => {
-            state.solutionUpdateRequest = requestLoading();
-        },
-        solutionUpdateSuccess: (state) => {
-            state.solutionUpdateRequest = requestFinishedSuccessfully();
-        },
-        solutionUpdateFail: (state, action) => {
-            state.solutionUpdateRequest = requestFinishedWithError(action.payload.error);
-        },
+    extraReducers: (builder) => {
+        handleSettingsFetch(builder);
+        handleSettingsUpdate(builder);
+        handleSupportRequestsFetch(builder);
+        handleSolutionsFetch(builder);
+        handleSolutionsRemove(builder);
+        handleSolutionsUpdate(builder);
     },
 });
 

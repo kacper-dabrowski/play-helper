@@ -1,52 +1,40 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
-import { actions } from './userSlice';
 
-export const fetchUserSettings = createAsyncThunk('user/fetch-settings', async (payload, { dispatch }) => {
-    dispatch(actions.userFetchStart());
+export const fetchUserSettings = createAsyncThunk('user/fetch-settings', async () => {
     try {
         const response = await axios.get(urls.settings);
 
-        dispatch(actions.userFetchSuccess({ settings: response.data.settings }));
+        return response?.data?.settings;
     } catch (error) {
-        dispatch(actions.userFetchFail({ error: error.message }));
+        throw new Error(error?.response?.message || error.message);
     }
 });
 
 export const updateUserSettings = createAsyncThunk('user/update-settings', async (payload, { dispatch }) => {
-    try {
-        dispatch(actions.settingsUpdateStart());
+    await axios.post(urls.settings, { settings: payload.settings });
 
-        await axios.post(urls.settings, { settings: payload.settings });
-
-        dispatch(actions.settingsUpdateSuccess({ settings: payload.settings }));
-    } catch (error) {
-        dispatch(actions.settingsUpdateFail({ error: error.message }));
-    }
+    dispatch(fetchUserSettings());
 });
 
-export const fetchSupportRequests = createAsyncThunk('user/fetch-srq', async (payload, { dispatch }) => {
+export const fetchSupportRequests = createAsyncThunk('user/fetch-srq', async () => {
     try {
-        dispatch(actions.supportRequestsFetchStart());
-
         const response = await axios.get(urls.srq);
 
-        dispatch(actions.supportRequestsFetchSuccess(response.data));
+        return response?.data;
     } catch (error) {
-        dispatch(actions.supportRequestsFetchFail({ error: error?.response?.message || error.message }));
+        throw new Error(error?.response?.message || error.message);
     }
 });
 
-export const fetchSolutions = createAsyncThunk('user/fetch-solutions', async (payload, { dispatch }) => {
+export const fetchSolutions = createAsyncThunk('user/fetch-solutions', async () => {
     try {
-        dispatch(actions.solutionsFetchStart());
-
         const response = await axios.get(urls.solution);
 
-        dispatch(actions.solutionsFetchSuccess({ solutions: response.data }));
+        return response?.data;
     } catch (error) {
-        dispatch(actions.solutionsFetchFail({ error: error?.response?.message || error.message }));
+        throw new Error(error?.response?.message || error.message);
     }
 });
 
@@ -54,11 +42,7 @@ export const removeSolution = createAsyncThunk(
     'user/remove-solution',
     async ({ solutionId, onSuccess }, { dispatch }) => {
         try {
-            dispatch(actions.solutionRemoveStart());
-
             await axios.delete(`${urls.solution}/${solutionId}`);
-
-            dispatch(actions.solutionRemoveSuccess());
 
             await dispatch(fetchSolutions());
 
@@ -66,21 +50,17 @@ export const removeSolution = createAsyncThunk(
                 onSuccess();
             }
         } catch (error) {
-            dispatch(actions.solutionRemoveFail({ error: error?.response?.message || error.message }));
+            throw new Error(error?.response?.message || error.message);
         }
     }
 );
 
 export const updateSolution = createAsyncThunk('user/update-solution', async (payload, { dispatch }) => {
     try {
-        dispatch(actions.solutionUpdateStart());
-
         await axios.post(`${urls.solution}/${payload.id}`, { ...payload.updatedSolution });
 
         await dispatch(fetchSolutions());
-
-        dispatch(actions.solutionUpdateSuccess());
     } catch (error) {
-        dispatch(actions.solutionUpdateFail({ error: error.message }));
+        throw new Error(error?.response?.message || error.message);
     }
 });

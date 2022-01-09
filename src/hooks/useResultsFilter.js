@@ -23,6 +23,7 @@ const useResultsFilter = (list, filterMethod) => {
         if (searchResults.length < 0) {
             return;
         }
+
         filterResults();
     }, [filterResults, list, searchQuery, searchResults.length]);
 
