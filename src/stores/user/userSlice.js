@@ -8,47 +8,15 @@ import {
 } from '../../shared/requestStatus/requestStatus';
 import { fetchUserSettings, updateUserSettings } from './user';
 
+const initialState = {
+    fetchUserRequestStatus: createRequestStatus(),
+    settingsUpdateRequest: createRequestStatus(),
+    settings: null,
+};
+
 const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        fetchUserRequestStatus: createRequestStatus(),
-        fetchSolutionsRequest: createRequestStatus(),
-        removeSolutionRequest: createRequestStatus(),
-        settingsUpdateRequest: createRequestStatus(),
-        solutionUpdateRequest: createRequestStatus(),
-        settings: null,
-        solutions: [],
-    },
-    reducers: {
-        solutionsFetchStart: (state) => {
-            state.fetchSolutionsRequest = requestLoading();
-        },
-        solutionsFetchSuccess: (state, action) => {
-            state.fetchSolutionsRequest = requestFinishedSuccessfully();
-            state.solutions = action.payload.solutions;
-        },
-        solutionsFetchFail: (state, action) => {
-            state.fetchSolutionsRequest = requestFinishedWithError(action.payload.error);
-        },
-        solutionRemoveStart: (state) => {
-            state.removeSolutionRequest = requestLoading();
-        },
-        solutionRemoveSuccess: (state) => {
-            state.removeSolutionRequest = requestFinishedSuccessfully();
-        },
-        solutionRemoveFail: (state, action) => {
-            state.removeSolutionRequest = requestFinishedWithError(action.payload.error);
-        },
-        solutionUpdateStart: (state) => {
-            state.solutionUpdateRequest = requestLoading();
-        },
-        solutionUpdateSuccess: (state) => {
-            state.solutionUpdateRequest = requestFinishedSuccessfully();
-        },
-        solutionUpdateFail: (state, action) => {
-            state.solutionUpdateRequest = requestFinishedWithError(action.payload.error);
-        },
-    },
+    initialState,
     extraReducers: (builder) => {
         handleFetchingUserSettings(builder);
         handleUpdatingSettings(builder);
