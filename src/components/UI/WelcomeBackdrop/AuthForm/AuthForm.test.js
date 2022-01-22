@@ -1,27 +1,19 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { useStore } from '../../../../hooks/useStore';
-import { createRequestStatus } from '../../../../shared/requestStatus/requestStatus';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from '../../../../libs/redux';
 import { AuthForm } from './AuthForm';
 
-const defaultRequestStatus = createRequestStatus();
-
-jest.mock('../../../../hooks/useStore', () => ({
-    useStore: jest.fn(),
-}));
-
 describe('WelcomeBackdrop - AuthForm', () => {
-    it('should render login form initially', () => {
-        useStore.mockImplementation(() => ({
-            authStore: {
-                loginRequest: defaultRequestStatus,
-                registrationRequest: defaultRequestStatus,
-            },
-            dispatch: () => jest.fn(),
-        }));
+    let fakeStore;
 
-        render(<AuthForm />);
+    beforeEach(() => {
+        fakeStore = store;
+    });
+
+    it('should render login form initially', () => {
+        render(getComponentWithStores());
 
         const [header] = screen.getAllByText('Zaloguj się');
 
@@ -29,15 +21,7 @@ describe('WelcomeBackdrop - AuthForm', () => {
     });
 
     it('should switch form to registration when clicked', () => {
-        useStore.mockImplementation(() => ({
-            authStore: {
-                loginRequest: defaultRequestStatus,
-                registrationRequest: defaultRequestStatus,
-            },
-            dispatch: () => jest.fn(),
-        }));
-
-        render(<AuthForm />);
+        render(getComponentWithStores());
 
         const switchAuthButton = screen.getByText('Załóż je!');
 
@@ -49,15 +33,7 @@ describe('WelcomeBackdrop - AuthForm', () => {
     });
 
     it('should switch back to login form from registration form when clicked', async () => {
-        useStore.mockImplementation(() => ({
-            authStore: {
-                loginRequest: defaultRequestStatus,
-                registrationRequest: defaultRequestStatus,
-            },
-            dispatch: () => jest.fn(),
-        }));
-
-        render(<AuthForm />);
+        render(getComponentWithStores());
 
         const switchAuthButton = screen.getByText('Załóż je!');
 
@@ -75,4 +51,12 @@ describe('WelcomeBackdrop - AuthForm', () => {
             expect(header).toBeInTheDocument();
         });
     });
+
+    function getComponentWithStores() {
+        return (
+            <Provider store={fakeStore}>
+                <AuthForm />
+            </Provider>
+        );
+    }
 });

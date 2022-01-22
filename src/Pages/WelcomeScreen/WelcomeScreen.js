@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import arrowLeft from '../../assets/icons/left-arrow.svg';
 import arrowRight from '../../assets/icons/right-arrow.svg';
 import SettingsModal from '../../components/Modals/SettingsModal/SettingsModal';
 import Topbar from '../../components/UI/Navbars/Topbar/Topbar';
+import { SplashScreen } from '../../components/UI/SplashScreen/SplashScreen';
+import { WelcomeBackdrop } from '../../components/UI/WelcomeBackdrop/WelcomeBackdrop';
+import { colors } from '../../shared/colors';
+import { updateUserSettings } from '../../stores/user/user';
 import ProjectTile from './ProjectTile/ProjectTile';
 import { WelcomeScreenContainer } from './StyledWelcomeScreen';
-import { colors } from '../../shared/colors';
-import { useStore } from '../../hooks/useStore';
-import { updateUserSettings } from '../../stores/user/user';
-import { WelcomeBackdrop } from '../../components/UI/WelcomeBackdrop/WelcomeBackdrop';
-import { SplashScreen } from '../../components/UI/SplashScreen/SplashScreen';
 
 const WelcomeScreen = () => {
-    const { authStore, userStore, dispatch } = useStore();
+    const authStore = useSelector((state) => state.auth);
+    const userStore = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     const isAuthenticated = Boolean(authStore?.user?.token);
     const fullName = authStore?.user?.fullName;

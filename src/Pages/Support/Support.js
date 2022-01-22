@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Redirect, Route } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
 import Double from './Double/Double';
@@ -9,13 +10,15 @@ import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import Solutions from './Solutions/Solutions';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import routes from '../../shared/routes';
-import { useStore } from '../../hooks/useStore';
-import { fetchSolutions, fetchSupportRequests } from '../../stores/user/user';
 import { BasicContainer } from './Basic/BasicContainer';
+import { fetchSolutions } from '../../stores/solutions/solutions';
+import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
 
 const Support = () => {
-    const { authStore, dispatch, userStore } = useStore();
-    const { settings } = userStore;
+    const dispatch = useDispatch();
+    const solutionsStore = useSelector((state) => state.solutions);
+    const userStore = useSelector((state) => state.user);
+    const authStore = useSelector((state) => state.auth);
 
     const onFetchSolutions = useCallback(() => {
         dispatch(fetchSolutions());
@@ -45,13 +48,13 @@ const Support = () => {
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
                     <Solutions
-                        solutions={userStore.solutions}
+                        solutions={solutionsStore.solutions}
                         onFetchSolutions={onFetchSolutions}
-                        requestStatus={userStore.fetchSolutionsRequest}
+                        requestStatus={solutionsStore.fetchSolutionsStatus}
                     />
                 </Route>
                 <Route exact path={routes.support.main.path}>
-                    <Redirect to={settings?.startingPage || routes.support.basic.path} />
+                    <Redirect to={userStore?.settings?.startingPage || routes.support.basic.path} />
                 </Route>
             </NotFoundProviderSwitch>
         </SupportLayout>

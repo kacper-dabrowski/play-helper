@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import Logout from './components/Logout/Logout';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
@@ -9,13 +10,13 @@ import UserPanel from './Pages/UserPanel/UserPanel';
 import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
 import routes from './shared/routes';
 import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
-
 import { fetchUserSettings } from './stores/user/user';
 import { authCheckState } from './stores/auth/auth';
-import { useStore } from './hooks/useStore';
 
 const App = () => {
-    const { userStore, authStore, dispatch } = useStore();
+    const authStore = useSelector((state) => state.auth);
+    const userStore = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(authCheckState());
