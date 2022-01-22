@@ -1,17 +1,17 @@
 import cogoToast from 'cogo-toast';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
-import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
 import useResultsFilter from '../../../hooks/useResultsFilter';
+import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
+import { updateSolution } from '../../../stores/solutions/solutions';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
-import { useStore } from '../../../hooks/useStore';
-import { updateSolution } from '../../../stores/user/user';
 
 const Solution = ({
     solutions,
@@ -21,11 +21,15 @@ const Solution = ({
     onRemoveSolution,
     deletionRequestStatus,
 }) => {
+    const solutionsStore = useSelector((state) => state.solutions);
+    const dispatch = useDispatch();
+
     const [editMode, setEditMode] = useState(false);
     const [fieldsToPopulate, setFieldsToPopulate] = useState({});
-    const results = solutions || [];
+
+    const results = useMemo(() => solutions || [], [solutions]);
+
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(results, solutionSearchMethod);
-    const { userStore, dispatch } = useStore();
 
     const onSolutionUpdate = async (payload) => {
         dispatch(updateSolution(payload));
@@ -74,7 +78,7 @@ const Solution = ({
                     refresh={refreshSolutions}
                     setEditMode={setEditMode}
                     onSolutionUpdate={onSolutionUpdate}
-                    solutionUpdateRequest={userStore.solutionUpdateRequest}
+                    solutionUpdateRequest={solutionsStore.updateSolutionStatus}
                 />
             ) : (
                 <SolutionForm refresh={refreshSolutions} />

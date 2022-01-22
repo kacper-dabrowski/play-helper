@@ -24,7 +24,7 @@ describe('stores - solutionsSlice', () => {
     });
 
     describe('fetching solutions', () => {
-        const validDto = { solutions: [] };
+        const validDto = [];
 
         it('should fetch solutions and update list when successful', async () => {
             givenResponseSuccessful(validDto);

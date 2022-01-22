@@ -13,7 +13,7 @@ const Action = {
 export const fetchSolutions = createAsyncThunk(`${name}/${Action.Fetch}`, async () => {
     const response = await axios.get(urls.solution);
 
-    return response?.data?.solutions;
+    return response?.data;
 });
 
 export const createSolution = createAsyncThunk(`${name}/${Action.Create}`, async (solution) => {
@@ -28,8 +28,16 @@ export const updateSolution = createAsyncThunk(`${name}/${Action.Update}`, async
     return response.status === 200;
 });
 
-export const removeSolution = createAsyncThunk(`${name}/${Action.Remove}`, async ({ solutionId }) => {
-    const response = await axios.delete(`${urls.solution}/${solutionId}`);
+export const removeSolution = createAsyncThunk(
+    `${name}/${Action.Remove}`,
+    async ({ solutionId, onSuccess }, { dispatch }) => {
+        const response = await axios.delete(`${urls.solution}/${solutionId}`);
 
-    return response.status === 200;
-});
+        dispatch(fetchSolutions());
+
+        if (typeof onSuccess === 'function') {
+            onSuccess();
+        }
+        return response.status === 200;
+    }
+);

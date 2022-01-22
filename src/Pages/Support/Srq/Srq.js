@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
-import { useStore } from '../../../hooks/useStore';
 
 const Srq = ({ onFetchSupportRequests }) => {
     const [template, setTemplate] = useState('');
-    const { userStore } = useStore();
-
+    const supportRequestsStore = useSelector((state) => state.supportRequests);
     useEffect(() => {
         onFetchSupportRequests();
     }, [onFetchSupportRequests]);
@@ -16,8 +15,8 @@ const Srq = ({ onFetchSupportRequests }) => {
             <SrqFinder
                 setTemplate={setTemplate}
                 clickable
-                requestStatus={userStore.fetchSupportRequestsStatus}
-                supportRequests={userStore.supportRequests}
+                requestStatus={supportRequestsStore.fetchSupportRequestsStatus}
+                supportRequests={supportRequestsStore.supportRequests}
             />
             <MainTextarea value={template} setTemplate={setTemplate} />
         </>

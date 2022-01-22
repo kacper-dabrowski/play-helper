@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Login } from './Login/Login';
 import { Register } from './Register/Register';
 import * as Styled from './StyledAuthForm';
 import { SwitchAuthNotice } from './SwitchAuthNotice/SwitchAuthNotice';
-import { useStore } from '../../../../hooks/useStore';
 import { loginUser, registerUser } from '../../../../stores/auth/auth';
 
 export const AuthForm = () => {
-    const { authStore, dispatch } = useStore();
-
+    const authStore = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
     const onLoginUser = (payload) => {
         dispatch(loginUser(payload));
     };
