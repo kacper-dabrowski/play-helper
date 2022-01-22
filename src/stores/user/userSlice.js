@@ -12,35 +12,14 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         fetchUserRequestStatus: createRequestStatus(),
-        fetchSupportRequestsStatus: createRequestStatus(),
         fetchSolutionsRequest: createRequestStatus(),
         removeSolutionRequest: createRequestStatus(),
         settingsUpdateRequest: createRequestStatus(),
         solutionUpdateRequest: createRequestStatus(),
         settings: null,
-        supportRequests: null,
         solutions: [],
     },
     reducers: {
-        settingsUpdateStart: (state) => {
-            state.settingsUpdateRequest = requestLoading();
-        },
-        settingsUpdateFail: (state, action) => {
-            state.settingsUpdateRequest = requestFinishedWithError(action.payload.error);
-        },
-        settingsUpdateSuccess: (state) => {
-            state.settingsUpdateRequest = requestFinishedSuccessfully();
-        },
-        supportRequestsFetchStart: (state) => {
-            state.fetchSupportRequestsStatus = requestLoading();
-        },
-        supportRequestsFetchSuccess: (state, action) => {
-            state.fetchSupportRequestsStatus = requestFinishedSuccessfully();
-            state.supportRequests = action.payload.supportRequests;
-        },
-        supportRequestsFetchFail: (state, action) => {
-            state.fetchSupportRequestsStatus = requestFinishedWithError(action.payload.error);
-        },
         solutionsFetchStart: (state) => {
             state.fetchSolutionsRequest = requestLoading();
         },
@@ -72,7 +51,7 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         handleFetchingUserSettings(builder);
-        handleSettingsUpdate(builder);
+        handleUpdatingSettings(builder);
 
         return builder;
     },
@@ -96,7 +75,7 @@ function handleFetchingUserSettings(builder) {
         });
 }
 
-function handleSettingsUpdate(builder) {
+function handleUpdatingSettings(builder) {
     builder
         .addCase(updateUserSettings.pending, (state) => {
             state.settingsUpdateRequest = requestLoading();
