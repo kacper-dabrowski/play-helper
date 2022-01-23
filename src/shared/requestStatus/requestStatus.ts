@@ -1,3 +1,7 @@
+export interface RequestStatus {
+    loading: boolean;
+    error: string;
+}
 export const createRequestStatus = () => ({ error: '', loading: false });
 
 export const requestFinishedSuccessfully = () => {
@@ -7,9 +11,9 @@ export const requestFinishedSuccessfully = () => {
     };
 };
 
-export const requestFinishedWithError = (error) => {
+export const requestFinishedWithError = (error: string | undefined) => {
     return {
-        error,
+        error: error || 'Coś poszło nie tak, spróbuj ponownie później.',
         loading: false,
     };
 };
