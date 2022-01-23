@@ -1,11 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import {
     createRequestStatus,
     requestFinishedSuccessfully,
     requestFinishedWithError,
     requestLoading,
+    RequestStatus,
 } from '../../shared/requestStatus/requestStatus';
+import { SupportRequestModel } from './dto';
 import {
     createSupportRequest,
     fetchSupportRequests,
@@ -13,7 +15,15 @@ import {
     updateSupportRequest,
 } from './supportRequests';
 
-const initialState = {
+interface SupportRequestState {
+    supportRequests: SupportRequestModel[] | null;
+    fetchSupportRequestsStatus: RequestStatus;
+    addSupportRequestsStatus: RequestStatus;
+    removeSupportRequestStatus: RequestStatus;
+    updateSupportRequestStatus: RequestStatus;
+}
+
+const initialState: SupportRequestState = {
     supportRequests: null,
     fetchSupportRequestsStatus: createRequestStatus(),
     addSupportRequestsStatus: createRequestStatus(),
@@ -24,6 +34,7 @@ const initialState = {
 const supportRequestsSlice = createSlice({
     name: 'support-requests',
     initialState,
+    reducers: {},
     extraReducers: (builder) => {
         handleFetchingSupportRequests(builder);
         handleCreatingSupportRequest(builder);
@@ -35,7 +46,7 @@ const supportRequestsSlice = createSlice({
 export const { actions, reducer } = supportRequestsSlice;
 export default supportRequestsSlice.reducer;
 
-function handleFetchingSupportRequests(builder) {
+function handleFetchingSupportRequests(builder: ActionReducerMapBuilder<SupportRequestState>) {
     return builder
         .addCase(fetchSupportRequests.pending, (state) => {
             state.fetchSupportRequestsStatus = requestLoading();
@@ -49,7 +60,7 @@ function handleFetchingSupportRequests(builder) {
         });
 }
 
-function handleCreatingSupportRequest(builder) {
+function handleCreatingSupportRequest(builder: ActionReducerMapBuilder<SupportRequestState>) {
     builder
         .addCase(createSupportRequest.pending, (state) => {
             state.addSupportRequestsStatus = requestLoading();
@@ -62,7 +73,7 @@ function handleCreatingSupportRequest(builder) {
         });
 }
 
-function handleUpdatingSupportRequest(builder) {
+function handleUpdatingSupportRequest(builder: ActionReducerMapBuilder<SupportRequestState>) {
     builder
         .addCase(updateSupportRequest.pending, (state) => {
             state.updateSupportRequestStatus = requestLoading();
@@ -75,7 +86,7 @@ function handleUpdatingSupportRequest(builder) {
         });
 }
 
-function handleRemovingSupportRequest(builder) {
+function handleRemovingSupportRequest(builder: ActionReducerMapBuilder<SupportRequestState>) {
     builder
         .addCase(removeSupportRequest.pending, (state) => {
             state.removeSupportRequestStatus = requestLoading();

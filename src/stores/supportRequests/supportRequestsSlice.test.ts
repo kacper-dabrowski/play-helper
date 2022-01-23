@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { mocked } from 'jest-mock';
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
+import { SupportRequestModel } from './dto';
 import {
     createSupportRequest,
     fetchSupportRequests,
@@ -9,17 +11,16 @@ import {
 } from './supportRequests';
 import supportRequestsSlice from './supportRequestsSlice';
 
-jest.mock('../../libs/axios', () => ({
-    get: jest.fn(),
-    post: jest.fn(),
-    put: jest.fn(),
-    delete: jest.fn(),
-}));
+jest.mock('../../libs/axios');
+
+const httpClient = mocked(axios, true);
+
+const defaultStore = configureStore({ reducer: supportRequestsSlice });
 
 describe('stores - supportRequestsSlice', () => {
     let store;
-    let dispatch;
-    let getState;
+    let dispatch: typeof defaultStore.dispatch;
+    let getState: typeof defaultStore.getState;
 
     beforeEach(() => {
         store = configureStore({ reducer: supportRequestsSlice });
@@ -62,7 +63,7 @@ describe('stores - supportRequestsSlice', () => {
     });
 
     describe('creating support requests', () => {
-        const supportRequest = {
+        const supportRequest: SupportRequestModel = {
             title: 'title',
             description: 'description',
             department: 'department',
@@ -102,7 +103,9 @@ describe('stores - supportRequestsSlice', () => {
         it('should update support request', async () => {
             await dispatch(updateSupportRequest({ supportRequest: supportRequestUpdated, supportRequestId: id }));
 
-            expect(axios.post).toHaveBeenCalledWith(`${urls.srq}/${id}`, { supportRequest: supportRequestUpdated });
+            expect(httpClient.post).toHaveBeenCalledWith(`${urls.srq}/${id}`, {
+                supportRequest: supportRequestUpdated,
+            });
         });
 
         it('should indicate loading state of updating support request', async () => {
@@ -126,7 +129,7 @@ describe('stores - supportRequestsSlice', () => {
         it('should remove support request', async () => {
             await dispatch(removeSupportRequest({ supportRequestId: id }));
 
-            expect(axios.delete).toHaveBeenCalledWith(`${urls.srq}/${id}`);
+            expect(httpClient.delete).toHaveBeenCalledWith(`${urls.srq}/${id}`);
         });
 
         it('should indicate loading state of removing support request', async () => {
@@ -144,14 +147,14 @@ describe('stores - supportRequestsSlice', () => {
         });
     });
 
-    function givenResponseSuccessful(responseData, status = 200) {
-        axios.get.mockResolvedValue({ data: responseData, status });
+    function givenResponseSuccessful(responseData: any, status = 200) {
+        httpClient.get.mockResolvedValue({ data: responseData, status });
     }
 
     function givenResponseFailed() {
-        axios.get.mockRejectedValue(new Error('get error'));
-        axios.post.mockRejectedValue(new Error('post error'));
-        axios.put.mockRejectedValue(new Error('put error'));
-        axios.delete.mockRejectedValue(new Error('delete error'));
+        httpClient.get.mockRejectedValue(new Error('get error'));
+        httpClient.post.mockRejectedValue(new Error('post error'));
+        httpClient.put.mockRejectedValue(new Error('put error'));
+        httpClient.delete.mockRejectedValue(new Error('delete error'));
     }
 });
