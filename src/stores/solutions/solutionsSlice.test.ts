@@ -1,20 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { mocked } from 'jest-mock';
 import axios from '../../libs/axios';
 import urls from '../../shared/urls';
+import { SolutionDto, SolutionModel } from './dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './solutions';
 import solutionsSlice from './solutionsSlice';
 
-jest.mock('../../libs/axios', () => ({
-    get: jest.fn(),
-    post: jest.fn(),
-    put: jest.fn(),
-    delete: jest.fn(),
-}));
+jest.mock('../../libs/axios');
+
+const httpClient = mocked(axios, true);
+const defaultStore = configureStore({ reducer: solutionsSlice });
 
 describe('stores - solutionsSlice', () => {
-    let store;
-    let dispatch;
-    let getState;
+    let store: typeof defaultStore;
+    let dispatch: typeof defaultStore.dispatch;
+    let getState: typeof defaultStore.getState;
 
     beforeEach(() => {
         store = configureStore({ reducer: solutionsSlice });
@@ -24,7 +24,7 @@ describe('stores - solutionsSlice', () => {
     });
 
     describe('fetching solutions', () => {
-        const validDto = [];
+        const validDto: SolutionDto[] = [];
 
         it('should fetch solutions and update list when successful', async () => {
             givenResponseSuccessful(validDto);
@@ -57,7 +57,7 @@ describe('stores - solutionsSlice', () => {
     });
 
     describe('creating solutions', () => {
-        const solution = {
+        const solution: SolutionModel = {
             title: 'title',
             description: 'description',
             content: 'content',
@@ -86,7 +86,7 @@ describe('stores - solutionsSlice', () => {
 
     describe('updating solutions', () => {
         const id = '1234';
-        const solutionUpdated = {
+        const solutionUpdated: SolutionModel = {
             title: 'title updated',
             description: 'description updated',
             content: 'content updated',
@@ -122,29 +122,40 @@ describe('stores - solutionsSlice', () => {
             expect(axios.delete).toHaveBeenCalledWith(`${urls.solution}/${id}`);
         });
 
+        it('should call onSuccess  when solution removed successfully', async () => {
+            const onSuccessMock = jest.fn();
+
+            await dispatch(removeSolution({ solutionId: id, onSuccess: onSuccessMock }));
+
+            expect(axios.delete).toHaveBeenCalledWith(`${urls.solution}/${id}`);
+            expect(onSuccessMock).toHaveBeenCalled();
+        });
+
         it('should indicate loading state of removing solution', async () => {
             dispatch(removeSolution({ solutionId: id }));
 
             expect(getState().removeSolutionStatus.loading).toEqual(true);
         });
 
-        it('should pass error if occurred during removing solution', async () => {
+        it('should pass error if occurred during removing solution and not call onSuccess', async () => {
             givenResponseFailed();
+            const onSuccessMock = jest.fn();
 
-            await dispatch(removeSolution({ solutionId: id }));
+            await dispatch(removeSolution({ solutionId: id, onSuccess: onSuccessMock }));
 
             expect(getState().removeSolutionStatus.error).toEqual('delete error');
+            expect(onSuccessMock).not.toHaveBeenCalled();
         });
     });
 
-    function givenResponseSuccessful(responseData, status = 200) {
-        axios.get.mockResolvedValue({ data: responseData, status });
+    function givenResponseSuccessful(responseData: any, status = 200) {
+        httpClient.get.mockResolvedValue({ data: responseData, status });
     }
 
     function givenResponseFailed() {
-        axios.get.mockRejectedValue(new Error('get error'));
-        axios.post.mockRejectedValue(new Error('post error'));
-        axios.put.mockRejectedValue(new Error('put error'));
-        axios.delete.mockRejectedValue(new Error('delete error'));
+        httpClient.get.mockRejectedValue(new Error('get error'));
+        httpClient.post.mockRejectedValue(new Error('post error'));
+        httpClient.put.mockRejectedValue(new Error('put error'));
+        httpClient.delete.mockRejectedValue(new Error('delete error'));
     }
 });
