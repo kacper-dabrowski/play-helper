@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import cogoToast from 'cogo-toast';
 import Double from './Double';
 import config from '../../../shared/identifiers';
 import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDouble';
 import generateClosedDoubleTemplate from '../../../modules/openedDouble/openedDouble';
+import { toastProvider } from '../../../libs/toast';
 
 jest.mock('../../../modules/closedDouble/closedDouble', () => jest.fn());
 jest.mock('../../../modules/openedDouble/openedDouble', () => jest.fn());
@@ -45,7 +45,7 @@ describe('Support - Double', () => {
         fillAndSubmitForm();
 
         userEvent.click(screen.getByText('Zatwierdź'));
-        const errorToastSpy = jest.spyOn(cogoToast, 'error');
+        const errorToastSpy = jest.spyOn(toastProvider, 'error');
 
         return waitFor(() => {
             expect(errorToastSpy).toHaveBeenCalledWith('error!');
@@ -62,7 +62,7 @@ describe('Support - Double', () => {
         fillAndSubmitForm({ ...defaultValues, sex: 'Mężczyzna' });
 
         userEvent.click(screen.getByText('Zatwierdź'));
-        const errorToastSpy = jest.spyOn(cogoToast, 'error');
+        const errorToastSpy = jest.spyOn(toastProvider, 'error');
 
         return waitFor(() => {
             expect(errorToastSpy).toHaveBeenCalledWith('error!');

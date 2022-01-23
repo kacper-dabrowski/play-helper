@@ -1,8 +1,8 @@
-import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
+import { toastProvider } from '../../../libs/toast';
 import urls from '../../../shared/urls';
 import { solutionSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
@@ -33,11 +33,11 @@ const SolutionForm = ({ refresh }) => {
 
                 await requestHandler(formData, () => urls.solution);
 
-                cogoToast.success('Rozwiązanie dodane pomyślnie');
+                toastProvider.success('Rozwiązanie dodane pomyślnie');
                 resetForm({});
                 refresh?.();
             } catch (error) {
-                cogoToast.error(error.message);
+                toastProvider.error(error.message);
             }
         },
         validationSchema: solutionSchema,

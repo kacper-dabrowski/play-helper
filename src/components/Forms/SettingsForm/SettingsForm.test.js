@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import cogoToast from 'cogo-toast';
 import SettingsForm from './SettingsForm';
 import { createRequestStatus, requestFinishedWithError } from '../../../shared/requestStatus/requestStatus';
+import { toastProvider } from '../../../libs/toast';
 
 describe('Forms - Settings form', () => {
     const onSettingsUpdateMock = jest.fn();
@@ -37,19 +37,19 @@ describe('Forms - Settings form', () => {
     });
 
     it('should call settings update mock and show toast if it was successful', () => {
-        const cogoToastSpy = jest.spyOn(cogoToast, 'success');
+        const toastProviderSpy = jest.spyOn(toastProvider, 'success');
         render(getComponentWithProps());
 
         userEvent.selectOptions(getSelectInput(), '/support/double-opened');
 
         return waitFor(() => {
             expect(onSettingsUpdateMock).toHaveBeenCalledWith({ settings: { startingPage: '/support/double-opened' } });
-            expect(cogoToastSpy).toHaveBeenCalledWith('Pomyślnie zapisano ustawienie');
+            expect(toastProviderSpy).toHaveBeenCalledWith('Pomyślnie zapisano ustawienie');
         });
     });
 
     it('should call settings update mock and show error toast if it was not successful', () => {
-        const cogoToastSpy = jest.spyOn(cogoToast, 'error');
+        const toastProviderSpy = jest.spyOn(toastProvider, 'error');
 
         const { rerender } = render(getComponentWithProps());
 
@@ -59,7 +59,7 @@ describe('Forms - Settings form', () => {
 
         return waitFor(() => {
             expect(onSettingsUpdateMock).toHaveBeenCalledWith({ settings: { startingPage: '/support/double-opened' } });
-            expect(cogoToastSpy).toHaveBeenCalledWith('error!');
+            expect(toastProviderSpy).toHaveBeenCalledWith('error!');
         });
     });
 

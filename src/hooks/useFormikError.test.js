@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import cogoToast from 'cogo-toast';
 import useFormikError from './useFormikError';
+import { toastProvider } from '../libs/toast';
 
 describe('hooks - useFormikError', () => {
     const emptyFormikErrors = {};
@@ -16,7 +16,7 @@ describe('hooks - useFormikError', () => {
     it('should show no error, if there is no formik error', () => {
         render(<DummyComponent formikErrors={emptyFormikErrors} />);
 
-        const toastMock = jest.spyOn(cogoToast, 'error').mockImplementation(() => jest.fn());
+        const toastMock = jest.spyOn(toastProvider, 'error').mockImplementation(() => jest.fn());
 
         expect(toastMock).not.toHaveBeenCalled();
     });
@@ -24,7 +24,7 @@ describe('hooks - useFormikError', () => {
     it('should show an error, if there is formik error', () => {
         render(<DummyComponent formikErrors={oneFormikError} />);
 
-        const toastMock = jest.spyOn(cogoToast, 'error').mockImplementation(() => jest.fn());
+        const toastMock = jest.spyOn(toastProvider, 'error').mockImplementation(() => jest.fn());
 
         expect(toastMock).toHaveBeenCalledWith('some error');
     });

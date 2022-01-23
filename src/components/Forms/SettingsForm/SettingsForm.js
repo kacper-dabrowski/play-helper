@@ -1,10 +1,10 @@
-import cogoToast from 'cogo-toast';
 import React, { useCallback, useState } from 'react';
+import { useErrorNotification } from '../../../hooks/useErrorNotification';
+import { toastProvider } from '../../../libs/toast';
 import routes from '../../../shared/routes';
 import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
-import { FormLabel } from './StyledSettingsForm';
 import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
+import { FormLabel } from './StyledSettingsForm';
 
 const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest }) => {
     const [startingPage, setStartingPage] = useState(userSettings.startingPage);
@@ -17,7 +17,7 @@ const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest })
 
             await onSettingsUpdate({ settings: { startingPage: chosenStartingPage } });
 
-            cogoToast.success('Pomyślnie zapisano ustawienie');
+            toastProvider.success('Pomyślnie zapisano ustawienie');
         },
         [onSettingsUpdate]
     );

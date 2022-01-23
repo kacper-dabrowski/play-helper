@@ -1,9 +1,9 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import cogoToast from 'cogo-toast';
 import Basic from './Basic';
 import { generateBasicTemplate } from '../../../modules/basic/basic';
+import { toastProvider } from '../../../libs/toast';
 
 jest.mock('../../../modules/basic/basic', () => ({
     generateBasicTemplate: jest.fn(),
@@ -38,10 +38,10 @@ describe('Support - Basic', () => {
         render(<Basic name="Test Testing" />);
 
         fillAndSubmitForm({ ...defaultValues, sex: '' });
-        const cogoToastSpy = jest.spyOn(cogoToast, 'error');
+        const toastProviderSpy = jest.spyOn(toastProvider, 'error');
 
         return waitFor(() => {
-            expect(cogoToastSpy).toHaveBeenCalledWith('error!');
+            expect(toastProviderSpy).toHaveBeenCalledWith('error!');
         });
     });
 

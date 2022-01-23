@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import cogoToast from 'cogo-toast';
 import React from 'react';
+import { toastProvider } from '../../../../../libs/toast';
 import { createRequestStatus, requestLoading } from '../../../../../shared/requestStatus/requestStatus';
 import { Register } from './Register';
 
@@ -58,7 +58,7 @@ describe('WelcomeBackdrop - Register', () => {
     });
 
     it('should display validation errors, when form is invalid', () => {
-        const cogoToastSpy = jest.spyOn(cogoToast, 'error');
+        const toastProviderSpy = jest.spyOn(toastProvider, 'error');
 
         render(getComponentWithProps());
 
@@ -68,7 +68,7 @@ describe('WelcomeBackdrop - Register', () => {
         fireEvent.submit(screen.getByTestId('register-form'));
 
         return waitFor(() => {
-            expect(cogoToastSpy).toHaveBeenCalledWith('Pole jest wymagane');
+            expect(toastProviderSpy).toHaveBeenCalledWith('Pole jest wymagane');
         });
     });
 

@@ -1,5 +1,5 @@
-import cogoToast from 'cogo-toast';
 import axios from '../libs/axios';
+import { toastProvider } from '../libs/toast';
 import urls from '../shared/urls';
 
 const { useState, useEffect, useMemo } = require('react');
@@ -68,7 +68,7 @@ const useRequest = (url, method = REQUEST_METHODS.GET, data = null) => {
 
     useEffect(() => {
         if (error) {
-            cogoToast.error(error.message);
+            toastProvider.error(error.message);
         }
     }, [error]);
 

@@ -1,9 +1,9 @@
-import cogoToast from 'cogo-toast';
-import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
+import React, { useCallback, useEffect, useState } from 'react';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
+import { toastProvider } from '../../../libs/toast';
 import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDouble';
 import generateClosedDoubleTemplate from '../../../modules/openedDouble/openedDouble';
 import config from '../../../shared/identifiers';
@@ -34,7 +34,7 @@ const Double = ({ type }) => {
 
                 setTemplate(currentTemplate);
             } catch (error) {
-                cogoToast.error(error.message);
+                toastProvider.error(error.message);
             }
         },
     });

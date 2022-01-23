@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import cogoToast from 'cogo-toast';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
@@ -11,6 +10,7 @@ import ChannelSection from './Sections/ChannelSection';
 import TextAreaSection from './Sections/TextAreaSection';
 import TypeSection from './Sections/TypeSection';
 import { AdditionalTemplateContainer, CheckboxContainer, SettingsSection } from './StyledBasic';
+import { toastProvider } from '../../../libs/toast';
 
 const telephoneTemplate = generateTelephoneTemplate();
 
@@ -35,7 +35,7 @@ const Basic = ({ name }) => {
                 const generatedTemplate = generateBasicTemplate(templateConfig);
                 setTemplate(generatedTemplate);
             } catch (error) {
-                cogoToast.error(error.message);
+                toastProvider.error(error.message);
             }
         },
     });

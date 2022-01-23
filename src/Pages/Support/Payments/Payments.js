@@ -1,8 +1,8 @@
-import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
+import { toastProvider } from '../../../libs/toast';
 import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';
 import config from '../../../shared/identifiers';
 import Calculator from './Sections/Calculator';
@@ -36,16 +36,16 @@ const Payments = ({ fullName }) => {
             if (invoiceMatch) {
                 setInvoices((currentInvoices) => [...currentInvoices, invoiceMatch]);
                 invoiceClickEvent.target.value = '';
-                cogoToast.success(`Faktura o numerze ${invoiceMatch} została dodana do listy`);
+                toastProvider.success(`Faktura o numerze ${invoiceMatch} została dodana do listy`);
             }
         } catch (error) {
-            cogoToast.error(error.message);
+            toastProvider.error(error.message);
         }
     };
 
     const onRemoveInvoice = (invoiceNumber) => {
         setInvoices((currentInvoices) => currentInvoices.filter((invoice) => invoice !== invoiceNumber));
-        return cogoToast.success(`Faktura o numerze ${invoiceNumber} została pomyślnie usunięta z listy`);
+        return toastProvider.success(`Faktura o numerze ${invoiceNumber} została pomyślnie usunięta z listy`);
     };
 
     const onDivideAmount = () => {
@@ -70,7 +70,7 @@ const Payments = ({ fullName }) => {
             setAdditionalTemplateActive(true);
             setAdditionalTemplate(paymentTemplates.additionalTemplate);
         } catch (error) {
-            cogoToast.error(error.message);
+            toastProvider.error(error.message);
         }
     };
 

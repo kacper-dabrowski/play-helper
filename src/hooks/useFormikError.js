@@ -1,11 +1,11 @@
-import cogoToast from 'cogo-toast';
 import { useEffect } from 'react';
+import { toastProvider } from '../libs/toast';
 import { getLastMessageFromFormikErrors } from '../shared/errors/handleErrors';
 
 const useFormikError = (formikErrors, requestError) => {
     useEffect(() => {
         if (getLastMessageFromFormikErrors(formikErrors)) {
-            cogoToast.error(getLastMessageFromFormikErrors(formikErrors));
+            toastProvider.error(getLastMessageFromFormikErrors(formikErrors));
         }
     }, [formikErrors, requestError]);
 };

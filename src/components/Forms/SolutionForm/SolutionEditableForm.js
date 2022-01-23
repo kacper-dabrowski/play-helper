@@ -1,7 +1,7 @@
-import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
+import { toastProvider } from '../../../libs/toast';
 import { solutionSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
@@ -30,7 +30,7 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode, onSolutio
 
             await onSolutionUpdate({ updatedSolution: formData, id });
 
-            cogoToast.success('Pomyślnie zapisano zmiany');
+            toastProvider.success('Pomyślnie zapisano zmiany');
 
             resetForm({});
             refresh?.();
