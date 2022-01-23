@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Redirect, Route } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
@@ -13,12 +13,13 @@ import routes from '../../shared/routes';
 import { BasicContainer } from './Basic/BasicContainer';
 import { fetchSolutions } from '../../stores/solutions/solutions';
 import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
+import { StoreState } from '../../stores/store';
 
-const Support = () => {
+const Support: FC = () => {
     const dispatch = useDispatch();
-    const solutionsStore = useSelector((state) => state.solutions);
-    const userStore = useSelector((state) => state.user);
-    const authStore = useSelector((state) => state.auth);
+    const solutionsStore = useSelector((state: StoreState) => state.solutions);
+    const userStore = useSelector((state: StoreState) => state.user);
+    const authStore = useSelector((state: StoreState) => state.auth);
 
     const onFetchSolutions = useCallback(() => {
         dispatch(fetchSolutions());
@@ -35,7 +36,7 @@ const Support = () => {
                     <Srq onFetchSupportRequests={onFetchSupportRequests} />
                 </Route>
                 <Route exact path={routes.support.basic.path}>
-                    <BasicContainer name={authStore.fullName} />
+                    <BasicContainer name={authStore.user.fullName} />
                 </Route>
                 <Route exact path={routes.support.doubleOpened.path}>
                     <Double type={config.double.opened} />
