@@ -1,4 +1,4 @@
-export const convertDate = (date) => {
+export const convertDate = (date: string) => {
     const dateObject = new Date(date);
     const months = [
         'stycznia',
