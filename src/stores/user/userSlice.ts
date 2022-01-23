@@ -1,14 +1,22 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import {
     createRequestStatus,
     requestFinishedSuccessfully,
     requestFinishedWithError,
     requestLoading,
+    RequestStatus,
 } from '../../shared/requestStatus/requestStatus';
 import { fetchUserSettings, updateUserSettings } from './user';
+import { UserSettingsModel } from './dto';
 
-const initialState = {
+export interface UserState {
+    fetchUserRequestStatus: RequestStatus;
+    settingsUpdateRequest: RequestStatus;
+    settings: UserSettingsModel | null;
+}
+
+const initialState: UserState = {
     fetchUserRequestStatus: createRequestStatus(),
     settingsUpdateRequest: createRequestStatus(),
     settings: null,
@@ -17,6 +25,7 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState,
+    reducers: {},
     extraReducers: (builder) => {
         handleFetchingUserSettings(builder);
         handleUpdatingSettings(builder);
@@ -29,7 +38,7 @@ export default userSlice.reducer;
 
 export const { actions, reducer } = userSlice;
 
-function handleFetchingUserSettings(builder) {
+function handleFetchingUserSettings(builder: ActionReducerMapBuilder<typeof initialState>) {
     builder
         .addCase(fetchUserSettings.pending, (state) => {
             state.fetchUserRequestStatus = requestLoading();
@@ -43,7 +52,7 @@ function handleFetchingUserSettings(builder) {
         });
 }
 
-function handleUpdatingSettings(builder) {
+function handleUpdatingSettings(builder: ActionReducerMapBuilder<typeof initialState>) {
     builder
         .addCase(updateUserSettings.pending, (state) => {
             state.settingsUpdateRequest = requestLoading();

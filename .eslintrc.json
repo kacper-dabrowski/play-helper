@@ -12,6 +12,13 @@
         "plugin:jest/recommended"
     ],
     "globals": {},
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
     "parser": "babel-eslint",
     "parserOptions": {
         "ecmaVersion": 2020,
@@ -37,6 +44,14 @@
         "react-hooks/exhaustive-deps": "warn",
         "consistent-return": "off",
         "import/order": "error",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "import/extensions": "off",
+        "no-undef": "off",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ]
     }
 }
