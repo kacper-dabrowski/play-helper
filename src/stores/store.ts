@@ -12,3 +12,6 @@ export const store = configureStore({
         supportRequests: supportRequestsReducer,
     },
 });
+
+export type StoreDispatch = typeof store.dispatch;
+export type StoreState = ReturnType<typeof store.getState>;

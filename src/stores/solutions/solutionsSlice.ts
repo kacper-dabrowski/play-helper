@@ -1,14 +1,23 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import {
     createRequestStatus,
     requestFinishedSuccessfully,
     requestFinishedWithError,
     requestLoading,
+    RequestStatus,
 } from '../../shared/requestStatus/requestStatus';
+import { SolutionDto } from './dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './solutions';
 
-const initialState = {
+interface SolutionState {
+    solutions: SolutionDto[] | null;
+    fetchSolutionsStatus: RequestStatus;
+    addSolutionStatus: RequestStatus;
+    removeSolutionStatus: RequestStatus;
+    updateSolutionStatus: RequestStatus;
+}
+const initialState: SolutionState = {
     solutions: null,
     fetchSolutionsStatus: createRequestStatus(),
     addSolutionStatus: createRequestStatus(),
@@ -19,6 +28,7 @@ const initialState = {
 const supportRequestsSlice = createSlice({
     name: 'support-requests',
     initialState,
+    reducers: {},
     extraReducers: (builder) => {
         handleFetchingSolutions(builder);
         handleCreatingSolutions(builder);
@@ -30,7 +40,7 @@ const supportRequestsSlice = createSlice({
 export const { actions, reducer } = supportRequestsSlice;
 export default supportRequestsSlice.reducer;
 
-function handleFetchingSolutions(builder) {
+function handleFetchingSolutions(builder: ActionReducerMapBuilder<SolutionState>) {
     return builder
         .addCase(fetchSolutions.pending, (state) => {
             state.fetchSolutionsStatus = requestLoading();
@@ -44,7 +54,7 @@ function handleFetchingSolutions(builder) {
         });
 }
 
-function handleCreatingSolutions(builder) {
+function handleCreatingSolutions(builder: ActionReducerMapBuilder<SolutionState>) {
     builder
         .addCase(createSolution.pending, (state) => {
             state.addSolutionStatus = requestLoading();
@@ -57,7 +67,7 @@ function handleCreatingSolutions(builder) {
         });
 }
 
-function handleUpdatingSolutions(builder) {
+function handleUpdatingSolutions(builder: ActionReducerMapBuilder<SolutionState>) {
     builder
         .addCase(updateSolution.pending, (state) => {
             state.updateSolutionStatus = requestLoading();
@@ -70,7 +80,7 @@ function handleUpdatingSolutions(builder) {
         });
 }
 
-function handleRemovingSolutions(builder) {
+function handleRemovingSolutions(builder: ActionReducerMapBuilder<SolutionState>) {
     builder
         .addCase(removeSolution.pending, (state) => {
             state.removeSolutionStatus = requestLoading();
