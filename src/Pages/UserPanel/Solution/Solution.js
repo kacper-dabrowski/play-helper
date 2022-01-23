@@ -1,4 +1,3 @@
-import cogoToast from 'cogo-toast';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
@@ -8,6 +7,7 @@ import Searchbar from '../../../components/SearchBar/SearchBar';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { useErrorNotification } from '../../../hooks/useErrorNotification';
 import useResultsFilter from '../../../hooks/useResultsFilter';
+import { toastProvider } from '../../../libs/toast';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import { updateSolution } from '../../../stores/solutions/solutions';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
@@ -46,7 +46,7 @@ const Solution = ({
 
     const removeSolutionHandler = async (id) => {
         onRemoveSolution(id, () => {
-            cogoToast.success('Rozwiązanie usunięte pomyślnie.');
+            toastProvider.success('Rozwiązanie usunięte pomyślnie.');
         });
     };
     let content;

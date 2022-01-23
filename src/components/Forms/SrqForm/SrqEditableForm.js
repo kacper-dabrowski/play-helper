@@ -1,4 +1,3 @@
-import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React, { useContext } from 'react';
 import srqFormContext from '../../../contexts/srqFormContext';
@@ -12,6 +11,7 @@ import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
+import { toastProvider } from '../../../libs/toast';
 
 const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
     const { isLoading, requestHandler } = useRequest(urls.srq, REQUEST_METHODS.POST);
@@ -31,12 +31,12 @@ const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
 
             await requestHandler(formData, () => `${urls.srq}/${populatedFields.srqId}`);
 
-            cogoToast.success('Pomyślnie zapisano zmiany');
+            toastProvider.success('Pomyślnie zapisano zmiany');
             resetForm();
             entriesRefresh?.();
             setEditMode(false);
         } catch (error) {
-            cogoToast.error(error.message);
+            toastProvider.error(error.message);
         }
     };
 

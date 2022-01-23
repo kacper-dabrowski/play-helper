@@ -1,9 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import cogoToast from 'cogo-toast';
 import { Login } from './Login';
 import { createRequestStatus, requestLoading } from '../../../../../shared/requestStatus/requestStatus';
+import { toastProvider } from '../../../../../libs/toast';
 
 jest.mock('../../../Spinner/Spinner', () => ({
     __esModule: true,
@@ -47,7 +47,7 @@ describe('WelcomeBackdrop - Login', () => {
     });
 
     it('should display validation errors, when form is invalid', () => {
-        const cogoToastSpy = jest.spyOn(cogoToast, 'error');
+        const toastProviderSpy = jest.spyOn(toastProvider, 'error');
 
         render(getComponentWithProps());
 
@@ -57,7 +57,7 @@ describe('WelcomeBackdrop - Login', () => {
         fireEvent.submit(screen.getByTestId('login-form'));
 
         return waitFor(() => {
-            expect(cogoToastSpy).toHaveBeenCalledWith('Pole jest wymagane');
+            expect(toastProviderSpy).toHaveBeenCalledWith('Pole jest wymagane');
         });
     });
 

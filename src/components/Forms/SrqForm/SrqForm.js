@@ -1,4 +1,3 @@
-import cogoToast from 'cogo-toast';
 import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
@@ -11,6 +10,7 @@ import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
+import { toastProvider } from '../../../libs/toast';
 
 const SrqForm = (props) => {
     const focusRef = useFocus();
@@ -30,11 +30,11 @@ const SrqForm = (props) => {
 
             await requestHandler(formData, () => urls.srq);
 
-            cogoToast.success('SRQ dodane pomyślnie');
+            toastProvider.success('SRQ dodane pomyślnie');
             resetForm();
             entriesRefresh?.();
         } catch (error) {
-            cogoToast.error(error.message);
+            toastProvider.error(error.message);
         }
     };
 

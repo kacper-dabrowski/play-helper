@@ -1,27 +1,27 @@
 import React from 'react';
-import cogoToast from 'cogo-toast';
 import { render, waitFor } from '@testing-library/react';
 import { useErrorNotification } from './useErrorNotification';
 import { createRequestStatus, requestFinishedWithError } from '../shared/requestStatus/requestStatus';
+import { toastProvider } from '../libs/toast';
 
 describe('hooks - useErrorNotification', () => {
     it('should display an error if requestStatus has one', () => {
-        const cogoToastSpy = jest.spyOn(cogoToast, 'error');
+        const toastProviderSpy = jest.spyOn(toastProvider, 'error');
 
         render(getComponentWithProps({ requestStatus: requestFinishedWithError('error') }));
 
         return waitFor(() => {
-            expect(cogoToastSpy).toHaveBeenCalledWith('error');
+            expect(toastProviderSpy).toHaveBeenCalledWith('error');
         });
     });
 
     it('should not display an error if requestStatus has one', () => {
-        const cogoToastSpy = jest.spyOn(cogoToast, 'error');
+        const toastProviderSpy = jest.spyOn(toastProvider, 'error');
 
         render(getComponentWithProps());
 
         return waitFor(() => {
-            expect(cogoToastSpy).not.toHaveBeenCalled();
+            expect(toastProviderSpy).not.toHaveBeenCalled();
         });
     });
 
