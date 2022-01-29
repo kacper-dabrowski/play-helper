@@ -4,7 +4,7 @@ import axios from '../../libs/axios';
 import urls from '../../shared/urls';
 import { actions } from './authSlice';
 import { RegistrationDto, SessionDto } from './dto';
-import { removeUserFromLocalStorage, saveUserInLocalStorage } from '../localStorage/localStorage';
+import { removeUserFromLocalStorage, saveUserInLocalStorage } from './localStorage/localStorage';
 
 interface LoginPayload {
     username: string;
