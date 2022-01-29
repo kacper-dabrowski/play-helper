@@ -1,35 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import axios from '../../libs/axios';
-import { Maybe } from '../../shared/types';
 import urls from '../../shared/urls';
 import { actions } from './authSlice';
+import { RegistrationDto, SessionDto } from './dto';
+import { removeUserFromLocalStorage, saveUserInLocalStorage } from '../localStorage/localStorage';
 
-interface SessionDto {
-    token: string;
-    userId: string;
-    fullName: string;
-    expiresIn: number;
-}
-
-const checkTimeout = createAsyncThunk(
-    'auth/session-inactive',
-    async (expirationTime: number | string, { dispatch }) => {
-        const logoutTimeoutId = setTimeout(() => {
-            dispatch(actions.logout());
-        }, +expirationTime * 1000);
-
-        dispatch(actions.setLogoutTimeoutId(logoutTimeoutId));
-    }
-);
-
-interface LoginDto {
+interface LoginPayload {
     username: string;
     password: string;
     onSuccess?: () => void;
 }
 
-export const loginUser = createAsyncThunk('auth/login', async ({ username, password, onSuccess }: LoginDto) => {
+export const loginUser = createAsyncThunk('auth/login', async ({ username, password, onSuccess }: LoginPayload) => {
     const response: AxiosResponse<SessionDto> = await axios.post(urls.login, { username, password });
 
     const { token, userId, fullName, expiresIn } = response.data;
@@ -40,10 +23,7 @@ export const loginUser = createAsyncThunk('auth/login', async ({ username, passw
 
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
-    localStorage.setItem('token', token);
-    localStorage.setItem('expirationDate', expirationDate.toString());
-    localStorage.setItem('fullName', fullName);
-    localStorage.setItem('userId', userId);
+    saveUserInLocalStorage({ token, userId, fullName, expirationDate });
 
     if (onSuccess && typeof onSuccess === 'function') {
         onSuccess();
@@ -82,10 +62,7 @@ export const authCheckState = createAsyncThunk('auth/auth-check-state', async (p
 });
 
 export const logout = createAsyncThunk('auth/logout', async (payload, { dispatch }) => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('fullName');
-    localStorage.removeItem('userId');
+    removeUserFromLocalStorage();
 
     dispatch(actions.logout());
 });
@@ -96,13 +73,6 @@ interface RegistrationPayload {
     fullName: string;
     confirmPassword: string;
     onSuccess?: () => void;
-}
-
-interface RegistrationDto {
-    message: string;
-    token: Maybe<string>;
-    userId: Maybe<string>;
-    expiresIn: Maybe<number>;
 }
 
 export const registerUser = createAsyncThunk(
@@ -124,5 +94,16 @@ export const registerUser = createAsyncThunk(
         if (typeof onSuccess === 'function') {
             onSuccess();
         }
+    }
+);
+
+const checkTimeout = createAsyncThunk(
+    'auth/session-inactive',
+    async (expirationTime: number | string, { dispatch }) => {
+        const logoutTimeoutId = setTimeout(() => {
+            dispatch(actions.logout());
+        }, +expirationTime * 1000);
+
+        dispatch(actions.setLogoutTimeoutId(logoutTimeoutId));
     }
 );
