@@ -43,6 +43,7 @@ export const authSlice = createSlice({
             if (state.logoutTimeoutId) {
                 clearTimeout(state.logoutTimeoutId);
             }
+
             state.user = { token: '', userId: '', fullName: '' };
         },
         userAlreadyLoggedIn: (state, action) => {
