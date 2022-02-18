@@ -11,5 +11,5 @@ export const fetchUserSettings = createAsyncThunk('user/fetch-settings', async (
 });
 
 export const updateUserSettings = createAsyncThunk('user/update-settings', async (payload: UserSettingsModel) => {
-    await axios.post(urls.settings, { settings: payload });
+    await axios.post(urls.settings, { ...payload });
 });
