@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import * as Styled from './styledAuthForm';
-import { SwitchAuthNotice } from './switchAuthNotice/SwitchAuthNotice';
+import { SwitchAuthNotice } from './switchAuthNotice/switchAuthNotice';
 import { loginUser, registerUser } from '../../stores/auth/auth';
 
 export const AuthForm = () => {

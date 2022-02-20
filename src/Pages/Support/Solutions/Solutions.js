@@ -3,7 +3,7 @@ import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
-import Spinner from '../../../components/UI/Spinner/Spinner';
+import { Spinner } from '../../../components/UI/spinner/spinner';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { SolutionResults } from './StyledSolutions';
 import { useErrorNotification } from '../../../hooks/useNotification';

@@ -2,12 +2,12 @@ import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
 import { useNotifications } from '../../../hooks/useNotification';
-import { toastProvider } from '../../../libs/toast';
+
 import { solutionSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
-import Spinner from '../../UI/Spinner/Spinner';
+import { Spinner } from '../../UI/spinner/spinner';
 import { StyledFormContainer } from './StyledSolutionForm';
 
 const SolutionEditableForm = ({ refresh, populatedFields, setEditMode, onSolutionUpdate, solutionUpdateRequest }) => {

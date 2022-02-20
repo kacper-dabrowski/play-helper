@@ -2,20 +2,18 @@ import { useFormik } from 'formik';
 import React, { useContext } from 'react';
 import srqFormContext from '../../../contexts/srqFormContext';
 import useFormikError from '../../../hooks/useFormikError';
-import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { srqSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
-import Spinner from '../../UI/Spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
 import { toastProvider } from '../../../libs/toast';
+import Spinner from '../../UI/spinner/spinner';
 
 const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
     const { isLoading, requestHandler } = useRequest(urls.srq, REQUEST_METHODS.POST);
-    const focusRef = useFocus();
     const { setEditMode } = useContext(srqFormContext);
 
     const onSubmit = async (values, resetForm) => {
@@ -56,7 +54,7 @@ const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
             <FormInput
-                focusRef={focusRef}
+                autoFocus
                 hasErrors={!!formik.errors.title}
                 value={formik.values.title}
                 onChange={formik.handleChange}

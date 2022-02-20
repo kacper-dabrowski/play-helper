@@ -1,14 +1,11 @@
 import React from 'react';
-import useFocus from '../../hooks/useFocus';
 import { StyledInputWrapper, StyledSearchbar } from './StyledSearchBar';
 
 const Searchbar = ({ onType, value }) => {
-    const focusRef = useFocus();
-
     return (
         <StyledInputWrapper>
             <StyledSearchbar
-                ref={focusRef}
+                autoFocus
                 value={value}
                 onChange={(event) => {
                     onType(event.target.value);

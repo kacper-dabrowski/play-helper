@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Styled from './StyledSwitchAuthNotice';
+import * as Styled from './styledSwitchAuthNotice';
 
 export const SwitchAuthNotice = ({ isLogin, setIsLogin }) => {
     const notice = isLogin ? (
