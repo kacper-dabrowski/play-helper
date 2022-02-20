@@ -9,7 +9,7 @@ import PlayNext from './Pages/PlayNext/PlayNext';
 import Support from './Pages/Support/Support';
 import UserPanel from './Pages/UserPanel/UserPanel';
 import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
-import { authCheckState } from './stores/auth/auth';
+import { authCheckState } from './authorization/store/auth';
 import { StoreDispatch, StoreState } from './stores/store';
 import { fetchUserSettings } from './stores/user/user';
 

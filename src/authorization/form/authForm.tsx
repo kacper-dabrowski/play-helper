@@ -4,7 +4,7 @@ import { Login, LoginCredentials } from './login/login';
 import { Register, RegistrationCredentials } from './register/register';
 import * as Styled from './styledAuthForm';
 import { SwitchAuthNotice } from './switchAuthNotice/switchAuthNotice';
-import { loginUser, registerUser } from '../../stores/auth/auth';
+import { loginUser, registerUser } from '../store/auth';
 import { StoreState } from '../../stores/store';
 
 export const AuthForm = () => {
