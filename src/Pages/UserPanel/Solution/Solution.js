@@ -5,7 +5,7 @@ import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
 import Searchbar from '../../../components/SearchBar/SearchBar';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
+import { useErrorNotification } from '../../../hooks/useNotification';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { toastProvider } from '../../../libs/toast';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';

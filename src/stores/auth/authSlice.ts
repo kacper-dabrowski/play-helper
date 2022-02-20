@@ -45,6 +45,8 @@ export const authSlice = createSlice({
             }
 
             state.user = { token: '', userId: '', fullName: '' };
+            state.loginRequest = createRequestStatus();
+            state.registrationRequest = createRequestStatus();
         },
         userAlreadyLoggedIn: (state, action) => {
             state.user = {

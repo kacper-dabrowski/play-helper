@@ -1,12 +1,19 @@
-import React, { useCallback, useState } from 'react';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
-import { toastProvider } from '../../../libs/toast';
-import routes from '../../../shared/routes';
-import { OptionSelect } from '../../Inputs/OptionSelect/OptionSelect';
-import { StyledBaseForm, StyledFormHeader } from '../BaseForm/BaseForm';
-import { FormLabel } from './StyledSettingsForm';
+import React, { FC, useCallback, useState } from 'react';
+import { StyledBaseForm, StyledFormHeader } from '../components/Forms/BaseForm/BaseForm';
+import { OptionSelect } from '../components/Inputs/OptionSelect/OptionSelect';
+import { useErrorNotification, useSuccessNotification } from '../hooks/useNotification';
+import { RequestStatus } from '../shared/requestStatus/requestStatus';
+import routes from '../shared/routes';
+import { UserSettingsModel } from '../stores/user/dto';
+import { FormLabel } from './styledSettingsForm';
 
-const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest }) => {
+interface SettingsFormProps {
+    userSettings: UserSettingsModel;
+    onSettingsUpdate: (payload: { settings: UserSettingsModel }) => Promise<void>;
+    settingsUpdateRequest: RequestStatus;
+}
+
+const SettingsForm: FC<SettingsFormProps> = ({ userSettings, onSettingsUpdate, settingsUpdateRequest }) => {
     const [startingPage, setStartingPage] = useState(userSettings.startingPage);
 
     const onStartingPageChange = useCallback(
@@ -16,13 +23,12 @@ const SettingsForm = ({ userSettings, onSettingsUpdate, settingsUpdateRequest })
             setStartingPage(chosenStartingPage);
 
             await onSettingsUpdate({ settings: { startingPage: chosenStartingPage } });
-
-            toastProvider.success('Pomyślnie zapisano ustawienie');
         },
         [onSettingsUpdate]
     );
 
     useErrorNotification(settingsUpdateRequest);
+    useSuccessNotification(settingsUpdateRequest, 'Pomyślnie zapisano ustawienie');
 
     return (
         <StyledBaseForm>

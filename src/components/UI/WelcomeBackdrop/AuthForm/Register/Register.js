@@ -6,7 +6,7 @@ import { StyledFormHeader } from '../../../../Forms/BaseForm/BaseForm';
 import SubmitButton from '../../../../Buttons/SubmitButton/SubmitButton';
 import useFocus from '../../../../../hooks/useFocus';
 import { signupSchema } from '../../../../../shared/validation/validation';
-import { useErrorNotification } from '../../../../../hooks/useErrorNotification';
+import { useErrorNotification } from '../../../../../hooks/useNotification';
 import useFormikError from '../../../../../hooks/useFormikError';
 import Spinner from '../../../Spinner/Spinner';
 
