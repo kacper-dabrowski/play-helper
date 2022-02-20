@@ -2,8 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../../../../stores/store';
-import { AuthForm } from './AuthForm';
+import { store } from '../../stores/store';
+import { AuthForm } from './authForm';
 
 describe('WelcomeBackdrop - AuthForm', () => {
     let fakeStore;

@@ -1,14 +1,14 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import FormInput from '../../../../Inputs/FormInput/FormInput';
-import { StyledFormHeader } from '../../../../Forms/BaseForm/BaseForm';
-import SubmitButton from '../../../../Buttons/SubmitButton/SubmitButton';
-import { loginSchema } from '../../../../../shared/validation/validation';
-import useFormikError from '../../../../../hooks/useFormikError';
-import { useErrorNotification } from '../../../../../hooks/useNotification';
-import useFocus from '../../../../../hooks/useFocus';
-import * as Styled from '../StyledAuthForm';
-import Spinner from '../../../Spinner/Spinner';
+import FormInput from '../../../components/Inputs/FormInput/FormInput';
+import { StyledFormHeader } from '../../../components/Forms/BaseForm/BaseForm';
+import SubmitButton from '../../../components/Buttons/SubmitButton/SubmitButton';
+import { loginSchema } from '../../../shared/validation/validation';
+import useFormikError from '../../../hooks/useFormikError';
+import { useErrorNotification } from '../../../hooks/useNotification';
+import useFocus from '../../../hooks/useFocus';
+import * as Styled from '../styledAuthForm';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 export const Login = ({ loginRequest, onLoginUser }) => {
     const focusRef = useFocus();

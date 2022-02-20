@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import * as GradientBorder from '../../../../shared/styles/GradientBorder';
-import { colors } from '../../../../shared/colors';
+import * as GradientBorder from '../../shared/styles/GradientBorder';
+import { colors } from '../../shared/colors';
 
 export const Wrapper = styled(GradientBorder.Wrapper)``;
 
