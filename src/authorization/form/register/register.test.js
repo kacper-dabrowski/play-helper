@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { toastProvider } from '../../../../../libs/toast';
-import { createRequestStatus, requestLoading } from '../../../../../shared/requestStatus/requestStatus';
-import { Register } from './Register';
+import { toastProvider } from '../../../libs/toast';
+import { createRequestStatus, requestLoading } from '../../../shared/requestStatus/requestStatus';
+import { Register } from './register';
 
-jest.mock('../../../Spinner/Spinner', () => ({
+jest.mock('../../../components/UI/Spinner/Spinner', () => ({
     __esModule: true,
     default: () => <div>Loader</div>,
 }));

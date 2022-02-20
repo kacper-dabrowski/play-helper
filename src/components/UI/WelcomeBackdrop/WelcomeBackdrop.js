@@ -1,7 +1,7 @@
 import React from 'react';
 import Backdrop from '../Backdrop/Backdrop';
 import * as Styled from './StyledWelcomeBackdrop';
-import { AuthForm } from './AuthForm/AuthForm';
+import { AuthForm } from '../../../authorization/form/authForm';
 
 export const WelcomeBackdrop = ({ isOpened }) => {
     return isOpened ? (

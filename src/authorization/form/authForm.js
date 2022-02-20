@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Login } from './Login/Login';
-import { Register } from './Register/Register';
-import * as Styled from './StyledAuthForm';
-import { SwitchAuthNotice } from './SwitchAuthNotice/SwitchAuthNotice';
-import { loginUser, registerUser } from '../../../../stores/auth/auth';
+import { Login } from './login/login';
+import { Register } from './register/register';
+import * as Styled from './styledAuthForm';
+import { SwitchAuthNotice } from './switchAuthNotice/SwitchAuthNotice';
+import { loginUser, registerUser } from '../../stores/auth/auth';
 
 export const AuthForm = () => {
     const authStore = useSelector((state) => state.auth);
