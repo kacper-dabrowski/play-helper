@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FC, HTMLInputTypeAttribute, HTMLProps, MutableRefObject, Ref } from 'react';
+import React, { ChangeEventHandler, FC, HTMLInputTypeAttribute } from 'react';
 import { StyledFormInput } from './StyledFormInput';
 
 interface FormInputProps {
