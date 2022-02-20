@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as Styled from './styledSwitchAuthNotice';
 
-export const SwitchAuthNotice = ({ isLogin, setIsLogin }) => {
+interface SwitchAuthNoticeProps {
+    isLogin: boolean;
+    setIsLogin: (value: boolean) => Promise<void>;
+}
+
+export const SwitchAuthNotice: FC<SwitchAuthNoticeProps> = ({ isLogin, setIsLogin }) => {
     const notice = isLogin ? (
         <>
             <Styled.Text>Nie masz konta?</Styled.Text>
