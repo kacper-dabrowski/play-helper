@@ -91,7 +91,6 @@ describe('stores - authSlice', () => {
 
         it('should clear user data and reset all requests on logout', async () => {
             givenLoginSucceeds();
-            const initialState = getState();
 
             await dispatch(loginUser({ username, password }));
 
