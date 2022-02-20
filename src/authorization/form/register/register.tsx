@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useFormik } from 'formik';
 import FormInput from '../../../components/Inputs/FormInput/FormInput';
 import * as Styled from '../styledAuthForm';
@@ -8,8 +8,21 @@ import { signupSchema } from '../../../shared/validation/validation';
 import { useErrorNotification } from '../../../hooks/useNotification';
 import useFormikError from '../../../hooks/useFormikError';
 import { Spinner } from '../../../components/UI/spinner/spinner';
+import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 
-export const Register = ({ registrationRequest, onRegisterUser }) => {
+interface RegistrationCredentials {
+    username: string;
+    password: string;
+    fullName: string;
+    confirmPassword: string;
+}
+
+interface RegistrationFormProps {
+    registrationRequest: RequestStatus;
+    onRegisterUser: (credentials: RegistrationCredentials) => Promise<void>;
+}
+
+export const Register: FC<RegistrationFormProps> = ({ registrationRequest, onRegisterUser }) => {
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -21,7 +34,7 @@ export const Register = ({ registrationRequest, onRegisterUser }) => {
         validateOnChange: false,
         onSubmit: async (values) => {
             const { username, fullName, password, confirmPassword } = values;
-            onRegisterUser({ username, fullName, password, confirmPassword });
+            await onRegisterUser({ username, fullName, password, confirmPassword });
         },
     });
 
