@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { colors } from '../../../shared/colors';
 
-export const StyledFormInput = styled.input`
+interface StyledInputProps {
+    hasErrors?: boolean;
+}
+
+export const StyledFormInput = styled.input<StyledInputProps>`
     position: relative;
     width: 80%;
     height: 2rem;

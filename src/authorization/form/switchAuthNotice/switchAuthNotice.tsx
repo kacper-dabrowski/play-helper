@@ -3,7 +3,7 @@ import * as Styled from './styledSwitchAuthNotice';
 
 interface SwitchAuthNoticeProps {
     isLogin: boolean;
-    setIsLogin: (value: boolean) => Promise<void>;
+    setIsLogin: (value: boolean) => void;
 }
 
 export const SwitchAuthNotice: FC<SwitchAuthNoticeProps> = ({ isLogin, setIsLogin }) => {

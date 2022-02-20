@@ -10,7 +10,7 @@ import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import { StyledFormContainer } from './StyledSrqForm';
 import { toastProvider } from '../../../libs/toast';
-import Spinner from '../../UI/spinner/spinner';
+import { Spinner } from '../../UI/spinner/spinner';
 
 const SrqEditableForm = ({ entriesRefresh, populatedFields }) => {
     const { isLoading, requestHandler } = useRequest(urls.srq, REQUEST_METHODS.POST);

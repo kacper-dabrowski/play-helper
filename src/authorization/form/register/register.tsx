@@ -10,7 +10,7 @@ import useFormikError from '../../../hooks/useFormikError';
 import { Spinner } from '../../../components/UI/spinner/spinner';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 
-interface RegistrationCredentials {
+export interface RegistrationCredentials {
     username: string;
     password: string;
     fullName: string;

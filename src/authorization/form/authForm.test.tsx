@@ -6,7 +6,7 @@ import { store } from '../../stores/store';
 import { AuthForm } from './authForm';
 
 describe('WelcomeBackdrop - AuthForm', () => {
-    let fakeStore;
+    let fakeStore: typeof store;
 
     beforeEach(() => {
         fakeStore = store;

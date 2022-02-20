@@ -10,14 +10,14 @@ import * as Styled from '../styledAuthForm';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Spinner } from '../../../components/UI/spinner/spinner';
 
-interface LoginPayload {
+export interface LoginCredentials {
     username: string;
     password: string;
 }
 
 export interface LoginFormProps {
     loginRequest: RequestStatus;
-    onLoginUser: (credentials: LoginPayload) => Promise<void>;
+    onLoginUser: (credentials: LoginCredentials) => Promise<void>;
 }
 export const Login: FC<LoginFormProps> = ({ loginRequest, onLoginUser }) => {
     const formik = useFormik({

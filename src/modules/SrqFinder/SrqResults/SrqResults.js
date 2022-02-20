@@ -3,7 +3,7 @@ import srqFormContext from '../../../contexts/srqFormContext';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import Result from '../../../components/Results/Result/SRQ/SrqResult';
-import Spinner from '../../../components/UI/spinner/spinner';
+import { Spinner } from '../../../components/UI/spinner/spinner';
 import { StyledResults } from './StyledSrqResults';
 import { toastProvider } from '../../../libs/toast';
 
