@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { mocked } from 'jest-mock';
 import axios from '../../libs/axios';
+import { createRequestStatus } from '../../shared/requestStatus/requestStatus';
 import { authCheckState, loginUser, logout, registerUser } from './auth';
 import authSlice, { actions } from './authSlice';
 
@@ -15,6 +16,7 @@ describe('stores - authSlice', () => {
 
     beforeEach(() => {
         const store = configureStore({ reducer: authSlice });
+
         jest.resetAllMocks();
         getState = store.getState;
         dispatch = store.dispatch;
@@ -97,7 +99,16 @@ describe('stores - authSlice', () => {
 
             await dispatch(logout());
 
-            expect(getState()).toEqual(initialState);
+            expect(getState()).toEqual({
+                user: {
+                    token: '',
+                    userId: '',
+                    fullName: '',
+                },
+                loginRequest: createRequestStatus(),
+                registrationRequest: createRequestStatus(),
+                logoutTimeoutId: null,
+            });
             expect(localStorage.getItem('token')).toEqual(null);
         });
     });

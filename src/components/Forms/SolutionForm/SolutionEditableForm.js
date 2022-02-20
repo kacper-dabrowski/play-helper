@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
+import { useNotifications } from '../../../hooks/useNotification';
 import { toastProvider } from '../../../libs/toast';
 import { solutionSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
@@ -30,8 +31,6 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode, onSolutio
 
             await onSolutionUpdate({ updatedSolution: formData, id });
 
-            toastProvider.success('Pomyślnie zapisano zmiany');
-
             resetForm({});
             refresh?.();
             setEditMode(false);
@@ -41,6 +40,8 @@ const SolutionEditableForm = ({ refresh, populatedFields, setEditMode, onSolutio
     });
 
     useFormikError(formik.errors);
+
+    useNotifications(solutionUpdateRequest, 'Pomyślnie zapisano zmiany');
 
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>

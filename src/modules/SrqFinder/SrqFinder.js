@@ -3,7 +3,7 @@ import useResultsFilter from '../../hooks/useResultsFilter';
 import Searchbar from '../../components/SearchBar/SearchBar';
 import SrqResults from './SrqResults/SrqResults';
 import { StyledSrqFinder } from './StyledSrqFinder';
-import { useErrorNotification } from '../../hooks/useErrorNotification';
+import { useErrorNotification } from '../../hooks/useNotification';
 
 const searchMethod = (results, searchPhrase) =>
     results.filter(

@@ -6,7 +6,7 @@ import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqRe
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { SolutionResults } from './StyledSolutions';
-import { useErrorNotification } from '../../../hooks/useErrorNotification';
+import { useErrorNotification } from '../../../hooks/useNotification';
 
 export const solutionSearchMethod = (results, searchPhrase) =>
     results.filter(
