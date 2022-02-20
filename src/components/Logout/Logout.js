@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { toastProvider } from '../../libs/toast';
-import { logout } from '../../stores/auth/auth';
+import { logout } from '../../authorization/store/auth';
 
 const Logout = () => {
     const logoutTimeoutId = useSelector((state) => state.auth.logoutTimeoutId);
