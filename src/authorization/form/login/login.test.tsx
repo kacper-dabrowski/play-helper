@@ -5,9 +5,8 @@ import { Login } from './login';
 import { createRequestStatus, requestLoading } from '../../../shared/requestStatus/requestStatus';
 import { toastProvider } from '../../../libs/toast';
 
-jest.mock('../../../components/UI/Spinner/Spinner', () => ({
-    __esModule: true,
-    default: () => <div>Loader</div>,
+jest.mock('../../../components/UI/spinner/spinner', () => ({
+    Spinner: () => <div>Loader</div>,
 }));
 
 describe('WelcomeBackdrop - Login', () => {

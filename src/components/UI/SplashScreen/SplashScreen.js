@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from './StyledSplashScreen';
-import Spinner from '../Spinner/Spinner';
+import { Spinner } from '../spinner/spinner';
 import { StyledFormHeader } from '../../Forms/BaseForm/BaseForm';
 
 export const SplashScreen = () => {

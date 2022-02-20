@@ -4,15 +4,12 @@ import FormInput from '../../../components/Inputs/FormInput/FormInput';
 import * as Styled from '../styledAuthForm';
 import { StyledFormHeader } from '../../../components/Forms/BaseForm/BaseForm';
 import SubmitButton from '../../../components/Buttons/SubmitButton/SubmitButton';
-import useFocus from '../../../hooks/useFocus';
 import { signupSchema } from '../../../shared/validation/validation';
 import { useErrorNotification } from '../../../hooks/useNotification';
 import useFormikError from '../../../hooks/useFormikError';
-import Spinner from '../../../components/UI/Spinner/Spinner';
+import { Spinner } from '../../../components/UI/spinner/spinner';
 
 export const Register = ({ registrationRequest, onRegisterUser }) => {
-    const focusRef = useFocus();
-
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -35,7 +32,7 @@ export const Register = ({ registrationRequest, onRegisterUser }) => {
         <Styled.AuthForm onSubmit={formik.handleSubmit} data-testid="register-form">
             <StyledFormHeader>Załóż konto</StyledFormHeader>
             <FormInput
-                focusRef={focusRef}
+                autoFocus
                 name="username"
                 id="username"
                 hasErrors={!!formik.errors.username && !!formik.touched.username}

@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const SpinnerContainer = styled.div`
+interface SpinnerContainerProps {
+    isCentered?: boolean;
+}
+
+export const SpinnerContainer = styled.div<SpinnerContainerProps>`
     ${({ isCentered }) =>
         isCentered
             ? `

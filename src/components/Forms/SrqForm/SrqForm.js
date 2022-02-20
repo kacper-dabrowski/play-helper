@@ -1,19 +1,17 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import useFormikError from '../../../hooks/useFormikError';
-import useFocus from '../../../hooks/useFocus';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import urls from '../../../shared/urls';
 import { srqSchema } from '../../../shared/validation/validation';
 import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
-import Spinner from '../../UI/Spinner/Spinner';
+import Spinner from '../../UI/spinner/Spinner';
 import { StyledFormContainer } from './StyledSrqForm';
 import { toastProvider } from '../../../libs/toast';
 
 const SrqForm = (props) => {
-    const focusRef = useFocus();
     const { requestHandler, isLoading } = useRequest(urls.srq, REQUEST_METHODS.PUT);
     const { entriesRefresh } = props;
 
@@ -58,7 +56,7 @@ const SrqForm = (props) => {
     return (
         <StyledFormContainer onSubmit={formik.handleSubmit}>
             <FormInput
-                focusRef={focusRef}
+                autoFocus
                 hasErrors={!!formik.errors.title}
                 value={formik.values.title}
                 onChange={formik.handleChange}
