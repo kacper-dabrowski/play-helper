@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router';
-import Logout from './components/Logout/Logout';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
 import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
@@ -12,6 +11,7 @@ import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
 import { authCheckState } from './authorization/store/auth';
 import { StoreDispatch, StoreState } from './stores/store';
 import { fetchUserSettings } from './stores/user/user';
+import { Logout } from './authorization/logout/logout';
 
 const App = () => {
     const authStore = useSelector((state: StoreState) => state.auth);
