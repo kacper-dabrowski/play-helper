@@ -1,8 +1,7 @@
+import { useEffect, useMemo, useState } from 'react';
 import axios from '../libs/axios';
 import { toastProvider } from '../libs/toast';
 import urls from '../shared/urls';
-
-const { useState, useEffect, useMemo } = require('react');
 
 export const REQUEST_METHODS = {
     POST: 'post',
