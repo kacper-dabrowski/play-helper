@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Backdrop from '../Backdrop/Backdrop';
@@ -7,8 +7,15 @@ import { ModalContainer, ModalWrapper } from './StyledModal';
 import IconButton from '../../Buttons/IconButton/IconButton';
 import { fadeInOut } from '../../../shared/animations/animations';
 
-const Modal = ({ children, isOpened, closeModalHandler }) => {
-    return ReactDOM.createPortal(
+interface ModalProps {
+    isOpened: boolean;
+    closeModalHandler: () => void;
+}
+
+const modalPortalElement = document.getElementById('modal-portal') as HTMLInputElement;
+
+const Modal: FC<ModalProps> = ({ children, isOpened, closeModalHandler }) =>
+    ReactDOM.createPortal(
         <AnimatePresence>
             {isOpened && (
                 <>
@@ -29,9 +36,7 @@ const Modal = ({ children, isOpened, closeModalHandler }) => {
                 </>
             )}
         </AnimatePresence>,
-
-        document.getElementById('modal-portal')
+        modalPortalElement
     );
-};
 
 export default Modal;
