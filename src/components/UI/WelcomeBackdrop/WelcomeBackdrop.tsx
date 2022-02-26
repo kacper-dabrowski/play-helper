@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Backdrop from '../Backdrop/Backdrop';
 import * as Styled from './StyledWelcomeBackdrop';
 import { AuthForm } from '../../../authorization/form/authForm';
 
-export const WelcomeBackdrop = ({ isOpened }) => {
+interface WelcomeBackdropProps {
+    isOpened: boolean;
+}
+
+export const WelcomeBackdrop: FC<WelcomeBackdropProps> = ({ isOpened }) => {
     return isOpened ? (
         <>
             <Backdrop isOpened />
