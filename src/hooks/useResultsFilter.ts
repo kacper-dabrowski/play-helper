@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const useResultsFilter = (list, filterMethod) => {
-    const [searchResults, setSearchResults] = useState([]);
+const useResultsFilter = (
+    list: any[],
+    filterMethod: (list: any[], searchQuery: string) => Array<unknown>
+): [any[], string, (value: string) => void] => {
+    const [searchResults, setSearchResults] = useState<Array<unknown>>([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     const filterResults = useCallback(() => {

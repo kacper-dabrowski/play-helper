@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import useResultsFilter from './useResultsFilter';
 
-const dummyFilterFn = (results, searchQuery) => {
+const dummyFilterFn = (results: string[], searchQuery: string) => {
     return results.filter((result) => result.includes(searchQuery));
 };
 
@@ -48,7 +48,7 @@ describe('hooks - useResultsFilter', () => {
     it('should return all results, when query is entered and then erased', async () => {
         renderComponent();
 
-        const input = screen.getByPlaceholderText('search');
+        const input: HTMLInputElement = screen.getByPlaceholderText('search');
 
         await act(async () => {
             fireEvent.change(input, { target: { value: 'a' } });
