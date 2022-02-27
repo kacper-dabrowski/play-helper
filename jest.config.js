@@ -1,10 +1,11 @@
 module.exports = {
-    verbose: true,
+    preset: 'ts-jest',
+    testEnvironment: 'jsdom',
     transform: {
-        '^.+\\.js$': 'babel-jest',
+        '^.+\\.(ts|tsx)$': 'ts-jest',
+        '^.+\\.jsx?$': 'babel-jest',
+        '\\.(svg|png|jpg)$': '<rootDir>/cssTestMock.js',
     },
-    globals: {
-        NODE_ENV: 'test',
-    },
-    moduleFileExtensions: ['js'],
+    transformIgnorePatterns: ['node_modules/(?!variables/.*)'],
+    setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
 };
