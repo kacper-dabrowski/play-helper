@@ -3,10 +3,10 @@ import { useFormik } from 'formik';
 import FormInput from '../../../components/Inputs/FormInput/FormInput';
 import * as Styled from '../styledAuthForm';
 import { StyledFormHeader } from '../../../components/Forms/BaseForm/BaseForm';
-import SubmitButton from '../../../components/Buttons/SubmitButton/SubmitButton';
+import { SubmitButton } from '../../../components/Buttons/SubmitButton/SubmitButton';
 import { signupSchema } from '../../../shared/validation/validation';
 import { useErrorNotification } from '../../../hooks/useNotification';
-import useFormikError from '../../../hooks/useFormikError';
+import { useFormikError } from '../../../hooks/useFormikError';
 import { Spinner } from '../../../components/UI/spinner/spinner';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 

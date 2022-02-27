@@ -2,8 +2,13 @@ import React, { useMemo } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import useResultsFilter from './useResultsFilter';
+import { Maybe } from '../shared/types/types';
 
-const dummyFilterFn = (results: string[], searchQuery: string) => {
+const dummyFilterFn = (results: Maybe<string[]>, searchQuery: string): string[] => {
+    if (!results) {
+        return [];
+    }
+
     return results.filter((result) => result.includes(searchQuery));
 };
 

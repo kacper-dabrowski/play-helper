@@ -6,15 +6,22 @@ import { SolutionModel } from '../store/dto';
 
 interface SolutionsTableProps {
     solutions: Maybe<SolutionModel[]>;
+    onRemoveEntry: (solutionId: string) => Promise<void>;
+    onEditEntry: (solution: SolutionModel) => void;
 }
 
-const renderSolutionEntries = (solutions: Maybe<SolutionModel[]>): Maybe<JSX.Element[]> => {
+const renderSolutionEntries = (
+    solutions: Maybe<SolutionModel[]>,
+    onRemoveEntry: (solutionId) => Promise<void>,
+    onEditEntry: (solution: SolutionModel) => void
+): Maybe<JSX.Element[]> => {
     if (!solutions) {
         return null;
     }
 
-    return solutions.map(({ title, description, content }) => (
+    return solutions.map(({ title, description, content, id, isPublic, isAuthor }) => (
         <TableEntry
+            key={id}
             renderEntry={() => (
                 <div>
                     <div>{title}</div>
@@ -23,12 +30,13 @@ const renderSolutionEntries = (solutions: Maybe<SolutionModel[]>): Maybe<JSX.Ele
                 </div>
             )}
             onClickEntry={() => {}}
-            onRemoveEntry={async () => {}}
-            onEditEntry={() => {}}
+            onRemoveEntry={!isAuthor ? undefined : () => onRemoveEntry(id)}
+            onEditEntry={!isAuthor ? undefined : () => onEditEntry({ title, description, content, id, isPublic })}
+            displayGlobeIcon={!!isPublic}
         />
     ));
 };
 
-export const SolutionsTable: FC<SolutionsTableProps> = ({ solutions }) => {
-    return <EntriesTable>{renderSolutionEntries(solutions)}</EntriesTable>;
+export const SolutionsTable: FC<SolutionsTableProps> = ({ solutions, onRemoveEntry, onEditEntry }) => {
+    return <EntriesTable>{renderSolutionEntries(solutions, onRemoveEntry, onEditEntry)}</EntriesTable>;
 };

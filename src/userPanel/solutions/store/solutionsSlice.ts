@@ -7,11 +7,11 @@ import {
     requestLoading,
     RequestStatus,
 } from '../../../shared/requestStatus/requestStatus';
-import { SolutionDto } from './dto';
+import { SolutionModel } from './dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './solutions';
 
 interface SolutionState {
-    solutions: SolutionDto[] | null;
+    solutions: SolutionModel[] | null;
     fetchSolutionsStatus: RequestStatus;
     addSolutionStatus: RequestStatus;
     removeSolutionStatus: RequestStatus;

@@ -8,6 +8,7 @@ export const tableEntryContainer = styled.button`
     flex-direction: column;
     place-items: center;
     margin: 1rem auto;
+    padding: ${({ theme }) => theme.spacing.small};
     border: 1px solid white;
     position: relative;
     transition: ease-in-out 0.2s;
@@ -20,9 +21,7 @@ export const tableEntryContainer = styled.button`
     }
 `;
 
-export const controlsContainer = styled.div`
-    top: 0;
-    right: 0;
+const iconContainer = styled.div`
     height: 100%;
     display: flex;
     padding: 1rem;
@@ -32,15 +31,24 @@ export const controlsContainer = styled.div`
     position: absolute;
 `;
 
+export const controlsContainer = styled(iconContainer)`
+    top: 0;
+    right: 0;
+`;
+
+export const publicIconContainer = styled(iconContainer)`
+    top: 0;
+    left: 0;
+    align-items: flex-start;
+`;
+
 interface IconButtonProps {
     src: string;
 }
 
 export const iconButton = styled.button<IconButtonProps>`
-    min-width: 1rem;
-    min-height: 1rem;
-    max-width: 1.5rem;
-    max-height: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
     background: url(${({ src }) => src});
     background-size: cover;
     border: none;

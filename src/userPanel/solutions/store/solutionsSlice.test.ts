@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { mocked } from 'jest-mock';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
-import { SolutionDto, SolutionModel } from './dto';
+import { FetchSolutionsDto, SolutionModel } from './dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './solutions';
 import solutionsSlice from './solutionsSlice';
 
@@ -24,7 +24,7 @@ describe('stores - solutionsSlice', () => {
     });
 
     describe('fetching solutions', () => {
-        const validDto: SolutionDto[] = [];
+        const validDto: FetchSolutionsDto[] = [];
 
         it('should fetch solutions and update list when successful', async () => {
             givenResponseSuccessful(validDto);
@@ -58,9 +58,11 @@ describe('stores - solutionsSlice', () => {
 
     describe('creating solutions', () => {
         const solution: SolutionModel = {
+            id: '1234',
             title: 'title',
             description: 'description',
             content: 'content',
+            isPublic: false,
         };
 
         it('should create solution', async () => {
@@ -87,9 +89,11 @@ describe('stores - solutionsSlice', () => {
     describe('updating solutions', () => {
         const id = '1234';
         const solutionUpdated: SolutionModel = {
+            id: '1234',
             title: 'title updated',
             description: 'description updated',
             content: 'content updated',
+            isPublic: false,
         };
 
         it('should update solution', async () => {
