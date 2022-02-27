@@ -99,7 +99,7 @@ describe('stores - solutionsSlice', () => {
         it('should update solution', async () => {
             await dispatch(updateSolution({ solution: solutionUpdated, solutionId: id }));
 
-            expect(axios.post).toHaveBeenCalledWith(`${urls.solution}/${id}`, { solution: solutionUpdated });
+            expect(axios.post).toHaveBeenCalledWith(`${urls.solution}/${id}`, solutionUpdated);
         });
 
         it('should indicate loading state of updating solution', async () => {
