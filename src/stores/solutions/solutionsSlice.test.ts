@@ -20,7 +20,7 @@ describe('stores - solutionsSlice', () => {
         store = configureStore({ reducer: solutionsSlice });
         dispatch = store.dispatch;
         getState = store.getState;
-        jest.clearAllMocks();
+        jest.resetAllMocks();
     });
 
     describe('fetching solutions', () => {
