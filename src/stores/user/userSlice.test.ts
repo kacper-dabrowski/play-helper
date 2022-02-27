@@ -4,10 +4,7 @@ import axios from '../../libs/axios';
 import { fetchUserSettings, updateUserSettings } from './user';
 import userSlice from './userSlice';
 
-jest.mock('../../libs/axios', () => ({
-    get: jest.fn(),
-    post: jest.fn(),
-}));
+jest.mock('../../libs/axios');
 
 const defaultStore = configureStore({ reducer: userSlice });
 
@@ -22,6 +19,10 @@ describe('stores - user', () => {
         store = defaultStore;
         getState = store.getState;
         dispatch = store.dispatch;
+    });
+
+    afterEach(() => {
+        jest.resetAllMocks();
     });
 
     it('should set user settings after a successful fetch', async () => {

@@ -10,6 +10,10 @@ import {
 import { toastProvider } from '../libs/toast';
 
 describe('hooks - useNotification', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
     describe('error', () => {
         it('should display an error if requestStatus has one', () => {
             const toastProviderSpy = jest.spyOn(toastProvider, 'error');
