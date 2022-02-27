@@ -38,7 +38,7 @@ type SolutionUpdatePayload = {
 export const updateSolution = createAsyncThunk(
     `${name}/${Action.Update}`,
     async ({ solution, solutionId }: SolutionUpdatePayload) => {
-        const response = await axios.post(`${urls.solution}/${solutionId}`, { solution });
+        const response = await axios.post(`${urls.solution}/${solutionId}`, solution);
 
         return response.status === 200;
     }
