@@ -1,17 +1,17 @@
 import { useFormik } from 'formik';
 import React from 'react';
-import useFormikError from '../../../hooks/useFormikError';
+import { useFormikError } from '../../../hooks/useFormikError';
 import useRequest, { REQUEST_METHODS } from '../../../hooks/useRequest';
 import { toastProvider } from '../../../libs/toast';
 import urls from '../../../shared/urls';
 import { solutionSchema } from '../../../shared/validation/validation';
-import SubmitButton from '../../Buttons/SubmitButton/SubmitButton';
+import { SubmitButton } from '../../Buttons/SubmitButton/SubmitButton';
 import FormInput from '../../Inputs/FormInput/FormInput';
 import { StyledFormTextarea } from '../../Inputs/FormTextarea/StyledFormTextarea';
 import { Spinner } from '../../UI/spinner/spinner';
 import { StyledFormContainer } from './StyledSolutionForm';
 
-const SolutionForm = ({ refresh }) => {
+export const SolutionForm = ({ refresh }) => {
     const { requestHandler, isLoading } = useRequest(urls.solution, REQUEST_METHODS.PUT);
 
     const formik = useFormik({
@@ -76,5 +76,3 @@ const SolutionForm = ({ refresh }) => {
         </StyledFormContainer>
     );
 };
-
-export default SolutionForm;

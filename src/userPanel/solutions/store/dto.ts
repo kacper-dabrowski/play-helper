@@ -1,12 +1,19 @@
-export interface SolutionDto {
+interface Solution {
     title: string;
     description: string;
     content: string;
-    isAuthor: boolean;
+    isAuthor?: boolean;
+    isPublic: boolean;
 }
 
-export interface SolutionModel {
-    title: string;
-    description: string;
-    content: string;
+interface FetchedSolution extends Solution {
+    _id: string;
 }
+
+export type FetchSolutionsDto = FetchedSolution[];
+
+export interface SolutionModel extends Solution {
+    id: string;
+}
+
+export type AddSolutionDto = Solution;

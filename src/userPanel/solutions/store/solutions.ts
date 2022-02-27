@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import axios from '../../../libs/axios';
 import urls from '../../../shared/urls';
-import { SolutionDto, SolutionModel } from './dto';
+import { AddSolutionDto, FetchSolutionsDto, SolutionModel } from './dto';
 
 const name = 'solutions';
 enum Action {
@@ -13,12 +13,19 @@ enum Action {
 }
 
 export const fetchSolutions = createAsyncThunk(`${name}/${Action.Fetch}`, async () => {
-    const response: AxiosResponse<SolutionDto[]> = await axios.get(urls.solution);
+    const response: AxiosResponse<FetchSolutionsDto> = await axios.get(urls.solution);
+    if (!response.data) {
+        return null;
+    }
 
-    return response?.data;
+    return mapDto(response.data);
 });
 
-export const createSolution = createAsyncThunk(`${name}/${Action.Create}`, async (solution: SolutionModel) => {
+function mapDto(solutions: FetchSolutionsDto): SolutionModel[] {
+    return solutions.map((solution) => ({ ...solution, id: solution._id, _id: undefined }));
+}
+
+export const createSolution = createAsyncThunk(`${name}/${Action.Create}`, async (solution: AddSolutionDto) => {
     const response = await axios.put(urls.solution, solution);
 
     return response.status === 200;

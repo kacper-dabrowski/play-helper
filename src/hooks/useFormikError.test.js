@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import useFormikError from './useFormikError';
+import { useFormikError } from './useFormikError';
 import { toastProvider } from '../libs/toast';
 
 describe('hooks - useFormikError', () => {
