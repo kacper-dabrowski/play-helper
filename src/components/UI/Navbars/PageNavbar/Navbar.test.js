@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../../../shared/theme/theme';
 import Navbar from './Navbar';
 
 const routesConfig = {
@@ -12,7 +14,9 @@ const routesConfig = {
 function getComponentWithRouter() {
     return (
         <BrowserRouter>
-            <Navbar routes={routesConfig} username="Some username" />
+            <ThemeProvider theme={theme}>
+                <Navbar routes={routesConfig} username="Some username" />
+            </ThemeProvider>
         </BrowserRouter>
     );
 }

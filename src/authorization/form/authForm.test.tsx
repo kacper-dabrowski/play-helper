@@ -2,6 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../shared/theme/theme';
 import { store } from '../../stores/store';
 import { AuthForm } from './authForm';
 
@@ -54,9 +56,11 @@ describe('WelcomeBackdrop - AuthForm', () => {
 
     function getComponentWithStores() {
         return (
-            <Provider store={fakeStore}>
-                <AuthForm />
-            </Provider>
+            <ThemeProvider theme={theme}>
+                <Provider store={fakeStore}>
+                    <AuthForm />
+                </Provider>
+            </ThemeProvider>
         );
     }
 });

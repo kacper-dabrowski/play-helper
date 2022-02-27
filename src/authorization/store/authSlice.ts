@@ -7,7 +7,7 @@ import {
     requestLoading,
     RequestStatus,
 } from '../../shared/requestStatus/requestStatus';
-import { Maybe } from '../../shared/types';
+import { Maybe } from '../../shared/types/types';
 import { loginUser, registerUser } from './auth';
 
 interface AuthState {

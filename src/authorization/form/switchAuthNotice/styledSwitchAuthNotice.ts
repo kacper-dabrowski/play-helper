@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.p`
-    color: white;
+    color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const Button = styled.button`
@@ -22,6 +22,6 @@ export const Button = styled.button`
     transition: ease-in-out 0.2s;
 
     &:hover {
-        color: white;
+        color: ${({ theme }) => theme.fontColor.primary};
     }
 `;

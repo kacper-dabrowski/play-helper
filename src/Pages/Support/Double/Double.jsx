@@ -4,8 +4,8 @@ import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmBu
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import { toastProvider } from '../../../libs/toast';
-import generateOpenedDoubleTemplate from '../../../modules/closedDouble/closedDouble';
-import generateClosedDoubleTemplate from '../../../modules/openedDouble/openedDouble';
+import { generateClosedDoubleTemplate } from '../../../modules/closedDouble/closedDouble';
+import { generateOpenedDoubleTemplate } from '../../../modules/openedDouble/openedDouble';
 import config from '../../../shared/identifiers';
 import InputSection from './Sections/InputSection';
 import { DoubleContainer, StyledSexSection } from './StyledDouble';

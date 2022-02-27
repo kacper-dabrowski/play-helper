@@ -1,4 +1,4 @@
-import { Maybe } from '../../shared/types';
+import { Maybe } from '../../shared/types/types';
 
 export interface SessionDto {
     token: string;

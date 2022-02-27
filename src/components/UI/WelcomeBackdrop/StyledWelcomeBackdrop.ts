@@ -14,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.h1`
-    color: white;
+    color: ${({ theme }) => theme.fontColor.primary};
     animation: fadeIn 2s ease-in-out forwards;
     z-index: 11;
     text-align: center;
@@ -23,12 +23,12 @@ export const Header = styled.h1`
 `;
 
 export const Subheader = styled.h2`
-    color: white;
+    color: ${({ theme }) => theme.fontColor.primary};
     z-index: 11;
     animation: fadeIn ease-in-out 2s forwards;
     animation-delay: 1s;
     text-align: center;
     opacity: 0;
-    margin-bottom: 3rem;
+    margin-bottom: ${({ theme }) => theme.spacing.large};
     ${fadeIn}
 `;

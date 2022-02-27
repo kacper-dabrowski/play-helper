@@ -10,9 +10,9 @@ export const searchBar = styled.input`
     border: none;
     border-bottom: 1px solid purple;
     transition: ease-in-out 0.2s;
-    color: white;
+    color: ${({ theme }) => theme.fontColor.primary}; ;
 `;
 export const inputWrapper = styled.div`
     width: 80%;
-    margin: 1rem;
+    margin: ${({ theme }) => theme.spacing.medium};
 `;

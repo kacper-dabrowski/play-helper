@@ -1,29 +1,9 @@
-import config from '../../shared/identifiers';
-
-const generateClosedDoubleTemplate = (sex, numOfCurrent, numOfClosed) => {
-    if (!numOfCurrent || !numOfClosed) {
-        throw new Error('Nie ustawiono jednego z numerów zgłoszeń!');
+export const generateOpenedDoubleTemplate = (numOfCurrent, numOfOpened) => {
+    if (!numOfCurrent || !numOfOpened) {
+        throw new Error('Nie ustawiono jednego z numerów zgloszeń!');
     }
-
-    switch (sex) {
-        case config.sex.man:
-            return `Dziękujemy za zgłoszenie ${numOfCurrent} Poruszane przez Pana kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
-
-Z poważaniem, 
-Obsługa Klienta Play`;
-        case config.sex.woman:
-            return `Dziękujemy za zgłoszenie ${numOfCurrent}. Poruszane przez Panią kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
-      
-Z poważaniem, 
-Obsługa Klienta Play`;
-        case config.sex.company:
-            return `Dziękujemy za zgłoszenie ${numOfCurrent}. Poruszane przez Państwa kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
-
+    return `Dziękujemy za zgłoszenie ${numOfCurrent}. Informujemy, że odpowiedź zostanie udzielona w zgłoszeniu ${numOfOpened}, w którym poruszone są te same kwestie.
+  
 Z poważaniem,
 Obsługa Klienta Play`;
-        default:
-            throw new Error('Nie ustawiono płci!');
-    }
 };
-
-export default generateClosedDoubleTemplate;

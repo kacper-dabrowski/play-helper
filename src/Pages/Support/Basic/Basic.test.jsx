@@ -4,6 +4,8 @@ import React from 'react';
 import Basic from './Basic';
 import { generateBasicTemplate } from '../../../modules/basic/basic';
 import { toastProvider } from '../../../libs/toast';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../../shared/theme/theme';
 
 jest.mock('../../../modules/basic/basic', () => ({
     generateBasicTemplate: jest.fn(),
@@ -12,7 +14,7 @@ jest.mock('../../../modules/basic/basic', () => ({
 
 describe('Support - Basic', () => {
     it('should call generate template and show it on main textarea, when data is valid', () => {
-        render(<Basic name="Test Testing" />);
+        renderComponent();
 
         fillAndSubmitForm();
 
@@ -35,7 +37,7 @@ describe('Support - Basic', () => {
             throw new Error('error!');
         });
 
-        render(<Basic name="Test Testing" />);
+        renderComponent();
 
         fillAndSubmitForm({ ...defaultValues, sex: '' });
         const toastProviderSpy = jest.spyOn(toastProvider, 'error');
@@ -68,5 +70,13 @@ describe('Support - Basic', () => {
         }
 
         userEvent.click(screen.getByText('Zatwierdź'));
+    }
+
+    function renderComponent() {
+        render(
+            <ThemeProvider theme={theme}>
+                <Basic name="Test Testing" />
+            </ThemeProvider>
+        );
     }
 });

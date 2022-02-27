@@ -7,11 +7,11 @@ import { Spinner } from '../../../components/UI/spinner/spinner';
 import { useErrorNotification } from '../../../hooks/useNotification';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { toastProvider } from '../../../libs/toast';
-import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import { updateSolution } from '../../../userPanel/solutions/store/solutions';
 import { SearchBox } from '../../../userPanel/components/searchBox/searchBox';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
+import { SolutionsTable } from '../../../userPanel/solutions/solutionsTable/solutionsTable';
 
 const Solution = ({
     solutions,
@@ -85,7 +85,7 @@ const Solution = ({
             )}
             <SolutionFinderContainer>
                 <SearchBox setValue={setSearchQuery} value={searchQuery} />
-                <StyledResults>{content}</StyledResults>
+                <SolutionsTable solutions={filteredSolutions} />
             </SolutionFinderContainer>
         </>
     );

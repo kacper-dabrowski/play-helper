@@ -89,6 +89,7 @@
         "@types/styled-components": "^5.1.23",
         "@typescript-eslint/eslint-plugin": "^5.12.1",
         "@typescript-eslint/parser": "^5.12.1",
+        "@vitejs/plugin-react": "^1.2.0",
         "airbnb": "0.0.2",
         "babel": "^6.23.0",
         "babel-eslint": "^10.1.0",
