@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledSearchbar = styled.input`
+export const searchBar = styled.input`
     box-sizing: border-box;
     width: 100%;
     padding: 0.5rem;
@@ -12,7 +12,7 @@ export const StyledSearchbar = styled.input`
     transition: ease-in-out 0.2s;
     color: white;
 `;
-export const StyledInputWrapper = styled.div`
+export const inputWrapper = styled.div`
     width: 80%;
     margin: 1rem;
 `;

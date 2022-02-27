@@ -1,9 +1,9 @@
 import React from 'react';
 import useResultsFilter from '../../hooks/useResultsFilter';
-import Searchbar from '../../components/SearchBar/SearchBar';
 import SrqResults from './SrqResults/SrqResults';
 import { StyledSrqFinder } from './StyledSrqFinder';
 import { useErrorNotification } from '../../hooks/useNotification';
+import { SearchBox } from '../../userPanel/components/searchBox/searchBox';
 
 const searchMethod = (results, searchPhrase) =>
     results.filter(
@@ -21,7 +21,7 @@ const SrqFinder = ({ requestStatus, supportRequests, refresh, editable, clickabl
 
     return (
         <StyledSrqFinder>
-            <Searchbar onType={setSearchQuery} value={searchQuery} />
+            <SearchBox setValue={setSearchQuery} value={searchQuery} />
             <SrqResults
                 onCopy={setTemplate || null}
                 supportRequests={searchResults}

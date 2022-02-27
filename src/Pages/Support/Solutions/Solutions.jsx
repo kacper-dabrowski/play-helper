@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
-import Searchbar from '../../../components/SearchBar/SearchBar';
-import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
 import { Spinner } from '../../../components/UI/spinner/spinner';
-import useResultsFilter from '../../../hooks/useResultsFilter';
-import { SolutionResults } from './StyledSolutions';
 import { useErrorNotification } from '../../../hooks/useNotification';
+import useResultsFilter from '../../../hooks/useResultsFilter';
+import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
+import { SearchBox } from '../../../userPanel/components/searchBox/searchBox';
+import { SolutionResults } from './StyledSolutions';
 
 export const solutionSearchMethod = (results, searchPhrase) =>
     results.filter(
@@ -55,7 +55,7 @@ const Solutions = ({ requestStatus, solutions, onFetchSolutions }) => {
     return (
         <>
             <SolutionResults>
-                <Searchbar onType={setSearchQuery} value={searchQuery} />
+                <SearchBox setValue={setSearchQuery} value={searchQuery} />
                 <StyledResults>{results}</StyledResults>
             </SolutionResults>
             <MainTextarea setTemplate={setTemplate} value={template} />
