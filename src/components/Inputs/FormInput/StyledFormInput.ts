@@ -11,7 +11,7 @@ export const StyledFormInput = styled.input<StyledInputProps>`
     height: 2rem;
     background-color: rgba(0, 0, 0, 0.8);
     font-size: 1.1rem;
-    color: white;
+    color: ${({ theme }) => theme.fontColor.primary};
     border: none;
     padding: 0.5rem;
     margin: 0.5rem auto;

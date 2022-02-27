@@ -8,6 +8,8 @@ import {
     requestFinishedWithError,
 } from '../shared/requestStatus/requestStatus';
 import { toastProvider } from '../libs/toast';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../shared/theme/theme';
 
 describe('Forms - Settings form', () => {
     const onSettingsUpdateMock = jest.fn();
@@ -80,7 +82,11 @@ describe('Forms - Settings form', () => {
     };
 
     function getComponentWithProps(props = defaultProps) {
-        return <SettingsForm {...props} />;
+        return (
+            <ThemeProvider theme={theme}>
+                <SettingsForm {...props} />
+            </ThemeProvider>
+        );
     }
 
     function getFormHeader() {

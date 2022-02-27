@@ -5,11 +5,11 @@ interface SpinnerContainerProps {
 }
 
 export const SpinnerContainer = styled.div<SpinnerContainerProps>`
-    ${({ isCentered }) =>
+    ${({ isCentered, theme }) =>
         isCentered
             ? `
   text-align:center;
-  margin: 1rem auto;
+  margin:  ${theme.spacing.medium} auto;
   `
             : null}
 `;

@@ -2,21 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import { Toaster } from 'react-hot-toast';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { store } from './stores/store';
+import { theme } from './shared/theme/theme';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
+        <StoreProvider store={store}>
             <BrowserRouter>
-                <App />
+                <ThemeProvider theme={theme}>
+                    <App />
+                </ThemeProvider>
                 <Toaster />
             </BrowserRouter>
-        </Provider>
+        </StoreProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

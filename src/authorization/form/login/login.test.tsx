@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 import { Login } from './login';
 import { createRequestStatus, requestLoading } from '../../../shared/requestStatus/requestStatus';
 import { toastProvider } from '../../../libs/toast';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../../shared/theme/theme';
 
 jest.mock('../../../components/UI/spinner/spinner', () => ({
     Spinner: () => <div>Loader</div>,
@@ -66,6 +68,10 @@ describe('WelcomeBackdrop - Login', () => {
     };
 
     function getComponentWithProps(props = defaultProps) {
-        return <Login {...props} />;
+        return (
+            <ThemeProvider theme={theme}>
+                <Login {...props} />
+            </ThemeProvider>
+        );
     }
 });

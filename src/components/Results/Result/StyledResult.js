@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledResultContainer = styled.button`
     background-color: transparent;
     width: 100%;
-    color: white;
+    color: ${({ theme }) => theme.fontColor.primary};
     max-height: 33.33%;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@ export const StyledResultContainer = styled.button`
     }
     &:hover,
     &:focus {
-        background-color: white;
+        background-color: ${({ theme }) => theme.fontColor.primary};
         color: black;
         ${({ clickable }) => clickable && `cursor: pointer;`}
     }

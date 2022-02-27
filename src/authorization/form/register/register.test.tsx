@@ -1,8 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import { toastProvider } from '../../../libs/toast';
 import { createRequestStatus, requestLoading } from '../../../shared/requestStatus/requestStatus';
+import { theme } from '../../../shared/theme/theme';
 import { Register } from './register';
 
 jest.mock('../../../components/UI/spinner/spinner', () => ({
@@ -77,6 +79,10 @@ describe('WelcomeBackdrop - Register', () => {
     };
 
     function getComponentWithProps(props = defaultProps) {
-        return <Register {...props} />;
+        return (
+            <ThemeProvider theme={theme}>
+                <Register {...props} />
+            </ThemeProvider>
+        );
     }
 });
