@@ -12,8 +12,8 @@ import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwit
 import routes from '../../shared/routes';
 import { BasicContainer } from './Basic/BasicContainer';
 import { fetchSolutions } from '../../userPanel/solutions/store/solutions';
-import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
 import { StoreState } from '../../stores/store';
+import { fetchSupportRequests } from '../../userPanel/supportRequests/store/supportRequests';
 
 const Support: FC = () => {
     const dispatch = useDispatch();

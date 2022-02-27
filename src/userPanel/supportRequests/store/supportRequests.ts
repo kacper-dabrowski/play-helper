@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
-import axios from '../../libs/axios';
-import urls from '../../shared/urls';
+import axios from '../../../libs/axios';
+import urls from '../../../shared/urls';
 import { SupportRequestModel, SupportRequestsDto } from './dto';
 
 const name = 'support-requests';

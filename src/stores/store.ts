@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../authorization/store/authSlice';
 import solutionsReducer from '../userPanel/solutions/store/solutionsSlice';
-import supportRequestsReducer from './supportRequests/supportRequestsSlice';
+import supportRequestsReducer from '../userPanel/supportRequests/store/supportRequestsSlice';
 import userReducer from './user/userSlice';
 
 export const store = configureStore({
