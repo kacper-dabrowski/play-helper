@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { mocked } from 'jest-mock';
-import axios from '../../libs/axios';
-import urls from '../../shared/urls';
+import axios from '../../../libs/axios';
+import urls from '../../../shared/urls';
 import { SupportRequestModel } from './dto';
 import {
     createSupportRequest,
@@ -11,7 +11,7 @@ import {
 } from './supportRequests';
 import supportRequestsSlice from './supportRequestsSlice';
 
-jest.mock('../../libs/axios');
+jest.mock('../../../libs/axios');
 
 const httpClient = mocked(axios, true);
 

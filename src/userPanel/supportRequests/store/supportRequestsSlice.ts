@@ -6,7 +6,7 @@ import {
     requestFinishedWithError,
     requestLoading,
     RequestStatus,
-} from '../../shared/requestStatus/requestStatus';
+} from '../../../shared/requestStatus/requestStatus';
 import { SupportRequestModel } from './dto';
 import {
     createSupportRequest,
