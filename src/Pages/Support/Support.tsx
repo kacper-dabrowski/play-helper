@@ -11,7 +11,7 @@ import Solutions from './Solutions/Solutions';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import routes from '../../shared/routes';
 import { BasicContainer } from './Basic/BasicContainer';
-import { fetchSolutions } from '../../stores/solutions/solutions';
+import { fetchSolutions } from '../../userPanel/solutions/store/solutions';
 import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
 import { StoreState } from '../../stores/store';
 
