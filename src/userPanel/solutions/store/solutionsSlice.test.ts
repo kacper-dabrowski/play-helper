@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { mocked } from 'jest-mock';
-import axios from '../../libs/axios';
-import urls from '../../shared/urls';
+import axios from '../../../libs/axios';
+import urls from '../../../shared/urls';
 import { SolutionDto, SolutionModel } from './dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './solutions';
 import solutionsSlice from './solutionsSlice';
 
-jest.mock('../../libs/axios');
+jest.mock('../../../libs/axios');
 
 const httpClient = mocked(axios, true);
 const defaultStore = configureStore({ reducer: solutionsSlice });
