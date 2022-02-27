@@ -7,8 +7,8 @@ import PrivateRoute from '../../components/Routes/PrivateRoute/PrivateRoute';
 import SrqPanel from './SrqPanel/SrqPanel';
 import Solution from './Solution/Solution';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
-import { fetchSolutions, removeSolution } from '../../stores/solutions/solutions';
-import { fetchSupportRequests } from '../../stores/supportRequests/supportRequests';
+import { fetchSolutions } from '../../userPanel/solutions/store/solutions';
+import { fetchSupportRequests } from '../../userPanel/supportRequests/store/supportRequests';
 
 const UserPanel = () => {
     const supportRequestsStore = useSelector((state) => state.supportRequests);

@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import SolutionEditableForm from '../../../components/Forms/SolutionForm/SolutionEditableForm';
 import SolutionForm from '../../../components/Forms/SolutionForm/SolutionForm';
 import { SolutionResult } from '../../../components/Results/Result/Solution/SolutionResult';
-import Searchbar from '../../../components/SearchBar/SearchBar';
 import { Spinner } from '../../../components/UI/spinner/spinner';
 import { useErrorNotification } from '../../../hooks/useNotification';
 import useResultsFilter from '../../../hooks/useResultsFilter';
 import { toastProvider } from '../../../libs/toast';
 import { StyledResults } from '../../../modules/SrqFinder/SrqResults/StyledSrqResults';
-import { updateSolution } from '../../../stores/solutions/solutions';
+import { updateSolution } from '../../../userPanel/solutions/store/solutions';
+import { SearchBox } from '../../../userPanel/components/searchBox/searchBox';
 import { solutionSearchMethod } from '../../Support/Solutions/Solutions';
 import { SolutionFinderContainer } from './StyledSolution';
 
@@ -84,7 +84,7 @@ const Solution = ({
                 <SolutionForm refresh={refreshSolutions} />
             )}
             <SolutionFinderContainer>
-                <Searchbar onType={setSearchQuery} value={searchQuery} />
+                <SearchBox setValue={setSearchQuery} value={searchQuery} />
                 <StyledResults>{content}</StyledResults>
             </SolutionFinderContainer>
         </>
