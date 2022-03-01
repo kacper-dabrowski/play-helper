@@ -4,7 +4,7 @@ import { toastProvider } from '../../../libs/toast';
 import ConfirmButton from '../../Buttons/ConfirmButtons/ConfirmButton/ConfirmButton';
 import { MainTextareaWrapper, StyledMainTextarea, TextAreaButtonsWrapper } from './StyledMainTextarea';
 
-const MainTextarea = ({ setTemplate, value, ...props }) => {
+export const MainTextarea = ({ setTemplate, value, ...props }) => {
     return (
         <MainTextareaWrapper>
             <StyledMainTextarea {...props} value={value} onChange={(event) => setTemplate(event.target.value)} />
@@ -16,5 +16,3 @@ const MainTextarea = ({ setTemplate, value, ...props }) => {
         </MainTextareaWrapper>
     );
 };
-
-export default MainTextarea;

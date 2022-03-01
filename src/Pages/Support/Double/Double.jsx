@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React, { useCallback, useEffect, useState } from 'react';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
-import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
+import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import { toastProvider } from '../../../libs/toast';
 import { generateClosedDoubleTemplate } from '../../../modules/closedDouble/closedDouble';

@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
-import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
+import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
 import ChannelSection from './Sections/ChannelSection';

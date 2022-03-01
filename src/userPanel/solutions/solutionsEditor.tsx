@@ -6,22 +6,13 @@ import { Maybe } from '../../shared/types/types';
 import { StoreState } from '../../stores/store';
 import { SearchBox } from '../components/searchBox/searchBox';
 import { SolutionForm } from './form/form';
+import { solutionSearchMethod } from './search';
 import { SolutionsTable } from './solutionsTable/solutionsTable';
 import { AddSolutionDto, SolutionModel } from './store/dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './store/solutions';
 import * as Styles from './styledSolutionsContainer';
 
-export const solutionSearchMethod = (results: Maybe<SolutionModel[]>, searchPhrase: string): Array<SolutionModel> =>
-    results
-        ? results.filter(
-              (result) =>
-                  result.title.toLowerCase().includes(searchPhrase) ||
-                  result.description.toLowerCase().includes(searchPhrase) ||
-                  result.content.toLowerCase().includes(searchPhrase)
-          )
-        : [];
-
-export const SolutionsContainer: FC = () => {
+export const SolutionsEditor: FC = () => {
     const { solutions, addSolutionStatus } = useSelector((state: StoreState) => state.solutions);
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
     const dispatch = useDispatch();

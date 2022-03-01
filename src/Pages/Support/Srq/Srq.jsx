@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import MainTextarea from '../../../components/Inputs/MainTextarea/MainTextarea';
+import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SrqFinder from '../../../modules/SrqFinder/SrqFinder';
 
 const Srq = ({ onFetchSupportRequests }) => {

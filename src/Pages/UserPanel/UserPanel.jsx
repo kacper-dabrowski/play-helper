@@ -5,7 +5,7 @@ import routes from '../../shared/routes';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import PrivateRoute from '../../components/Routes/PrivateRoute/PrivateRoute';
 import SrqPanel from './SrqPanel/SrqPanel';
-import { SolutionsContainer } from '../../userPanel/solutions/solutionsContainer';
+import { SolutionsEditor } from '../../userPanel/solutions/solutionsEditor';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import { fetchSupportRequests } from '../../userPanel/supportRequests/store/supportRequests';
 
@@ -22,7 +22,7 @@ const UserPanel = () => {
             <NotFoundProviderSwitch>
                 <PrivateRoute exact path={routes.userPanel.main.path} />
                 <PrivateRoute exact path={routes.userPanel.solution.path}>
-                    <SolutionsContainer />
+                    <SolutionsEditor />
                 </PrivateRoute>
                 <PrivateRoute exact path={routes.userPanel.srq.path}>
                     <SrqPanel

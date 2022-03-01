@@ -7,7 +7,7 @@ import globeIcon from '../../../../assets/icons/planet-earth.svg';
 interface TableEntryProps {
     onRemoveEntry?: () => Promise<void>;
     onEditEntry?: () => void;
-    onClickEntry: MouseEventHandler;
+    onClickEntry?: MouseEventHandler;
     renderEntry: () => JSX.Element;
     displayGlobeIcon?: boolean;
 }
