@@ -13,7 +13,7 @@ import * as Styles from './styledSolutionsContainer';
 
 export const SolutionPicker: FC = () => {
     const [template, setTemplate] = useState<Maybe<string>>();
-    const { solutions } = useSelector((state: StoreState) => state.solutions);
+    const { solutions, fetchSolutionsStatus } = useSelector((state: StoreState) => state.solutions);
     const dispatch = useDispatch();
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
 
@@ -26,6 +26,7 @@ export const SolutionPicker: FC = () => {
             <Styles.container>
                 <SearchBox setValue={setSearchQuery} value={searchQuery} />
                 <SolutionsTable
+                    requestStatus={fetchSolutionsStatus}
                     onClickEntry={(solution: SolutionModel) => setTemplate(solution.content)}
                     solutions={filteredSolutions}
                 />

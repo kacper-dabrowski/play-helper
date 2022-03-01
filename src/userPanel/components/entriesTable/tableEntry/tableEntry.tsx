@@ -4,7 +4,7 @@ import crossIcon from '../../../../assets/icons/cancel.svg';
 import pencilIcon from '../../../../assets/icons/pencil.png';
 import globeIcon from '../../../../assets/icons/planet-earth.svg';
 
-interface TableEntryProps {
+export interface TableEntryProps {
     onRemoveEntry?: () => Promise<void>;
     onEditEntry?: () => void;
     onClickEntry?: MouseEventHandler;
@@ -21,14 +21,24 @@ export const TableEntry: FC<TableEntryProps> = ({
 }) => (
     <Styles.tableEntryContainer onClick={onClickEntry}>
         {onRemoveEntry && onEditEntry ? (
-            <Styles.controlsContainer>
-                <Styles.iconButton src={crossIcon} onClick={onRemoveEntry} title={'Usuń wybraną pozycję'} />
-                <Styles.iconButton src={pencilIcon} onClick={onEditEntry} title={'Edytuj wybraną pozycję'} />
+            <Styles.controlsContainer data-testid="table-entry">
+                <Styles.iconButton
+                    data-testid="on-remove-entry"
+                    src={crossIcon}
+                    onClick={onRemoveEntry}
+                    title={'Usuń wybraną pozycję'}
+                />
+                <Styles.iconButton
+                    data-testid="on-edit-entry"
+                    src={pencilIcon}
+                    onClick={onEditEntry}
+                    title={'Edytuj wybraną pozycję'}
+                />
             </Styles.controlsContainer>
         ) : null}
         {displayGlobeIcon ? (
             <Styles.publicIconContainer>
-                <Styles.iconButton src={globeIcon} />
+                <Styles.iconButton data-testid="icon-global" src={globeIcon} />
             </Styles.publicIconContainer>
         ) : null}
 

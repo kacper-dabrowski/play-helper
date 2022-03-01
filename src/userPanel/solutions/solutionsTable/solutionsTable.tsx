@@ -1,5 +1,6 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { Spinner } from '../../../components/UI/spinner/spinner';
+import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Maybe } from '../../../shared/types/types';
 import { EntriesTable } from '../../components/entriesTable/entriesTable';
 import { TableEntry } from '../../components/entriesTable/tableEntry/tableEntry';
@@ -10,19 +11,40 @@ import {
 } from '../../handleOptionalClicks';
 import { SolutionModel } from '../store/dto';
 
-interface SolutionsTableProps {
+export interface SolutionsTableProps {
     solutions: Maybe<SolutionModel[]>;
+    requestStatus: RequestStatus;
     onRemoveEntry?: (solutionId: string) => Promise<void>;
     onEditEntry?: (solution: SolutionModel) => void;
     onClickEntry?: (solution: SolutionModel) => void;
 }
 
-const renderSolutionEntries = (
+export const SolutionsTable: FC<SolutionsTableProps> = ({
+    solutions,
+    onRemoveEntry,
+    onEditEntry,
+    onClickEntry,
+    requestStatus,
+}) => {
+    if (requestStatus.loading) {
+        return (
+            <EntriesTable>
+                <Spinner />
+            </EntriesTable>
+        );
+    }
+
+    const entriesList = renderSolutionEntries(solutions, onRemoveEntry, onEditEntry, onClickEntry);
+
+    return <EntriesTable>{entriesList?.length ? entriesList : 'Brak wyników'}</EntriesTable>;
+};
+
+function renderSolutionEntries(
     solutions: Maybe<SolutionModel[]>,
     onRemoveEntry?: (solutionId) => Promise<void>,
     onEditEntry?: (solution: SolutionModel) => void,
     onClickEntry?: (solution: SolutionModel) => void
-): Maybe<JSX.Element[]> => {
+): Maybe<JSX.Element[]> {
     if (!solutions) {
         return null;
     }
@@ -47,13 +69,4 @@ const renderSolutionEntries = (
             />
         );
     });
-};
-
-export const SolutionsTable: FC<SolutionsTableProps> = ({ solutions, onRemoveEntry, onEditEntry, onClickEntry }) => {
-    const entriesList = useMemo(
-        () => renderSolutionEntries(solutions, onRemoveEntry, onEditEntry, onClickEntry),
-        [onClickEntry, onEditEntry, onRemoveEntry, solutions]
-    );
-
-    return <EntriesTable>{entriesList?.length ? entriesList : <Spinner />}</EntriesTable>;
-};
+}

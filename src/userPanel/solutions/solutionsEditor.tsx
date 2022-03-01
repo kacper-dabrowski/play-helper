@@ -13,7 +13,7 @@ import { createSolution, fetchSolutions, removeSolution, updateSolution } from '
 import * as Styles from './styledSolutionsContainer';
 
 export const SolutionsEditor: FC = () => {
-    const { solutions, addSolutionStatus } = useSelector((state: StoreState) => state.solutions);
+    const { solutions, addSolutionStatus, fetchSolutionsStatus } = useSelector((state: StoreState) => state.solutions);
     const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
     const dispatch = useDispatch();
     const [selectedSolution, setSelectedSolution] = useState<Maybe<SolutionModel>>(null);
@@ -62,6 +62,7 @@ export const SolutionsEditor: FC = () => {
             <Styles.container>
                 <SearchBox setValue={setSearchQuery} value={searchQuery} />
                 <SolutionsTable
+                    requestStatus={fetchSolutionsStatus}
                     solutions={filteredSolutions}
                     onRemoveEntry={onRemoveSolution}
                     onEditEntry={setSelectedSolution}
