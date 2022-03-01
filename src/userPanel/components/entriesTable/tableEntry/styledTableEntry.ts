@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const tableEntryContainer = styled.button`
+export const tableEntryContainer = styled.a`
     background-color: transparent;
     width: 100%;
     max-height: 100%;
