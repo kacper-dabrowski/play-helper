@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import backgroundImage from '../../assets/backgrounds/play-next-wave.svg';
-import MainTextarea from '../../components/Inputs/MainTextarea/MainTextarea';
+import { MainTextarea } from '../../components/Inputs/MainTextarea/MainTextarea';
 import { generateNextTemplate, isPolish } from '../../modules/next/next';
 import identifiers from '../../shared/identifiers';
 import routes from '../../shared/routes';

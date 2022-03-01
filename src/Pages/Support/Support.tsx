@@ -1,29 +1,23 @@
 import React, { FC, useCallback } from 'react';
-import { Redirect, Route } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router';
+import backgroundImage from '../../assets/backgrounds/support-wave.svg';
+import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
 import config from '../../shared/identifiers';
+import routes from '../../shared/routes';
+import { StoreState } from '../../stores/store';
+import { SolutionPicker } from '../../userPanel/solutions/solutionsPicker';
+import { fetchSupportRequests } from '../../userPanel/supportRequests/store/supportRequests';
+import { BasicContainer } from './Basic/BasicContainer';
 import Double from './Double/Double';
 import Payments from './Payments/Payments';
 import Srq from './Srq/Srq';
-import backgroundImage from '../../assets/backgrounds/support-wave.svg';
-import Solutions from './Solutions/Solutions';
-import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
-import routes from '../../shared/routes';
-import { BasicContainer } from './Basic/BasicContainer';
-import { fetchSolutions } from '../../userPanel/solutions/store/solutions';
-import { StoreState } from '../../stores/store';
-import { fetchSupportRequests } from '../../userPanel/supportRequests/store/supportRequests';
 
 const Support: FC = () => {
     const dispatch = useDispatch();
-    const solutionsStore = useSelector((state: StoreState) => state.solutions);
     const userStore = useSelector((state: StoreState) => state.user);
     const authStore = useSelector((state: StoreState) => state.auth);
-
-    const onFetchSolutions = useCallback(() => {
-        dispatch(fetchSolutions());
-    }, [dispatch]);
 
     const onFetchSupportRequests = useCallback(() => {
         dispatch(fetchSupportRequests());
@@ -48,11 +42,7 @@ const Support: FC = () => {
                     <Payments fullName={authStore.user.fullName} />
                 </Route>
                 <Route exact path={routes.support.solutions.path}>
-                    <Solutions
-                        solutions={solutionsStore.solutions}
-                        onFetchSolutions={onFetchSolutions}
-                        requestStatus={solutionsStore.fetchSolutionsStatus}
-                    />
+                    <SolutionPicker />
                 </Route>
                 <Route exact path={routes.support.main.path}>
                     <Redirect to={userStore?.settings?.startingPage || routes.support.basic.path} />
