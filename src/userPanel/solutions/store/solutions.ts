@@ -14,6 +14,7 @@ enum Action {
 
 export const fetchSolutions = createAsyncThunk(`${name}/${Action.Fetch}`, async () => {
     const response: AxiosResponse<FetchSolutionsDto> = await axios.get(urls.solution);
+
     if (!response.data) {
         return null;
     }

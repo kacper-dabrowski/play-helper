@@ -11,6 +11,7 @@ export const StyledPlayNextButton = styled(BaseButton)<StateButtonProps>`
     margin: 0.5rem;
     background-color: ${({ active }) =>
         active ? colors.stateButtons.playNext.activeBackgroundColor : colors.backgroundGrey};
+    color: ${({ theme }) => theme.fontColor.black};
 
     &:hover,
     &:active,

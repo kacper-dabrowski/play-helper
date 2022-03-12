@@ -40,5 +40,6 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': ['error'],
         'react/jsx-filename-extension': 'off',
         'import/named': 'off',
+        'no-console': 'warn',
     },
 };
