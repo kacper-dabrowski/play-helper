@@ -6,7 +6,7 @@ import { MainTextareaWrapper, StyledMainTextarea, TextAreaButtonsWrapper } from 
 
 export const MainTextarea = ({ setTemplate, value, ...props }) => {
     return (
-        <MainTextareaWrapper>
+        <MainTextareaWrapper data-testid="main-textarea">
             <StyledMainTextarea {...props} value={value} onChange={(event) => setTemplate(event.target.value)} />
             <TextAreaButtonsWrapper>
                 <CopyToClipboard text={value} onCopy={() => toastProvider.success('Pomyślnie skopiowano formatkę')}>

@@ -13,5 +13,6 @@ export const theme = {
         primary: 'white',
         secondary: 'black',
         highlight: 'lime',
+        black: '#000',
     },
 };

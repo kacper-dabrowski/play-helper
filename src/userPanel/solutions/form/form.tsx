@@ -29,7 +29,6 @@ export const SolutionForm: FC<SolutionFormProps> = ({
     onEditSolution,
 }) => {
     useNotifications(addSolutionStatus, 'Rozwiązanie dodane pomyślnie');
-    console.log({ isPublic: selectedSolution?.isPublic });
 
     const formik = useFormik({
         initialValues: {
@@ -47,8 +46,6 @@ export const SolutionForm: FC<SolutionFormProps> = ({
                 isPublic,
             };
 
-            console.log(formData);
-
             if (selectedSolution) {
                 await onEditSolution({ ...formData, id: selectedSolution.id });
             } else {
@@ -56,7 +53,9 @@ export const SolutionForm: FC<SolutionFormProps> = ({
             }
 
             onClearForm();
+
             await onRefreshSolutions();
+
             resetForm({});
         },
         validationSchema: solutionSchema,
@@ -65,7 +64,6 @@ export const SolutionForm: FC<SolutionFormProps> = ({
     });
 
     useFormikError(formik.errors);
-    console.log(formik.values.isPublic);
 
     return (
         <Styles.solutionForm onSubmit={formik.handleSubmit}>

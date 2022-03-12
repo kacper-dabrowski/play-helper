@@ -17,3 +17,15 @@ export interface SolutionModel extends Solution {
 }
 
 export type AddSolutionDto = Solution;
+
+export const fakeFetchSolutionsDto: FetchedSolution[] = [
+    { title: 'Fake title', description: 'Fake description', content: 'Fake content', isPublic: false, _id: '1234' },
+];
+
+export const fakeSolutionModel: SolutionModel = {
+    title: 'Fake title',
+    description: 'Fake description',
+    content: 'Fake content',
+    isPublic: false,
+    id: '1234',
+};
