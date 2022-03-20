@@ -51,12 +51,12 @@ function renderSolutionEntries(
     }
 
     return solutions.map((solution) => {
-        const { id, isPublic, isAuthor, title, description, content } = solution;
+        const { id, isPublic, isAuthor, title, description } = solution;
 
         return (
             <TableEntry
                 key={id}
-                renderEntry={() => <SolutionEntry title={title} description={description} content={content} />}
+                renderEntry={() => <SolutionEntry title={title} description={description} />}
                 onClickEntry={handleDefaultOptionalClick<SolutionModel>(solution, onClickEntry)}
                 onEditEntry={handleEditEntryIfUserIsAnAuthor<SolutionModel>(solution, isAuthor, onEditEntry)}
                 onRemoveEntry={handleRemoveEntryIfUserIsAnAuthor(id, isAuthor, onRemoveEntry)}

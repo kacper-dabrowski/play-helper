@@ -42,7 +42,6 @@ describe('userPanel - supportRequestsPicker', () => {
         return waitFor(() => {
             expect(screen.queryByText('Fake title')).toBeInTheDocument();
             expect(screen.queryByText('Fake description')).toBeInTheDocument();
-            expect(screen.queryByText('Fake content')).toBeInTheDocument();
             expect(screen.queryByText('Fake department')).toBeInTheDocument();
         });
     });
@@ -52,9 +51,9 @@ describe('userPanel - supportRequestsPicker', () => {
 
         getComponent();
 
-        await waitFor(() => expect(screen.queryByText('Fake content')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByText('Fake title')).toBeInTheDocument());
 
-        userEvent.click(screen.getByText('Fake content'));
+        userEvent.click(screen.getByText('Fake title'));
 
         expect(screen.getByTestId('main-textarea')).toHaveTextContent('Fake content');
     });
