@@ -5,11 +5,12 @@ import { Maybe } from '../../../shared/types/types';
 import { EntriesTable } from '../../components/entriesTable/entriesTable';
 import { TableEntry } from '../../components/entriesTable/tableEntry/tableEntry';
 import {
-    handleClickEntry,
+    handleDefaultOptionalClick,
     handleEditEntryIfUserIsAnAuthor,
     handleRemoveEntryIfUserIsAnAuthor,
 } from '../../handleOptionalClicks';
 import { SolutionModel } from '../store/dto';
+import { SolutionEntry } from './solutionEntry';
 
 export interface SolutionsTableProps {
     solutions: Maybe<SolutionModel[]>;
@@ -55,14 +56,8 @@ function renderSolutionEntries(
         return (
             <TableEntry
                 key={id}
-                renderEntry={() => (
-                    <div>
-                        <div>{title}</div>
-                        <div>{description}</div>
-                        <div>{content}</div>
-                    </div>
-                )}
-                onClickEntry={handleClickEntry<SolutionModel>(solution, onClickEntry)}
+                renderEntry={() => <SolutionEntry title={title} description={description} content={content} />}
+                onClickEntry={handleDefaultOptionalClick<SolutionModel>(solution, onClickEntry)}
                 onEditEntry={handleEditEntryIfUserIsAnAuthor<SolutionModel>(solution, isAuthor, onEditEntry)}
                 onRemoveEntry={handleRemoveEntryIfUserIsAnAuthor(id, isAuthor, onRemoveEntry)}
                 displayGlobeIcon={!!isPublic}

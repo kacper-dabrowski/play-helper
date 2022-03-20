@@ -15,7 +15,7 @@ const dummyFilterFn = (results: Maybe<string[]>, searchQuery: string): string[] 
 const DummyInputComponent = () => {
     const results = useMemo(() => ['abc', 'a', 'b'], []);
 
-    const [searchResults, searchQuery, setSearchQuery] = useResultsFilter(results, dummyFilterFn);
+    const { searchResults, searchQuery, setSearchQuery } = useResultsFilter(results, dummyFilterFn);
 
     return (
         <div>

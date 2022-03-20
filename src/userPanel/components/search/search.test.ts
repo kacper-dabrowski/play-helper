@@ -1,9 +1,9 @@
-import { solutionSearchMethod } from './search';
-import { SolutionModel } from './store/dto';
+import { SolutionModel } from '../../solutions/store/dto';
+import { searchByContainingSearchPhrase } from './search';
 
 describe('userPanel - solutions - search', () => {
     it('should return no results, if solutions are empty', () => {
-        expect(solutionSearchMethod([], 'some-phrase')).toEqual([]);
+        expect(searchByContainingSearchPhrase<SolutionModel>([], 'some-phrase')).toEqual([]);
     });
 
     it('should return all results, if search phrase empty', () => {
@@ -11,7 +11,7 @@ describe('userPanel - solutions - search', () => {
             { title: 'title', content: 'content', isPublic: false, id: '1234', description: 'description' },
         ];
 
-        expect(solutionSearchMethod(solutions, '')).toEqual(solutions);
+        expect(searchByContainingSearchPhrase<SolutionModel>(solutions, '')).toEqual(solutions);
     });
 
     [
@@ -25,7 +25,7 @@ describe('userPanel - solutions - search', () => {
     ].forEach(({ element, matchingResults }) => {
         it(`should return matching results, if ${element} contains phrase`, () => {
             const arrayToTest = [...matchingResults, ...noSolutionsMatchCriteria()];
-            expect(solutionSearchMethod(arrayToTest, 'some-word')).toEqual(matchingResults);
+            expect(searchByContainingSearchPhrase<SolutionModel>(arrayToTest, 'some-word')).toEqual(matchingResults);
         });
     });
 
@@ -34,7 +34,7 @@ describe('userPanel - solutions - search', () => {
 
         const arrayToTest = [...expectedResults, ...noSolutionsMatchCriteria()];
 
-        expect(solutionSearchMethod(arrayToTest, 'some-word')).toEqual(expectedResults);
+        expect(searchByContainingSearchPhrase<SolutionModel>(arrayToTest, 'some-word')).toEqual(expectedResults);
     });
 
     function noSolutionsMatchCriteria() {

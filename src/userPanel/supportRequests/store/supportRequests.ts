@@ -20,8 +20,8 @@ export const fetchSupportRequests = createAsyncThunk(`${name}/${Action.Fetch}`, 
 
 export const createSupportRequest = createAsyncThunk(
     `${name}/${Action.Create}`,
-    async (supportRequest: SupportRequestModel) => {
-        const response = await axios.put(urls.srq, supportRequest);
+    async ({ title, department, description, content }: SupportRequestModel) => {
+        const response = await axios.put(urls.srq, { title, department, description, content });
 
         return response.status === 200;
     }
@@ -34,8 +34,16 @@ type UpdateSupportRequestPayload = {
 
 export const updateSupportRequest = createAsyncThunk(
     `${name}/${Action.Update}`,
-    async ({ supportRequestId, supportRequest }: UpdateSupportRequestPayload) => {
-        const response = await axios.post(`${urls.srq}/${supportRequestId}`, { supportRequest });
+    async ({
+        supportRequestId,
+        supportRequest: { title, content, department, description },
+    }: UpdateSupportRequestPayload) => {
+        const response = await axios.post(`${urls.srq}/${supportRequestId}`, {
+            title,
+            content,
+            department,
+            description,
+        });
 
         return response.status === 200;
     }

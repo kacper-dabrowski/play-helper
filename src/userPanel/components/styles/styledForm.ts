@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const SolutionFinderContainer = styled.div`
-    max-height: 80vh;
+export const formContainer = styled.form`
+    width: 60%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 `;
