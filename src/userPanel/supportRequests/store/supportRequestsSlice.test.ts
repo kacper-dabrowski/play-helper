@@ -64,6 +64,7 @@ describe('stores - supportRequestsSlice', () => {
 
     describe('creating support requests', () => {
         const supportRequest: SupportRequestModel = {
+            _id: '1234',
             title: 'title',
             description: 'description',
             department: 'department',
@@ -73,7 +74,9 @@ describe('stores - supportRequestsSlice', () => {
         it('should create support request', async () => {
             await dispatch(createSupportRequest(supportRequest));
 
-            expect(axios.put).toHaveBeenCalledWith(urls.srq, supportRequest);
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            const { _id, ...expectedPayload } = supportRequest;
+            expect(axios.put).toHaveBeenCalledWith(urls.srq, expectedPayload);
         });
 
         it('should indicate loading state of creating support request', async () => {
@@ -92,8 +95,8 @@ describe('stores - supportRequestsSlice', () => {
     });
 
     describe('updating support requests', () => {
-        const id = '1234';
         const supportRequestUpdated = {
+            _id: '1234',
             title: 'title updated',
             description: 'description updated',
             department: 'department updated',
@@ -101,15 +104,26 @@ describe('stores - supportRequestsSlice', () => {
         };
 
         it('should update support request', async () => {
-            await dispatch(updateSupportRequest({ supportRequest: supportRequestUpdated, supportRequestId: id }));
+            await dispatch(
+                updateSupportRequest({
+                    supportRequest: supportRequestUpdated,
+                    supportRequestId: supportRequestUpdated._id,
+                })
+            );
 
-            expect(httpClient.post).toHaveBeenCalledWith(`${urls.srq}/${id}`, {
-                supportRequest: supportRequestUpdated,
-            });
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            const { _id, ...expectedPayload } = supportRequestUpdated;
+
+            expect(httpClient.post).toHaveBeenCalledWith(`${urls.srq}/${supportRequestUpdated._id}`, expectedPayload);
         });
 
         it('should indicate loading state of updating support request', async () => {
-            dispatch(updateSupportRequest({ supportRequest: supportRequestUpdated, supportRequestId: id }));
+            dispatch(
+                updateSupportRequest({
+                    supportRequest: supportRequestUpdated,
+                    supportRequestId: supportRequestUpdated._id,
+                })
+            );
 
             expect(getState().updateSupportRequestStatus.loading).toEqual(true);
         });
@@ -117,7 +131,12 @@ describe('stores - supportRequestsSlice', () => {
         it('should pass error if occurred during updating support request', async () => {
             givenResponseFailed();
 
-            await dispatch(updateSupportRequest({ supportRequest: supportRequestUpdated, supportRequestId: id }));
+            await dispatch(
+                updateSupportRequest({
+                    supportRequest: supportRequestUpdated,
+                    supportRequestId: supportRequestUpdated._id,
+                })
+            );
 
             expect(getState().updateSupportRequestStatus.error).toEqual('post error');
         });

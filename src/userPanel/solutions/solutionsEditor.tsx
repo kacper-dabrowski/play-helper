@@ -6,15 +6,19 @@ import { Maybe } from '../../shared/types/types';
 import { StoreState } from '../../stores/store';
 import { SearchBox } from '../components/searchBox/searchBox';
 import { SolutionForm } from './form/form';
-import { solutionSearchMethod } from './search';
 import { SolutionsTable } from './solutionsTable/solutionsTable';
 import { AddSolutionDto, SolutionModel } from './store/dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './store/solutions';
-import * as Styles from './styledSolutionsContainer';
+import * as Styles from '../components/styles/styledContainer';
+import { searchByContainingSearchPhrase } from '../components/search/search';
 
 export const SolutionsEditor: FC = () => {
     const { solutions, addSolutionStatus, fetchSolutionsStatus } = useSelector((state: StoreState) => state.solutions);
-    const [filteredSolutions, searchQuery, setSearchQuery] = useResultsFilter(solutions, solutionSearchMethod);
+    const {
+        searchResults: filteredSolutions,
+        searchQuery,
+        setSearchQuery,
+    } = useResultsFilter(solutions, searchByContainingSearchPhrase);
     const dispatch = useDispatch();
     const [selectedSolution, setSelectedSolution] = useState<Maybe<SolutionModel>>(null);
 

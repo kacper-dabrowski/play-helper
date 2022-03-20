@@ -7,54 +7,54 @@ import { useNotifications } from '../../../hooks/useNotification';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Maybe } from '../../../shared/types/types';
 import { solutionSchema } from '../../../shared/validation/validation';
-import { AddSolutionDto, SolutionModel } from '../store/dto';
-import * as Styles from '../../components/styles/styledForm';
+import { ModifySupportRequestDto, SupportRequestModel } from '../store/dto';
 import { useFormikError } from '../../../hooks/useFormikError';
+import * as Styles from '../../components/styles/styledForm';
 
-interface SolutionFormProps {
-    addSolutionStatus: RequestStatus;
-    onAddSolution: (solution: AddSolutionDto) => Promise<void>;
-    onEditSolution: (solution: SolutionModel) => Promise<void>;
+interface SupportRequestFormProps {
+    addSupportRequestStatus: RequestStatus;
+    onAddSupportRequest: (supportRequest: SupportRequestModel) => Promise<void>;
+    onEditSupportRequest: (supportRequest: ModifySupportRequestDto) => Promise<void>;
     onClearForm: () => void;
-    selectedSolution: Maybe<SolutionModel>;
-    onRefreshSolutions: () => Promise<void>;
+    selectedSupportRequest: Maybe<ModifySupportRequestDto>;
+    onRefreshSupportRequest: () => Promise<void>;
 }
 
-export const SolutionForm: FC<SolutionFormProps> = ({
-    addSolutionStatus,
-    onAddSolution,
+export const SupportRequestForm: FC<SupportRequestFormProps> = ({
+    addSupportRequestStatus,
+    onAddSupportRequest,
     onClearForm,
-    selectedSolution,
-    onRefreshSolutions,
-    onEditSolution,
+    selectedSupportRequest,
+    onRefreshSupportRequest,
+    onEditSupportRequest,
 }) => {
-    useNotifications(addSolutionStatus, 'Rozwiązanie dodane pomyślnie');
+    useNotifications(addSupportRequestStatus, 'SRQ dodane pomyślnie');
 
     const formik = useFormik({
         initialValues: {
-            title: selectedSolution?.title || '',
-            description: selectedSolution?.description || '',
-            content: selectedSolution?.content || '',
-            isPublic: selectedSolution?.isPublic || false,
+            title: selectedSupportRequest?.title || '',
+            description: selectedSupportRequest?.description || '',
+            content: selectedSupportRequest?.content || '',
+            department: selectedSupportRequest?.department || '',
         },
         onSubmit: async (values, { resetForm }) => {
-            const { title, description, content, isPublic } = values;
+            const { title, description, content, department } = values;
             const formData = {
                 title,
                 description,
                 content,
-                isPublic,
+                department,
             };
 
-            if (selectedSolution) {
-                await onEditSolution({ ...formData, id: selectedSolution.id });
+            if (selectedSupportRequest) {
+                await onEditSupportRequest({ ...formData, _id: selectedSupportRequest._id });
             } else {
-                await onAddSolution(formData);
+                await onAddSupportRequest({ ...formData, _id: '' });
             }
 
             onClearForm();
 
-            await onRefreshSolutions();
+            await onRefreshSupportRequest();
 
             resetForm({});
         },
@@ -72,26 +72,31 @@ export const SolutionForm: FC<SolutionFormProps> = ({
                 hasErrors={!!formik.errors.title}
                 onChange={formik.handleChange}
                 value={formik.values.title}
-                placeholder="Tytuł zamknięcia"
+                placeholder="Tytuł SRQ"
             />
             <FormInput
                 hasErrors={!!formik.errors.description}
                 name="description"
                 onChange={formik.handleChange}
                 value={formik.values.description}
-                placeholder="Opis zamknięcia"
+                placeholder="Opis SRQ"
             />
             <StyledFormTextarea
                 name="content"
                 hasErrors={!!formik.errors.content}
                 onChange={formik.handleChange}
                 value={formik.values.content}
-                placeholder="Treść zamknięcia"
+                placeholder="Treść SRQ"
             />
-            <label htmlFor="isPublic">Widok publiczny: </label>
-            <input type="checkbox" name="isPublic" onChange={formik.handleChange} checked={formik.values.isPublic} />
+            <StyledFormTextarea
+                name="department"
+                hasErrors={!!formik.errors.department}
+                onChange={formik.handleChange}
+                value={formik.values.department}
+                placeholder="Dział, do którego trafia SRQ"
+            />
             <StyledSubmitButton type="submit">
-                {selectedSolution ? 'Zapisz zmiany' : 'Dodaj zamknięcie'}
+                {selectedSupportRequest ? 'Zapisz zmiany' : 'Dodaj SRQ'}
             </StyledSubmitButton>
         </Styles.formContainer>
     );

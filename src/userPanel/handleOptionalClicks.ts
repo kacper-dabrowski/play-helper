@@ -18,10 +18,18 @@ export function handleRemoveEntryIfUserIsAnAuthor(
     return async () => onRemoveEntry(entryId);
 }
 
-export function handleClickEntry<T>(entry: T, onClickEntry?: (parameter: T) => void) {
-    if (!onClickEntry) {
+export function handleDefaultOptionalClick<T>(entry: T, clickHandler?: (parameter: T) => void) {
+    if (!clickHandler) {
         return undefined;
     }
 
-    return () => onClickEntry(entry);
+    return () => clickHandler(entry);
+}
+
+export function handleAsyncOptionalClick<T>(entry: T, clickHandler?: (parameter: T) => Promise<void>) {
+    if (!clickHandler) {
+        return undefined;
+    }
+
+    return () => clickHandler(entry);
 }

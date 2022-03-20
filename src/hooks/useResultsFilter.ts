@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Maybe } from '../shared/types/types';
 
-const useResultsFilter = (
-    list: Maybe<any[]>,
-    filterMethod: (list: Maybe<any[]>, searchQuery: string) => any[]
-): [any[], string, (value: string) => void] => {
-    const [searchResults, setSearchResults] = useState<any[]>([]);
+function useResultsFilter<T>(
+    list: Maybe<T[]>,
+    filterMethod: (list: Maybe<T[]>, searchQuery: string) => T[]
+): { searchResults: T[]; searchQuery: string; setSearchQuery: (value: string) => void } {
+    const [searchResults, setSearchResults] = useState<T[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     const filterResults = useCallback(() => {
@@ -30,7 +30,7 @@ const useResultsFilter = (
         filterResults();
     }, [filterResults, list, searchQuery, searchResults.length]);
 
-    return [searchResults, searchQuery, setSearchQuery];
-};
+    return { searchResults, searchQuery, setSearchQuery };
+}
 
 export default useResultsFilter;
