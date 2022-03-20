@@ -41,7 +41,6 @@ describe('userPanel - solutionsPicker', () => {
         return waitFor(() => {
             expect(screen.queryByText('Fake title')).toBeInTheDocument();
             expect(screen.queryByText('Fake description')).toBeInTheDocument();
-            expect(screen.queryByText('Fake content')).toBeInTheDocument();
         });
     });
 
@@ -50,9 +49,9 @@ describe('userPanel - solutionsPicker', () => {
 
         getComponent();
 
-        await waitFor(() => expect(screen.queryByText('Fake content')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByText('Fake title')).toBeInTheDocument());
 
-        userEvent.click(screen.getByText('Fake content'));
+        userEvent.click(screen.getByText('Fake title'));
 
         expect(screen.getByTestId('main-textarea')).toHaveTextContent('Fake content');
     });

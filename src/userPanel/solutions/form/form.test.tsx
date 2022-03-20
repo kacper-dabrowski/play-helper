@@ -73,7 +73,6 @@ describe('userPanel - solutions - form', () => {
 
         expect(screen.getByPlaceholderText('Tytuł zamknięcia')).toHaveValue('Fake title');
         expect(screen.getByPlaceholderText('Opis zamknięcia')).toHaveValue('Fake description');
-        expect(screen.getByPlaceholderText('Treść zamknięcia')).toHaveTextContent('Fake content');
     });
 
     it('should not submit, if values are incorrect', () => {

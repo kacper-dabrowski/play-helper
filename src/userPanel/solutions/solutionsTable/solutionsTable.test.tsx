@@ -23,7 +23,6 @@ describe('userPanel - solutions - solutionsTable', () => {
 
         expect(screen.getByText('title')).toBeInTheDocument();
         expect(screen.getByText('description')).toBeInTheDocument();
-        expect(screen.getByText('content')).toBeInTheDocument();
     });
 
     it('should display a loader, when request status state is loading', () => {
