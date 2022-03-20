@@ -19,7 +19,14 @@ export interface SolutionModel extends Solution {
 export type AddSolutionDto = Solution;
 
 export const fakeFetchSolutionsDto: FetchedSolution[] = [
-    { title: 'Fake title', description: 'Fake description', content: 'Fake content', isPublic: false, _id: '1234' },
+    {
+        title: 'Fake title',
+        description: 'Fake description',
+        content: 'Fake content',
+        isPublic: false,
+        _id: '1234',
+        isAuthor: true,
+    },
 ];
 
 export const fakeSolutionModel: SolutionModel = {

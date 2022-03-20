@@ -89,7 +89,13 @@ export const SolutionForm: FC<SolutionFormProps> = ({
                 placeholder="Treść zamknięcia"
             />
             <label htmlFor="isPublic">Widok publiczny: </label>
-            <input type="checkbox" name="isPublic" onChange={formik.handleChange} checked={formik.values.isPublic} />
+            <input
+                type="checkbox"
+                name="isPublic"
+                onChange={formik.handleChange}
+                checked={formik.values.isPublic}
+                data-testid="is-public-checkbox"
+            />
             <StyledSubmitButton type="submit">
                 {selectedSolution ? 'Zapisz zmiany' : 'Dodaj zamknięcie'}
             </StyledSubmitButton>
