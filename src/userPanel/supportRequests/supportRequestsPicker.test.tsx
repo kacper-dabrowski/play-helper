@@ -5,7 +5,7 @@ import supportRequestsSlice from './store/supportRequestsSlice';
 import axios from '../../libs/axios';
 import { mocked } from 'jest-mock';
 
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { theme } from '../../shared/theme/theme';
 import userEvent from '@testing-library/user-event';
 import { SupportRequestsPicker } from './supportRequestsPicker';

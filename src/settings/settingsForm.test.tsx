@@ -8,7 +8,7 @@ import {
     requestFinishedWithError,
 } from '../shared/requestStatus/requestStatus';
 import { toastProvider } from '../libs/toast';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { theme } from '../shared/theme/theme';
 
 describe('Forms - Settings form', () => {

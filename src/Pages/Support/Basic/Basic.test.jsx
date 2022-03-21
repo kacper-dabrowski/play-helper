@@ -4,7 +4,7 @@ import React from 'react';
 import Basic from './Basic';
 import { generateBasicTemplate } from '../../../modules/basic/basic';
 import { toastProvider } from '../../../libs/toast';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { theme } from '../../../shared/theme/theme';
 
 jest.mock('../../../modules/basic/basic', () => ({

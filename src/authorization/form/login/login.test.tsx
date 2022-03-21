@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Login } from './login';
 import { createRequestStatus, requestLoading } from '../../../shared/requestStatus/requestStatus';
 import { toastProvider } from '../../../libs/toast';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { theme } from '../../../shared/theme/theme';
 
 jest.mock('../../../components/UI/spinner/spinner', () => ({

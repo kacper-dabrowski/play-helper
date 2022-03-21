@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { colors } from '../../../shared/colors';
 
-export const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
+export const StyledCheckbox = styled.input`
     &[type='checkbox'] {
         -webkit-appearance: none;
         height: 1rem;

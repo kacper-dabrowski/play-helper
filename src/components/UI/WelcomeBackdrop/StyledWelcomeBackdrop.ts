@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { fadeIn } from '../../../shared/styles/animations/fadeIn';
 
 export const Container = styled.div`

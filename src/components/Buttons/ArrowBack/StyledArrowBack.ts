@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import arrowBackImage from '../../../assets/icons/left-arrow-back.svg';
 
 export const StyledArrowBack = styled(Link)`

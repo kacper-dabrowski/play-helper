@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const StyledFormHeader = styled.h2`
     font-size: 1.5rem;

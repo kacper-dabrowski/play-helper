@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import * as GradientBorder from '../../shared/styles/GradientBorder';
 import { colors } from '../../shared/colors';
 

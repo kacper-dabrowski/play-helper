@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const BaseButton = styled.button`
     font-size: 1.1rem;

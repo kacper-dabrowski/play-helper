@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import config from '../../../shared/identifiers';
 
 export const StyledInputSection = styled.div`

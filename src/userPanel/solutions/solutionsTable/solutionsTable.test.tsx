@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { createRequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { theme } from '../../../shared/theme/theme';
 import { SolutionsTable, SolutionsTableProps } from './solutionsTable';

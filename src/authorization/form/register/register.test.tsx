@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { toastProvider } from '../../../libs/toast';
 import { createRequestStatus, requestLoading } from '../../../shared/requestStatus/requestStatus';
 import { theme } from '../../../shared/theme/theme';

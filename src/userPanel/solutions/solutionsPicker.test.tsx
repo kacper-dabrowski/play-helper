@@ -6,7 +6,7 @@ import solutionsSlice from './store/solutionsSlice';
 import axios from '../../libs/axios';
 import { mocked } from 'jest-mock';
 import { fakeFetchSolutionsDto } from './store/dto';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { theme } from '../../shared/theme/theme';
 import { fetchSolutions } from './store/solutions';
 import userEvent from '@testing-library/user-event';

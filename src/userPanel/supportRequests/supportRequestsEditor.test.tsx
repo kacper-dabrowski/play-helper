@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mocked } from 'jest-mock';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import axios from '../../libs/axios';
 import { theme } from '../../shared/theme/theme';
 import { fakeSupportRequestModel, fakeSupportRequestsDto } from './store/dto';

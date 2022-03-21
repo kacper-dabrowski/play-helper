@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import Double from './Double';
 import config from '../../../shared/identifiers';
 import { toastProvider } from '../../../libs/toast';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { theme } from '../../../shared/theme/theme';
 import { generateClosedDoubleTemplate } from '../../../modules/closedDouble/closedDouble';
 import { generateOpenedDoubleTemplate } from '../../../modules/openedDouble/openedDouble';
