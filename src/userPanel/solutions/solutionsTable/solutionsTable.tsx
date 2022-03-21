@@ -1,3 +1,4 @@
+import { Th, Tr } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Spinner } from '../../../components/UI/spinner/spinner';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
@@ -29,7 +30,7 @@ export const SolutionsTable: FC<SolutionsTableProps> = ({
 }) => {
     if (requestStatus.loading) {
         return (
-            <EntriesTable>
+            <EntriesTable renderTableHeader={() => <div />}>
                 <Spinner />
             </EntriesTable>
         );
@@ -37,7 +38,20 @@ export const SolutionsTable: FC<SolutionsTableProps> = ({
 
     const entriesList = renderSolutionEntries(solutions, onRemoveEntry, onEditEntry, onClickEntry);
 
-    return <EntriesTable>{entriesList?.length ? entriesList : 'Brak wyników'}</EntriesTable>;
+    return (
+        <EntriesTable
+            renderTableHeader={() => (
+                <Tr color="white">
+                    <Th color="white">Akcja</Th>
+                    <Th color="white">Dostęp publiczny</Th>
+                    <Th color="white">Tytuł</Th>
+                    <Th color="white">Opis</Th>
+                </Tr>
+            )}
+        >
+            {entriesList?.length ? entriesList : 'Brak wyników'}
+        </EntriesTable>
+    );
 };
 
 function renderSolutionEntries(
@@ -60,7 +74,7 @@ function renderSolutionEntries(
                 onClickEntry={handleDefaultOptionalClick<SolutionModel>(solution, onClickEntry)}
                 onEditEntry={handleEditEntryIfUserIsAnAuthor<SolutionModel>(solution, isAuthor, onEditEntry)}
                 onRemoveEntry={handleRemoveEntryIfUserIsAnAuthor(id, isAuthor, onRemoveEntry)}
-                displayGlobeIcon={!!isPublic}
+                isPublic={!!isPublic}
             />
         );
     });

@@ -1,3 +1,4 @@
+import { Td } from '@chakra-ui/react';
 import { FC } from 'react';
 
 interface SolutionEntryProps {
@@ -6,8 +7,8 @@ interface SolutionEntryProps {
 }
 
 export const SolutionEntry: FC<SolutionEntryProps> = ({ title, description }) => (
-    <div>
-        <div>{title}</div>
-        <div>{description}</div>
-    </div>
+    <>
+        <Td>{title}</Td>
+        <Td>{description}</Td>
+    </>
 );

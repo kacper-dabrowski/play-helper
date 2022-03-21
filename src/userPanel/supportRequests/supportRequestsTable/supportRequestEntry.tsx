@@ -1,3 +1,4 @@
+import { Td } from '@chakra-ui/react';
 import { FC } from 'react';
 
 interface SupportRequestEntryProps {
@@ -7,9 +8,9 @@ interface SupportRequestEntryProps {
 }
 
 export const SupportRequestEntry: FC<SupportRequestEntryProps> = ({ title, description, department }) => (
-    <div>
-        <div>{title}</div>
-        <div>{description}</div>
-        <div>{department}</div>
-    </div>
+    <>
+        <Td>{title}</Td>
+        <Td>{description}</Td>
+        <Td>{department}</Td>
+    </>
 );

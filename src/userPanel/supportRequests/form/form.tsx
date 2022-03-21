@@ -1,15 +1,14 @@
+import { Button, Textarea, VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { FC } from 'react';
-import { StyledSubmitButton } from '../../../components/Buttons/SubmitButton/StyledSubmitButton';
 import FormInput from '../../../components/Inputs/FormInput/FormInput';
-import { StyledFormTextarea } from '../../../components/Inputs/FormTextarea/StyledFormTextarea';
+import { Card } from '../../../components/UI/card/card';
+import { useFormikError } from '../../../hooks/useFormikError';
 import { useNotifications } from '../../../hooks/useNotification';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Maybe } from '../../../shared/types/types';
 import { solutionSchema } from '../../../shared/validation/validation';
 import { ModifySupportRequestDto, SupportRequestModel } from '../store/dto';
-import { useFormikError } from '../../../hooks/useFormikError';
-import * as Styles from '../../components/styles/styledForm';
 
 interface SupportRequestFormProps {
     addSupportRequestStatus: RequestStatus;
@@ -66,38 +65,38 @@ export const SupportRequestForm: FC<SupportRequestFormProps> = ({
     useFormikError(formik.errors);
 
     return (
-        <Styles.formContainer onSubmit={formik.handleSubmit}>
-            <FormInput
-                name="title"
-                hasErrors={!!formik.errors.title}
-                onChange={formik.handleChange}
-                value={formik.values.title}
-                placeholder="Tytuł SRQ"
-            />
-            <FormInput
-                hasErrors={!!formik.errors.description}
-                name="description"
-                onChange={formik.handleChange}
-                value={formik.values.description}
-                placeholder="Opis SRQ"
-            />
-            <StyledFormTextarea
-                name="content"
-                hasErrors={!!formik.errors.content}
-                onChange={formik.handleChange}
-                value={formik.values.content}
-                placeholder="Treść SRQ"
-            />
-            <StyledFormTextarea
-                name="department"
-                hasErrors={!!formik.errors.department}
-                onChange={formik.handleChange}
-                value={formik.values.department}
-                placeholder="Dział, do którego trafia SRQ"
-            />
-            <StyledSubmitButton type="submit">
-                {selectedSupportRequest ? 'Zapisz zmiany' : 'Dodaj SRQ'}
-            </StyledSubmitButton>
-        </Styles.formContainer>
+        <form onSubmit={formik.handleSubmit}>
+            <Card>
+                <FormInput
+                    name="title"
+                    hasErrors={!!formik.errors.title}
+                    onChange={formik.handleChange}
+                    value={formik.values.title}
+                    placeholder="Tytuł SRQ"
+                />
+                <FormInput
+                    hasErrors={!!formik.errors.description}
+                    name="description"
+                    onChange={formik.handleChange}
+                    value={formik.values.description}
+                    placeholder="Opis SRQ"
+                />
+                <Textarea
+                    name="content"
+                    onChange={formik.handleChange}
+                    value={formik.values.content}
+                    placeholder="Treść SRQ"
+                />
+                <Textarea
+                    name="department"
+                    onChange={formik.handleChange}
+                    value={formik.values.department}
+                    placeholder="Dział, do którego trafia SRQ"
+                />
+                <Button colorScheme={'purple'} type="submit">
+                    {selectedSupportRequest ? 'Zapisz zmiany' : 'Dodaj SRQ'}
+                </Button>
+            </Card>
+        </form>
     );
 };

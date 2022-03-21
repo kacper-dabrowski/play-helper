@@ -1,16 +1,16 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Card } from '../../components/UI/card/card';
 import useResultsFilter from '../../hooks/useResultsFilter';
 import { toastProvider } from '../../libs/toast';
 import { Maybe } from '../../shared/types/types';
 import { StoreState } from '../../stores/store';
+import { searchByContainingSearchPhrase } from '../components/search/search';
 import { SearchBox } from '../components/searchBox/searchBox';
 import { SolutionForm } from './form/form';
 import { SolutionsTable } from './solutionsTable/solutionsTable';
 import { AddSolutionDto, SolutionModel } from './store/dto';
 import { createSolution, fetchSolutions, removeSolution, updateSolution } from './store/solutions';
-import * as Styles from '../components/styles/styledContainer';
-import { searchByContainingSearchPhrase } from '../components/search/search';
 
 export const SolutionsEditor: FC = () => {
     const { solutions, addSolutionStatus, fetchSolutionsStatus } = useSelector((state: StoreState) => state.solutions);
@@ -63,7 +63,7 @@ export const SolutionsEditor: FC = () => {
                 selectedSolution={selectedSolution}
                 onRefreshSolutions={onFetchSolution}
             />
-            <Styles.container>
+            <Card>
                 <SearchBox setValue={setSearchQuery} value={searchQuery} />
                 <SolutionsTable
                     requestStatus={fetchSolutionsStatus}
@@ -71,7 +71,7 @@ export const SolutionsEditor: FC = () => {
                     onRemoveEntry={onRemoveSolution}
                     onEditEntry={setSelectedSolution}
                 />
-            </Styles.container>
+            </Card>
         </>
     );
 };

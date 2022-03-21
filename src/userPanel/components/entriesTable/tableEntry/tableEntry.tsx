@@ -1,15 +1,13 @@
+import { BellIcon, DeleteIcon, EditIcon, LockIcon } from '@chakra-ui/icons';
+import { IconButton, Td, Tr } from '@chakra-ui/react';
 import { FC, MouseEventHandler } from 'react';
-import * as Styles from './styledTableEntry';
-import crossIcon from '../../../../assets/icons/cancel.svg';
-import pencilIcon from '../../../../assets/icons/pencil.png';
-import globeIcon from '../../../../assets/icons/planet-earth.svg';
 
 export interface TableEntryProps {
     onRemoveEntry?: () => Promise<void>;
     onEditEntry?: () => void;
     onClickEntry?: MouseEventHandler;
     renderEntry: () => JSX.Element;
-    displayGlobeIcon?: boolean;
+    isPublic?: boolean;
 }
 
 export const TableEntry: FC<TableEntryProps> = ({
@@ -17,31 +15,37 @@ export const TableEntry: FC<TableEntryProps> = ({
     renderEntry,
     onRemoveEntry,
     onEditEntry,
-    displayGlobeIcon,
+    isPublic,
 }) => (
-    <Styles.tableEntryContainer onClick={onClickEntry}>
+    <Tr onClick={onClickEntry}>
         {onRemoveEntry && onEditEntry ? (
-            <Styles.controlsContainer data-testid="table-entry">
-                <Styles.iconButton
-                    data-testid="on-remove-entry"
-                    src={crossIcon}
-                    onClick={onRemoveEntry}
-                    title={'Usuń wybraną pozycję'}
-                />
-                <Styles.iconButton
-                    data-testid="on-edit-entry"
-                    src={pencilIcon}
+            <Td textAlign={'center'}>
+                <IconButton
+                    mr={1}
                     onClick={onEditEntry}
-                    title={'Edytuj wybraną pozycję'}
+                    colorScheme="purple"
+                    icon={<EditIcon />}
+                    aria-label={'edit-entry'}
                 />
-            </Styles.controlsContainer>
+                <IconButton
+                    ml={1}
+                    onClick={onRemoveEntry}
+                    colorScheme="red"
+                    icon={<DeleteIcon />}
+                    aria-label={'remove-entry'}
+                />
+            </Td>
         ) : null}
-        {displayGlobeIcon ? (
-            <Styles.publicIconContainer>
-                <Styles.iconButton data-testid="icon-global" src={globeIcon} />
-            </Styles.publicIconContainer>
-        ) : null}
+        {isPublic ? (
+            <Td textAlign={'center'}>
+                <BellIcon />
+            </Td>
+        ) : (
+            <Td textAlign={'center'}>
+                <LockIcon />
+            </Td>
+        )}
 
-        <div>{renderEntry()}</div>
-    </Styles.tableEntryContainer>
+        {renderEntry()}
+    </Tr>
 );

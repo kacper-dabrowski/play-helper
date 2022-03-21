@@ -15,6 +15,7 @@ import { Maybe } from '../../shared/types/types';
 import { SupportRequestsTable } from './supportRequestsTable/supportRequestsTable';
 import useResultsFilter from '../../hooks/useResultsFilter';
 import { searchByContainingSearchPhrase } from '../components/search/search';
+import { Card } from '../../components/UI/card/card';
 
 export const SupportRequestsEditor: FC = () => {
     const { supportRequests, addSupportRequestsStatus, fetchSupportRequestsStatus } = useSelector(
@@ -69,7 +70,7 @@ export const SupportRequestsEditor: FC = () => {
                 selectedSupportRequest={selectedSupportRequest}
             />
 
-            <Styled.container>
+            <Card>
                 <SearchBox value={searchQuery} setValue={setSearchQuery} />
                 <SupportRequestsTable
                     onRemoveEntry={onRemoveSupportRequest}
@@ -77,7 +78,7 @@ export const SupportRequestsEditor: FC = () => {
                     supportRequests={filteredSupportRequests}
                     fetchSupportRequestsStatus={fetchSupportRequestsStatus}
                 />
-            </Styled.container>
+            </Card>
         </>
     );
 };

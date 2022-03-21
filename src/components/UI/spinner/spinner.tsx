@@ -1,6 +1,6 @@
-import SyncLoader from 'react-spinners/SyncLoader';
 import React, { FC } from 'react';
 import { SpinnerContainer } from './styledSpinner';
+import { Spinner as ChakraSpinner } from '@chakra-ui/react';
 
 interface SpinnerProps {
     centered?: boolean;
@@ -8,10 +8,10 @@ interface SpinnerProps {
     color?: string;
 }
 
-export const Spinner: FC<SpinnerProps> = ({ centered, size, color }) => {
+export const Spinner: FC<SpinnerProps> = ({ centered }) => {
     return (
         <SpinnerContainer isCentered={centered}>
-            <SyncLoader color={color || 'white'} size={size} />
+            <ChakraSpinner color="white" />
         </SpinnerContainer>
     );
 };
