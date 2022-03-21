@@ -1,6 +1,7 @@
+import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-export const BaseContainer = styled.div`
+export const BaseContainer = styled(Box)`
     width: 90%;
     height: 90%;
     display: grid;

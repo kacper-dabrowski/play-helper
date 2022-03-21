@@ -1,14 +1,16 @@
+import { Box } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React, { useCallback, useEffect, useState } from 'react';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
+import { Card } from '../../../components/UI/card/card';
 import { toastProvider } from '../../../libs/toast';
 import { generateClosedDoubleTemplate } from '../../../modules/closedDouble/closedDouble';
 import { generateOpenedDoubleTemplate } from '../../../modules/openedDouble/openedDouble';
 import config from '../../../shared/identifiers';
 import InputSection from './Sections/InputSection';
-import { DoubleContainer, StyledSexSection } from './StyledDouble';
+import { StyledSexSection } from './StyledDouble';
 
 const Double = ({ type }) => {
     const formik = useFormik({
@@ -51,7 +53,7 @@ const Double = ({ type }) => {
 
     return (
         <>
-            <DoubleContainer type={type}>
+            <Card>
                 {type === config.double.closed && (
                     <StyledSexSection>
                         <SexSection
@@ -69,8 +71,10 @@ const Double = ({ type }) => {
                     type={type}
                 />
                 <ConfirmButtons onClearFields={clearFields} onGenerateTemplate={formik.handleSubmit} />
-            </DoubleContainer>
-            <MainTextarea value={template} setTemplate={setTemplate} />
+            </Card>
+            <Box w="100%" py={10}>
+                <MainTextarea value={template} setTemplate={setTemplate} />
+            </Box>
         </>
     );
 };

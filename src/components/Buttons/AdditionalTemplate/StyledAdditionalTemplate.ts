@@ -1,15 +1,14 @@
+import { Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { BaseButton } from '../BaseButton/StyledBaseButton';
 import { colors } from '../../../shared/colors';
 
 interface AdditionalTemplateButtonProps {
     enabled: boolean;
 }
 
-export const StyledAdditionalTemplate = styled(BaseButton)<AdditionalTemplateButtonProps>`
-    background-color: ${({ enabled }) => (enabled ? colors.allowed : colors.forbidden)};
+export const StyledAdditionalTemplate = styled(Button)<AdditionalTemplateButtonProps>`
     margin: ${({ theme }) => theme.spacing.large} auto;
-    color: ${({ theme }) => theme.fontColor.primary};
+
     text-align: center;
     max-width: 100%;
     width: 15rem;

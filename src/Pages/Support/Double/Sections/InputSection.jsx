@@ -1,7 +1,7 @@
+import { VStack } from '@chakra-ui/react';
 import React from 'react';
 import SupportInput from '../../../../components/Inputs/SupportInput/SupportInput';
 import config from '../../../../shared/identifiers';
-import { StyledInputSection } from '../StyledDouble';
 
 const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHandler }) => {
     let secondInput;
@@ -12,7 +12,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
                     onChange={(event) => setDoubledHandler(event.target.value)}
                     value={doubled}
                     labelContent="Numer zgłoszenia zamkniętego"
-                    placeholder="Numer zamkniętego zgłoszenia"
+                    placeholder="Numer zamkniętego"
                 />
             );
             break;
@@ -30,15 +30,15 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
             throw new Error('Double type is invalid');
     }
     return (
-        <StyledInputSection>
+        <VStack align={'center'} justify={'center'}>
             <SupportInput
                 onChange={(event) => setCurrentHandler(event.target.value)}
                 value={current}
-                labelContent="Number zgłoszenia bieżącego"
+                labelContent="Number bieżącego zgłoszenia"
                 placeholder="Numer Twojego zgłoszenia"
             />
             {secondInput}
-        </StyledInputSection>
+        </VStack>
     );
 };
 

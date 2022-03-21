@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import { Box, HStack, SimpleGrid } from '@chakra-ui/react';
 import { useFormik } from 'formik';
+import React, { useState } from 'react';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
 import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
+import { Card } from '../../../components/UI/card/card';
+import { toastProvider } from '../../../libs/toast';
 import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
 import ChannelSection from './Sections/ChannelSection';
 import TextAreaSection from './Sections/TextAreaSection';
 import TypeSection from './Sections/TypeSection';
-import { AdditionalTemplateContainer, CheckboxContainer, SettingsSection } from './StyledBasic';
-import { toastProvider } from '../../../libs/toast';
 
 const telephoneTemplate = generateTelephoneTemplate();
 
@@ -49,8 +50,8 @@ const Basic = ({ name }) => {
 
     return (
         <>
-            <div>
-                <SettingsSection>
+            <Card>
+                <SimpleGrid columns={3} rows={3} py={2}>
                     <SexSection
                         setHandler={(value) => formik.setFieldValue('sex', value)}
                         setting={formik.values.sex}
@@ -65,26 +66,28 @@ const Basic = ({ name }) => {
                         setting={formik.values.type}
                         date={formik.values.date}
                     />
-                </SettingsSection>
+                </SimpleGrid>
                 <TextAreaSection
                     generalSetHandler={(value) => formik.setFieldValue('general', value)}
                     general={formik.values.general}
                     detailsSetHandler={(value) => formik.setFieldValue('details', value)}
                     details={formik.values.details}
                 />
-                <CheckboxContainer>
+                <HStack py={2}>
                     <Checkbox
                         labelContent="Zapytanie o ofertę"
                         setHandler={(value) => formik.setFieldValue('hasOffer', value)}
                         value={formik.values.hasOffer}
                     />
-                </CheckboxContainer>
-                <AdditionalTemplateContainer>
+                </HStack>
+                <Box>
                     <AdditionalTemplate title="Zamknięcie telefoniczne" enabled template={telephoneTemplate} />
-                </AdditionalTemplateContainer>
+                </Box>
                 <ConfirmButtons onClearFields={onClearFields} onGenerateTemplate={formik.handleSubmit} />
-            </div>
-            <MainTextarea value={template} setTemplate={setTemplate} />
+            </Card>
+            <Box w="100%" py={10}>
+                <MainTextarea value={template} setTemplate={setTemplate} />
+            </Box>
         </>
     );
 };

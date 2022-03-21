@@ -1,8 +1,10 @@
+import { Button } from '@chakra-ui/react';
 import React from 'react';
-import { StyledConfirmButton } from './StyledConfirmButton';
 
 const ConfirmButton = (props) => (
-    <StyledConfirmButton {...props}>{props.title ? props.title : 'Zatwierdź'}</StyledConfirmButton>
+    <Button colorScheme={'green'} {...props}>
+        {props.title ? props.title : 'Zatwierdź'}
+    </Button>
 );
 
 export default ConfirmButton;

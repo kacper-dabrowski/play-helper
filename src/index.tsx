@@ -10,16 +10,19 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { store } from './stores/store';
 import { theme } from './shared/theme/theme';
+import { ChakraProvider } from '@chakra-ui/react';
 
 ReactDOM.render(
     <React.StrictMode>
         <StoreProvider store={store}>
-            <BrowserRouter>
-                <ThemeProvider theme={theme}>
-                    <App />
-                </ThemeProvider>
-                <Toaster />
-            </BrowserRouter>
+            <ChakraProvider>
+                <BrowserRouter>
+                    <ThemeProvider theme={theme}>
+                        <App />
+                    </ThemeProvider>
+                    <Toaster />
+                </BrowserRouter>
+            </ChakraProvider>
         </StoreProvider>
     </React.StrictMode>,
     document.getElementById('root')

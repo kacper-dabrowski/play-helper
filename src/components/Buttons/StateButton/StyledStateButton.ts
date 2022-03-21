@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { BaseButton } from '../BaseButton/StyledBaseButton';
 import { colors } from '../../../shared/colors';
+import { Button } from '@chakra-ui/react';
 
 interface StateButtonProps {
     active: boolean;
@@ -21,7 +22,7 @@ export const StyledPlayNextButton = styled(BaseButton)<StateButtonProps>`
     }
 `;
 
-export const StyledSupportButton = styled(BaseButton)<StateButtonProps>`
+export const StyledSupportButton = styled(Button)<StateButtonProps>`
     width: 9rem;
     margin: 0.5rem;
     background-color: ${({ active }) =>

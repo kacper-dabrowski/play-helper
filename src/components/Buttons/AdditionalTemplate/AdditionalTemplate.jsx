@@ -9,7 +9,9 @@ const AdditionalTemplate = ({ enabled, title, template }) => {
             onCopy={() => enabled && toastProvider.success('Pomyślnie skopiowano formatkę')}
             text={template}
         >
-            <StyledAdditionalTemplate enabled={enabled}>{title}</StyledAdditionalTemplate>
+            <StyledAdditionalTemplate colorScheme={enabled ? 'green' : 'orange'} enabled={enabled}>
+                {title}
+            </StyledAdditionalTemplate>
         </CopyToClipboard>
     );
 };

@@ -1,6 +1,10 @@
+import { Button } from '@chakra-ui/react';
 import React from 'react';
-import { StyledClearButton } from './StyledClearButton';
 
-const ClearButton = (props) => <StyledClearButton {...props}>Wyczyść</StyledClearButton>;
+const ClearButton = (props) => (
+    <Button colorScheme={'red'} {...props}>
+        Wyczyść
+    </Button>
+);
 
 export default ClearButton;

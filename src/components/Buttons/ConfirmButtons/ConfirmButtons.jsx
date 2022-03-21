@@ -1,12 +1,12 @@
+import { HStack } from '@chakra-ui/react';
 import React from 'react';
 import ClearButton from './ClearButton/ClearButton';
 import ConfirmButton from './ConfirmButton/ConfirmButton';
-import * as Styled from './StyledConfirmButtons';
 
 const ConfirmButtons = ({ onGenerateTemplate, onClearFields, confirmTitle }) => (
-    <Styled.Wrapper>
+    <HStack display={'flex'} justify={'center'} align="center">
         <ConfirmButton type="submit" onClick={onGenerateTemplate} title={confirmTitle} />
         <ClearButton onClick={onClearFields} />
-    </Styled.Wrapper>
+    </HStack>
 );
 export default ConfirmButtons;
