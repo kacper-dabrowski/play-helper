@@ -13,6 +13,5 @@ const routes = {
         main: { exact: true, path: '/user-panel' },
         srq: { title: 'SRQ', exact: true, path: '/user-panel/srq' },
     },
-    playNext: {},
 };
 export default routes;

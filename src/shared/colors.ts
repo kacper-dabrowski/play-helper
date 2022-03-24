@@ -4,10 +4,6 @@ export const colors = {
             colorDark: '#180f25',
             colorBright: '#303030',
         },
-        playNext: {
-            colorDark: '#303030',
-            colorBright: '#009688',
-        },
     },
     mainBackground: '#303030',
     allowed: '#399547',
@@ -18,9 +14,6 @@ export const colors = {
     playPurple: '#583787',
     grayedPurple: '#a98dd0',
     stateButtons: {
-        playNext: {
-            activeBackgroundColor: '#f7be16',
-        },
         support: {
             activeBackgroundColor: '#583787',
         },

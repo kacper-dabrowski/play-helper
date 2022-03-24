@@ -4,7 +4,6 @@ import { Route } from 'react-router';
 import NotFoundProviderSwitch from './components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
 import { SplashScreen } from './components/UI/SplashScreen/SplashScreen';
-import PlayNext from './Pages/PlayNext/PlayNext';
 import Support from './Pages/Support/Support';
 import UserPanel from './Pages/userPanel/userPanel';
 import WelcomeScreen from './Pages/WelcomeScreen/WelcomeScreen';
@@ -30,9 +29,6 @@ const App = () => {
         <NotFoundProviderSwitch>
             <PrivateRoute path="/support">
                 <Support />
-            </PrivateRoute>
-            <PrivateRoute path="/next">
-                <PlayNext />
             </PrivateRoute>
             <PrivateRoute path="/user-panel">
                 <UserPanel />

@@ -45,13 +45,6 @@ const WelcomeScreen = () => {
                     closeModalHandler={() => setSettingsModalOpened(false)}
                 />
                 <ProjectTile
-                    projectEndpoint="/next"
-                    projectColorDark={colors.projectSpecificColors.playNext.colorDark}
-                    projectColorBright={colors.projectSpecificColors.playNext.colorBright}
-                    projectLogo={arrowLeft}
-                    projectText="PLAY NEXT"
-                />
-                <ProjectTile
                     projectEndpoint="/support"
                     projectColorDark={colors.projectSpecificColors.support.colorDark}
                     projectColorBright={colors.mainBackground}
