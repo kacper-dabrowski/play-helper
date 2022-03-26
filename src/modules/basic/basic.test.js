@@ -1,13 +1,13 @@
-const { generateBasicTemplate } = require('./basic');
-const config = require('../../shared/identifiers');
+import { generateBasicTemplate } from './basic';
+import config from '../../shared/identifiers';
 
 describe('Basic notification module', () => {
     it('should generate a valid basic template for man, business type and helpline channel with and without offer', () => {
         const templateConfig = {
             name: 'Test Test',
-            sex: config.default.sex.man,
-            type: config.default.type.business,
-            channel: config.default.channel.helpline,
+            sex: config.sex.man,
+            type: config.type.business,
+            channel: config.channel.helpline,
             date: '11-12-2020',
             general: 'asd',
             details: 'dsa',
@@ -56,9 +56,9 @@ Obsługa Klienta Play`);
     it(`should generate a valid basic template for woman, business type and helpline channel with and without offer`, () => {
         const templateConfig = {
             name: 'Test Test',
-            sex: config.default.sex.woman,
-            type: config.default.type.business,
-            channel: config.default.channel.helpline,
+            sex: config.sex.woman,
+            type: config.type.business,
+            channel: config.channel.helpline,
             date: '11-12-2020',
             general: 'asd',
             details: 'dsa',
@@ -107,9 +107,9 @@ Obsługa Klienta Play`);
     it(`should generate a valid basic template for company, business type and helpline channel with and without offer`, () => {
         const templateConfig = {
             name: 'Test Test',
-            sex: config.default.sex.company,
-            type: config.default.type.business,
-            channel: config.default.channel.helpline,
+            sex: config.sex.company,
+            type: config.type.business,
+            channel: config.channel.helpline,
             date: '11-12-2020',
             general: 'asd',
             details: 'dsa',
