@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { Logout } from './logout';
 import authSlice from '../store/authSlice';
-import { toastProvider } from '../../libs/toast';
 import * as auth from '../store/auth';
 
 const store = configureStore({

@@ -42,8 +42,9 @@
         "format": "prettier -c .prettierrc.json \"./**/*.{ts,tsx,js,jsx}\"",
         "check-types": "tsc --noEmit",
         "format:fix": "npm run format -- --write",
-        "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
-        "lint:fix": "eslint src/**/*.ts{,x}  --fix",
+        "lint": "eslint ./src",
+        "lint:fix": "npm run lint -- --fix",
+        "prebuild": "tsc --noEmit && npm run lint && npm t",
         "lint:warnings": "eslint  --fix --config=./.eslintrc.json .",
         "check-coverage": "npm run test -- --coverage .",
         "analyze": "source-map-explorer 'build/static/js/*.js'"
