@@ -1,19 +1,21 @@
-import { generateBasicTemplate } from './basic';
-import config from '../../shared/identifiers';
+import { CustomerGender, CustomerType, NotificationChannel } from '../../shared/identifiers';
+import { BasicTemplateParams, generateBasicTemplate } from './template';
 
 describe('Basic notification module', () => {
+    const employeeName = 'Test Test';
+
     it('should generate a valid basic template for man, business type and helpline channel with and without offer', () => {
-        const templateConfig = {
-            name: 'Test Test',
-            sex: config.sex.man,
-            type: config.type.business,
-            channel: config.channel.helpline,
+        const templateConfig: BasicTemplateParams = {
+            gender: CustomerGender.Man,
+            type: CustomerType.Business,
+            channel: NotificationChannel.Helpline,
             date: '11-12-2020',
-            general: 'asd',
-            details: 'dsa',
+            notificationDescription: 'asd',
+            notificationDetails: 'dsa',
             hasOffer: false,
         };
-        expect(generateBasicTemplate(templateConfig)).toEqual(`Szanowny Panie,
+
+        expect(generateBasicTemplate(employeeName, templateConfig)).toEqual(`Szanowny Panie,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 
@@ -32,7 +34,7 @@ Będę wdzięczny, jeżeli oceni Pan moją pracę, proszę pamiętać, że oceni
 Z poważaniem,
 Test Test
 Obsługa Klienta Play`);
-        expect(generateBasicTemplate({ ...templateConfig, hasOffer: true })).toEqual(`Szanowny Panie,
+        expect(generateBasicTemplate(employeeName, { ...templateConfig, hasOffer: true })).toEqual(`Szanowny Panie,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 
@@ -54,17 +56,16 @@ Test Test
 Obsługa Klienta Play`);
     });
     it(`should generate a valid basic template for woman, business type and helpline channel with and without offer`, () => {
-        const templateConfig = {
-            name: 'Test Test',
-            sex: config.sex.woman,
-            type: config.type.business,
-            channel: config.channel.helpline,
+        const templateConfig: BasicTemplateParams = {
+            gender: CustomerGender.Woman,
+            type: CustomerType.Business,
+            channel: NotificationChannel.Helpline,
             date: '11-12-2020',
-            general: 'asd',
-            details: 'dsa',
+            notificationDescription: 'asd',
+            notificationDetails: 'dsa',
             hasOffer: false,
         };
-        expect(generateBasicTemplate(templateConfig)).toEqual(`Szanowna Pani,
+        expect(generateBasicTemplate(employeeName, templateConfig)).toEqual(`Szanowna Pani,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 
@@ -83,7 +84,7 @@ Będę wdzięczny, jeżeli oceni Pani moją pracę, proszę pamiętać, że ocen
 Z poważaniem,
 Test Test
 Obsługa Klienta Play`);
-        expect(generateBasicTemplate({ ...templateConfig, hasOffer: true })).toEqual(`Szanowna Pani,
+        expect(generateBasicTemplate(employeeName, { ...templateConfig, hasOffer: true })).toEqual(`Szanowna Pani,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 
@@ -105,17 +106,16 @@ Test Test
 Obsługa Klienta Play`);
     });
     it(`should generate a valid basic template for company, business type and helpline channel with and without offer`, () => {
-        const templateConfig = {
-            name: 'Test Test',
-            sex: config.sex.company,
-            type: config.type.business,
-            channel: config.channel.helpline,
+        const templateConfig: BasicTemplateParams = {
+            gender: CustomerGender.Company,
+            type: CustomerType.Business,
+            channel: NotificationChannel.Helpline,
             date: '11-12-2020',
-            general: 'asd',
-            details: 'dsa',
+            notificationDescription: 'asd',
+            notificationDetails: 'dsa',
             hasOffer: false,
         };
-        expect(generateBasicTemplate(templateConfig)).toEqual(`Szanowni Państwo,
+        expect(generateBasicTemplate(employeeName, templateConfig)).toEqual(`Szanowni Państwo,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 
@@ -134,7 +134,7 @@ Będę wdzięczny, jeżeli ocenią Państwo moją pracę, proszę pamiętać, ż
 Z poważaniem,
 Test Test
 Obsługa Klienta Play`);
-        expect(generateBasicTemplate({ ...templateConfig, hasOffer: true })).toEqual(`Szanowni Państwo,
+        expect(generateBasicTemplate(employeeName, { ...templateConfig, hasOffer: true })).toEqual(`Szanowni Państwo,
 
 dziękuję za zgłoszenie, które dotyczyło asd.
 

@@ -1,22 +1,26 @@
-import config from '../../shared/identifiers';
+import { CustomerGender } from '../../shared/identifiers';
 
-export const generateClosedDoubleTemplate = (sex, numOfCurrent, numOfClosed) => {
+export const generateClosedDoubleTemplate = (
+    gender: CustomerGender,
+    numOfCurrent: string,
+    numOfClosed: string
+): string => {
     if (!numOfCurrent || !numOfClosed) {
         throw new Error('Nie ustawiono jednego z numerów zgłoszeń!');
     }
 
-    switch (sex) {
-        case config.sex.man:
+    switch (gender) {
+        case CustomerGender.Man:
             return `Dziękujemy za zgłoszenie ${numOfCurrent} Poruszane przez Pana kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
 
 Z poważaniem, 
 Obsługa Klienta Play`;
-        case config.sex.woman:
+        case CustomerGender.Woman:
             return `Dziękujemy za zgłoszenie ${numOfCurrent}. Poruszane przez Panią kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
       
 Z poważaniem, 
 Obsługa Klienta Play`;
-        case config.sex.company:
+        case CustomerGender.Company:
             return `Dziękujemy za zgłoszenie ${numOfCurrent}. Poruszane przez Państwa kwestie zostały już wyjaśnione w odpowiedzi na zgłoszenie ${numOfClosed}.
 
 Z poważaniem,

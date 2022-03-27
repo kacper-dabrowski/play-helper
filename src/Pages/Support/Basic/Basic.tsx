@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useFormik } from 'formik';
 import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import Checkbox from '../../../components/Inputs/Checkbox/Checkbox';
 import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
-import { generateBasicTemplate, generateTelephoneTemplate } from '../../../modules/basic/basic';
 import ChannelSection from './Sections/ChannelSection';
 import TextAreaSection from './Sections/TextAreaSection';
 import TypeSection from './Sections/TypeSection';
 import { AdditionalTemplateContainer, CheckboxContainer, SettingsSection } from './StyledBasic';
 import { toastProvider } from '../../../libs/toast';
+import { generateBasicTemplate, generateTelephoneTemplate } from '../../../templates/basic/template';
+import { CustomerGender, CustomerType, NotificationChannel } from '../../../shared/identifiers';
 
 const telephoneTemplate = generateTelephoneTemplate();
 
-const Basic = ({ name }) => {
+interface BasicFormProps {
+    name: string;
+}
+
+const Basic: FC<BasicFormProps> = ({ name }) => {
     const formik = useFormik({
         initialValues: {
-            sex: '',
-            type: '',
-            channel: '',
+            gender: CustomerGender.NotSet,
+            type: CustomerType.NotSet,
+            channel: NotificationChannel.NotSet,
             date: '',
-            general: '',
-            details: '',
+            notificationDescription: '',
+            notificationDetails: '',
             hasOffer: false,
         },
         onSubmit: (values) => {
@@ -32,10 +37,12 @@ const Basic = ({ name }) => {
                     ...values,
                 };
 
-                const generatedTemplate = generateBasicTemplate(templateConfig);
+                const generatedTemplate = generateBasicTemplate(name, templateConfig);
                 setTemplate(generatedTemplate);
             } catch (error) {
-                toastProvider.error(error.message);
+                if (error instanceof Error) {
+                    toastProvider.error(error.message);
+                }
             }
         },
     });
@@ -68,7 +75,7 @@ const Basic = ({ name }) => {
                 </SettingsSection>
                 <TextAreaSection
                     generalSetHandler={(value) => formik.setFieldValue('general', value)}
-                    general={formik.values.general}
+                    general={formik.values.n}
                     detailsSetHandler={(value) => formik.setFieldValue('details', value)}
                     details={formik.values.details}
                 />

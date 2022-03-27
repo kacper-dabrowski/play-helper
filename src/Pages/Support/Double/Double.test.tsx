@@ -2,36 +2,39 @@ import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import Double from './Double';
-import config from '../../../shared/identifiers';
 import { toastProvider } from '../../../libs/toast';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../../shared/theme/theme';
 import { generateClosedDoubleTemplate } from '../../../modules/closedDouble/closedDouble';
 import { generateOpenedDoubleTemplate } from '../../../modules/openedDouble/openedDouble';
+import { CustomerGender, DoubledNotificationType } from '../../../shared/identifiers';
+import { mocked } from 'jest-mock';
 
 jest.mock('../../../modules/closedDouble/closedDouble');
 
 jest.mock('../../../modules/openedDouble/openedDouble');
 
 describe('Support - Double', () => {
+    const mockedClosedDouble = mocked(generateClosedDoubleTemplate, true);
+
     afterEach(() => {
         jest.resetAllMocks();
     });
 
     it('should render additional gender setting buttons if double is closed', () => {
-        renderComponent(config.double.closed);
+        renderComponent(DoubledNotificationType.Closed);
 
         expect(screen.getByText('Mężczyzna')).toBeInTheDocument();
     });
 
     it('should not render additional gender setting buttons if double is opened', () => {
-        renderComponent(config.double.opened);
+        renderComponent(DoubledNotificationType.Opened);
 
         expect(screen.queryByText('Mężczyzna')).not.toBeInTheDocument();
     });
 
     it('should call generate double opened template on confirm button click', () => {
-        renderComponent(config.double.opened);
+        renderComponent(DoubledNotificationType.Opened);
 
         fillAndSubmitForm();
 
@@ -47,7 +50,7 @@ describe('Support - Double', () => {
             throw new Error('error!');
         });
 
-        renderComponent(config.double.opened);
+        renderComponent(DoubledNotificationType.Opened);
 
         fillAndSubmitForm();
 
@@ -60,13 +63,13 @@ describe('Support - Double', () => {
     });
 
     it('should show a toast message, when generate template for double closed fails', () => {
-        generateClosedDoubleTemplate.mockImplementation(() => {
+        mockedClosedDouble.mockImplementation(() => {
             throw new Error('error!');
         });
 
-        renderComponent(config.double.closed);
+        renderComponent(DoubledNotificationType.Closed);
 
-        fillAndSubmitForm({ ...defaultValues, sex: 'Mężczyzna' });
+        fillAndSubmitForm({ ...defaultValues, gender: 'Mężczyzna' });
 
         userEvent.click(screen.getByText('Zatwierdź'));
         const errorToastSpy = jest.spyOn(toastProvider, 'error');
@@ -77,15 +80,15 @@ describe('Support - Double', () => {
     });
 
     it('should call generate double closed template on confirm button click', () => {
-        renderComponent(config.double.closed);
+        renderComponent(DoubledNotificationType.Closed);
 
-        fillAndSubmitForm({ ...defaultValues, sex: 'Mężczyzna' });
+        fillAndSubmitForm({ ...defaultValues, gender: 'Mężczyzna' });
 
         userEvent.click(screen.getByText('Zatwierdź'));
 
         return waitFor(() => {
             expect(generateClosedDoubleTemplate).toHaveBeenCalledWith(
-                'MAN',
+                CustomerGender.Man,
                 defaultValues.current,
                 defaultValues.doubled
             );
@@ -93,14 +96,14 @@ describe('Support - Double', () => {
     });
 
     const defaultValues = {
-        sex: '',
+        gender: '',
         doubled: '987654321',
         current: '123456789',
     };
 
     function fillAndSubmitForm(values = defaultValues) {
-        if (values.sex) {
-            userEvent.click(screen.getByText(values.sex));
+        if (values.gender) {
+            userEvent.click(screen.getByText(values.gender));
             userEvent.type(screen.getByPlaceholderText('Numer zamkniętego zgłoszenia'), values.doubled);
         } else {
             userEvent.type(screen.getByPlaceholderText('Numer otwartego zgłoszenia'), values.doubled);
@@ -109,7 +112,7 @@ describe('Support - Double', () => {
         userEvent.type(screen.getByPlaceholderText('Numer Twojego zgłoszenia'), values.current);
     }
 
-    function renderComponent(type: string): void {
+    function renderComponent(type: DoubledNotificationType): void {
         render(
             <ThemeProvider theme={theme}>
                 <Double type={type} />

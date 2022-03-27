@@ -1,19 +1,23 @@
 import { useFormik } from 'formik';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
 import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import SexSection from '../../../components/SexSection/SexSection';
 import { toastProvider } from '../../../libs/toast';
 import { generateClosedDoubleTemplate } from '../../../modules/closedDouble/closedDouble';
 import { generateOpenedDoubleTemplate } from '../../../modules/openedDouble/openedDouble';
-import config from '../../../shared/identifiers';
+import { CustomerGender, DoubledNotificationType } from '../../../shared/identifiers';
 import InputSection from './Sections/InputSection';
 import { DoubleContainer, StyledSexSection } from './StyledDouble';
 
-const Double = ({ type }) => {
+interface DoubleFormProps {
+    type: DoubledNotificationType;
+}
+
+const Double: FC<DoubleFormProps> = ({ type }) => {
     const formik = useFormik({
         initialValues: {
-            sex: '',
+            sex: CustomerGender.NotSet,
             current: '',
             doubled: '',
         },
@@ -22,10 +26,10 @@ const Double = ({ type }) => {
             try {
                 let currentTemplate;
                 switch (type) {
-                    case config.double.opened:
+                    case DoubledNotificationType.Opened:
                         currentTemplate = generateOpenedDoubleTemplate(values.current, values.doubled);
                         break;
-                    case config.double.closed:
+                    case DoubledNotificationType.Closed:
                         currentTemplate = generateClosedDoubleTemplate(values.sex, values.current, values.doubled);
                         break;
                     default:
@@ -34,7 +38,9 @@ const Double = ({ type }) => {
 
                 setTemplate(currentTemplate);
             } catch (error) {
-                toastProvider.error(error.message);
+                if (error instanceof Error) {
+                    toastProvider.error(error.message);
+                }
             }
         },
     });
@@ -52,7 +58,7 @@ const Double = ({ type }) => {
     return (
         <>
             <DoubleContainer type={type}>
-                {type === config.double.closed && (
+                {type === DoubledNotificationType.Closed && (
                     <StyledSexSection>
                         <SexSection
                             setting={formik.values.sex}

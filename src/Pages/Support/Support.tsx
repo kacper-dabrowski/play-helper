@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router';
 import backgroundImage from '../../assets/backgrounds/support-wave.svg';
 import NotFoundProviderSwitch from '../../components/Routes/NotFoundProviderSwitch/NotFoundProviderSwitch';
 import SupportLayout from '../../containers/layouts/SupportLayout/SupportLayout';
-import config from '../../shared/identifiers';
+import { DoubledNotificationType } from '../../shared/identifiers';
 import routes from '../../shared/routes';
 import { StoreState } from '../../stores/store';
 import { SolutionPicker } from '../../userPanel/solutions/solutionsPicker';
@@ -27,10 +27,10 @@ const Support: FC = () => {
                     <BasicContainer name={fullName} />
                 </Route>
                 <Route exact path={routes.support.doubleOpened.path}>
-                    <Double type={config.double.opened} />
+                    <Double type={DoubledNotificationType.Opened} />
                 </Route>
                 <Route exact path={routes.support.doubleClosed.path}>
-                    <Double type={config.double.closed} />
+                    <Double type={DoubledNotificationType.Closed} />
                 </Route>
                 <Route exact path={routes.support.payments.path}>
                     <Payments fullName={fullName} />

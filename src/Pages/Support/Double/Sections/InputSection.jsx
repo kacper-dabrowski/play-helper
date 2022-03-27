@@ -1,12 +1,12 @@
 import React from 'react';
 import SupportInput from '../../../../components/Inputs/SupportInput/SupportInput';
-import config from '../../../../shared/identifiers';
+import { DoubledNotificationType } from '../../../../shared/identifiers';
 import { StyledInputSection } from '../StyledDouble';
 
 const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHandler }) => {
     let secondInput;
     switch (type) {
-        case config.double.closed:
+        case DoubledNotificationType.Closed:
             secondInput = (
                 <SupportInput
                     onChange={(event) => setDoubledHandler(event.target.value)}
@@ -16,7 +16,7 @@ const InputSection = ({ type, doubled, current, setDoubledHandler, setCurrentHan
                 />
             );
             break;
-        case config.double.opened:
+        case DoubledNotificationType.Opened:
             secondInput = (
                 <SupportInput
                     onChange={(event) => setDoubledHandler(event.target.value)}
