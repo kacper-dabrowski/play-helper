@@ -1,10 +1,11 @@
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
-import { generatePayments, generatePaymentTemplates } from './payments';
+import { createPaymentDivider, DefaultDivider, generatePayments, generatePaymentTemplates } from './payments';
 
 describe('payments', () => {
     beforeEach(() => {
         jest.restoreAllMocks();
+        jest.useFakeTimers();
     });
     it('should generate a valid payment string', () => {
         jest.spyOn(Date, 'now').mockImplementation(() => 1605567600000);
@@ -25,147 +26,129 @@ Pozdrawiam
 Obsługa Klienta Play.`);
     });
 
-    describe('P01', () => {
-        it('should generate a valid payments set for P01 after due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P01,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/17'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 11, 17)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 17)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 1, 17)),
-                    amount: 41,
-                },
-            ]);
+    const expectedDays = {
+        P01: {
+            dateBefore: new Date('2020/11/07'),
+            dateAfter: new Date('2020/11/08'),
+            before: [
+                createDateAssertion(2020, 10, 17),
+                createDateAssertion(2020, 11, 17),
+                createDateAssertion(2021, 0, 17),
+            ],
+            after: [
+                createDateAssertion(2020, 11, 17),
+                createDateAssertion(2021, 0, 17),
+                createDateAssertion(2021, 1, 17),
+            ],
+        },
+        P06: {
+            dateBefore: new Date('2020/11/12'),
+            dateAfter: new Date('2020/11/13'),
+            before: [
+                createDateAssertion(2020, 10, 22),
+                createDateAssertion(2020, 11, 22),
+                createDateAssertion(2021, 0, 22),
+            ],
+            after: [
+                createDateAssertion(2020, 11, 22),
+                createDateAssertion(2021, 0, 22),
+                createDateAssertion(2021, 1, 22),
+            ],
+        },
+        P10: {
+            dateBefore: new Date('2020/11/16'),
+            dateAfter: new Date('2020/11/17'),
+            before: [
+                createDateAssertion(2020, 10, 26),
+                createDateAssertion(2020, 11, 26),
+                createDateAssertion(2021, 0, 26),
+            ],
+            after: [
+                createDateAssertion(2020, 11, 26),
+                createDateAssertion(2021, 0, 26),
+                createDateAssertion(2021, 1, 26),
+            ],
+        },
+        P15: {
+            dateBefore: new Date('2020/11/21'),
+            dateAfter: new Date('2020/11/22'),
+            before: [
+                createDateAssertion(2020, 10, 17),
+                createDateAssertion(2020, 11, 17),
+                createDateAssertion(2021, 0, 17),
+            ],
+            after: [
+                createDateAssertion(2020, 11, 17),
+                createDateAssertion(2021, 0, 17),
+                createDateAssertion(2021, 1, 17),
+            ],
+        },
+        P20: {
+            dateBefore: new Date('2020/11/27'),
+            dateAfter: new Date('2020/11/28'),
+            before: [
+                createDateAssertion(2020, 10, 7),
+                createDateAssertion(2020, 11, 7),
+                createDateAssertion(2021, 0, 7),
+            ],
+            after: [createDateAssertion(2020, 11, 7), createDateAssertion(2021, 0, 7), createDateAssertion(2021, 1, 7)],
+        },
+        P25: {
+            dateBefore: new Date('2020/11/01'),
+            dateAfter: new Date('2020/11/02'),
+            before: [
+                createDateAssertion(2020, 10, 10),
+                createDateAssertion(2020, 11, 10),
+                createDateAssertion(2021, 0, 10),
+            ],
+            after: [
+                createDateAssertion(2020, 11, 10),
+                createDateAssertion(2021, 0, 10),
+                createDateAssertion(2021, 1, 10),
+            ],
+        },
+    };
+
+    describe('modules - payments', () => {
+        Object.values(config.payments.spans).forEach((paymentSpan) => {
+            const divider = createPaymentDivider(paymentSpan);
+            const amounts = [41, 41, 41];
+            const { dateBefore, dateAfter } = expectedDays[paymentSpan] || {};
+
+            it(`should generate a valid payments set for ${paymentSpan} before due date`, () => {
+                jest.setSystemTime(dateBefore);
+
+                const result = divider.generatePayments(amounts);
+
+                expectedDays[paymentSpan].before.forEach((expectedDate, index) => {
+                    expect(result[index]).toMatchObject({ date: expectedDate });
+                });
+            });
+
+            it(`should generate a valid payments set for ${paymentSpan} after due date`, () => {
+                jest.setSystemTime(dateAfter);
+
+                const result = divider.generatePayments(amounts);
+
+                expectedDays[paymentSpan].after.forEach((expectedDate, index) => {
+                    expect(result[index]).toMatchObject({ date: expectedDate });
+                });
+            });
         });
 
-        it('should generate a valid payments set for P01 before due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P01,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/07'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 10, 17)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2020, 11, 17)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 17)),
-                    amount: 41,
-                },
-            ]);
-        });
-    });
+        it('should pass', () => {
+            const divider = createPaymentDivider('P15');
+            jest.setSystemTime(new Date('2022/06/18'));
 
-    describe('P06', () => {
-        it('should generate a valid payments set for P06 after due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P06,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/13'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 11, 22)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 22)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 1, 22)),
-                    amount: 41,
-                },
-            ]);
-        });
+            const expected = [
+                convertDate(new Date(2022, 6, 1)),
+                convertDate(new Date(2022, 6, 31)),
+                convertDate(new Date(2022, 7, 31)),
+            ];
 
-        it('should generate a valid payments set for P06 before due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P06,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/11'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 10, 22)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2020, 11, 22)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 22)),
-                    amount: 41,
-                },
-            ]);
-        });
-    });
-
-    describe('P10', () => {
-        it('should generate a valid payments set for P10 after due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P10,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/17'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 11, 26)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 26)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 1, 26)),
-                    amount: 41,
-                },
-            ]);
-        });
-
-        it('should generate a valid payments set for P10 before due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P10,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/15'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 10, 26)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2020, 11, 26)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 26)),
-                    amount: 41,
-                },
-            ]);
+            divider.generatePayments([41, 41, 41]).forEach(({ date }, index) => {
+                expect(date).toEqual(expected[index]);
+            });
         });
     });
 
@@ -310,54 +293,6 @@ Obsługa Klienta Play.`);
         });
     });
 
-    describe('P25', () => {
-        it('should generate a valid payments set for P25 before due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P25,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/01'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 10, 10)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2020, 11, 10)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 10)),
-                    amount: 41,
-                },
-            ]);
-        });
-
-        it('should generate a valid payments set for P25 after due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P25,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/02'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 11, 10)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 10)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 1, 10)),
-                    amount: 41,
-                },
-            ]);
-        });
-    });
-
     it('should throw an error, if unknown payment span was passed to the function', () => {
         const paymentsConfig = {
             paymentSpan: 'SOMETHING',
@@ -369,3 +304,7 @@ Obsługa Klienta Play.`);
         expect(() => generatePayments(paymentsConfig)).toThrow();
     });
 });
+
+function createDateAssertion(year, month, day) {
+    return convertDate(new Date(year, month, day));
+}
