@@ -1,6 +1,6 @@
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
-import { createPaymentDivider, DefaultDivider, generatePayments, generatePaymentTemplates } from './payments';
+import { createPaymentDivider, generatePayments, generatePaymentTemplates } from './payments';
 
 describe('payments', () => {
     beforeEach(() => {

@@ -1,5 +1,4 @@
 import { addMonths, setDate } from 'date-fns';
-import { NumberLocale } from 'yup/lib/locale';
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
 
@@ -11,11 +10,12 @@ export function createPaymentDivider(paymentSpan: keyof typeof config.payments.s
         case 'P06':
         case 'P10':
         case 'P25':
+        case 'P20':
             return new DefaultDivider(dueDay, dividingDay);
         case 'P15':
             return new P15Divider(dueDay, dividingDay);
-        case 'P20':
-            return new P20Divider(dueDay, dividingDay);
+        default:
+            throw new Error('Niepoprawny okres rozliczeniowy');
     }
 }
 
@@ -31,7 +31,7 @@ abstract class PaymentDivider {
 
         const startingDate = setDate(this.getCurrentDate(), this.dueDay);
 
-        return shouldMoveMonthForward ? addMonths(startingDate, 1) : addMonths(startingDate, 0);
+        return shouldMoveMonthForward ? addMonths(startingDate, 1) : startingDate;
     }
 
     protected handleDefaultCase(amounts: number[]) {
@@ -92,22 +92,6 @@ class P15Divider extends PaymentDivider {
         const willMonthChange = this.willMonthChange(startingDate);
 
         return willMonthChange ? setDate(startingDate, this.dueDay) : addMonths(startingDate, monthsToAdd);
-    }
-}
-
-class P20Divider extends PaymentDivider {
-    generatePayments(amounts: number[]): { amount: number; date: string }[] {
-        return this.handleDefaultCase(amounts);
-    }
-
-    protected calculateFirstPaymentDate(): Date {
-        const dayOfMonth = this.getCurrentDate().getDate();
-
-        const shouldMoveMonthForward = dayOfMonth >= this.dividingDay;
-
-        const startingDate = setDate(this.getCurrentDate(), this.dueDay);
-
-        return shouldMoveMonthForward ? addMonths(startingDate, 2) : addMonths(startingDate, 1);
     }
 }
 
