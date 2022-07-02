@@ -1,3 +1,4 @@
+import { differenceInDays } from 'date-fns';
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
 import { createPaymentDivider, generatePayments, generatePaymentTemplates } from './payments';
@@ -8,7 +9,8 @@ describe('payments', () => {
         jest.useFakeTimers();
     });
     it('should generate a valid payment string', () => {
-        jest.spyOn(Date, 'now').mockImplementation(() => 1605567600000);
+        jest.setSystemTime(1605567600000);
+
         const paymentConfig = {
             name: 'Kacper Dąbrowski',
             invoices: ['F/123', 'F/1234', 'F/12345'],
@@ -146,150 +148,11 @@ Obsługa Klienta Play.`);
                 convertDate(new Date(2022, 7, 31)),
             ];
 
-            divider.generatePayments([41, 41, 41]).forEach(({ date }, index) => {
-                expect(date).toEqual(expected[index]);
-            });
-        });
-    });
+            const result = divider.generatePayments([41, 41, 41]);
 
-    describe('P15', () => {
-        it('should generate a valid payments set for P15 before due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/21'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 11, 1)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 31)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 2, 3)),
-                    amount: 41,
-                },
-            ]);
-        });
-
-        it('should generate a valid payments set for P15 before due date (30 days month in the middle)', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/10/21'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 9, 31)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2020, 11, 1)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2020, 11, 31)),
-                    amount: 41,
-                },
-            ]);
-        });
-
-        it('should generate a valid payments set for P15 after due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/22'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 11, 31)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 31)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 2, 3)),
-                    amount: 41,
-                },
-            ]);
-        });
-
-        it('should generate a valid payments set for P15 after due date (hardest case)', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P15,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2021/01/22'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2021, 2, 3)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 4, 1)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 4, 31)),
-                    amount: 41,
-                },
-            ]);
-        });
-    });
-    describe('P20', () => {
-        it('should generate a valid payments set for P20 before due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P20,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/27'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2020, 11, 7)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 0, 7)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 1, 7)),
-                    amount: 41,
-                },
-            ]);
-        });
-
-        it('should generate a valid payments set for P20 after due date', () => {
-            const paymentsConfig = {
-                paymentSpan: config.payments.spans.P20,
-                amounts: [41, 41, 41],
-                currentDate: new Date('2020/11/28'),
-                paymentsCount: 3,
-            };
-            expect(generatePayments(paymentsConfig)).toEqual([
-                {
-                    date: convertDate(new Date(2021, 0, 7)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 1, 7)),
-                    amount: 41,
-                },
-                {
-                    date: convertDate(new Date(2021, 2, 7)),
-                    amount: 41,
-                },
-            ]);
+            expect(result[0].date).toEqual(expected[0]);
+            expect(result[1].date).toEqual(expected[1]);
+            expect(result[2].date).toEqual(expected[2]);
         });
     });
 

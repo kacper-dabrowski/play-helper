@@ -1,4 +1,4 @@
-import { addMonths, setDate } from 'date-fns';
+import { addDays, addMonths, getDaysInMonth, isFirstDayOfMonth, isLastDayOfMonth, setDate, setMonth } from 'date-fns';
 import config from '../../shared/identifiers';
 import { convertDate } from '../../shared/utils';
 
@@ -47,26 +47,10 @@ abstract class PaymentDivider {
 }
 
 class P15Divider extends PaymentDivider {
-    private = false;
+    private daysBetweenFirstAndLastPayment = 61;
 
     generatePayments(amounts: number[]): { amount: number; date: string }[] {
         return this.handleDefaultCase(amounts);
-    }
-
-    protected calculateFirstPaymentDate(): Date {
-        const dayOfMonth = this.getCurrentDate().getDate();
-
-        const shouldMoveMonthForward = dayOfMonth >= this.dividingDay;
-
-        const startingDate = setDate(this.getCurrentDate(), this.dueDay);
-
-        const willMonthChange = this.willMonthChange(startingDate);
-
-        if (shouldMoveMonthForward && willMonthChange) {
-            return startingDate;
-        }
-
-        return shouldMoveMonthForward ? addMonths(startingDate, 1) : startingDate;
     }
 
     protected handleDefaultCase(amounts: number[]): { amount: number; date: string }[] {
@@ -74,24 +58,20 @@ class P15Divider extends PaymentDivider {
 
         return amounts.map((amount, index) => ({
             amount,
-            date: convertDate(this.handleMonthChangedCase(startingDate, index).toString()),
+            date: convertDate(this.addDaysMaxInMonth(startingDate, index).toString()),
         }));
     }
 
-    private willMonthChange(startingDate: Date) {
-        const simulateAddingMonth = addMonths(startingDate, 1);
+    private addDaysMaxInMonth(startingDate: Date, monthsToAdd: number): Date {
+        if (startingDate.getDate() !== 31) {
+            return addMonths(startingDate, monthsToAdd);
+        }
 
-        const isStillDueDay = startingDate.getDate() === this.dueDay;
+        const fakeStartingDate = setDate(startingDate, 15);
 
-        const didDayChange = startingDate.getDate() !== simulateAddingMonth.getDate();
+        const nextPaymentDate = setDate(addMonths(fakeStartingDate, monthsToAdd), this.dueDay);
 
-        return !isStillDueDay || didDayChange;
-    }
-
-    private handleMonthChangedCase(startingDate: Date, monthsToAdd: number): Date {
-        const willMonthChange = this.willMonthChange(startingDate);
-
-        return willMonthChange ? setDate(startingDate, this.dueDay) : addMonths(startingDate, monthsToAdd);
+        return nextPaymentDate;
     }
 }
 

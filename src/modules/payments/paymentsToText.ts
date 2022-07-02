@@ -1,3 +1,5 @@
+import { createPaymentDivider } from './payments';
+
 export const generateAdditionalTemplate = (templateConfig) => {
     const { paymentSpan, paymentsCount, paymentsObject, invoices } = templateConfig;
     return `Okres rozliczeniowy: ${paymentSpan}
@@ -44,21 +46,15 @@ ${invoices
 export const generatePaymentTemplates = (paymentConfig): { mainTemplate: string; additionalTemplate: string } => {
     const { invoices, payments, name, paymentSpan } = paymentConfig;
 
-    const paymentsConfig = {
-        currentDate: new Date(Date.now()),
-        amounts: payments,
-        paymentsCount: payments.length,
-        paymentSpan,
-    };
+    const paymentDivider = createPaymentDivider(paymentSpan);
+    const paymentsObject = paymentDivider.generatePayments(payments);
 
     const additionalTemplateConfig = {
         paymentSpan,
         paymentsCount: payments.length,
-        paymentsObject: generatePayments(paymentsConfig),
+        paymentsObject,
         invoices,
     };
-
-    const paymentsObject = generatePayments(paymentsConfig);
 
     const paymentsList = generatePaymentsList(paymentsObject);
 
@@ -102,6 +98,11 @@ function generatePaymentsList(payments) {
     return paymentStrings.join(`
 `);
 }
+
 function numberToCurrency(amount: any) {
-    throw new Error('Function not implemented.');
+    if (typeof amount !== 'number') {
+        throw new Error('Niepoprawna kwota');
+    }
+
+    return `${amount.toFixed(2)}zł`;
 }
