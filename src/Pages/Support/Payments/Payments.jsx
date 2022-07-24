@@ -12,7 +12,7 @@ import { PaymentsContainer } from './StyledPayments';
 
 const Payments = ({ fullName }) => {
     const [paymentSpan, setPaymentSpan] = useState(null);
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState('');
     const [paymentsCount, setPaymentsCount] = useState(config.payments.maxCount);
     const [invoices, setInvoices] = useState([]);
     const [template, setTemplate] = useState('');
@@ -50,7 +50,7 @@ const Payments = ({ fullName }) => {
 
     const onDivideAmount = () => {
         try {
-            const parsedAmount = Number(amount);
+            const parsedAmount = Number(amount.trim());
 
             if (Number.isNaN(parsedAmount) || parsedAmount === 0 || parsedAmount > config.payments.maxAmount) {
                 throw new Error('Została podana nieprawidłowa kwota do podziału na raty');
@@ -76,7 +76,7 @@ const Payments = ({ fullName }) => {
 
     const onClearFields = () => {
         setPaymentSpan(null);
-        setAmount(null);
+        setAmount('');
         setPaymentsCount(config.payments.maxCount);
         setInvoices([]);
         setTemplate('');
