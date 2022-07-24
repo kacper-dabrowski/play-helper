@@ -19,7 +19,7 @@ const Calculator = (props) => {
                     labelContent="Kwota do rozłozenia"
                     name="amount"
                     type="number"
-                    onChange={(event) => props.setAmountHandler(Number(event.target.value))}
+                    onChange={(event) => props.setAmountHandler(event.target.value)}
                     value={props.amount ? props.amount : ''}
                 />
             </div>
