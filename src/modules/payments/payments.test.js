@@ -75,14 +75,14 @@ Obsługa Klienta Play.`);
             dateBefore: new Date('2020/11/21'),
             dateAfter: new Date('2020/11/22'),
             before: [
-                createDateAssertion(2020, 10, 17),
-                createDateAssertion(2020, 11, 17),
-                createDateAssertion(2021, 0, 17),
+                createDateAssertion(2020, 11, 1),
+                createDateAssertion(2020, 0, 31),
+                createDateAssertion(2021, 2, 3),
             ],
             after: [
-                createDateAssertion(2020, 11, 17),
-                createDateAssertion(2021, 0, 17),
-                createDateAssertion(2021, 1, 17),
+                createDateAssertion(2020, 11, 31),
+                createDateAssertion(2021, 0, 31),
+                createDateAssertion(2021, 2, 3),
             ],
         },
         P20: {
@@ -122,9 +122,11 @@ Obsługa Klienta Play.`);
 
                 const result = divider.generatePayments(amounts);
 
-                expectedDays[paymentSpan].before.forEach((expectedDate, index) => {
-                    expect(result[index]).toMatchObject({ date: expectedDate });
-                });
+                const [...expectedDate] = expectedDays[paymentSpan].before;
+
+                expect(result[0]).toMatchObject({ date: expectedDate[0] });
+                expect(result[1]).toMatchObject({ date: expectedDate[1] });
+                expect(result[2]).toMatchObject({ date: expectedDate[2] });
             });
 
             it(`should generate a valid payments set for ${paymentSpan} after due date`, () => {
@@ -132,9 +134,11 @@ Obsługa Klienta Play.`);
 
                 const result = divider.generatePayments(amounts);
 
-                expectedDays[paymentSpan].after.forEach((expectedDate, index) => {
-                    expect(result[index]).toMatchObject({ date: expectedDate });
-                });
+                const [...expectedDate] = expectedDays[paymentSpan].after;
+
+                expect(result[0]).toMatchObject({ date: expectedDate[0] });
+                expect(result[1]).toMatchObject({ date: expectedDate[1] });
+                expect(result[2]).toMatchObject({ date: expectedDate[2] });
             });
         });
 

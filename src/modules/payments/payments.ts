@@ -29,9 +29,11 @@ abstract class PaymentDivider {
 
         const shouldMoveMonthForward = dayOfMonth >= this.dividingDay;
 
-        const startingDate = setDate(this.getCurrentDate(), this.dueDay);
+        const startingDate = setDate(this.getCurrentDate(), 15);
 
-        return shouldMoveMonthForward ? addMonths(startingDate, 1) : startingDate;
+        const dateWithoutCorrectDate = shouldMoveMonthForward ? addMonths(startingDate, 1) : startingDate;
+
+        return setDate(dateWithoutCorrectDate, this.dueDay);
     }
 
     protected handleDefaultCase(amounts: number[]) {
@@ -47,7 +49,7 @@ abstract class PaymentDivider {
 }
 
 class P15Divider extends PaymentDivider {
-    private daysBetweenFirstAndLastPayment = 61;
+    private processedDates: Date[] = [];
 
     generatePayments(amounts: number[]): { amount: number; date: string }[] {
         return this.handleDefaultCase(amounts);
@@ -58,20 +60,35 @@ class P15Divider extends PaymentDivider {
 
         return amounts.map((amount, index) => ({
             amount,
-            date: convertDate(this.addDaysMaxInMonth(startingDate, index).toString()),
+            date: convertDate(this.handleMovingMonths(startingDate, index).toString()),
         }));
     }
 
-    private addDaysMaxInMonth(startingDate: Date, monthsToAdd: number): Date {
-        if (startingDate.getDate() !== 31) {
-            return addMonths(startingDate, monthsToAdd);
+    private handleMovingMonths(startingDate: Date, monthsToAdd: number): Date {
+        if (!monthsToAdd) {
+            this.processedDates.push(startingDate);
+
+            return startingDate;
         }
 
-        const fakeStartingDate = setDate(startingDate, 15);
+        const previouslyProcessedDate = this.processedDates[monthsToAdd - 1];
 
-        const nextPaymentDate = setDate(addMonths(fakeStartingDate, monthsToAdd), this.dueDay);
+        const previousMonthBumpedDays = previouslyProcessedDate.getDate() !== 31;
 
-        return nextPaymentDate;
+        if (previousMonthBumpedDays) {
+            const daysInCurrentMonth = getDaysInMonth(addMonths(setDate(previouslyProcessedDate, 15), 1));
+            const paymentDate = addDays(previouslyProcessedDate, daysInCurrentMonth - 1);
+
+            this.processedDates.push(paymentDate);
+
+            return paymentDate;
+        }
+
+        const paymentDate = addMonths(previouslyProcessedDate, 1);
+
+        this.processedDates.push(paymentDate);
+
+        return paymentDate;
     }
 }
 
