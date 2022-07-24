@@ -5,9 +5,10 @@ import { generatePayments, generatePaymentTemplates } from './payments';
 describe('payments', () => {
     beforeEach(() => {
         jest.restoreAllMocks();
+        jest.useFakeTimers('modern');
     });
     it('should generate a valid payment string', () => {
-        jest.spyOn(Date, 'now').mockImplementation(() => 1605567600000);
+        jest.setSystemTime(1605567600000);
         const paymentConfig = {
             name: 'Kacper Dąbrowski',
             invoices: ['F/123', 'F/1234', 'F/12345'],
@@ -20,7 +21,7 @@ describe('payments', () => {
 Rata pierwsza: 41,50zł z datą płatności 17 grudnia 2020 roku,
 rata druga: 41,50zł z datą płatności 17 stycznia 2021 roku,
 rata trzecia: 41,50zł z datą płatności 17 lutego 2021 roku.
-Proszę pamiętać o terminowej płatności rat oraz bieżących faktur, gdyż raty mogą zostać cofnięte.
+Proszę pamiętać o terminowej płatności rat oraz bieżących faktur, gdyż raty mogą zostać cofnięte. W tytule płatności rat proszę o wpisanie "Rata 1", "Rata 2", "Rata 3". Będę wdzięczny za ocenę mojej pracy bezpłatnym, zwrotnym smsem.
 Pozdrawiam
 Obsługa Klienta Play.`);
     });
