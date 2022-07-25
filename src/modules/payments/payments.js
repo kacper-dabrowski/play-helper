@@ -46,7 +46,12 @@ Kwotę każdej przyznanej raty:
 ${paymentsObject
     .map(
         (payment, index) =>
-            `Rata ${index + 1} - ${numberToCurrency(payment.amount)}${getJoiningSign({ index, paymentsObject })}`
+            `Rata ${index + 1} - ${numberToCurrency(payment.amount)}${getJoiningSign({
+                index,
+                paymentsObject,
+                sign: ',\n',
+                lastSign: '.',
+            })}`
     )
     .join('')}
 Termin płatności danej raty:
@@ -57,7 +62,7 @@ ${paymentsObject
                 index,
                 array: paymentsObject,
                 lastSign: '',
-                sign: ',',
+                sign: ',\n',
             })}`
     )
     .join('')}
