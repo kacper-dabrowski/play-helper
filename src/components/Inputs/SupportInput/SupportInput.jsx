@@ -1,5 +1,4 @@
 import React from 'react';
-import FormInput from '../FormInput/FormInput';
 
 const SupportInput = (props) => (
     <>

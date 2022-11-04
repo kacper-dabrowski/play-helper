@@ -1,8 +1,6 @@
 import { useFormik } from 'formik';
 import { FC } from 'react';
 import { StyledSubmitButton } from '../../../components/Buttons/SubmitButton/StyledSubmitButton';
-import FormInput from '../../../components/Inputs/FormInput/FormInput';
-import { StyledFormTextarea } from '../../../components/Inputs/FormTextarea/StyledFormTextarea';
 import { useNotifications } from '../../../hooks/useNotification';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Maybe } from '../../../shared/types/types';
@@ -10,6 +8,8 @@ import { solutionSchema } from '../../../shared/validation/validation';
 import { AddSolutionDto, SolutionModel } from '../store/dto';
 import * as Styles from '../../components/styles/styledForm';
 import { useFormikError } from '../../../hooks/useFormikError';
+import { Input } from '../../../stories/atoms/input/input';
+import { TextArea } from '../../../stories/atoms/textarea/textarea';
 
 interface SolutionFormProps {
     addSolutionStatus: RequestStatus;
@@ -67,26 +67,27 @@ export const SolutionForm: FC<SolutionFormProps> = ({
 
     return (
         <Styles.formContainer onSubmit={formik.handleSubmit}>
-            <FormInput
+            <Input
                 name="title"
-                hasErrors={!!formik.errors.title}
+                error={formik.errors.title}
                 onChange={formik.handleChange}
                 value={formik.values.title}
                 placeholder="Tytuł zamknięcia"
             />
-            <FormInput
-                hasErrors={!!formik.errors.description}
+            <Input
+                error={formik.errors.description}
                 name="description"
                 onChange={formik.handleChange}
                 value={formik.values.description}
                 placeholder="Opis zamknięcia"
             />
-            <StyledFormTextarea
+            <TextArea
+                labelText={'Treść zamknięcia'}
                 name="content"
-                hasErrors={!!formik.errors.content}
+                error={formik.errors.content}
                 onChange={formik.handleChange}
                 value={formik.values.content}
-                placeholder="Treść zamknięcia"
+                placeholder="Szanowni państwo..."
             />
             <label htmlFor="isPublic">Widok publiczny: </label>
             <input

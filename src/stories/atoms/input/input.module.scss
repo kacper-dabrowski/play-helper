@@ -1,0 +1,56 @@
+.input {
+  width: 100%;
+  resize: none;
+  padding: 0.5rem;
+  font: inherit;
+  background-color: rgb(0 0 0 / 90%);
+  color: white;
+  border-radius: 5px;
+  border: 2px solid #a98dd0;
+
+  &::placeholder {
+    color: #b3b3b3;
+  }
+
+  &:focus {
+    border: 2px solid #009688;
+  }
+}
+
+.checkbox {
+  appearance: none;
+  height: 1rem;
+  width: 1rem;
+  cursor: pointer;
+  position: relative;
+  transition: 0.15s;
+  border-radius: 21px;
+  background-color: #fa7f72;
+
+  &:checked {
+    animation: spring 1s;
+    background-color: #399547;
+  }
+
+  @keyframes spring {
+    0% {
+      transform: scale(1) translateY(0);
+    }
+
+    10% {
+      transform: scale(1.2, 0.6);
+    }
+
+    30% {
+      transform: scale(0.8, 1.1) translateY(-20px);
+    }
+
+    50% {
+      transform: scale(1) translateY(0);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+}

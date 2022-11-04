@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import AdditionalTemplate from '../../../components/Buttons/AdditionalTemplate/AdditionalTemplate';
-import ConfirmButtons from '../../../components/Buttons/ConfirmButtons/ConfirmButtons';
-import { MainTextarea } from '../../../components/Inputs/MainTextarea/MainTextarea';
 import { toastProvider } from '../../../libs/toast';
 import { generateAmountsArray, generatePaymentTemplates } from '../../../modules/payments/payments';
 import config from '../../../shared/identifiers';

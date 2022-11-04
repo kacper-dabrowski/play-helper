@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
 import { StyledBaseForm, StyledFormHeader } from '../components/Forms/BaseForm/BaseForm';
-import { OptionSelect } from '../components/Inputs/OptionSelect/OptionSelect';
 import { useErrorNotification, useSuccessNotification } from '../hooks/useNotification';
 import { RequestStatus } from '../shared/requestStatus/requestStatus';
 import routes from '../shared/routes';
@@ -34,20 +33,13 @@ const SettingsForm: FC<SettingsFormProps> = ({ userSettings, onSettingsUpdate, s
         <StyledBaseForm>
             <StyledFormHeader>Ustawienia użytkownika</StyledFormHeader>
             <FormLabel htmlFor="startingPage">Strona startowa</FormLabel>
-            <OptionSelect
-                selectProps={{
-                    name: 'startingPage',
-                    defaultValue: startingPage,
-                    onChange: onStartingPageChange,
-                    'data-testid': 'settings-select',
-                }}
-            >
+            <option defaultValue={startingPage || ''} onChange={onStartingPageChange} data-testid="settings-select">
                 <option value={routes.support.basic.path}>Zamknięcie zwykłe</option>
                 <option value={routes.support.doubleOpened.path}>Dubel otwarty</option>
                 <option value={routes.support.doubleClosed.path}>Dubel zamknięty</option>
                 <option value={routes.support.payments.path}>Raty</option>
                 <option value={routes.support.srq.path}>SRQ</option>
-            </OptionSelect>
+            </option>
         </StyledBaseForm>
     );
 };

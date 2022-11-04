@@ -1,7 +1,6 @@
 import React from 'react';
 import DateInput from '../../../../components/Inputs/DateInput/DateInput';
 import config from '../../../../shared/identifiers';
-import { StateButton } from '../../../../components/Buttons/StateButton/StateButton';
 
 const TypeSection = ({ typeSetHandler, dateSetHandler, date, setting }) => (
     <>

@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MainTextarea } from '../../components/Inputs/MainTextarea/MainTextarea';
 import useResultsFilter from '../../hooks/useResultsFilter';
 import { Maybe } from '../../shared/types/types';
 import { StoreState } from '../../stores/store';
@@ -11,6 +10,7 @@ import { SolutionModel } from './store/dto';
 import { fetchSolutions } from './store/solutions';
 import * as Styles from '../components/styles/styledContainer';
 import { searchByContainingSearchPhrase } from '../components/search/search';
+import { TextArea } from '../../stories/atoms/textarea/textarea';
 
 export const SolutionPicker: FC = () => {
     const [template, setTemplate] = useState<Maybe<string>>();
@@ -36,7 +36,11 @@ export const SolutionPicker: FC = () => {
                     solutions={filteredSolutions}
                 />
             </Styles.container>
-            <MainTextarea value={template} setTemplate={setTemplate} />
+            <TextArea
+                labelText="Treść zamknięcia"
+                value={template || ''}
+                onChange={(event) => setTemplate((event.target as HTMLInputElement).value)}
+            />
         </>
     );
 };

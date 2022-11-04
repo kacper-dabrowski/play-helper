@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MainTextarea } from '../../components/Inputs/MainTextarea/MainTextarea';
 import { StoreState } from '../../stores/store';
+import { TextArea } from '../../stories/atoms/textarea/textarea';
 import { SearchBox } from '../components/searchBox/searchBox';
 import * as Styled from '../components/styles/styledContainer';
 import { SupportRequestModel } from './store/dto';
@@ -32,7 +32,11 @@ export const SupportRequestsPicker: FC = () => {
                     onClickEntry={onClickEntry}
                 />
             </Styled.container>
-            <MainTextarea value={template} setTemplate={setTemplate} />
+            <TextArea
+                value={template}
+                onChange={(event) => setTemplate((event.target as HTMLInputElement).value)}
+                labelText={'Treść SRQ'}
+            />
         </>
     );
 };

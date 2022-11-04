@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useFormik } from 'formik';
-import FormInput from '../../../components/Inputs/FormInput/FormInput';
 import { StyledFormHeader } from '../../../components/Forms/BaseForm/BaseForm';
 import { SubmitButton } from '../../../components/Buttons/SubmitButton/SubmitButton';
 import { loginSchema } from '../../../shared/validation/validation';
@@ -9,6 +8,7 @@ import { useErrorNotification } from '../../../hooks/useNotification';
 import * as Styled from '../styledAuthForm';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Spinner } from '../../../components/UI/spinner/spinner';
+import { Input } from '../../../stories/atoms/input/input';
 
 export interface LoginCredentials {
     username: string;
@@ -41,20 +41,20 @@ export const Login: FC<LoginFormProps> = ({ loginRequest, onLoginUser }) => {
     return (
         <Styled.AuthForm onSubmit={formik.handleSubmit} data-testid="login-form">
             <StyledFormHeader>Zaloguj się</StyledFormHeader>
-            <FormInput
+            <Input
                 autoFocus
                 id="login"
                 name="login"
-                hasErrors={!!formik.errors.login && !!formik.touched.login}
+                error={formik.errors.login}
                 onChange={formik.handleChange}
                 value={formik.values.login}
                 type="text"
                 placeholder="Nazwa użytkownika"
             />
-            <FormInput
+            <Input
                 id="password"
                 name="password"
-                hasErrors={!!formik.errors.password && !!formik.touched.password}
+                error={formik.errors.password}
                 onChange={formik.handleChange}
                 value={formik.values.password}
                 type="password"

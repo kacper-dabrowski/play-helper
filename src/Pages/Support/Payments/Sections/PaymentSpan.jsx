@@ -1,7 +1,6 @@
 import React from 'react';
 import config from '../../../../shared/identifiers';
 import { PaymentButtonContainer } from '../StyledPayments';
-import { StateButton } from '../../../../components/Buttons/StateButton/StateButton';
 
 const PaymentSpan = ({ setting, setHandler }) => {
     return (

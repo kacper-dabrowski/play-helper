@@ -1,8 +1,6 @@
 import { useFormik } from 'formik';
 import { FC } from 'react';
 import { StyledSubmitButton } from '../../../components/Buttons/SubmitButton/StyledSubmitButton';
-import FormInput from '../../../components/Inputs/FormInput/FormInput';
-import { StyledFormTextarea } from '../../../components/Inputs/FormTextarea/StyledFormTextarea';
 import { useNotifications } from '../../../hooks/useNotification';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Maybe } from '../../../shared/types/types';
@@ -10,6 +8,8 @@ import { solutionSchema } from '../../../shared/validation/validation';
 import { ModifySupportRequestDto, SupportRequestModel } from '../store/dto';
 import { useFormikError } from '../../../hooks/useFormikError';
 import * as Styles from '../../components/styles/styledForm';
+import { Input } from '../../../stories/atoms/input/input';
+import { TextArea } from '../../../stories/atoms/textarea/textarea';
 
 interface SupportRequestFormProps {
     addSupportRequestStatus: RequestStatus;
@@ -67,30 +67,32 @@ export const SupportRequestForm: FC<SupportRequestFormProps> = ({
 
     return (
         <Styles.formContainer onSubmit={formik.handleSubmit}>
-            <FormInput
+            <Input
                 name="title"
-                hasErrors={!!formik.errors.title}
+                error={formik.errors.title}
                 onChange={formik.handleChange}
                 value={formik.values.title}
                 placeholder="Tytuł SRQ"
             />
-            <FormInput
-                hasErrors={!!formik.errors.description}
+            <Input
+                error={formik.errors.description}
                 name="description"
                 onChange={formik.handleChange}
                 value={formik.values.description}
                 placeholder="Opis SRQ"
             />
-            <StyledFormTextarea
+            <TextArea
+                labelText="Treść SRQ"
                 name="content"
-                hasErrors={!!formik.errors.content}
+                error={formik.errors.content}
                 onChange={formik.handleChange}
                 value={formik.values.content}
                 placeholder="Treść SRQ"
             />
-            <StyledFormTextarea
+            <TextArea
+                labelText="Treść SRQ"
                 name="department"
-                hasErrors={!!formik.errors.department}
+                error={formik.errors.department}
                 onChange={formik.handleChange}
                 value={formik.values.department}
                 placeholder="Dział, do którego trafia SRQ"
