@@ -6,6 +6,7 @@ module.exports = {
         'plugin:jest/recommended',
         'plugin:prettier/recommended',
         'plugin:import/recommended',
+        'plugin:storybook/recommended',
     ],
     plugins: ['react', '@typescript-eslint', 'jest', 'import'],
     env: {
@@ -41,5 +42,6 @@ module.exports = {
         'react/jsx-filename-extension': 'off',
         'import/named': 'off',
         'no-console': 'warn',
+        'import/no-extraneous-dependencies': 'off',
     },
 };
