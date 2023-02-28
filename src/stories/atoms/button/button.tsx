@@ -5,12 +5,23 @@ import styles from './button.module.scss';
 export interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     additionalClasses?: string;
     variant: ButtonVariant;
+    loading?: boolean;
 }
 
-export const Button: FC<ButtonProps> = ({ children, additionalClasses, variant }) => {
+export const Button: FC<ButtonProps> = ({ children, additionalClasses, variant, loading }) => {
     const classes = classnames(styles.button, additionalClasses, styles[variant]);
 
-    return <button className={classes}>{children}</button>;
+    const content = loading ? 'ładowanie...' : children;
+
+    return (
+        <button className={classes} disabled={loading} tabIndex={1}>
+            {content}
+        </button>
+    );
 };
 
-type ButtonVariant = 'allowed' | 'forbidden';
+export enum ButtonVariant {
+    Allowed = 'allowed',
+    Forbidden = 'forbidden',
+    Submit = 'submit',
+}

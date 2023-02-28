@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { useFormik } from 'formik';
 import * as Styled from '../styledAuthForm';
 import { StyledFormHeader } from '../../../components/Forms/BaseForm/BaseForm';
-import { SubmitButton } from '../../../components/Buttons/SubmitButton/SubmitButton';
 import { signupSchema } from '../../../shared/validation/validation';
 import { useErrorNotification } from '../../../hooks/useNotification';
 import { useFormikError } from '../../../hooks/useFormikError';
 import { Spinner } from '../../../components/UI/spinner/spinner';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Input } from '../../../stories/atoms/input/input';
+import { Button, ButtonVariant } from '../../../stories/atoms/button/button';
 
 export interface RegistrationCredentials {
     username: string;
@@ -83,7 +83,7 @@ export const Register: FC<RegistrationFormProps> = ({ registrationRequest, onReg
             {registrationRequest.loading ? (
                 <Spinner />
             ) : (
-                <SubmitButton title="Stwórz konto" onClick={formik.handleSubmit} disabled={!formik.dirty} />
+                <Button title="Stwórz konto" disabled={!formik.dirty} variant={ButtonVariant.Submit} type="submit" />
             )}
         </Styled.AuthForm>
     );

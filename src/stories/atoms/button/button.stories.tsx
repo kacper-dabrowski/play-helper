@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react';
-import { Button, ButtonProps } from './button';
+import { Button, ButtonProps, ButtonVariant } from './button';
 import styles from './button.module.scss';
 
 export default {
@@ -9,7 +9,12 @@ export default {
             control: { type: 'text' },
         },
         variant: {
-            control: { type: 'radio', options: ['allowed', 'forbidden'] },
+            control: { type: 'radio', options: [ButtonVariant.Allowed, ButtonVariant.Forbidden, ButtonVariant.Submit] },
+        },
+        loading: {
+            control: {
+                type: 'boolean',
+            },
         },
     },
 };
@@ -20,5 +25,5 @@ export const Primary = Template.bind({});
 Primary.args = {
     children: 'Button',
     additionalClasses: styles.fullWidth,
-    variant: 'allowed',
+    variant: ButtonVariant.Allowed,
 };

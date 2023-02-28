@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { FC } from 'react';
-import { StyledSubmitButton } from '../../../components/Buttons/SubmitButton/StyledSubmitButton';
+// import { StyledSubmitButton } from '../../../components/Buttons/SubmitButton/StyledSubmitButton';
 import { useNotifications } from '../../../hooks/useNotification';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
 import { Maybe } from '../../../shared/types/types';
@@ -10,6 +10,7 @@ import * as Styles from '../../components/styles/styledForm';
 import { useFormikError } from '../../../hooks/useFormikError';
 import { Input } from '../../../stories/atoms/input/input';
 import { TextArea } from '../../../stories/atoms/textarea/textarea';
+import { Button, ButtonVariant } from '../../../stories/atoms/button/button';
 
 interface SolutionFormProps {
     addSolutionStatus: RequestStatus;
@@ -97,9 +98,9 @@ export const SolutionForm: FC<SolutionFormProps> = ({
                 checked={formik.values.isPublic}
                 data-testid="is-public-checkbox"
             />
-            <StyledSubmitButton type="submit">
+            <Button variant={ButtonVariant.Submit} type="submit">
                 {selectedSolution ? 'Zapisz zmiany' : 'Dodaj zamknięcie'}
-            </StyledSubmitButton>
+            </Button>
         </Styles.formContainer>
     );
 };

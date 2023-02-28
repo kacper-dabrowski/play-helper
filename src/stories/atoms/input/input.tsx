@@ -5,17 +5,20 @@ import { InputLabel } from '../inputLabel/inputLabel';
 import styles from './input.module.scss';
 
 export interface InputProps extends HTMLProps<HTMLInputElement> {
-    additionalClasses?: string;
+    additionalClasses?: {
+        label?: string;
+        input?: string;
+    };
     labelText?: string;
     error?: string;
 }
 
 export const Input: FC<InputProps> = ({ children, additionalClasses, labelText, error, ...props }) => {
-    const classes = classNames(styles.input, additionalClasses);
+    const classes = classNames(styles.input, additionalClasses?.input);
 
     return (
         <div>
-            <InputLabel>{labelText}</InputLabel>
+            <InputLabel additionalClasses={additionalClasses?.label}>{labelText}</InputLabel>
             <input {...props} className={classes}>
                 {children}
             </input>

@@ -1,14 +1,11 @@
-import React, { FC } from 'react';
 import { useFormik } from 'formik';
-import { StyledFormHeader } from '../../../components/Forms/BaseForm/BaseForm';
-import { SubmitButton } from '../../../components/Buttons/SubmitButton/SubmitButton';
-import { loginSchema } from '../../../shared/validation/validation';
+import { FC } from 'react';
 import { useFormikError } from '../../../hooks/useFormikError';
 import { useErrorNotification } from '../../../hooks/useNotification';
-import * as Styled from '../styledAuthForm';
 import { RequestStatus } from '../../../shared/requestStatus/requestStatus';
-import { Spinner } from '../../../components/UI/spinner/spinner';
-import { Input } from '../../../stories/atoms/input/input';
+import { loginSchema } from '../../../shared/validation/validation';
+import { LoginForm } from '../../../stories/organisms/form/login';
+import styles from './login.module.scss';
 
 export interface LoginCredentials {
     username: string;
@@ -19,6 +16,7 @@ export interface LoginFormProps {
     loginRequest: RequestStatus;
     onLoginUser: (credentials: LoginCredentials) => Promise<void>;
 }
+
 export const Login: FC<LoginFormProps> = ({ loginRequest, onLoginUser }) => {
     const formik = useFormik({
         initialValues: { login: '', password: '' },
@@ -39,32 +37,11 @@ export const Login: FC<LoginFormProps> = ({ loginRequest, onLoginUser }) => {
     useErrorNotification(loginRequest);
 
     return (
-        <Styled.AuthForm onSubmit={formik.handleSubmit} data-testid="login-form">
-            <StyledFormHeader>Zaloguj się</StyledFormHeader>
-            <Input
-                autoFocus
-                id="login"
-                name="login"
-                error={formik.errors.login}
-                onChange={formik.handleChange}
-                value={formik.values.login}
-                type="text"
-                placeholder="Nazwa użytkownika"
-            />
-            <Input
-                id="password"
-                name="password"
-                error={formik.errors.password}
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                type="password"
-                placeholder="Hasło"
-            />
-            {loginRequest.loading ? (
-                <Spinner />
-            ) : (
-                <SubmitButton title="Zaloguj się" onClick={formik.handleSubmit} disabled={!formik.dirty} />
-            )}
-        </Styled.AuthForm>
+        <LoginForm
+            onLoginInput={formik.handleChange}
+            onPasswordInput={formik.handleChange}
+            onSubmit={formik.handleChange}
+            additionalClasses={{ header: styles.header }}
+        />
     );
 };

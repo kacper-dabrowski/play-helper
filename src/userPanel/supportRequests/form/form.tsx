@@ -10,6 +10,7 @@ import { useFormikError } from '../../../hooks/useFormikError';
 import * as Styles from '../../components/styles/styledForm';
 import { Input } from '../../../stories/atoms/input/input';
 import { TextArea } from '../../../stories/atoms/textarea/textarea';
+import { Button, ButtonVariant } from '../../../stories/atoms/button/button';
 
 interface SupportRequestFormProps {
     addSupportRequestStatus: RequestStatus;
@@ -97,9 +98,7 @@ export const SupportRequestForm: FC<SupportRequestFormProps> = ({
                 value={formik.values.department}
                 placeholder="Dział, do którego trafia SRQ"
             />
-            <StyledSubmitButton type="submit">
-                {selectedSupportRequest ? 'Zapisz zmiany' : 'Dodaj SRQ'}
-            </StyledSubmitButton>
+            <Button variant={ButtonVariant.Submit}>{selectedSupportRequest ? 'Zapisz zmiany' : 'Dodaj SRQ'}</Button>
         </Styles.formContainer>
     );
 };
